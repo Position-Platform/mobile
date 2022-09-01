@@ -19,7 +19,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v2
         with:
-          java-version: "8.x"
+          distribution: "zulu"
+          java-version: "11"
 
       # Setup the flutter environment.
       - uses: subosito/flutter-action@v2
@@ -40,4 +41,10 @@ jobs:
       # - run: flutter test
 
       # Build apk.
-      # - run: flutter build appbundle
+      - run: flutter build apk
+
+      # Build appbundle.
+      - run: flutter build appbundle
+
+      # Build Ios
+      - run: flutter build ios --release --no-codesign
