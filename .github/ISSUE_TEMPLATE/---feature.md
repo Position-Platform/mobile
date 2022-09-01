@@ -1,7 +1,7 @@
 ---
 name: "\U0001F680 Feature"
 about: Suggest an idea for this project
-title: 'Feature :'
+title: "\U0001F680 Feature :"
 labels: feature
 assignees: BorisGautier
 

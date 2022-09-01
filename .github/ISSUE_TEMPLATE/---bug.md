@@ -1,7 +1,7 @@
 ---
 name: "\U0001F41B Bug"
 about: Create a report to help us improve
-title: 'Bug :'
+title: "\U0001F41B Bug :"
 labels: bug
 assignees: BorisGautier
 
