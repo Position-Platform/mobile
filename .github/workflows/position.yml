@@ -6,8 +6,7 @@ on:
   push:
     paths:
       - .github/workflows/position.yml
-    branches:
-      - master
+    branches: ["main", "dev"]
 
 # on: push    # Default will running for every branch.
 
