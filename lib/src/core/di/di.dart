@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:position/src/core/app/themes/bloc/theme_bloc.dart';
+import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -13,4 +14,5 @@ Future<void> init() async {
 
   //Bloc
   getIt.registerFactory<ThemeBloc>(() => ThemeBloc());
+  getIt.registerFactory<GpsBloc>(() => GpsBloc());
 }
