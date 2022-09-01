@@ -63,5 +63,11 @@
   "light": "Theme Light",
   "back": "Retour",
   "logout": "Deconnexion",
-  "register": "Creer un compte"
+  "register": "Creer un compte",
+  "title1": "Rechercher les points d'intérêt et accéder aux services essentiels de la ville",
+  "subtitle1": "Impression de plan officiel de localisation, partage, enregistrement dans ses favoris ou naviguation d'un endroit vers un autre Pharmacie de garde, banque, centre de santé, écoles, infrastructures sociales et services publics",
+  "title2": "Exposer ses compétences, ses produits et services en ligne",
+  "subtitle2": "Une boutique virtuelle et un marché digital pour les activités formelles et informelles ...",
+  "title3": "Trouver les infos pratiques et consulter l’agenda des manifestations",
+  "subtitle3": "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces"
 }

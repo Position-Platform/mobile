@@ -63,5 +63,11 @@
   "light": "Theme Light",
   "back": "Back",
   "logout": "Logout",
-  "register": "Register"
+  "register": "Register",
+  "title1": "Search for points of interest and access essential city services",
+  "subtitle1": "Print official location map, share, save to favorites or navigate from one place to another On-call pharmacy, bank, health center, schools, social infrastructure and public services",
+  "title2": "Showcase your skills, products and services online",
+  "subtitle2": "A virtual store and digital marketplace for formal and informal activities ...",
+  "title3": "Find practical information and consult the calendar of events",
+  "subtitle3": "Declarations of Work, follow the local news via notices and announcements"
 }

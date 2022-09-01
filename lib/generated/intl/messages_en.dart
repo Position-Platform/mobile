@@ -107,6 +107,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),
+        "subtitle1": MessageLookupByLibrary.simpleMessage(
+            "Print official location map, share, save to favorites or navigate from one place to another On-call pharmacy, bank, health center, schools, social infrastructure and public services"),
+        "subtitle2": MessageLookupByLibrary.simpleMessage(
+            "A virtual store and digital marketplace for formal and informal activities ..."),
+        "subtitle3": MessageLookupByLibrary.simpleMessage(
+            "Declarations of Work, follow the local news via notices and announcements"),
+        "title1": MessageLookupByLibrary.simpleMessage(
+            "Search for points of interest and access essential city services"),
+        "title2": MessageLookupByLibrary.simpleMessage(
+            "Showcase your skills, products and services online"),
+        "title3": MessageLookupByLibrary.simpleMessage(
+            "Find practical information and consult the calendar of events"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
