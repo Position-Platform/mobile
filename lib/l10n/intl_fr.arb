@@ -69,5 +69,9 @@
   "title2": "Exposer ses compétences, ses produits et services en ligne",
   "subtitle2": "Une boutique virtuelle et un marché digital pour les activités formelles et informelles ...",
   "title3": "Trouver les infos pratiques et consulter l’agenda des manifestations",
-  "subtitle3": "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces"
+  "subtitle3": "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces",
+  "identifiant": "Identifiant",
+  "selectLanguage": "Selectionnez une langue",
+  "french": "Français",
+  "english": "Anglais"
 }

@@ -54,10 +54,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Un mail de reinitialisation vous a été envoyé"),
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Assurez-vous d\'activer le GPS."),
+        "english": MessageLookupByLibrary.simpleMessage("Anglais"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Trouvez ma Position"),
         "forgotPass":
             MessageLookupByLibrary.simpleMessage("Mot de Passe oublié ?"),
+        "french": MessageLookupByLibrary.simpleMessage("Français"),
         "getdata": MessageLookupByLibrary.simpleMessage(
             "Récupération des données en ligne"),
         "go": MessageLookupByLibrary.simpleMessage("Allez-y"),
@@ -67,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintName": MessageLookupByLibrary.simpleMessage("Votre Nom Complet"),
         "hintPhone":
             MessageLookupByLibrary.simpleMessage("Numéro de Téléphone"),
+        "identifiant": MessageLookupByLibrary.simpleMessage("Identifiant"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Email Invalide"),
         "invalidMail": MessageLookupByLibrary.simpleMessage("Email Invalide"),
         "invalidPass":
@@ -105,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Création du compte..."),
         "search": MessageLookupByLibrary.simpleMessage(
             "Rechercher un lieu un etablissement ou une catégorie"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Selectionnez une langue"),
         "selectLayer":
             MessageLookupByLibrary.simpleMessage("Choisir un fond de carte"),
         "serverError":
