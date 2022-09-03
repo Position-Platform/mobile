@@ -69,5 +69,12 @@
   "title2": "Showcase your skills, products and services online",
   "subtitle2": "A virtual store and digital marketplace for formal and informal activities ...",
   "title3": "Find practical information and consult the calendar of events",
-  "subtitle3": "Declarations of Work, follow the local news via notices and announcements"
+  "subtitle3": "Declarations of Work, follow the local news via notices and announcements",
+  "identifiant": "Login",
+  "selectLanguage": "Select a language",
+  "french": "French",
+  "english": "English",
+  "name": "Full name",
+  "sendResetLink": "Send a reset link",
+  "resetPassword": "Reset Password"
 }

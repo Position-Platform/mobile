@@ -53,10 +53,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "A reset email has been sent to you"),
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Please make sure you enable GPS"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Find my position"),
         "forgotPass":
             MessageLookupByLibrary.simpleMessage("Forgot your password?"),
+        "french": MessageLookupByLibrary.simpleMessage("French"),
         "getdata": MessageLookupByLibrary.simpleMessage("Online data recovery"),
         "go": MessageLookupByLibrary.simpleMessage("Go ahead"),
         "gpsAccess":
@@ -64,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintEmail": MessageLookupByLibrary.simpleMessage("yourmail@xyz.com"),
         "hintName": MessageLookupByLibrary.simpleMessage("Your Name"),
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
+        "identifiant": MessageLookupByLibrary.simpleMessage("Login"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidMail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidPass": MessageLookupByLibrary.simpleMessage("Invalid Password"),
@@ -77,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login successful"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "myAdress": MessageLookupByLibrary.simpleMessage("My Adress"),
+        "name": MessageLookupByLibrary.simpleMessage("Full name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noAccount": MessageLookupByLibrary.simpleMessage("No Account yet?  "),
         "noData": MessageLookupByLibrary.simpleMessage("No data found"),
@@ -95,9 +99,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Successful account creation check your emails..."),
         "registering":
             MessageLookupByLibrary.simpleMessage("Account creation..."),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for a place, an establishment or a category"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Select a language"),
         "selectLayer": MessageLookupByLibrary.simpleMessage("Select Layer"),
+        "sendResetLink":
+            MessageLookupByLibrary.simpleMessage("Send a reset link"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("An error has occurred"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
