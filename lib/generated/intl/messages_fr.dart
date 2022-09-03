@@ -54,10 +54,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Un mail de reinitialisation vous a été envoyé"),
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Assurez-vous d\'activer le GPS."),
+        "english": MessageLookupByLibrary.simpleMessage("Anglais"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Trouvez ma Position"),
         "forgotPass":
             MessageLookupByLibrary.simpleMessage("Mot de Passe oublié ?"),
+        "french": MessageLookupByLibrary.simpleMessage("Français"),
         "getdata": MessageLookupByLibrary.simpleMessage(
             "Récupération des données en ligne"),
         "go": MessageLookupByLibrary.simpleMessage("Allez-y"),
@@ -67,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintName": MessageLookupByLibrary.simpleMessage("Votre Nom Complet"),
         "hintPhone":
             MessageLookupByLibrary.simpleMessage("Numéro de Téléphone"),
+        "identifiant": MessageLookupByLibrary.simpleMessage("Identifiant"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Email Invalide"),
         "invalidMail": MessageLookupByLibrary.simpleMessage("Email Invalide"),
         "invalidPass":
@@ -83,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Connexion reussie"),
         "logout": MessageLookupByLibrary.simpleMessage("Deconnexion"),
         "myAdress": MessageLookupByLibrary.simpleMessage("Mon Adresse"),
+        "name": MessageLookupByLibrary.simpleMessage("Nom Complet"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("Pas encore de Compte?  "),
@@ -103,10 +107,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Création du compte reussie verifiez vos mails..."),
         "registering":
             MessageLookupByLibrary.simpleMessage("Création du compte..."),
+        "resetPassword": MessageLookupByLibrary.simpleMessage(
+            "Reinitialiser le Mot de Passe"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Rechercher un lieu un etablissement ou une catégorie"),
+        "selectLanguage":
+            MessageLookupByLibrary.simpleMessage("Selectionnez une langue"),
         "selectLayer":
             MessageLookupByLibrary.simpleMessage("Choisir un fond de carte"),
+        "sendResetLink": MessageLookupByLibrary.simpleMessage(
+            "Envoyer un lien de reinitialisation"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("Une erreur est survenue"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
@@ -117,6 +127,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Partager La Position"),
         "skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "step": MessageLookupByLibrary.simpleMessage("Etape"),
+        "subtitle1": MessageLookupByLibrary.simpleMessage(
+            "Impression de plan officiel de localisation, partage, enregistrement dans ses favoris ou naviguation d\'un endroit vers un autre Pharmacie de garde, banque, centre de santé, écoles, infrastructures sociales et services publics"),
+        "subtitle2": MessageLookupByLibrary.simpleMessage(
+            "Une boutique virtuelle et un marché digital pour les activités formelles et informelles ..."),
+        "subtitle3": MessageLookupByLibrary.simpleMessage(
+            "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces"),
+        "title1": MessageLookupByLibrary.simpleMessage(
+            "Rechercher les points d\'intérêt et accéder aux services essentiels de la ville"),
+        "title2": MessageLookupByLibrary.simpleMessage(
+            "Exposer ses compétences, ses produits et services en ligne"),
+        "title3": MessageLookupByLibrary.simpleMessage(
+            "Trouver les infos pratiques et consulter l’agenda des manifestations"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Reesayez"),
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
         "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")

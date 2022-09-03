@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:position/generated/l10n.dart';
-import 'package:position/src/core/app/themes/bloc/theme_bloc.dart';
+import 'package:position/src/core/app/bloc/app_bloc.dart';
+import 'package:position/src/modules/gps/views/loading.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,8 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeBloc(),
-      child: BlocBuilder<ThemeBloc, ThemeState>(
+      create: (context) => AppBloc(),
+      child: BlocBuilder<AppBloc, AppState>(
         builder: (context, state) {
           return MaterialApp(
             title: "Position",
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
-            locale: const Locale('fr', 'FR'),
+            locale: state.locale,
             supportedLocales: S.delegate.supportedLocales,
             debugShowCheckedModeBanner: false,
-            // home: const LoadingPage(),
+            home: const LoadingPage(),
           );
         },
       ),

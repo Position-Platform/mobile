@@ -689,6 +689,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Search for points of interest and access essential city services`
+  String get title1 {
+    return Intl.message(
+      'Search for points of interest and access essential city services',
+      name: 'title1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Print official location map, share, save to favorites or navigate from one place to another On-call pharmacy, bank, health center, schools, social infrastructure and public services`
+  String get subtitle1 {
+    return Intl.message(
+      'Print official location map, share, save to favorites or navigate from one place to another On-call pharmacy, bank, health center, schools, social infrastructure and public services',
+      name: 'subtitle1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Showcase your skills, products and services online`
+  String get title2 {
+    return Intl.message(
+      'Showcase your skills, products and services online',
+      name: 'title2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `A virtual store and digital marketplace for formal and informal activities ...`
+  String get subtitle2 {
+    return Intl.message(
+      'A virtual store and digital marketplace for formal and informal activities ...',
+      name: 'subtitle2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Find practical information and consult the calendar of events`
+  String get title3 {
+    return Intl.message(
+      'Find practical information and consult the calendar of events',
+      name: 'title3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Declarations of Work, follow the local news via notices and announcements`
+  String get subtitle3 {
+    return Intl.message(
+      'Declarations of Work, follow the local news via notices and announcements',
+      name: 'subtitle3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get identifiant {
+    return Intl.message(
+      'Login',
+      name: 'identifiant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a language`
+  String get selectLanguage {
+    return Intl.message(
+      'Select a language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `French`
+  String get french {
+    return Intl.message(
+      'French',
+      name: 'french',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full name`
+  String get name {
+    return Intl.message(
+      'Full name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send a reset link`
+  String get sendResetLink {
+    return Intl.message(
+      'Send a reset link',
+      name: 'sendResetLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
