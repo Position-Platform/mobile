@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/app/bloc/app_bloc.dart';
 import 'package:position/src/modules/auth/views/login.dart';
+import 'package:position/src/modules/auth/views/register.dart';
 import 'package:position/src/modules/gps/views/loading.dart';
 
 class MyApp extends StatelessWidget {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
             locale: state.locale,
             supportedLocales: S.delegate.supportedLocales,
             debugShowCheckedModeBanner: false,
-            home: const LoginPage(),
+            home: const RegisterPage(),
           );
         },
       ),

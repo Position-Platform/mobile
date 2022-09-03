@@ -73,5 +73,6 @@
   "identifiant": "Identifiant",
   "selectLanguage": "Selectionnez une langue",
   "french": "Français",
-  "english": "Anglais"
+  "english": "Anglais",
+  "name": "Nom Complet"
 }

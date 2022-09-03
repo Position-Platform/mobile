@@ -73,5 +73,6 @@
   "identifiant": "Login",
   "selectLanguage": "Select a language",
   "french": "French",
-  "english": "English"
+  "english": "English",
+  "name": "Full name"
 }

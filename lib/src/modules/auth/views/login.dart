@@ -43,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(color: whiteColor),
               child: Column(
                 children: [
