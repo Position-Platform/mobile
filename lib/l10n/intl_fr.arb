@@ -74,5 +74,7 @@
   "selectLanguage": "Selectionnez une langue",
   "french": "Français",
   "english": "Anglais",
-  "name": "Nom Complet"
+  "name": "Nom Complet",
+  "sendResetLink": "Envoyer un lien de reinitialisation",
+  "resetPassword": "Reinitialiser le Mot de Passe"
 }

@@ -799,6 +799,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Send a reset link`
+  String get sendResetLink {
+    return Intl.message(
+      'Send a reset link',
+      name: 'sendResetLink',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get resetPassword {
+    return Intl.message(
+      'Reset Password',
+      name: 'resetPassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -74,5 +74,7 @@
   "selectLanguage": "Select a language",
   "french": "French",
   "english": "English",
-  "name": "Full name"
+  "name": "Full name",
+  "sendResetLink": "Send a reset link",
+  "resetPassword": "Reset Password"
 }

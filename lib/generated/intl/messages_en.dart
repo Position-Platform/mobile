@@ -99,11 +99,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Successful account creation check your emails..."),
         "registering":
             MessageLookupByLibrary.simpleMessage("Account creation..."),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for a place, an establishment or a category"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select a language"),
         "selectLayer": MessageLookupByLibrary.simpleMessage("Select Layer"),
+        "sendResetLink":
+            MessageLookupByLibrary.simpleMessage("Send a reset link"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("An error has occurred"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
