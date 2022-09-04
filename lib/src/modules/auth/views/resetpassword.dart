@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/sizes.dart';
 import 'package:position/src/core/utils/tools.dart';
+import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
+import 'package:position/src/modules/auth/blocs/login/login_bloc.dart';
 import 'package:position/src/modules/auth/widgets/appAuthHeader.dart';
 import 'package:position/src/modules/auth/widgets/appbottomSheet.dart';
 
@@ -25,6 +28,31 @@ class _ResetPasswordState extends State<ResetPassword> {
   bool _obscureCText = true;
 
   IconData _iconVisible = Icons.visibility_off;
+
+  LoginBloc? _loginBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _cpasswordController.dispose();
+    super.dispose();
+  }
+
+  void _onResetPasswordSubmitted() {
+    _loginBloc!.add(
+      PasswordReset(
+          email: _emailController.text,
+          password: _passwordController.text,
+          resettoken: "Token to reset"),
+    );
+  }
 
   void _toggleObscureText() {
     setState(() {
@@ -53,216 +81,280 @@ class _ResetPasswordState extends State<ResetPassword> {
     changeStatusColor(transparent);
     return Scaffold(
       backgroundColor: whiteColor,
-      body: SingleChildScrollView(
-          child: Stack(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(color: whiteColor),
-            child: Column(
+      body: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          if (state.isResetPassword!) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).emailSend),
+                      const Icon(Icons.check_circle)
+                    ],
+                  ),
+                  backgroundColor: primaryColor,
+                  duration: const Duration(seconds: 5),
+                ),
+              );
+          }
+          if (state.isFailedResetPassword!) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).emailNoSend),
+                      const Icon(Icons.error)
+                    ],
+                  ),
+                  backgroundColor: redColor,
+                ),
+              );
+          }
+          if (state.isSubmitting!) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(S.of(context).loggin),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
+                ),
+              );
+          }
+
+          context.read<AuthBloc>().add(AuthLoggedOut());
+        },
+        child: BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            return SingleChildScrollView(
+                child: Stack(
               children: [
-                const AppAuthHeader(),
-                const SizedBox(
-                  height: 58,
-                ),
                 Container(
-                  margin: const EdgeInsets.only(left: 50, right: 200),
-                  child: Text(S.of(context).email,
-                      style: TextStyle(
-                        fontFamily: 'OpenSans-Bold',
-                        color: greyColor,
-                        fontSize: textSize,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      )),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  height: 40,
-                  margin: const EdgeInsets.only(
-                    left: 50,
-                    right: 50,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: grey97,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: TextFormField(
-                    controller: _emailController,
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.emailAddress,
-                    style:
-                        TextStyle(fontFamily: "OpenSans", fontSize: textSize),
-                    autocorrect: false,
-                    cursorColor: primaryColor,
-                    cursorHeight: 20,
-                    decoration: const InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: transparent)),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: transparent),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(color: whiteColor),
+                  child: Column(
+                    children: [
+                      const AppAuthHeader(),
+                      const SizedBox(
+                        height: 58,
                       ),
-                      suffixIcon: Icon(Icons.email, color: greyColor, size: 20),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 50, right: 200),
-                  child: Text(S.of(context).password,
-                      style: TextStyle(
-                        fontFamily: 'OpenSans-Bold',
-                        color: greyColor,
-                        fontSize: textSize,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      )),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  height: 40,
-                  margin: const EdgeInsets.only(
-                    left: 50,
-                    right: 50,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: grey97,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: TextFormField(
-                    controller: _passwordController,
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.text,
-                    autocorrect: false,
-                    cursorColor: primaryColor,
-                    cursorHeight: 20,
-                    obscureText: _obscureText,
-                    style:
-                        TextStyle(fontFamily: "OpenSans", fontSize: textSize),
-                    decoration: InputDecoration(
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: transparent)),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: transparent),
+                      Container(
+                        margin: const EdgeInsets.only(left: 50, right: 200),
+                        child: Text(S.of(context).email,
+                            style: TextStyle(
+                              fontFamily: 'OpenSans-Bold',
+                              color: greyColor,
+                              fontSize: textSize,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            )),
                       ),
-                      suffixIcon: IconButton(
-                          icon: Icon(_iconVisible, color: greyColor, size: 20),
-                          onPressed: () {
-                            _toggleObscureText();
-                          }),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 28,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 50, right: 150),
-                  child: Text(S.of(context).cpassword,
-                      style: TextStyle(
-                        fontFamily: 'OpenSans-Bold',
-                        color: greyColor,
-                        fontSize: textSize,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      )),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  height: 40,
-                  margin: const EdgeInsets.only(
-                    left: 50,
-                    right: 50,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: grey97,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: TextFormField(
-                    controller: _cpasswordController,
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.text,
-                    autocorrect: false,
-                    cursorColor: primaryColor,
-                    cursorHeight: 20,
-                    obscureText: _obscureCText,
-                    style:
-                        TextStyle(fontFamily: "OpenSans", fontSize: textSize),
-                    decoration: InputDecoration(
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: transparent)),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: transparent),
+                      const SizedBox(
+                        height: 8,
                       ),
-                      suffixIcon: IconButton(
-                          icon: Icon(_iconVisible, color: greyColor, size: 20),
-                          onPressed: () {
-                            _toggleObscureCText();
-                          }),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Container(
-                    alignment: Alignment.center,
-                    width: 200,
-                    height: 35,
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: shadow1,
-                            offset: Offset(0, 1),
-                            blurRadius: 8,
-                            spreadRadius: 0),
-                        BoxShadow(
-                            color: shadow2,
-                            offset: Offset(0, 3),
-                            blurRadius: 3,
-                            spreadRadius: -2),
-                        BoxShadow(
-                            color: shadow3,
-                            offset: Offset(0, 3),
-                            blurRadius: 4,
-                            spreadRadius: 0)
-                      ],
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(S.of(context).resetPassword,
+                      Container(
+                        height: 40,
+                        margin: const EdgeInsets.only(
+                          left: 50,
+                          right: 50,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: grey97,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: TextFormField(
+                          controller: _emailController,
+                          autovalidateMode: AutovalidateMode.always,
+                          keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
-                            fontFamily: 'OpenSans-Bold',
-                            color: whiteColor,
-                            fontSize: textSize,
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                          )),
-                    ))
+                              fontFamily: "OpenSans", fontSize: textSize),
+                          autocorrect: false,
+                          cursorColor: primaryColor,
+                          cursorHeight: 20,
+                          decoration: const InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: transparent)),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: transparent),
+                            ),
+                            suffixIcon:
+                                Icon(Icons.email, color: greyColor, size: 20),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 50, right: 200),
+                        child: Text(S.of(context).password,
+                            style: TextStyle(
+                              fontFamily: 'OpenSans-Bold',
+                              color: greyColor,
+                              fontSize: textSize,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        height: 40,
+                        margin: const EdgeInsets.only(
+                          left: 50,
+                          right: 50,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: grey97,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          autovalidateMode: AutovalidateMode.always,
+                          keyboardType: TextInputType.text,
+                          autocorrect: false,
+                          cursorColor: primaryColor,
+                          cursorHeight: 20,
+                          obscureText: _obscureText,
+                          style: TextStyle(
+                              fontFamily: "OpenSans", fontSize: textSize),
+                          decoration: InputDecoration(
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: transparent)),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: transparent),
+                            ),
+                            suffixIcon: IconButton(
+                                icon: Icon(_iconVisible,
+                                    color: greyColor, size: 20),
+                                onPressed: () {
+                                  _toggleObscureText();
+                                }),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 28,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 50, right: 150),
+                        child: Text(S.of(context).cpassword,
+                            style: TextStyle(
+                              fontFamily: 'OpenSans-Bold',
+                              color: greyColor,
+                              fontSize: textSize,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        height: 40,
+                        margin: const EdgeInsets.only(
+                          left: 50,
+                          right: 50,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: grey97,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: TextFormField(
+                          controller: _cpasswordController,
+                          autovalidateMode: AutovalidateMode.always,
+                          keyboardType: TextInputType.text,
+                          autocorrect: false,
+                          cursorColor: primaryColor,
+                          cursorHeight: 20,
+                          obscureText: _obscureCText,
+                          style: TextStyle(
+                              fontFamily: "OpenSans", fontSize: textSize),
+                          decoration: InputDecoration(
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: transparent)),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: transparent),
+                            ),
+                            suffixIcon: IconButton(
+                                icon: Icon(_iconVisible,
+                                    color: greyColor, size: 20),
+                                onPressed: () {
+                                  _toggleObscureCText();
+                                }),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      InkWell(
+                        onTap: _onResetPasswordSubmitted,
+                        child: Container(
+                            alignment: Alignment.center,
+                            width: 200,
+                            height: 35,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: shadow1,
+                                    offset: Offset(0, 1),
+                                    blurRadius: 8,
+                                    spreadRadius: 0),
+                                BoxShadow(
+                                    color: shadow2,
+                                    offset: Offset(0, 3),
+                                    blurRadius: 3,
+                                    spreadRadius: -2),
+                                BoxShadow(
+                                    color: shadow3,
+                                    offset: Offset(0, 3),
+                                    blurRadius: 4,
+                                    spreadRadius: 0)
+                              ],
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(S.of(context).resetPassword,
+                                  style: TextStyle(
+                                    fontFamily: 'OpenSans-Bold',
+                                    color: whiteColor,
+                                    fontSize: textSize,
+                                    fontWeight: FontWeight.w700,
+                                    fontStyle: FontStyle.normal,
+                                  )),
+                            )),
+                      )
+                    ],
+                  ),
+                )
               ],
-            ),
-          )
-        ],
-      )),
+            ));
+          },
+        ),
+      ),
       bottomSheet: const AppBottomSheet(),
     );
   }

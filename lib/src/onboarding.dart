@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/styles.dart';
+import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -224,8 +226,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               width: double.infinity,
               color: primaryDarkColor,
               child: GestureDetector(
-                onTap: () => print(
-                    'Get started'), // context.read<AuthBloc>().add(AuthFirst()),
+                onTap: () => context.read<AuthBloc>().add(
+                    AuthFirst()), // context.read<AuthBloc>().add(AuthFirst()),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 30.0),

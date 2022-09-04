@@ -819,6 +819,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Phone or Email Invalid`
+  String get invalidId {
+    return Intl.message(
+      'Phone or Email Invalid',
+      name: 'invalidId',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

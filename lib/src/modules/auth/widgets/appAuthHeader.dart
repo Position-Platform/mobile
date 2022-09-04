@@ -19,7 +19,7 @@ class AppAuthHeader extends StatelessWidget {
           width: 150,
         ),
         const SizedBox(
-          height: 37,
+          height: 17,
         ),
         Container(
           margin: const EdgeInsets.only(

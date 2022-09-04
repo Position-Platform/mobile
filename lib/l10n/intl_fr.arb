@@ -76,5 +76,6 @@
   "english": "Anglais",
   "name": "Nom Complet",
   "sendResetLink": "Envoyer un lien de reinitialisation",
-  "resetPassword": "Reinitialiser le Mot de Passe"
+  "resetPassword": "Reinitialiser le Mot de Passe",
+  "invalidId": "Téléphone ou Email Invalide"
 }
