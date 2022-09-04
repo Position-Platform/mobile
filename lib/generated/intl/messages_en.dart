@@ -68,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
         "identifiant": MessageLookupByLibrary.simpleMessage("Login"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
+        "invalidId":
+            MessageLookupByLibrary.simpleMessage("Phone or Email Invalid"),
         "invalidMail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidPass": MessageLookupByLibrary.simpleMessage("Invalid Password"),
         "invalidPhone": MessageLookupByLibrary.simpleMessage("Invalid Phone"),

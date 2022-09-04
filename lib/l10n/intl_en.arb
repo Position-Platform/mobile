@@ -76,5 +76,6 @@
   "english": "English",
   "name": "Full name",
   "sendResetLink": "Send a reset link",
-  "resetPassword": "Reset Password"
+  "resetPassword": "Reset Password",
+  "invalidId": "Phone or Email Invalid"
 }

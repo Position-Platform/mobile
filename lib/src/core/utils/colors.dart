@@ -13,3 +13,4 @@ const Color darkBlue = Color(0xff15253B);
 const Color shadow1 = Color(0x33000000);
 const Color shadow2 = Color(0x1e000000);
 const Color shadow3 = Color(0x23000000);
+const Color redColor = Colors.red;
