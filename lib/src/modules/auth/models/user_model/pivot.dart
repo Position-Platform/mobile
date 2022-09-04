@@ -1,8 +1,14 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'pivot.g.dart';
+
+@JsonSerializable()
 class Pivot {
+  @JsonKey(name: 'model_id')
   int? modelId;
+  @JsonKey(name: 'role_id')
   int? roleId;
+  @JsonKey(name: 'model_type')
   String? modelType;
 
   Pivot({this.modelId, this.roleId, this.modelType});
@@ -12,29 +18,9 @@ class Pivot {
     return 'Pivot(modelId: $modelId, roleId: $roleId, modelType: $modelType)';
   }
 
-  factory Pivot.fromMap(Map<String, dynamic> data) => Pivot(
-        modelId: data['model_id'] as int?,
-        roleId: data['role_id'] as int?,
-        modelType: data['model_type'] as String?,
-      );
+  factory Pivot.fromJson(Map<String, dynamic> json) => _$PivotFromJson(json);
 
-  Map<String, dynamic> toMap() => {
-        'model_id': modelId,
-        'role_id': roleId,
-        'model_type': modelType,
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Pivot].
-  factory Pivot.fromJson(String data) {
-    return Pivot.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [Pivot] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => _$PivotToJson(this);
 
   Pivot copyWith({
     int? modelId,

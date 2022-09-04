@@ -1,12 +1,18 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'pivot.dart';
 
+part 'role.g.dart';
+
+@JsonSerializable()
 class Role {
   int? id;
   String? name;
+  @JsonKey(name: 'guard_name')
   String? guardName;
+  @JsonKey(name: 'created_at')
   DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   Pivot? pivot;
 
@@ -24,41 +30,9 @@ class Role {
     return 'Role(id: $id, name: $name, guardName: $guardName, createdAt: $createdAt, updatedAt: $updatedAt, pivot: $pivot)';
   }
 
-  factory Role.fromMap(Map<String, dynamic> data) => Role(
-        id: data['id'] as int?,
-        name: data['name'] as String?,
-        guardName: data['guard_name'] as String?,
-        createdAt: data['created_at'] == null
-            ? null
-            : DateTime.parse(data['created_at'] as String),
-        updatedAt: data['updated_at'] == null
-            ? null
-            : DateTime.parse(data['updated_at'] as String),
-        pivot: data['pivot'] == null
-            ? null
-            : Pivot.fromMap(data['pivot'] as Map<String, dynamic>),
-      );
+  factory Role.fromJson(Map<String, dynamic> json) => _$RoleFromJson(json);
 
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'guard_name': guardName,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
-        'pivot': pivot?.toMap(),
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Role].
-  factory Role.fromJson(String data) {
-    return Role.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [Role] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => _$RoleToJson(this);
 
   Role copyWith({
     int? id,

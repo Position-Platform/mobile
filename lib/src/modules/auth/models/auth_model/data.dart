@@ -1,7 +1,9 @@
-import 'dart:convert';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 
+part 'data.g.dart';
+
+@JsonSerializable()
 class Data {
   String? token;
   User? user;
@@ -11,29 +13,9 @@ class Data {
   @override
   String toString() => 'Data(token: $token, user: $user)';
 
-  factory Data.fromMap(Map<String, dynamic> data) => Data(
-        token: data['token'] as String?,
-        user: data['user'] == null
-            ? null
-            : User.fromMap(data['user'] as Map<String, dynamic>),
-      );
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
-  Map<String, dynamic> toMap() => {
-        'token': token,
-        'user': user?.toMap(),
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Data].
-  factory Data.fromJson(String data) {
-    return Data.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [Data] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 
   Data copyWith({
     String? token,

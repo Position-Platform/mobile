@@ -1,7 +1,10 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'data.dart';
 
+part 'user_model.g.dart';
+
+@JsonSerializable()
 class UserModel {
   bool? success;
   Data? data;
@@ -14,31 +17,11 @@ class UserModel {
     return 'UserModel(success: $success, data: $data, message: $message)';
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> data) => UserModel(
-        success: data['success'] as bool?,
-        data: data['data'] == null
-            ? null
-            : Data.fromMap(data['data'] as Map<String, dynamic>),
-        message: data['message'] as String?,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'success': success,
-        'data': data?.toMap(),
-        'message': message,
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [UserModel].
-  factory UserModel.fromJson(String data) {
-    return UserModel.fromMap(json.decode(data) as Map<String, dynamic>);
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return _$UserModelFromJson(json);
   }
 
-  /// `dart:convert`
-  ///
-  /// Converts [UserModel] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
   UserModel copyWith({
     bool? success,

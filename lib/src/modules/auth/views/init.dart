@@ -29,7 +29,9 @@ class InitPage extends StatelessWidget {
           );
         }
         if (state is AuthSuccess) {
-          return Container(); /*BlocProvider<HomeBloc>(
+          return Center(
+            child: Text("Bienvenue ${state.user.name!}"),
+          ); /*BlocProvider<HomeBloc>(
             create: (context) => getIt<HomeBloc>(),
             child: HomePage(
               user: state.user,

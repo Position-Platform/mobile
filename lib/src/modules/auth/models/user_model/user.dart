@@ -1,19 +1,29 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'abonnement.dart';
 import 'role.dart';
 
+part 'user.g.dart';
+
+@JsonSerializable()
 class User {
   int? id;
   String? name;
   String? email;
+  @JsonKey(name: 'email_verified_at')
   DateTime? emailVerifiedAt;
   String? phone;
+  @JsonKey(name: 'fcm_token')
   dynamic fcmToken;
+  @JsonKey(name: 'image_profil')
   dynamic imageProfil;
+  @JsonKey(name: 'abonnement_id')
   int? abonnementId;
+  @JsonKey(name: 'deleted_at')
   dynamic deletedAt;
+  @JsonKey(name: 'created_at')
   DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   List<Role>? roles;
   Abonnement? abonnement;
@@ -39,59 +49,9 @@ class User {
     return 'User(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phone: $phone, fcmToken: $fcmToken, imageProfil: $imageProfil, abonnementId: $abonnementId, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, roles: $roles, abonnement: $abonnement)';
   }
 
-  factory User.fromMap(Map<String, dynamic> data) => User(
-        id: data['id'] as int?,
-        name: data['name'] as String?,
-        email: data['email'] as String?,
-        emailVerifiedAt: data['email_verified_at'] == null
-            ? null
-            : DateTime.parse(data['email_verified_at'] as String),
-        phone: data['phone'] as String?,
-        fcmToken: data['fcm_token'] as dynamic,
-        imageProfil: data['image_profil'] as dynamic,
-        abonnementId: data['abonnement_id'] as int?,
-        deletedAt: data['deleted_at'] as dynamic,
-        createdAt: data['created_at'] == null
-            ? null
-            : DateTime.parse(data['created_at'] as String),
-        updatedAt: data['updated_at'] == null
-            ? null
-            : DateTime.parse(data['updated_at'] as String),
-        roles: (data['roles'] as List<dynamic>?)
-            ?.map((e) => Role.fromMap(e as Map<String, dynamic>))
-            .toList(),
-        abonnement: data['abonnement'] == null
-            ? null
-            : Abonnement.fromMap(data['abonnement'] as Map<String, dynamic>),
-      );
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'email': email,
-        'email_verified_at': emailVerifiedAt?.toIso8601String(),
-        'phone': phone,
-        'fcm_token': fcmToken,
-        'image_profil': imageProfil,
-        'abonnement_id': abonnementId,
-        'deleted_at': deletedAt,
-        'created_at': createdAt?.toIso8601String(),
-        'updated_at': updatedAt?.toIso8601String(),
-        'roles': roles?.map((e) => e.toMap()).toList(),
-        'abonnement': abonnement?.toMap(),
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [User].
-  factory User.fromJson(String data) {
-    return User.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [User] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
   User copyWith({
     int? id,

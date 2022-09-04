@@ -1,7 +1,10 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'data.dart';
 
+part 'auth_model.g.dart';
+
+@JsonSerializable()
 class AuthModel {
   bool? success;
   Data? data;
@@ -14,31 +17,11 @@ class AuthModel {
     return 'AuthModel(success: $success, data: $data, message: $message)';
   }
 
-  factory AuthModel.fromMap(Map<String, dynamic> data) => AuthModel(
-        success: data['success'] as bool?,
-        data: data['data'] == null
-            ? null
-            : Data.fromMap(data['data'] as Map<String, dynamic>),
-        message: data['message'] as String?,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'success': success,
-        'data': data?.toMap(),
-        'message': message,
-      };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [AuthModel].
-  factory AuthModel.fromJson(String data) {
-    return AuthModel.fromMap(json.decode(data) as Map<String, dynamic>);
+  factory AuthModel.fromJson(Map<String, dynamic> json) {
+    return _$AuthModelFromJson(json);
   }
 
-  /// `dart:convert`
-  ///
-  /// Converts [AuthModel] to a JSON string.
-  String toJson() => json.encode(toMap());
+  Map<String, dynamic> toJson() => _$AuthModelToJson(this);
 
   AuthModel copyWith({
     bool? success,

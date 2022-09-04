@@ -7,7 +7,7 @@ import 'package:position/src/modules/auth/api/authApiService.dart';
 import 'package:position/src/modules/auth/models/user_model/user_model.dart';
 import 'package:position/src/modules/auth/models/auth_model/auth_model.dart';
 import 'package:position/src/core/utils/result.dart';
-import 'package:position/src/core/app/models/api_model.dart';
+import 'package:position/src/core/app/models/api_model/api_model.dart';
 import 'package:position/src/modules/auth/repositories/authRepository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
