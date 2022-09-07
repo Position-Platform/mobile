@@ -7,6 +7,7 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/views/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/chips.dart';
 import 'package:position/src/modules/map/widgets/expanded.dart';
 
@@ -111,10 +112,17 @@ class _MapPageState extends State<MapPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              S.of(context).search,
-                              style: const TextStyle(
-                                  fontFamily: "OpenSans", color: grey4),
+                            InkWell(
+                              onTap: () {
+                                showSearch(
+                                    context: context,
+                                    delegate: CustomSearchDelegate());
+                              },
+                              child: Text(
+                                S.of(context).search,
+                                style: const TextStyle(
+                                    fontFamily: "OpenSans", color: grey4),
+                              ),
                             ),
                             const Spacer(),
                             const VerticalDivider(
