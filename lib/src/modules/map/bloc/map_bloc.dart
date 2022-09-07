@@ -6,12 +6,12 @@ part 'map_event.dart';
 part 'map_state.dart';
 
 class MapBloc extends Bloc<MapEvent, MapState> {
-  MapboxMapController? _mapController;
+  MapboxMapController? mapController;
   MapBloc() : super(MapInitial()) {
     on<OnMapInitializedEvent>(_onInitMap);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
-    _mapController = event.controller;
+    mapController = event.controller;
   }
 }
