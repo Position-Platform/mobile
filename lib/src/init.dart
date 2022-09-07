@@ -5,6 +5,8 @@ import 'package:position/src/core/di/di.dart';
 import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
 import 'package:position/src/modules/auth/blocs/login/login_bloc.dart';
 import 'package:position/src/modules/auth/views/login.dart';
+import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/views/map.dart';
 import 'package:position/src/onboarding.dart';
 import 'package:position/src/splash.dart';
 import 'package:position/src/widgets/error.dart';
@@ -29,14 +31,10 @@ class InitPage extends StatelessWidget {
           );
         }
         if (state is AuthSuccess) {
-          return Center(
-            child: Text("Bienvenue ${state.user.name!}"),
-          ); /*BlocProvider<HomeBloc>(
-            create: (context) => getIt<HomeBloc>(),
-            child: HomePage(
-              user: state.user,
-            ),
-          );*/
+          return BlocProvider<MapBloc>(
+            create: (context) => getIt<MapBloc>(),
+            child: const MapPage(),
+          );
         }
         if (state is AuthNoInternet) {
           return errorWidget(context, S.of(context).noInternet,

@@ -35,6 +35,8 @@ dependencies:
   drift: ^2.1.0
   dropdown_button2: ^1.7.2
   equatable: ^2.0.5
+  expansion_tile_card: ^2.0.0
+  extended_wrap: ^0.1.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -50,6 +52,7 @@ dependencies:
   intl: ^0.17.0
   intl_utils: ^2.7.0
   json_annotation: ^4.6.0
+  mapbox_gl: ^0.16.0
   meta: ^1.8.0
   path: ^1.8.2
   path_provider: ^2.0.11
