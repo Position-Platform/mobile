@@ -380,10 +380,10 @@ class S {
     );
   }
 
-  /// `Search for a place, an establishment or a category`
+  /// `Search for an establishment, a place...`
   String get search {
     return Intl.message(
-      'Search for a place, an establishment or a category',
+      'Search for an establishment, a place...',
       name: 'search',
       desc: '',
       args: [],
@@ -825,6 +825,26 @@ class S {
     return Intl.message(
       'Phone or Email Invalid',
       name: 'invalidId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `see all categories`
+  String get showCategorie {
+    return Intl.message(
+      'see all categories',
+      name: 'showCategorie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hide categories`
+  String get hideCategorie {
+    return Intl.message(
+      'hide categories',
+      name: 'hideCategorie',
       desc: '',
       args: [],
     );

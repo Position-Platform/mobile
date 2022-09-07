@@ -65,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("Allez-y"),
         "gpsAccess":
             MessageLookupByLibrary.simpleMessage("Un accès GPS est nécessaire"),
+        "hideCategorie":
+            MessageLookupByLibrary.simpleMessage("masquer les catégories"),
         "hintEmail": MessageLookupByLibrary.simpleMessage("votremail@xyz.com"),
         "hintName": MessageLookupByLibrary.simpleMessage("Votre Nom Complet"),
         "hintPhone":
@@ -112,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Reinitialiser le Mot de Passe"),
         "search": MessageLookupByLibrary.simpleMessage(
-            "Rechercher un lieu un etablissement ou une catégorie"),
+            "Rechercher un établissement, un lieu..."),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Selectionnez une langue"),
         "selectLayer":
@@ -127,6 +129,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Partager Ma Position"),
         "sharePosition":
             MessageLookupByLibrary.simpleMessage("Partager La Position"),
+        "showCategorie":
+            MessageLookupByLibrary.simpleMessage("voir toutes les catégories"),
         "skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "step": MessageLookupByLibrary.simpleMessage("Etape"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(

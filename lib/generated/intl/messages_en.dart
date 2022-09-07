@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("Go ahead"),
         "gpsAccess":
             MessageLookupByLibrary.simpleMessage("GPS access is required"),
+        "hideCategorie":
+            MessageLookupByLibrary.simpleMessage("hide categories"),
         "hintEmail": MessageLookupByLibrary.simpleMessage("yourmail@xyz.com"),
         "hintName": MessageLookupByLibrary.simpleMessage("Your Name"),
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
@@ -103,7 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Account creation..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "search": MessageLookupByLibrary.simpleMessage(
-            "Search for a place, an establishment or a category"),
+            "Search for an establishment, a place..."),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select a language"),
         "selectLayer": MessageLookupByLibrary.simpleMessage("Select Layer"),
@@ -116,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareMyPosition":
             MessageLookupByLibrary.simpleMessage("Share My Position"),
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
+        "showCategorie":
+            MessageLookupByLibrary.simpleMessage("see all categories"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(
