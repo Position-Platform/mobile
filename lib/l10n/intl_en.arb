@@ -79,5 +79,6 @@
   "resetPassword": "Reset Password",
   "invalidId": "Phone or Email Invalid",
   "showCategorie": "see all categories",
-  "hideCategorie": "hide categories"
+  "hideCategorie": "hide categories",
+  "hintSearch": "Search"
 }

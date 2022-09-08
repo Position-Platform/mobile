@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/modules/map/widgets/searchItem.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
+  final String? hintText;
+  CustomSearchDelegate({this.hintText});
   // Demo list to show querying
   List<String> searchTerms = [
     "Apple",
@@ -13,6 +18,9 @@ class CustomSearchDelegate extends SearchDelegate {
     "Strawberries"
   ];
 
+  @override
+  String? get searchFieldLabel => hintText;
+
   // first overwrite to
   // clear the search text
   @override
@@ -22,7 +30,19 @@ class CustomSearchDelegate extends SearchDelegate {
         onPressed: () {
           query = '';
         },
-        icon: const Icon(Icons.clear),
+        icon: SvgPicture.asset(
+          "assets/images/svg/icon-clear.svg",
+        ),
+      ),
+      const VerticalDivider(
+        color: grey3,
+      ),
+      Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(right: 10),
+        height: 20,
+        width: 40,
+        child: SvgPicture.asset("assets/images/svg/icon-perm_identity.svg"),
       ),
     ];
   }
@@ -34,7 +54,9 @@ class CustomSearchDelegate extends SearchDelegate {
       onPressed: () {
         close(context, null);
       },
-      icon: const Icon(Icons.arrow_back),
+      icon: SvgPicture.asset(
+        "assets/images/svg/icon-arrow_left.svg",
+      ),
     );
   }
 
@@ -51,9 +73,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
+        return searchItem();
       },
     );
   }
@@ -72,9 +92,7 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
+        return searchItem();
       },
     );
   }

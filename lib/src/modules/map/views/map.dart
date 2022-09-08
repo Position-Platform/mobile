@@ -24,6 +24,8 @@ class _MapPageState extends State<MapPage> {
 
   List<Category>? categories = [];
 
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +40,7 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     changeStatusColor(transparent);
     return Scaffold(
+      key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: BlocListener<MapBloc, MapState>(
         listener: (context, state) {
@@ -81,12 +84,17 @@ class _MapPageState extends State<MapPage> {
                         color: whiteColor,
                         child: Row(
                           children: [
-                            Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              height: 20,
-                              width: 20,
-                              child: SvgPicture.asset(
-                                  "assets/images/svg/icon-menu.svg"),
+                            InkWell(
+                              onTap: () {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                height: 20,
+                                width: 20,
+                                child: SvgPicture.asset(
+                                    "assets/images/svg/icon-menu.svg"),
+                              ),
                             ),
                             const SizedBox(
                               width: 10,
@@ -95,7 +103,8 @@ class _MapPageState extends State<MapPage> {
                               onTap: () {
                                 showSearch(
                                     context: context,
-                                    delegate: CustomSearchDelegate());
+                                    delegate: CustomSearchDelegate(
+                                        hintText: S.of(context).hintSearch));
                               },
                               child: Text(
                                 S.of(context).search,
@@ -108,9 +117,10 @@ class _MapPageState extends State<MapPage> {
                               color: grey3,
                             ),
                             Container(
+                              alignment: Alignment.center,
                               margin: const EdgeInsets.only(right: 10),
                               height: 20,
-                              width: 20,
+                              width: 40,
                               child: SvgPicture.asset(
                                   "assets/images/svg/icon-perm_identity.svg"),
                             ),
@@ -216,6 +226,10 @@ class _MapPageState extends State<MapPage> {
           ),
         )
       ]),
+      drawer: Drawer(
+        backgroundColor: whiteColor,
+        child: loading(),
+      ),
     );
   }
 }

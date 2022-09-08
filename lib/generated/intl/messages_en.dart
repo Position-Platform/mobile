@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintEmail": MessageLookupByLibrary.simpleMessage("yourmail@xyz.com"),
         "hintName": MessageLookupByLibrary.simpleMessage("Your Name"),
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
+        "hintSearch": MessageLookupByLibrary.simpleMessage("Search"),
         "identifiant": MessageLookupByLibrary.simpleMessage("Login"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidId":

@@ -16,6 +16,8 @@ Widget buildChip(String label, String icon, VoidCallback callback) {
         backgroundColor: transparent,
         child: SvgPicture.network(
           apiUrl + icon,
+          height: 15,
+          width: 15,
         ),
       ),
       label: Text(

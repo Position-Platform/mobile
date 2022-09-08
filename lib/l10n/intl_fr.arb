@@ -79,5 +79,6 @@
   "resetPassword": "Reinitialiser le Mot de Passe",
   "invalidId": "Téléphone ou Email Invalide",
   "showCategorie": "voir toutes les catégories",
-  "hideCategorie": "masquer les catégories"
+  "hideCategorie": "masquer les catégories",
+  "hintSearch": "Rechercher"
 }

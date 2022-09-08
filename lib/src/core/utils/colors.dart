@@ -8,6 +8,7 @@ const Color grey97 = Color(0xff979797);
 const Color grey2 = Color(0xffE0E0E0);
 const Color grey3 = Color(0x3f000000);
 const Color grey4 = Color(0xff6D7278);
+const Color grey5 = Color(0xff9E9E9E);
 const Color whiteColor = Color(0xffFFFFFF);
 const Color blackColor = Color(0xff000000);
 const Color transparent = Colors.transparent;
