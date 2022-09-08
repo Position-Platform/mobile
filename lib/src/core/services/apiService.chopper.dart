@@ -91,4 +91,56 @@ class _$ApiService extends ApiService {
     final $request = Request('GET', $url, client.baseUrl, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
+
+  @override
+  Future<Response<dynamic>> getcategories() {
+    final $url = 'https://servicesdev.position.cm/api/categories';
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> getcategoriesbyid(int idCategorie) {
+    final $url =
+        'https://servicesdev.position.cm/api/categories/${idCategorie}';
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> searchcategories(String query) {
+    final $url = 'https://servicesdev.position.cm/api/search/categories';
+    final $params = <String, dynamic>{'q': query};
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> updatecategoriebyid(
+      String token, int idCategorie, Map<String, dynamic> body) {
+    final $url =
+        'https://servicesdev.position.cm/api/categories/${idCategorie}';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('PUT', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
 }

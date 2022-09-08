@@ -14,6 +14,10 @@ import 'package:position/src/modules/auth/repositories/authRepository.dart';
 import 'package:position/src/modules/auth/repositories/authRepositoryImpl.dart';
 import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
 import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/submodules/categories/api/categoriesApiService.dart';
+import 'package:position/src/modules/map/submodules/categories/api/categoriesApiServiceFactory.dart';
+import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepositoryImpl.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -35,10 +39,21 @@ Future<void> init() async {
   getIt.registerLazySingleton<AuthApiService>(
       () => AuthApiServiceFactory(apiService));
 
+  getIt.registerLazySingleton<CategoriesApiService>(
+      () => CategoriesApiServiceFactory(apiService));
+
   //Repository
   getIt.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
       authApiService: getIt(),
+      networkInfoHelper: getIt(),
+      sharedPreferencesHelper: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<CategoriesRepository>(
+    () => CategoriesRepositoryImpl(
+      categoriesApiService: getIt(),
       networkInfoHelper: getIt(),
       sharedPreferencesHelper: getIt(),
     ),
@@ -53,5 +68,6 @@ Future<void> init() async {
       LoginBloc(authRepository: getIt(), sharedPreferencesHelper: getIt()));
   getIt.registerFactory<RegisterBloc>(() =>
       RegisterBloc(authRepository: getIt(), sharedPreferencesHelper: getIt()));
-  getIt.registerFactory<MapBloc>(() => MapBloc());
+  getIt.registerFactory<MapBloc>(() =>
+      MapBloc(categoriesRepository: getIt(), sharedPreferencesHelper: getIt()));
 }

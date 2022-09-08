@@ -12,3 +12,19 @@ class OnMapInitializedEvent extends MapEvent {
 
   const OnMapInitializedEvent(this.controller);
 }
+
+class GetUserLocationEvent extends MapEvent {}
+
+class GetCategories extends MapEvent {}
+
+class CategorieClick extends MapEvent {
+  final Category? categorie;
+
+  const CategorieClick(this.categorie);
+
+  @override
+  List<Object> get props => [categorie!];
+
+  @override
+  String toString() => 'Categorie { Categorie: $categorie }';
+}

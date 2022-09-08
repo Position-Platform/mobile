@@ -7,9 +7,10 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
-import 'package:position/src/modules/map/widgets/chips.dart';
-import 'package:position/src/modules/map/widgets/expanded.dart';
+import 'package:position/src/modules/map/widgets/categories.dart';
+import 'package:position/src/widgets/loading.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -21,47 +22,17 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   MapBloc? _mapBloc;
 
+  List<Category>? categories = [];
+
   @override
   void initState() {
     super.initState();
     _mapBloc = BlocProvider.of<MapBloc>(context);
+    _mapBloc?.add(GetCategories());
   }
 
   bool isExpanded = false;
-
-  List<Widget> _generateChildrenWithCustomHeight(int count) {
-    List<Widget> items = [];
-    List<Widget> items2 = [];
-
-    for (int i = 0; i < count; i++) {
-      if (i < 4) {
-        items.add(Container(
-          margin: const EdgeInsets.only(left: 10),
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 10.0,
-            runSpacing: 1.0,
-            children: [buildChip("Achats", "assets/images/svg/icon-help.svg")],
-          ),
-        ));
-      } else {
-        items2.add(buildChip("Testament", "assets/images/svg/icon-help.svg"));
-      }
-    }
-    items.add(ExpandedSection(
-      expand: isExpanded,
-      child: Container(
-        margin: const EdgeInsets.only(left: 10),
-        child: Wrap(
-          spacing: 10.0,
-          runSpacing: 1.0,
-          children: items2,
-        ),
-      ),
-    ));
-
-    return items;
-  }
+  bool isCategoriesLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +40,15 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BlocListener<MapBloc, MapState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is CategoriesLoading) {
+            isCategoriesLoading = true;
+          }
+          if (state is CategoriesLoaded) {
+            isCategoriesLoading = false;
+            categories = state.categories;
+          }
+        },
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
             return Stack(children: [
@@ -88,8 +67,8 @@ class _MapPageState extends State<MapPage> {
                 onMapCreated: (controller) =>
                     _mapBloc?.add(OnMapInitializedEvent(controller)),
                 doubleClickZoomEnabled: true,
-                initialCameraPosition:
-                    const CameraPosition(zoom: 15.0, target: LatLng(0, 0)),
+                initialCameraPosition: const CameraPosition(
+                    zoom: initMapZoom, target: LatLng(0, 0)),
               ),
               SafeArea(
                 child: Column(
@@ -148,57 +127,64 @@ class _MapPageState extends State<MapPage> {
                             BorderRadius.circular(20.0), //<-- SEE HERE
                       ),
                       elevation: 10,
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 4, top: 10),
-                        child: Column(
-                          children: [
-                            Theme(
-                              data: Theme.of(context)
-                                  .copyWith(dividerColor: transparent),
-                              child: Wrap(
-                                spacing: 12.0,
-                                runSpacing: 1.0,
-                                children: _generateChildrenWithCustomHeight(27),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  isExpanded = !isExpanded;
-                                });
-                              },
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      child: isCategoriesLoading
+                          ? Container(
+                              child: loading(),
+                            )
+                          : Container(
+                              margin: const EdgeInsets.only(left: 4, top: 10),
+                              child: Column(
                                 children: [
-                                  isExpanded
-                                      ? Text(S.of(context).hideCategorie,
-                                          style: const TextStyle(
-                                            fontFamily: 'OpenSans',
-                                            color: grey3,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            fontStyle: FontStyle.normal,
-                                          ))
-                                      : Text(S.of(context).showCategorie,
-                                          style: const TextStyle(
-                                            fontFamily: 'OpenSans',
-                                            color: grey3,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            fontStyle: FontStyle.normal,
-                                          )),
-                                  isExpanded
-                                      ? SvgPicture.asset(
-                                          "assets/images/svg/icon-icon-see-less.svg")
-                                      : SvgPicture.asset(
-                                          "assets/images/svg/icon-icon-see-more.svg")
+                                  Theme(
+                                    data: Theme.of(context)
+                                        .copyWith(dividerColor: transparent),
+                                    child: Wrap(
+                                      spacing: 12.0,
+                                      runSpacing: 1.0,
+                                      children: generateCategoryWidget(
+                                          categories!, _mapBloc, isExpanded),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        isExpanded = !isExpanded;
+                                      });
+                                    },
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        isExpanded
+                                            ? Text(S.of(context).hideCategorie,
+                                                style: const TextStyle(
+                                                  fontFamily: 'OpenSans',
+                                                  color: grey3,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontStyle: FontStyle.normal,
+                                                ))
+                                            : Text(S.of(context).showCategorie,
+                                                style: const TextStyle(
+                                                  fontFamily: 'OpenSans',
+                                                  color: grey3,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontStyle: FontStyle.normal,
+                                                )),
+                                        isExpanded
+                                            ? SvgPicture.asset(
+                                                "assets/images/svg/icon-icon-see-less.svg")
+                                            : SvgPicture.asset(
+                                                "assets/images/svg/icon-icon-see-more.svg")
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
+                            ),
                     )
                   ],
                 ),
@@ -214,14 +200,13 @@ class _MapPageState extends State<MapPage> {
             direction: Axis.vertical,
             children: [
               SizedBox(
-                height: 50,
-                width: 50,
                 child: FloatingActionButton(
                   heroTag: "location",
-                  mini: true,
                   tooltip: "Location",
                   backgroundColor: Theme.of(context).backgroundColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    _mapBloc?.add(GetUserLocationEvent());
+                  },
                   child: SvgPicture.asset(
                     "assets/images/svg/icon-my_location.svg",
                   ),
