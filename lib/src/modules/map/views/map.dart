@@ -7,7 +7,7 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/map/bloc/map_bloc.dart';
-import 'package:position/src/modules/map/views/searchdelegate.dart';
+import 'package:position/src/modules/map/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/chips.dart';
 import 'package:position/src/modules/map/widgets/expanded.dart';
 

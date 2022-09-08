@@ -260,20 +260,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
-  expansion_tile_card:
-    dependency: "direct main"
-    description:
-      name: expansion_tile_card
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
-  extended_wrap:
-    dependency: "direct main"
-    description:
-      name: extended_wrap
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   fake_async:
     dependency: transitive
     description:
