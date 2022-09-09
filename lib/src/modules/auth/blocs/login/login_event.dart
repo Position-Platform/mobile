@@ -78,3 +78,7 @@ class LoginWithCredentialsPressed extends LoginEvent {
     return 'LoginWithCredentialsPressed {identifiant: $identifiant, password: $password }';
   }
 }
+
+class LoginWithFacebookPressed extends LoginEvent {}
+
+class LoginWithGooglePressed extends LoginEvent {}

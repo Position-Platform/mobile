@@ -16,6 +16,16 @@ abstract class ApiService extends ChopperService {
   @Post(path: '/api/auth/register', headers: {'Accept': 'application/json'})
   Future<Response> register(@Body() Map<String, dynamic> body);
 
+  @Post(
+      path: '/api/auth/register/facebook',
+      headers: {'Accept': 'application/json'})
+  Future<Response> registerfacebook(@Body() Map<String, dynamic> body);
+
+  @Post(
+      path: '/api/auth/register/google',
+      headers: {'Accept': 'application/json'})
+  Future<Response> registergoogle(@Body() Map<String, dynamic> body);
+
   @Get(path: '/api/user/me', headers: {'Accept': 'application/json'})
   Future<Response> getuser(
     @Header('Authorization') String token,
@@ -48,4 +58,9 @@ abstract class ApiService extends ChopperService {
   @Put(path: '/api/categories/{id}', headers: {'Accept': 'application/json'})
   Future<Response> updatecategoriebyid(@Header('Authorization') String token,
       @Path('id') int idCategorie, @Body() Map<String, dynamic> body);
+
+  //Tracking
+  @Post(path: '/api/tracking', headers: {'Accept': 'application/json'})
+  Future<Response> addtracking(
+      @Header('Authorization') String token, @Body() Map<String, dynamic> body);
 }

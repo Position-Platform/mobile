@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -14,9 +17,20 @@ part 'map_state.dart';
 class MapBloc extends HydratedBloc<MapEvent, MapState> {
   MapboxMapController? _mapController;
   CategoriesRepository? categoriesRepository;
+  TrackingRepository? trackingRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
-  MapBloc({this.categoriesRepository, this.sharedPreferencesHelper})
+  late StreamSubscription<Position> positionStream;
+
+  final LocationSettings locationSettings = const LocationSettings(
+    accuracy: LocationAccuracy.bestForNavigation,
+    distanceFilter: 5,
+  );
+
+  MapBloc(
+      {this.categoriesRepository,
+      this.sharedPreferencesHelper,
+      this.trackingRepository})
       : super(MapInitial()) {
     on<OnMapInitializedEvent>(_onInitMap);
     on<GetUserLocationEvent>(_getUserLocation);
@@ -26,6 +40,12 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
     _mapController = event.controller;
+    positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position position) async {
+      await trackingRepository?.addtracking(
+          position.longitude, position.latitude);
+    });
   }
 
   _getUserLocation(GetUserLocationEvent event, Emitter<MapState> emit) async {
@@ -33,6 +53,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: initMapZoom)));
+    await trackingRepository?.addtracking(
+        position.longitude, position.latitude);
   }
 
   _getCategories(GetCategories event, Emitter<MapState> emit) async {
@@ -76,5 +98,11 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
 
     return null;
+  }
+
+  @override
+  Future<void> close() {
+    positionStream.cancel();
+    return super.close();
   }
 }

@@ -159,4 +159,40 @@ class AuthRepositoryImpl implements AuthRepository {
     bool saveT = await sharedPreferencesHelper!.setToken(token);
     return saveT;
   }
+
+  @override
+  Future<Result<AuthModel>> registerfacebook(String token) async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    if (isConnected) {
+      try {
+        final Response response = await authApiService!.registerfacebook(token);
+
+        var model = AuthModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
+
+  @override
+  Future<Result<AuthModel>> registergoogle(String token) async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    if (isConnected) {
+      try {
+        final Response response = await authApiService!.registergoogle(token);
+
+        var model = AuthModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
 }

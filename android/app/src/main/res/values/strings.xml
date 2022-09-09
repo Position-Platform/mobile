@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">
+		Position
+	</string>
+	<string name="facebook_app_id">
+		551433395941902
+	</string>
+	<string name="fb_login_protocol_scheme">
+		fb551433395941902
+	</string>
+	<string name="facebook_client_token">
+		27d3a2be36cfcc3aa1de989946cb393e
+	</string>
+</resources>

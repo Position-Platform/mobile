@@ -12,7 +12,7 @@ class User {
   String? email;
   @JsonKey(name: 'email_verified_at')
   DateTime? emailVerifiedAt;
-  String? phone;
+  dynamic phone;
   @JsonKey(name: 'fcm_token')
   dynamic fcmToken;
   @JsonKey(name: 'image_profil')
@@ -58,7 +58,7 @@ class User {
     String? name,
     String? email,
     DateTime? emailVerifiedAt,
-    String? phone,
+    dynamic phone,
     dynamic fcmToken,
     String? imageProfil,
     int? abonnementId,

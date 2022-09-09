@@ -929,6 +929,26 @@ class S {
       args: [],
     );
   }
+
+  /// `- OR -`
+  String get or {
+    return Intl.message(
+      '- OR -',
+      name: 'or',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with`
+  String get signwith {
+    return Intl.message(
+      'Sign in with',
+      name: 'signwith',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -43,6 +43,32 @@ class _$ApiService extends ApiService {
   }
 
   @override
+  Future<Response<dynamic>> registerfacebook(Map<String, dynamic> body) {
+    final $url = 'https://servicesdev.position.cm/api/auth/register/facebook';
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> registergoogle(Map<String, dynamic> body) {
+    final $url = 'https://servicesdev.position.cm/api/auth/register/google';
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> getuser(String token) {
     final $url = 'https://servicesdev.position.cm/api/user/me';
     final $headers = {
@@ -141,6 +167,21 @@ class _$ApiService extends ApiService {
     final $body = body;
     final $request =
         Request('PUT', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> addtracking(
+      String token, Map<String, dynamic> body) {
+    final $url = 'https://servicesdev.position.cm/api/tracking';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
 }
