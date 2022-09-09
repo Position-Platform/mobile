@@ -80,5 +80,12 @@
   "invalidId": "Téléphone ou Email Invalide",
   "showCategorie": "voir toutes les catégories",
   "hideCategorie": "masquer les catégories",
-  "hintSearch": "Rechercher"
+  "hintSearch": "Rechercher",
+  "savedplaces": "Mes Lieux enregistrés",
+  "myreviews": "Mes avis",
+  "confidentialite": "Confidentialité",
+  "conditions": "Conditions d'utilisation",
+  "aide": "Aide",
+  "settings": "Mes Paramètres",
+  "infos": "Mes informations"
 }

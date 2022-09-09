@@ -6,14 +6,18 @@ import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/tools.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/bloc/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
+import 'package:position/src/modules/map/views/profile.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
+import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/widgets/loading.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key});
+  const MapPage({super.key, @required this.user});
+  final User? user;
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -116,13 +120,25 @@ class _MapPageState extends State<MapPage> {
                             const VerticalDivider(
                               color: grey3,
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 10),
-                              height: 20,
-                              width: 40,
-                              child: SvgPicture.asset(
-                                  "assets/images/svg/icon-perm_identity.svg"),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return ProfilePage(user: widget.user);
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(right: 10),
+                                height: 20,
+                                width: 40,
+                                child: SvgPicture.asset(
+                                    "assets/images/svg/icon-perm_identity.svg"),
+                              ),
                             ),
                           ],
                         ),
@@ -226,10 +242,7 @@ class _MapPageState extends State<MapPage> {
           ),
         )
       ]),
-      drawer: Drawer(
-        backgroundColor: whiteColor,
-        child: loading(),
-      ),
+      drawer: const AppDrawer(),
     );
   }
 }

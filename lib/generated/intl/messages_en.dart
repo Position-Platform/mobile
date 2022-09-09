@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addEtablissement":
             MessageLookupByLibrary.simpleMessage("Add a New Company"),
         "adress": MessageLookupByLibrary.simpleMessage("Adress"),
+        "aide": MessageLookupByLibrary.simpleMessage("Help"),
         "alreadyAccount":
             MessageLookupByLibrary.simpleMessage("I already have an account"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
@@ -35,6 +36,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
+        "conditions":
+            MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
+        "confidentialite": MessageLookupByLibrary.simpleMessage("Privacy"),
         "connexion": MessageLookupByLibrary.simpleMessage("Login"),
         "cpassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "createAccount":
@@ -70,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
         "hintSearch": MessageLookupByLibrary.simpleMessage("Search"),
         "identifiant": MessageLookupByLibrary.simpleMessage("Login"),
+        "infos": MessageLookupByLibrary.simpleMessage("My information"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidId":
             MessageLookupByLibrary.simpleMessage("Phone or Email Invalid"),
@@ -85,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login successful"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "myAdress": MessageLookupByLibrary.simpleMessage("My Adress"),
+        "myreviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "name": MessageLookupByLibrary.simpleMessage("Full name"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noAccount": MessageLookupByLibrary.simpleMessage("No Account yet?  "),
@@ -105,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "registering":
             MessageLookupByLibrary.simpleMessage("Account creation..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "savedplaces": MessageLookupByLibrary.simpleMessage("My Saved Places"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for an establishment, a place..."),
         "selectLanguage":
@@ -114,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Send a reset link"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("An error has occurred"),
+        "settings": MessageLookupByLibrary.simpleMessage("My Settings"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
             "I use the Position application to guide me. Follow my position on the map"),
         "shareMyPosition":

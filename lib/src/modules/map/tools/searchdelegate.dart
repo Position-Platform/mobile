@@ -72,7 +72,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
-        var result = matchQuery[index];
+        //  var result = matchQuery[index];
         return searchItem();
       },
     );
@@ -91,7 +91,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
-        var result = matchQuery[index];
+        //  var result = matchQuery[index];
         return searchItem();
       },
     );

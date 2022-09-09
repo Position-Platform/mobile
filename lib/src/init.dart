@@ -33,7 +33,9 @@ class InitPage extends StatelessWidget {
         if (state is AuthSuccess) {
           return BlocProvider<MapBloc>(
             create: (context) => getIt<MapBloc>(),
-            child: const MapPage(),
+            child: MapPage(
+              user: state.user,
+            ),
           );
         }
         if (state is AuthNoInternet) {
