@@ -135,7 +135,7 @@ class _MapPageState extends State<MapPage> {
                                 alignment: Alignment.center,
                                 margin: const EdgeInsets.only(right: 10),
                                 height: 20,
-                                width: 40,
+                                width: 30,
                                 child: SvgPicture.asset(
                                     "assets/images/svg/icon-perm_identity.svg"),
                               ),

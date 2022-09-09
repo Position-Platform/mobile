@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/styles.dart';
+import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,6 +44,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    changeStatusColor(primaryColor);
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
