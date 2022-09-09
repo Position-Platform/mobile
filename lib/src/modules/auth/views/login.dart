@@ -12,6 +12,7 @@ import 'package:position/src/modules/auth/views/forgotpassword.dart';
 import 'package:position/src/modules/auth/views/register.dart';
 import 'package:position/src/modules/auth/widgets/appAuthHeader.dart';
 import 'package:position/src/modules/auth/widgets/appbottomSheet.dart';
+import 'package:position/src/modules/auth/widgets/socialButtons.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -413,7 +414,34 @@ class _LoginPageState extends State<LoginPage> {
                                   )),
                             ),
                           ],
-                        )
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          S.of(context).or,
+                          style: const TextStyle(
+                            fontFamily: 'OpenSans-Bold',
+                            fontSize: 16,
+                            color: greyColor,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          S.of(context).signwith,
+                          style: const TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: greyColor,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        buildSocialButtons(),
                       ],
                     ),
                   )

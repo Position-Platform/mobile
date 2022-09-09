@@ -87,5 +87,7 @@
   "conditions": "Terms and conditions of use",
   "aide": "Help",
   "settings": "My Settings",
-  "infos": "My information"
+  "infos": "My information",
+  "or": "- OR -",
+  "signwith": "Sign in with"
 }

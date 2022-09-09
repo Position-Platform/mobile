@@ -99,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "noLocation":
             MessageLookupByLibrary.simpleMessage("Cannot get current location"),
+        "or": MessageLookupByLibrary.simpleMessage("- OR -"),
         "passError":
             MessageLookupByLibrary.simpleMessage("Different passwords"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -129,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("see all categories"),
+        "signwith": MessageLookupByLibrary.simpleMessage("Sign in with"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(
