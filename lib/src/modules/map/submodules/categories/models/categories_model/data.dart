@@ -6,22 +6,22 @@ part 'data.g.dart';
 
 @JsonSerializable()
 class Data {
-	List<Category>? categories;
+  List<Category>? categories;
 
-	Data({this.categories});
+  Data({this.categories});
 
-	@override
-	String toString() => 'Data(categories: $categories)';
+  @override
+  String toString() => 'Data(categories: $categories)';
 
-	factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
-	Map<String, dynamic> toJson() => _$DataToJson(this);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 
-	Data copyWith({
-		List<Category>? categories,
-	}) {
-		return Data(
-			categories: categories ?? this.categories,
-		);
-	}
+  Data copyWith({
+    List<Category>? categories,
+  }) {
+    return Data(
+      categories: categories ?? this.categories,
+    );
+  }
 }
