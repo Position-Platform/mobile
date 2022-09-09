@@ -18,6 +18,10 @@ import 'package:position/src/modules/map/submodules/categories/api/categoriesApi
 import 'package:position/src/modules/map/submodules/categories/api/categoriesApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepositoryImpl.dart';
+import 'package:position/src/modules/map/submodules/tracking/api/trackingApiService.dart';
+import 'package:position/src/modules/map/submodules/tracking/api/trackingApiServiceFactory.dart';
+import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
+import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepositoryImpl.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -42,6 +46,9 @@ Future<void> init() async {
   getIt.registerLazySingleton<CategoriesApiService>(
       () => CategoriesApiServiceFactory(apiService));
 
+  getIt.registerLazySingleton<TrackingApiService>(
+      () => TrackingApiServiceFactory(apiService));
+
   //Repository
   getIt.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
@@ -59,6 +66,14 @@ Future<void> init() async {
     ),
   );
 
+  getIt.registerFactory<TrackingRepository>(
+    () => TrackingRepositoryImpl(
+      trackingApiService: getIt(),
+      networkInfoHelper: getIt(),
+      sharedPreferencesHelper: getIt(),
+    ),
+  );
+
   //Bloc
   getIt.registerFactory<AppBloc>(() => AppBloc());
   getIt.registerFactory<GpsBloc>(() => GpsBloc());
@@ -68,6 +83,8 @@ Future<void> init() async {
       LoginBloc(authRepository: getIt(), sharedPreferencesHelper: getIt()));
   getIt.registerFactory<RegisterBloc>(() =>
       RegisterBloc(authRepository: getIt(), sharedPreferencesHelper: getIt()));
-  getIt.registerFactory<MapBloc>(() =>
-      MapBloc(categoriesRepository: getIt(), sharedPreferencesHelper: getIt()));
+  getIt.registerFactory<MapBloc>(() => MapBloc(
+      categoriesRepository: getIt(),
+      sharedPreferencesHelper: getIt(),
+      trackingRepository: getIt()));
 }

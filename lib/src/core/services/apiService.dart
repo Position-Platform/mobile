@@ -48,4 +48,9 @@ abstract class ApiService extends ChopperService {
   @Put(path: '/api/categories/{id}', headers: {'Accept': 'application/json'})
   Future<Response> updatecategoriebyid(@Header('Authorization') String token,
       @Path('id') int idCategorie, @Body() Map<String, dynamic> body);
+
+  //Tracking
+  @Post(path: '/api/tracking', headers: {'Accept': 'application/json'})
+  Future<Response> addtracking(
+      @Header('Authorization') String token, @Body() Map<String, dynamic> body);
 }
