@@ -14,6 +14,10 @@ abstract class AuthRepository {
   Future<Result<AuthModel>> register(
       String name, String email, String phone, String password);
 
+  Future<Result<AuthModel>> registerfacebook(String token);
+
+  Future<Result<AuthModel>> registergoogle(String token);
+
   Future<Result<UserModel>> getuser(String token);
 
   Future<Result<ApiModel>> forgotpassword(String email);

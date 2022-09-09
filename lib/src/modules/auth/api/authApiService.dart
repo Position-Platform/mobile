@@ -11,6 +11,10 @@ abstract class AuthApiService {
   Future<Response> register(
       String name, String email, String phone, String password);
 
+  Future<Response> registerfacebook(String token);
+
+  Future<Response> registergoogle(String token);
+
   Future<Response> getuser(String token);
 
   Future<Response> forgotpassword(String email);

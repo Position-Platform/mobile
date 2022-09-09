@@ -13,7 +13,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       emailVerifiedAt: json['email_verified_at'] == null
           ? null
           : DateTime.parse(json['email_verified_at'] as String),
-      phone: json['phone'] as String?,
+      phone: json['phone'],
       fcmToken: json['fcm_token'],
       imageProfil: json['image_profil'] as String?,
       abonnementId: json['abonnement_id'] as int?,

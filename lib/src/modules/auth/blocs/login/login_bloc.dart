@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/core/utils/validators.dart';
@@ -25,6 +27,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginWithCredentialsPressed>(_loginButtonPressed);
     on<PasswordForgot>(_forgotButtonPressed);
     on<PasswordReset>(_resetButtonPressed);
+    on<LoginWithFacebookPressed>(_facebookButtonPressed);
+    on<LoginWithGooglePressed>(_googleButtonPressed);
   }
 
   // RxDart pour gerer les evenements de facon asynchrone
@@ -102,6 +106,72 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       return emit(LoginState.resetPassword());
     } catch (_) {
       return emit(LoginState.failedresetPassword());
+    }
+  }
+
+  void _facebookButtonPressed(
+    LoginWithFacebookPressed event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(LoginState.loading());
+    try {
+      final facebookLogin = FacebookLogin();
+      final result = await facebookLogin.logIn(permissions: [
+        FacebookPermission.publicProfile,
+        FacebookPermission.email,
+      ]);
+
+      switch (result.status) {
+        case FacebookLoginStatus.success:
+          Result<AuthModel> auth =
+              await authRepository!.registerfacebook(result.accessToken!.token);
+          if (auth.success!.success!) {
+            await sharedPreferencesHelper!.setToken(auth.success!.data!.token!);
+            emit(LoginState.success());
+          } else {
+            emit(LoginState.failure());
+          }
+          break;
+        case FacebookLoginStatus.cancel:
+          emit(LoginState.failure());
+          break;
+        case FacebookLoginStatus.error:
+          emit(LoginState.failure());
+          break;
+      }
+    } catch (error) {
+      emit(LoginState.failure());
+    }
+  }
+
+  void _googleButtonPressed(
+    LoginWithGooglePressed event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(LoginState.loading());
+    try {
+      var googleLogin = GoogleSignIn(
+        scopes: ['email'],
+      );
+
+      final result = await googleLogin.signIn();
+
+      if (result != null) {
+        final authentication = await result.authentication;
+
+        Result<AuthModel> auth =
+            await authRepository!.registergoogle(authentication.accessToken!);
+        if (auth.success!.success!) {
+          await sharedPreferencesHelper!.setToken(auth.success!.data!.token!);
+          emit(LoginState.success());
+        } else {
+          emit(LoginState.failure());
+        }
+      } else {
+        emit(LoginState.failure());
+      }
+    } catch (e) {
+      emit(LoginState.failure());
     }
   }
 }

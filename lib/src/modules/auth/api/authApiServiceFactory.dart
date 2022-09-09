@@ -95,4 +95,32 @@ class AuthApiServiceFactory implements AuthApiService {
     }
     return response;
   }
+
+  @override
+  Future<Response> registerfacebook(String token) async {
+    Response response;
+    try {
+      response = await apiService!.registerfacebook({
+        "token": token,
+      });
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
+
+  @override
+  Future<Response> registergoogle(String token) async {
+    Response response;
+    try {
+      response = await apiService!.registergoogle({
+        "token": token,
+      });
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
 }

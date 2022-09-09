@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "269614845547",
+    "firebase_url": "https://position-79196.firebaseio.com",
+    "project_id": "position-79196",
+    "storage_bucket": "position-79196.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269614845547:android:d0827122c7391f5384ab2e",
+        "android_client_info": {
+          "package_name": "cm.geosmfamily.position"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269614845547-uuot12bjtrt63b6p4qv3rh01gets4dhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cm.geosmfamily.position",
+            "certificate_hash": "1b819411ef27702f216df2e834116b2920476281"
+          }
+        },
+        {
+          "client_id": "269614845547-34n0995osh8tcsmbvh1b6sfnknsdj9ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFnJZLnSb3iAOARbf_XiBYOCIkDePXx7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269614845547-34n0995osh8tcsmbvh1b6sfnknsdj9ac.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "269614845547-csbf7gi52vqeompqu2ho4j7idk5f0lvp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sogefi.position"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:269614845547:android:aa219528d3d5c5a084ab2e",
+        "android_client_info": {
+          "package_name": "com.sogefi.position"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "269614845547-66vf8jpjekelbo5evtfv2u6l03if01dn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sogefi.position",
+            "certificate_hash": "1892917f84adf7865c211239934242323545c0d4"
+          }
+        },
+        {
+          "client_id": "269614845547-jcgv9p9ftbj12p0k17ps3u7cf68p8923.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sogefi.position",
+            "certificate_hash": "3166ae2cb7147b42453c803d0b20ade5119730a4"
+          }
+        },
+        {
+          "client_id": "269614845547-34n0995osh8tcsmbvh1b6sfnknsdj9ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFnJZLnSb3iAOARbf_XiBYOCIkDePXx7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "269614845547-34n0995osh8tcsmbvh1b6sfnknsdj9ac.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "269614845547-csbf7gi52vqeompqu2ho4j7idk5f0lvp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sogefi.position"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

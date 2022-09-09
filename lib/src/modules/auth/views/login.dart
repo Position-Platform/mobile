@@ -416,32 +416,32 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         const SizedBox(
-                          height: 40,
+                          height: 20,
                         ),
                         Text(
                           S.of(context).or,
                           style: const TextStyle(
                             fontFamily: 'OpenSans-Bold',
-                            fontSize: 16,
+                            fontSize: 14,
                             color: greyColor,
                           ),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Text(
                           S.of(context).signwith,
                           style: const TextStyle(
                             fontFamily: 'OpenSans',
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                             color: greyColor,
                           ),
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
-                        buildSocialButtons(),
+                        buildSocialButtons(_loginBloc),
                       ],
                     ),
                   )
