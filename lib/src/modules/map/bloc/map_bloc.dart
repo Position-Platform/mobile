@@ -1,16 +1,17 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
 
-class MapBloc extends Bloc<MapEvent, MapState> {
+class MapBloc extends HydratedBloc<MapEvent, MapState> {
   MapboxMapController? _mapController;
   CategoriesRepository? categoriesRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
@@ -40,7 +41,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       var categoriesResult = await categoriesRepository?.getallcategories();
 
       if (categoriesResult!.success!.success!) {
-        emit(CategoriesLoaded(categoriesResult.success!.data!.categories));
+        emit(CategoriesLoaded(categoriesResult.success));
       }
     } catch (e) {
       emit(CategoriesError());
@@ -56,5 +57,24 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     } catch (e) {
       emit(CategoriesError());
     }
+  }
+
+  @override
+  MapState? fromJson(Map<String, dynamic> json) {
+    try {
+      final categories = CategoriesModel.fromJson(json);
+      return CategoriesLoaded(categories);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(MapState state) {
+    if (state is CategoriesLoaded) {
+      return state.categories!.toJson();
+    }
+
+    return null;
   }
 }

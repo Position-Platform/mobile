@@ -14,7 +14,7 @@ class CategoriesLoading extends MapState {}
 class CategoriesError extends MapState {}
 
 class CategoriesLoaded extends MapState {
-  final List<Category>? categories;
+  final CategoriesModel? categories;
 
   const CategoriesLoaded(this.categories);
 
