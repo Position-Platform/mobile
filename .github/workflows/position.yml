@@ -12,6 +12,8 @@ jobs:
   build:
     # This job will run on ubuntu virtual machine
     runs-on: macos-latest
+    env:
+      SDK_REGISTRY_TOKEN: ${{ secrets.SDK_REGISTRY_TOKEN }}
     steps:
       # Setup Java environment in order to build the Android app.
       - uses: actions/checkout@v3
@@ -45,4 +47,4 @@ jobs:
       - run: flutter build appbundle
 
       # Build Ios
-      - run: flutter build ios --release --no-codesign
+      # - run: flutter build ios --release --no-codesign

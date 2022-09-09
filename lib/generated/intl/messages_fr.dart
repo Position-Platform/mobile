@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addEtablissement": MessageLookupByLibrary.simpleMessage(
             "Ajout d\'une Nouvelle Entreprise"),
         "adress": MessageLookupByLibrary.simpleMessage("Adresse"),
+        "aide": MessageLookupByLibrary.simpleMessage("Aide"),
         "alreadyAccount":
             MessageLookupByLibrary.simpleMessage("J\'ai déja un compte"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
@@ -35,6 +36,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
+        "conditions":
+            MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),
+        "confidentialite":
+            MessageLookupByLibrary.simpleMessage("Confidentialité"),
         "connexion": MessageLookupByLibrary.simpleMessage("Connexion"),
         "cpassword":
             MessageLookupByLibrary.simpleMessage("Confirmer le Mot de Passe"),
@@ -65,12 +70,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "go": MessageLookupByLibrary.simpleMessage("Allez-y"),
         "gpsAccess":
             MessageLookupByLibrary.simpleMessage("Un accès GPS est nécessaire"),
+        "hideCategorie":
+            MessageLookupByLibrary.simpleMessage("masquer les catégories"),
         "hintEmail": MessageLookupByLibrary.simpleMessage("votremail@xyz.com"),
         "hintName": MessageLookupByLibrary.simpleMessage("Votre Nom Complet"),
         "hintPhone":
             MessageLookupByLibrary.simpleMessage("Numéro de Téléphone"),
+        "hintSearch": MessageLookupByLibrary.simpleMessage("Rechercher"),
         "identifiant": MessageLookupByLibrary.simpleMessage("Identifiant"),
+        "infos": MessageLookupByLibrary.simpleMessage("Mes informations"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Email Invalide"),
+        "invalidId":
+            MessageLookupByLibrary.simpleMessage("Téléphone ou Email Invalide"),
         "invalidMail": MessageLookupByLibrary.simpleMessage("Email Invalide"),
         "invalidPass":
             MessageLookupByLibrary.simpleMessage("Mot de Passe Invalide"),
@@ -86,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Connexion reussie"),
         "logout": MessageLookupByLibrary.simpleMessage("Deconnexion"),
         "myAdress": MessageLookupByLibrary.simpleMessage("Mon Adresse"),
+        "myreviews": MessageLookupByLibrary.simpleMessage("Mes avis"),
         "name": MessageLookupByLibrary.simpleMessage("Nom Complet"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),
         "noAccount":
@@ -109,8 +121,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Création du compte..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Reinitialiser le Mot de Passe"),
+        "savedplaces":
+            MessageLookupByLibrary.simpleMessage("Mes Lieux enregistrés"),
         "search": MessageLookupByLibrary.simpleMessage(
-            "Rechercher un lieu un etablissement ou une catégorie"),
+            "Rechercher un établissement, un lieu..."),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Selectionnez une langue"),
         "selectLayer":
@@ -119,12 +133,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Envoyer un lien de reinitialisation"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("Une erreur est survenue"),
+        "settings": MessageLookupByLibrary.simpleMessage("Mes Paramètres"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
             "J\'utilise l\'application Position pour me guider. Suivez ma position sur la carte"),
         "shareMyPosition":
             MessageLookupByLibrary.simpleMessage("Partager Ma Position"),
         "sharePosition":
             MessageLookupByLibrary.simpleMessage("Partager La Position"),
+        "showCategorie":
+            MessageLookupByLibrary.simpleMessage("voir toutes les catégories"),
         "skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "step": MessageLookupByLibrary.simpleMessage("Etape"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(

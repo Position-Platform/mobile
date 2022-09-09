@@ -33,7 +33,7 @@
   "addEmail": "Remplissez l'adresse mail",
   "phone": "Numéro de Téléphone",
   "dashboard": "Accueil",
-  "search": "Rechercher un lieu un etablissement ou une catégorie",
+  "search": "Rechercher un établissement, un lieu...",
   "noLocation": "Impossible d'obtenir l'emplacement actuel",
   "enableGps": "Assurez-vous d'activer le GPS.",
   "disabledAccount": "Votre compte a été désactivé",
@@ -76,5 +76,16 @@
   "english": "Anglais",
   "name": "Nom Complet",
   "sendResetLink": "Envoyer un lien de reinitialisation",
-  "resetPassword": "Reinitialiser le Mot de Passe"
+  "resetPassword": "Reinitialiser le Mot de Passe",
+  "invalidId": "Téléphone ou Email Invalide",
+  "showCategorie": "voir toutes les catégories",
+  "hideCategorie": "masquer les catégories",
+  "hintSearch": "Rechercher",
+  "savedplaces": "Mes Lieux enregistrés",
+  "myreviews": "Mes avis",
+  "confidentialite": "Confidentialité",
+  "conditions": "Conditions d'utilisation",
+  "aide": "Aide",
+  "settings": "Mes Paramètres",
+  "infos": "Mes informations"
 }

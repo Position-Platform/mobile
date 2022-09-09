@@ -33,7 +33,7 @@
   "addEmail": "Fill in the email address",
   "phone": "Phone Number",
   "dashboard": "Home",
-  "search": "Search for a place, an establishment or a category",
+  "search": "Search for an establishment, a place...",
   "noLocation": "Cannot get current location",
   "enableGps": "Please make sure you enable GPS",
   "disabledAccount": "Your account has been deactivated",
@@ -76,5 +76,16 @@
   "english": "English",
   "name": "Full name",
   "sendResetLink": "Send a reset link",
-  "resetPassword": "Reset Password"
+  "resetPassword": "Reset Password",
+  "invalidId": "Phone or Email Invalid",
+  "showCategorie": "see all categories",
+  "hideCategorie": "hide categories",
+  "hintSearch": "Search",
+  "savedplaces": "My Saved Places",
+  "myreviews": "My reviews",
+  "confidentialite": "Privacy",
+  "conditions": "Terms and conditions of use",
+  "aide": "Help",
+  "settings": "My Settings",
+  "infos": "My information"
 }
