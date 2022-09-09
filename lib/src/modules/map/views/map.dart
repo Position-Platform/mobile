@@ -53,7 +53,7 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is CategoriesLoaded) {
             isCategoriesLoading = false;
-            categories = state.categories;
+            categories = state.categories!.data!.categories;
           }
         },
         child: BlocBuilder<MapBloc, MapState>(
