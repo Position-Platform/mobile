@@ -16,7 +16,7 @@ class User {
   @JsonKey(name: 'fcm_token')
   dynamic fcmToken;
   @JsonKey(name: 'image_profil')
-  dynamic imageProfil;
+  String? imageProfil;
   @JsonKey(name: 'abonnement_id')
   int? abonnementId;
   @JsonKey(name: 'deleted_at')
@@ -60,7 +60,7 @@ class User {
     DateTime? emailVerifiedAt,
     String? phone,
     dynamic fcmToken,
-    dynamic imageProfil,
+    String? imageProfil,
     int? abonnementId,
     dynamic deletedAt,
     DateTime? createdAt,
