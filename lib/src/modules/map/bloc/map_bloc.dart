@@ -23,8 +23,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   late StreamSubscription<Position> positionStream;
 
   final LocationSettings locationSettings = const LocationSettings(
-    accuracy: LocationAccuracy.high,
-    distanceFilter: 10,
+    accuracy: LocationAccuracy.bestForNavigation,
+    distanceFilter: 5,
   );
 
   MapBloc(
@@ -42,9 +42,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController = event.controller;
     positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position? position) async {
+            .listen((Position position) async {
       await trackingRepository?.addtracking(
-          position!.longitude, position.latitude);
+          position.longitude, position.latitude);
     });
   }
 
