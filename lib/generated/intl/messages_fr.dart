@@ -32,9 +32,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("J\'ai déja un compte"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
         "askAccess": MessageLookupByLibrary.simpleMessage("Demandez l\'access"),
+        "avis": MessageLookupByLibrary.simpleMessage("Avis"),
         "back": MessageLookupByLibrary.simpleMessage("Retour"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
+        "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),
@@ -50,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
         "disabledAccount": MessageLookupByLibrary.simpleMessage(
             "Votre compte a été désactivé"),
+        "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "editEtablissement":
             MessageLookupByLibrary.simpleMessage("Modifier une entreprise"),
         "email": MessageLookupByLibrary.simpleMessage("Adresse Mail"),
@@ -60,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Assurez-vous d\'activer le GPS."),
         "english": MessageLookupByLibrary.simpleMessage("Anglais"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filtres"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Trouvez ma Position"),
         "forgotPass":
@@ -112,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passError":
             MessageLookupByLibrary.simpleMessage("Mots de passes differents"),
         "password": MessageLookupByLibrary.simpleMessage("Mot de Passe"),
+        "pertinence": MessageLookupByLibrary.simpleMessage("Pertinence"),
         "phone": MessageLookupByLibrary.simpleMessage("Numéro de Téléphone"),
         "register": MessageLookupByLibrary.simpleMessage("Creer un compte"),
         "registerFailed":
@@ -158,8 +163,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Exposer ses compétences, ses produits et services en ligne"),
         "title3": MessageLookupByLibrary.simpleMessage(
             "Trouver les infos pratiques et consulter l’agenda des manifestations"),
+        "trier": MessageLookupByLibrary.simpleMessage("Trier par"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Reesayez"),
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
+        "valider": MessageLookupByLibrary.simpleMessage("Valider"),
         "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
       };
 }

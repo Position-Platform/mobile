@@ -89,5 +89,12 @@
   "settings": "Mes Paramètres",
   "infos": "Mes informations",
   "or": "- OU -",
-  "signwith": "Se Connecter avec"
+  "signwith": "Se Connecter avec",
+  "filters": "Filtres",
+  "trier": "Trier par",
+  "distance": "Distance",
+  "avis": "Avis",
+  "pertinence": "Pertinence",
+  "cancel": "Annuler",
+  "valider": "Valider"
 }

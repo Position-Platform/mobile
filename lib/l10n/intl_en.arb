@@ -89,5 +89,12 @@
   "settings": "My Settings",
   "infos": "My information",
   "or": "- OR -",
-  "signwith": "Sign in with"
+  "signwith": "Sign in with",
+  "filters": "Filters",
+  "trier": "Sort by",
+  "distance": "Distance",
+  "avis": "Notice",
+  "pertinence": "Relevance",
+  "cancel": "Cancel",
+  "valider": "Validate"
 }
