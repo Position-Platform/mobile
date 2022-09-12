@@ -32,9 +32,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I already have an account"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
         "askAccess": MessageLookupByLibrary.simpleMessage("Request access"),
+        "avis": MessageLookupByLibrary.simpleMessage("Notice"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
@@ -48,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "disabledAccount": MessageLookupByLibrary.simpleMessage(
             "Your account has been deactivated"),
+        "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "editEtablissement":
             MessageLookupByLibrary.simpleMessage("Edit a Company"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -58,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Please make sure you enable GPS"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Find my position"),
         "forgotPass":
@@ -103,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passError":
             MessageLookupByLibrary.simpleMessage("Different passwords"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pertinence": MessageLookupByLibrary.simpleMessage("Relevance"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registerFailed":
@@ -145,8 +150,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Showcase your skills, products and services online"),
         "title3": MessageLookupByLibrary.simpleMessage(
             "Find practical information and consult the calendar of events"),
+        "trier": MessageLookupByLibrary.simpleMessage("Sort by"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
+        "valider": MessageLookupByLibrary.simpleMessage("Validate"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }
