@@ -1,7 +1,7 @@
 ---
 name: "⚡Test"
 about: Test a feature
-title: 'Test :'
+title: "⚡ Test :"
 labels: test
 assignees: BorisGautier
 

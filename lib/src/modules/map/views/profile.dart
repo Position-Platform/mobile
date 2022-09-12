@@ -126,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onTap: () {
                 getIt<AuthBloc>().add(AuthLoggedOut());
 
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
@@ -137,6 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                     },
                   ),
+                  (Route<dynamic> route) => false,
                 );
               },
               child: Container(
