@@ -153,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "trier": MessageLookupByLibrary.simpleMessage("Sort by"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
-        "valider": MessageLookupByLibrary.simpleMessage("Validate"),
+        "valider": MessageLookupByLibrary.simpleMessage("Apply"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }

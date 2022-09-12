@@ -1010,10 +1010,10 @@ class S {
     );
   }
 
-  /// `Validate`
+  /// `Apply`
   String get valider {
     return Intl.message(
-      'Validate',
+      'Apply',
       name: 'valider',
       desc: '',
       args: [],
