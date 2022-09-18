@@ -9,7 +9,6 @@ import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/bloc/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcard.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
@@ -91,7 +90,6 @@ class _MapPageState extends State<MapPage> {
                           delegate: CustomSearchDelegate(
                               hintText: S.of(context).hintSearch));
                     }),
-                    etablissementCard(),
                     const SizedBox(
                       height: 5,
                     ),

@@ -79,7 +79,7 @@ Widget etablissementCard() {
                             },
                           ),
                           const SizedBox(
-                            width: 20,
+                            width: 70,
                           ),
                           const Text(
                             "Environ 1,2km",
