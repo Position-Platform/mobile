@@ -56,8 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "editEtablissement":
             MessageLookupByLibrary.simpleMessage("Modifier une entreprise"),
         "email": MessageLookupByLibrary.simpleMessage("Adresse Mail"),
-        "emailNoSend":
-            MessageLookupByLibrary.simpleMessage("Erreur de mail. Reesayez!!!"),
+        "emailNoSend": MessageLookupByLibrary.simpleMessage(
+            "Erreur de mail. Reessayez!!!"),
         "emailSend": MessageLookupByLibrary.simpleMessage(
             "Un mail de reinitialisation vous a été envoyé"),
         "enableGps": MessageLookupByLibrary.simpleMessage(
@@ -164,7 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "title3": MessageLookupByLibrary.simpleMessage(
             "Trouver les infos pratiques et consulter l’agenda des manifestations"),
         "trier": MessageLookupByLibrary.simpleMessage("Trier par"),
-        "tryAgain": MessageLookupByLibrary.simpleMessage("Reesayez"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("Reessayez"),
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
         "valider": MessageLookupByLibrary.simpleMessage("Appliquer"),
         "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
