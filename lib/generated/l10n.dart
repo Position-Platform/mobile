@@ -1019,6 +1019,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Contact`
+  String get contacter {
+    return Intl.message(
+      'Contact',
+      name: 'contacter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Routing`
+  String get routing {
+    return Intl.message(
+      'Routing',
+      name: 'routing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

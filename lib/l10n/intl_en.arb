@@ -96,5 +96,9 @@
   "avis": "Notice",
   "pertinence": "Relevance",
   "cancel": "Cancel",
-  "valider": "Apply"
+  "valider": "Apply",
+  "contacter": "Contact",
+  "routing": "Routing",
+  "share": "Share",
+  "save": "Save"
 }
