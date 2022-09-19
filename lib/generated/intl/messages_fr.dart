@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "confidentialite":
             MessageLookupByLibrary.simpleMessage("Confidentialité"),
         "connexion": MessageLookupByLibrary.simpleMessage("Connexion"),
+        "contacter": MessageLookupByLibrary.simpleMessage("Contacter"),
         "cpassword":
             MessageLookupByLibrary.simpleMessage("Confirmer le Mot de Passe"),
         "createAccount":
@@ -127,6 +128,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Création du compte..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Reinitialiser le Mot de Passe"),
+        "routing": MessageLookupByLibrary.simpleMessage("Itinéraire"),
+        "save": MessageLookupByLibrary.simpleMessage("Enregistrer"),
         "savedplaces":
             MessageLookupByLibrary.simpleMessage("Mes Lieux enregistrés"),
         "search": MessageLookupByLibrary.simpleMessage(
@@ -140,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "serverError":
             MessageLookupByLibrary.simpleMessage("Une erreur est survenue"),
         "settings": MessageLookupByLibrary.simpleMessage("Mes Paramètres"),
+        "share": MessageLookupByLibrary.simpleMessage("Partager"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
             "J\'utilise l\'application Position pour me guider. Suivez ma position sur la carte"),
         "shareMyPosition":
