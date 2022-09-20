@@ -100,5 +100,12 @@
   "contacter": "Contacter",
   "routing": "Itinéraire",
   "share": "Partager",
-  "save": "Enregistrer"
+  "save": "Enregistrer",
+  "newreview": "Rediger un avis",
+  "commodite": "Commodités",
+  "services": "Services et Prestations",
+  "opennow": "Ouvert Maintenant : ",
+  "presentation": "Présentation",
+  "showmorereviews": "Voir Plus D'avis",
+  "latestreview": "Les plus récents"
 }

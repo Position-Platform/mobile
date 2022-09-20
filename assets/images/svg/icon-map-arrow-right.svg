@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>D5570B7B-858C-4173-AE3A-B7BCBD61B41B</title>
+    <defs>
+        <path d="M-0.582507197,8.5874928 L3.2974928,4.7074928 L7.1774928,8.5874928 C7.5674928,8.9774928 8.1974928,8.9774928 8.5874928,8.5874928 C8.9774928,8.1974928 8.9774928,7.5674928 8.5874928,7.1774928 L3.9974928,2.5874928 C3.81066128,2.40024013 3.55701044,2.2950072 3.2924928,2.2950072 C3.02797516,2.2950072 2.77432433,2.40024013 2.5874928,2.5874928 L-2.0025072,7.1774928 C-2.3925072,7.5674928 -2.3925072,8.1974928 -2.0025072,8.5874928 C-1.6125072,8.9674928 -0.972507197,8.9774928 -0.582507197,8.5874928 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="user---6-fiche-établissement" transform="translate(-316.000000, -260.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="360" height="1330"></rect>
+            <g id="icon/see-more_24px" transform="translate(324.707507, 266.412500)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="icon/hardware/keyboard_arrow_up_24px" fill="#9E9E9E" fill-rule="nonzero" transform="translate(3.292493, 5.587500) scale(1, -1) rotate(90.000000) translate(-3.292493, -5.587500) " xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

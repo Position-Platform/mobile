@@ -32,12 +32,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I already have an account"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
         "askAccess": MessageLookupByLibrary.simpleMessage("Request access"),
-        "avis": MessageLookupByLibrary.simpleMessage("Notice"),
+        "avis": MessageLookupByLibrary.simpleMessage("Reviews"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
+        "commodite": MessageLookupByLibrary.simpleMessage("Amenities"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
         "confidentialite": MessageLookupByLibrary.simpleMessage("Privacy"),
@@ -86,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidMail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidPass": MessageLookupByLibrary.simpleMessage("Invalid Password"),
         "invalidPhone": MessageLookupByLibrary.simpleMessage("Invalid Phone"),
+        "latestreview": MessageLookupByLibrary.simpleMessage("The most recent"),
         "light": MessageLookupByLibrary.simpleMessage("Theme Light"),
         "loaded": MessageLookupByLibrary.simpleMessage("Loaded Buildings"),
         "loggin": MessageLookupByLibrary.simpleMessage("Connection..."),
@@ -97,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myAdress": MessageLookupByLibrary.simpleMessage("My Adress"),
         "myreviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "name": MessageLookupByLibrary.simpleMessage("Full name"),
+        "newreview": MessageLookupByLibrary.simpleMessage("Write a review"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noAccount": MessageLookupByLibrary.simpleMessage("No Account yet?  "),
         "noData": MessageLookupByLibrary.simpleMessage("No data found"),
@@ -104,12 +107,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "noLocation":
             MessageLookupByLibrary.simpleMessage("Cannot get current location"),
+        "opennow": MessageLookupByLibrary.simpleMessage("Open Now : "),
         "or": MessageLookupByLibrary.simpleMessage("- OR -"),
         "passError":
             MessageLookupByLibrary.simpleMessage("Different passwords"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pertinence": MessageLookupByLibrary.simpleMessage("Relevance"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "presentation": MessageLookupByLibrary.simpleMessage("Presentation"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registerFailed":
             MessageLookupByLibrary.simpleMessage("Account creation failed"),
@@ -130,6 +135,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Send a reset link"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("An error has occurred"),
+        "services":
+            MessageLookupByLibrary.simpleMessage("Services and Benefits"),
         "settings": MessageLookupByLibrary.simpleMessage("My Settings"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
@@ -139,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("see all categories"),
+        "showmorereviews":
+            MessageLookupByLibrary.simpleMessage("See More Reviews"),
         "signwith": MessageLookupByLibrary.simpleMessage("Sign in with"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),

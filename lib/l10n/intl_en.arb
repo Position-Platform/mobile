@@ -93,12 +93,19 @@
   "filters": "Filters",
   "trier": "Sort by",
   "distance": "Distance",
-  "avis": "Notice",
+  "avis": "Reviews",
   "pertinence": "Relevance",
   "cancel": "Cancel",
   "valider": "Apply",
   "contacter": "Contact",
   "routing": "Routing",
   "share": "Share",
-  "save": "Save"
+  "save": "Save",
+  "newreview": "Write a review",
+  "commodite": "Amenities",
+  "services": "Services and Benefits",
+  "opennow": "Open Now : ",
+  "presentation": "Presentation",
+  "showmorereviews": "See More Reviews",
+  "latestreview": "The most recent"
 }
