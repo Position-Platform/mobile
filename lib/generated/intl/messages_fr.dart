@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
+        "commodite": MessageLookupByLibrary.simpleMessage("Commodités"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),
         "confidentialite":
@@ -92,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mot de Passe Invalide"),
         "invalidPhone":
             MessageLookupByLibrary.simpleMessage("Téléphone Invalide"),
+        "latestreview":
+            MessageLookupByLibrary.simpleMessage("Les plus récents"),
         "light": MessageLookupByLibrary.simpleMessage("Theme Light"),
         "loaded": MessageLookupByLibrary.simpleMessage("Batiments Chargés"),
         "loggin": MessageLookupByLibrary.simpleMessage("Connexion..."),
@@ -104,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myAdress": MessageLookupByLibrary.simpleMessage("Mon Adresse"),
         "myreviews": MessageLookupByLibrary.simpleMessage("Mes avis"),
         "name": MessageLookupByLibrary.simpleMessage("Nom Complet"),
+        "newreview": MessageLookupByLibrary.simpleMessage("Rediger un avis"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("Pas encore de Compte?  "),
@@ -113,12 +117,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pas de connexion internet"),
         "noLocation": MessageLookupByLibrary.simpleMessage(
             "Impossible d\'obtenir l\'emplacement actuel"),
+        "opennow": MessageLookupByLibrary.simpleMessage("Ouvert Maintenant : "),
         "or": MessageLookupByLibrary.simpleMessage("- OU -"),
         "passError":
             MessageLookupByLibrary.simpleMessage("Mots de passes differents"),
         "password": MessageLookupByLibrary.simpleMessage("Mot de Passe"),
         "pertinence": MessageLookupByLibrary.simpleMessage("Pertinence"),
         "phone": MessageLookupByLibrary.simpleMessage("Numéro de Téléphone"),
+        "presentation": MessageLookupByLibrary.simpleMessage("Présentation"),
         "register": MessageLookupByLibrary.simpleMessage("Creer un compte"),
         "registerFailed":
             MessageLookupByLibrary.simpleMessage("Echec de création de compte"),
@@ -142,6 +148,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Envoyer un lien de reinitialisation"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("Une erreur est survenue"),
+        "services":
+            MessageLookupByLibrary.simpleMessage("Services et Prestations"),
         "settings": MessageLookupByLibrary.simpleMessage("Mes Paramètres"),
         "share": MessageLookupByLibrary.simpleMessage("Partager"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
@@ -152,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Partager La Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("voir toutes les catégories"),
+        "showmorereviews":
+            MessageLookupByLibrary.simpleMessage("Voir Plus D\'avis"),
         "signwith": MessageLookupByLibrary.simpleMessage("Se Connecter avec"),
         "skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "step": MessageLookupByLibrary.simpleMessage("Etape"),

@@ -980,10 +980,10 @@ class S {
     );
   }
 
-  /// `Notice`
+  /// `Reviews`
   String get avis {
     return Intl.message(
-      'Notice',
+      'Reviews',
       name: 'avis',
       desc: '',
       args: [],
@@ -1055,6 +1055,76 @@ class S {
     return Intl.message(
       'Save',
       name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a review`
+  String get newreview {
+    return Intl.message(
+      'Write a review',
+      name: 'newreview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amenities`
+  String get commodite {
+    return Intl.message(
+      'Amenities',
+      name: 'commodite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services and Benefits`
+  String get services {
+    return Intl.message(
+      'Services and Benefits',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Now : `
+  String get opennow {
+    return Intl.message(
+      'Open Now : ',
+      name: 'opennow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Presentation`
+  String get presentation {
+    return Intl.message(
+      'Presentation',
+      name: 'presentation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See More Reviews`
+  String get showmorereviews {
+    return Intl.message(
+      'See More Reviews',
+      name: 'showmorereviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The most recent`
+  String get latestreview {
+    return Intl.message(
+      'The most recent',
+      name: 'latestreview',
       desc: '',
       args: [],
     );
