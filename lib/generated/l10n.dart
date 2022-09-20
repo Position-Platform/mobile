@@ -949,6 +949,186 @@ class S {
       args: [],
     );
   }
+
+  /// `Filters`
+  String get filters {
+    return Intl.message(
+      'Filters',
+      name: 'filters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by`
+  String get trier {
+    return Intl.message(
+      'Sort by',
+      name: 'trier',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Distance`
+  String get distance {
+    return Intl.message(
+      'Distance',
+      name: 'distance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reviews`
+  String get avis {
+    return Intl.message(
+      'Reviews',
+      name: 'avis',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relevance`
+  String get pertinence {
+    return Intl.message(
+      'Relevance',
+      name: 'pertinence',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Apply`
+  String get valider {
+    return Intl.message(
+      'Apply',
+      name: 'valider',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact`
+  String get contacter {
+    return Intl.message(
+      'Contact',
+      name: 'contacter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Routing`
+  String get routing {
+    return Intl.message(
+      'Routing',
+      name: 'routing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a review`
+  String get newreview {
+    return Intl.message(
+      'Write a review',
+      name: 'newreview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amenities`
+  String get commodite {
+    return Intl.message(
+      'Amenities',
+      name: 'commodite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Services and Benefits`
+  String get services {
+    return Intl.message(
+      'Services and Benefits',
+      name: 'services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Now : `
+  String get opennow {
+    return Intl.message(
+      'Open Now : ',
+      name: 'opennow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Presentation`
+  String get presentation {
+    return Intl.message(
+      'Presentation',
+      name: 'presentation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See More Reviews`
+  String get showmorereviews {
+    return Intl.message(
+      'See More Reviews',
+      name: 'showmorereviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The most recent`
+  String get latestreview {
+    return Intl.message(
+      'The most recent',
+      name: 'latestreview',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

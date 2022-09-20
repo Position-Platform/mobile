@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>B3971C3F-B20D-4274-8A46-66021846C863</title>
+    <defs>
+        <path d="M9,0 C4.032,0 0,4.032 0,9 C0,13.968 4.032,18 9,18 C13.968,18 18,13.968 18,9 C18,4.032 13.968,0 9,0 Z M8.1,16.137 C4.545,15.696 1.8,12.672 1.8,9 C1.8,8.442 1.872,7.911 1.989,7.389 L6.3,11.7 L6.3,12.6 C6.3,13.59 7.11,14.4 8.1,14.4 L8.1,16.137 Z M14.31,13.851 C14.076,13.122 13.41,12.6 12.6,12.6 L11.7,12.6 L11.7,9.9 C11.7,9.405 11.295,9 10.8,9 L5.4,9 L5.4,7.2 L7.2,7.2 C7.695,7.2 8.1,6.795 8.1,6.3 L8.1,4.5 L9.9,4.5 C10.89,4.5 11.7,3.69 11.7,2.7 L11.7,2.331 C14.337,3.402 16.2,5.985 16.2,9 C16.2,10.872 15.48,12.573 14.31,13.851 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="user---6-fiche-établissement" transform="translate(-16.000000, -473.000000)">
+            <rect fill="#FFFFFF" x="0" y="0" width="360" height="1330"></rect>
+            <g id="icon-website" transform="translate(19.000000, 476.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="icon/social/publicon/social/24px" fill="#FBCC47" fill-rule="nonzero" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

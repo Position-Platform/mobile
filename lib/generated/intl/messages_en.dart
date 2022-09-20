@@ -32,14 +32,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("I already have an account"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
         "askAccess": MessageLookupByLibrary.simpleMessage("Request access"),
+        "avis": MessageLookupByLibrary.simpleMessage("Reviews"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
+        "commodite": MessageLookupByLibrary.simpleMessage("Amenities"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
         "confidentialite": MessageLookupByLibrary.simpleMessage("Privacy"),
         "connexion": MessageLookupByLibrary.simpleMessage("Login"),
+        "contacter": MessageLookupByLibrary.simpleMessage("Contact"),
         "cpassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "createAccount":
             MessageLookupByLibrary.simpleMessage("Create an account"),
@@ -48,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "disabledAccount": MessageLookupByLibrary.simpleMessage(
             "Your account has been deactivated"),
+        "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "editEtablissement":
             MessageLookupByLibrary.simpleMessage("Edit a Company"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -58,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Please make sure you enable GPS"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Find my position"),
         "forgotPass":
@@ -81,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "invalidMail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidPass": MessageLookupByLibrary.simpleMessage("Invalid Password"),
         "invalidPhone": MessageLookupByLibrary.simpleMessage("Invalid Phone"),
+        "latestreview": MessageLookupByLibrary.simpleMessage("The most recent"),
         "light": MessageLookupByLibrary.simpleMessage("Theme Light"),
         "loaded": MessageLookupByLibrary.simpleMessage("Loaded Buildings"),
         "loggin": MessageLookupByLibrary.simpleMessage("Connection..."),
@@ -92,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myAdress": MessageLookupByLibrary.simpleMessage("My Adress"),
         "myreviews": MessageLookupByLibrary.simpleMessage("My reviews"),
         "name": MessageLookupByLibrary.simpleMessage("Full name"),
+        "newreview": MessageLookupByLibrary.simpleMessage("Write a review"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "noAccount": MessageLookupByLibrary.simpleMessage("No Account yet?  "),
         "noData": MessageLookupByLibrary.simpleMessage("No data found"),
@@ -99,11 +107,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "noLocation":
             MessageLookupByLibrary.simpleMessage("Cannot get current location"),
+        "opennow": MessageLookupByLibrary.simpleMessage("Open Now : "),
         "or": MessageLookupByLibrary.simpleMessage("- OR -"),
         "passError":
             MessageLookupByLibrary.simpleMessage("Different passwords"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pertinence": MessageLookupByLibrary.simpleMessage("Relevance"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone Number"),
+        "presentation": MessageLookupByLibrary.simpleMessage("Presentation"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registerFailed":
             MessageLookupByLibrary.simpleMessage("Account creation failed"),
@@ -112,6 +123,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "registering":
             MessageLookupByLibrary.simpleMessage("Account creation..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "routing": MessageLookupByLibrary.simpleMessage("Routing"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "savedplaces": MessageLookupByLibrary.simpleMessage("My Saved Places"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for an establishment, a place..."),
@@ -122,7 +135,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Send a reset link"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("An error has occurred"),
+        "services":
+            MessageLookupByLibrary.simpleMessage("Services and Benefits"),
         "settings": MessageLookupByLibrary.simpleMessage("My Settings"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
             "I use the Position application to guide me. Follow my position on the map"),
         "shareMyPosition":
@@ -130,6 +146,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("see all categories"),
+        "showmorereviews":
+            MessageLookupByLibrary.simpleMessage("See More Reviews"),
         "signwith": MessageLookupByLibrary.simpleMessage("Sign in with"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),
@@ -145,8 +163,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Showcase your skills, products and services online"),
         "title3": MessageLookupByLibrary.simpleMessage(
             "Find practical information and consult the calendar of events"),
+        "trier": MessageLookupByLibrary.simpleMessage("Sort by"),
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
+        "valider": MessageLookupByLibrary.simpleMessage("Apply"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }

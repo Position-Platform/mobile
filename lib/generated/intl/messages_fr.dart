@@ -32,15 +32,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("J\'ai déja un compte"),
         "appname": MessageLookupByLibrary.simpleMessage("Position"),
         "askAccess": MessageLookupByLibrary.simpleMessage("Demandez l\'access"),
+        "avis": MessageLookupByLibrary.simpleMessage("Avis"),
         "back": MessageLookupByLibrary.simpleMessage("Retour"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
+        "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
+        "commodite": MessageLookupByLibrary.simpleMessage("Commodités"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),
         "confidentialite":
             MessageLookupByLibrary.simpleMessage("Confidentialité"),
         "connexion": MessageLookupByLibrary.simpleMessage("Connexion"),
+        "contacter": MessageLookupByLibrary.simpleMessage("Contacter"),
         "cpassword":
             MessageLookupByLibrary.simpleMessage("Confirmer le Mot de Passe"),
         "createAccount":
@@ -50,16 +54,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
         "disabledAccount": MessageLookupByLibrary.simpleMessage(
             "Votre compte a été désactivé"),
+        "distance": MessageLookupByLibrary.simpleMessage("Distance"),
         "editEtablissement":
             MessageLookupByLibrary.simpleMessage("Modifier une entreprise"),
         "email": MessageLookupByLibrary.simpleMessage("Adresse Mail"),
-        "emailNoSend":
-            MessageLookupByLibrary.simpleMessage("Erreur de mail. Reesayez!!!"),
+        "emailNoSend": MessageLookupByLibrary.simpleMessage(
+            "Erreur de mail. Reessayez!!!"),
         "emailSend": MessageLookupByLibrary.simpleMessage(
             "Un mail de reinitialisation vous a été envoyé"),
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Assurez-vous d\'activer le GPS."),
         "english": MessageLookupByLibrary.simpleMessage("Anglais"),
+        "filters": MessageLookupByLibrary.simpleMessage("Filtres"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Trouvez ma Position"),
         "forgotPass":
@@ -87,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mot de Passe Invalide"),
         "invalidPhone":
             MessageLookupByLibrary.simpleMessage("Téléphone Invalide"),
+        "latestreview":
+            MessageLookupByLibrary.simpleMessage("Les plus récents"),
         "light": MessageLookupByLibrary.simpleMessage("Theme Light"),
         "loaded": MessageLookupByLibrary.simpleMessage("Batiments Chargés"),
         "loggin": MessageLookupByLibrary.simpleMessage("Connexion..."),
@@ -99,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "myAdress": MessageLookupByLibrary.simpleMessage("Mon Adresse"),
         "myreviews": MessageLookupByLibrary.simpleMessage("Mes avis"),
         "name": MessageLookupByLibrary.simpleMessage("Nom Complet"),
+        "newreview": MessageLookupByLibrary.simpleMessage("Rediger un avis"),
         "next": MessageLookupByLibrary.simpleMessage("Suivant"),
         "noAccount":
             MessageLookupByLibrary.simpleMessage("Pas encore de Compte?  "),
@@ -108,11 +117,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pas de connexion internet"),
         "noLocation": MessageLookupByLibrary.simpleMessage(
             "Impossible d\'obtenir l\'emplacement actuel"),
+        "opennow": MessageLookupByLibrary.simpleMessage("Ouvert Maintenant : "),
         "or": MessageLookupByLibrary.simpleMessage("- OU -"),
         "passError":
             MessageLookupByLibrary.simpleMessage("Mots de passes differents"),
         "password": MessageLookupByLibrary.simpleMessage("Mot de Passe"),
+        "pertinence": MessageLookupByLibrary.simpleMessage("Pertinence"),
         "phone": MessageLookupByLibrary.simpleMessage("Numéro de Téléphone"),
+        "presentation": MessageLookupByLibrary.simpleMessage("Présentation"),
         "register": MessageLookupByLibrary.simpleMessage("Creer un compte"),
         "registerFailed":
             MessageLookupByLibrary.simpleMessage("Echec de création de compte"),
@@ -122,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Création du compte..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Reinitialiser le Mot de Passe"),
+        "routing": MessageLookupByLibrary.simpleMessage("Itinéraire"),
+        "save": MessageLookupByLibrary.simpleMessage("Enregistrer"),
         "savedplaces":
             MessageLookupByLibrary.simpleMessage("Mes Lieux enregistrés"),
         "search": MessageLookupByLibrary.simpleMessage(
@@ -134,7 +148,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Envoyer un lien de reinitialisation"),
         "serverError":
             MessageLookupByLibrary.simpleMessage("Une erreur est survenue"),
+        "services":
+            MessageLookupByLibrary.simpleMessage("Services et Prestations"),
         "settings": MessageLookupByLibrary.simpleMessage("Mes Paramètres"),
+        "share": MessageLookupByLibrary.simpleMessage("Partager"),
         "shareContent": MessageLookupByLibrary.simpleMessage(
             "J\'utilise l\'application Position pour me guider. Suivez ma position sur la carte"),
         "shareMyPosition":
@@ -143,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Partager La Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("voir toutes les catégories"),
+        "showmorereviews":
+            MessageLookupByLibrary.simpleMessage("Voir Plus D\'avis"),
         "signwith": MessageLookupByLibrary.simpleMessage("Se Connecter avec"),
         "skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "step": MessageLookupByLibrary.simpleMessage("Etape"),
@@ -158,8 +177,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Exposer ses compétences, ses produits et services en ligne"),
         "title3": MessageLookupByLibrary.simpleMessage(
             "Trouver les infos pratiques et consulter l’agenda des manifestations"),
-        "tryAgain": MessageLookupByLibrary.simpleMessage("Reesayez"),
+        "trier": MessageLookupByLibrary.simpleMessage("Trier par"),
+        "tryAgain": MessageLookupByLibrary.simpleMessage("Reessayez"),
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
+        "valider": MessageLookupByLibrary.simpleMessage("Appliquer"),
         "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
       };
 }
