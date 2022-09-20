@@ -53,7 +53,9 @@ abstract class ApiService extends ChopperService {
   Future<Response> getcategoriesbyid(@Path('id') int idCategorie);
 
   @Get(path: '/api/search/categories', headers: {'Accept': 'application/json'})
-  Future<Response> searchcategories(@Query('q') String query);
+  Future<Response> searchcategories(
+    @Query('q') String query,
+  );
 
   @Put(path: '/api/categories/{id}', headers: {'Accept': 'application/json'})
   Future<Response> updatecategoriebyid(@Header('Authorization') String token,
@@ -63,4 +65,47 @@ abstract class ApiService extends ChopperService {
   @Post(path: '/api/tracking', headers: {'Accept': 'application/json'})
   Future<Response> addtracking(
       @Header('Authorization') String token, @Body() Map<String, dynamic> body);
+
+  //Etablissements
+  @Get(path: '/api/etablissements', headers: {'Accept': 'application/json'})
+  Future<Response> getetablissements();
+
+  @Get(
+      path: '/api/etablissements/{id}', headers: {'Accept': 'application/json'})
+  Future<Response> getetablissementbyid(@Path('id') int idEtablissement,
+      {@Query('user_id') int? idUser});
+
+  @Get(
+      path: '/api/search/etablissements',
+      headers: {'Accept': 'application/json'})
+  Future<Response> searchetablissements(@Query('q') String query,
+      {@Query('user_id') int? idUser});
+
+  @Put(
+      path: '/api/etablissements/{id}', headers: {'Accept': 'application/json'})
+  Future<Response> updateetablissementbyid(
+      @Header('Authorization') String token,
+      @Path('id') int idEtablissement,
+      @Body() Map<String, dynamic> body);
+
+  @Delete(
+      path: '/api/etablissements/{id}', headers: {'Accept': 'application/json'})
+  Future<Response> deleteetablissementbyid(
+      @Header('Authorization') String token, @Path('id') int idEtablissement);
+
+  @Post(path: '/api/favoris/add', headers: {'Accept': 'application/json'})
+  Future<Response> addfavoris(
+      @Header('Authorization') String token, @Body() Map<String, dynamic> body);
+
+  @Post(path: '/api/favoris/remove', headers: {'Accept': 'application/json'})
+  Future<Response> removefavoris(
+      @Header('Authorization') String token, @Body() Map<String, dynamic> body);
+
+  @Get(
+      path: '/api/search/etablissements/filter',
+      headers: {'Accept': 'application/json'})
+  Future<Response> searchetablissementsbyfilters(
+      @Query('id_categorie') int idCategorie,
+      {@Query('idCommodites') String? idCommodites,
+      @Query('user_id') int? idUser});
 }

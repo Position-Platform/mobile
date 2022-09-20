@@ -18,6 +18,10 @@ import 'package:position/src/modules/map/submodules/categories/api/categoriesApi
 import 'package:position/src/modules/map/submodules/categories/api/categoriesApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepositoryImpl.dart';
+import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
+import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiServiceFactory.dart';
+import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepositoryImpl.dart';
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiService.dart';
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
@@ -49,6 +53,9 @@ Future<void> init() async {
   getIt.registerLazySingleton<TrackingApiService>(
       () => TrackingApiServiceFactory(apiService));
 
+  getIt.registerLazySingleton<EtablissementApiService>(
+      () => EtablissementApiServiceFactory(apiService));
+
   //Repository
   getIt.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
@@ -69,6 +76,14 @@ Future<void> init() async {
   getIt.registerFactory<TrackingRepository>(
     () => TrackingRepositoryImpl(
       trackingApiService: getIt(),
+      networkInfoHelper: getIt(),
+      sharedPreferencesHelper: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<EtablissementRepository>(
+    () => EtablissementRepositoryImpl(
+      etablissementApiService: getIt(),
       networkInfoHelper: getIt(),
       sharedPreferencesHelper: getIt(),
     ),

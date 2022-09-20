@@ -182,4 +182,118 @@ class _$ApiService extends ApiService {
         Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
     return client.send<dynamic, dynamic>($request);
   }
+
+  @override
+  Future<Response<dynamic>> getetablissements() {
+    final $url = 'http://10.0.2.2:8000/api/etablissements';
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> getetablissementbyid(int idEtablissement,
+      {int? idUser}) {
+    final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
+    final $params = <String, dynamic>{'user_id': idUser};
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> searchetablissements(String query, {int? idUser}) {
+    final $url = 'http://10.0.2.2:8000/api/search/etablissements';
+    final $params = <String, dynamic>{'q': query, 'user_id': idUser};
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> updateetablissementbyid(
+      String token, int idEtablissement, Map<String, dynamic> body) {
+    final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('PUT', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> deleteetablissementbyid(
+      String token, int idEtablissement) {
+    final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('DELETE', $url, client.baseUrl, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> addfavoris(
+      String token, Map<String, dynamic> body) {
+    final $url = 'http://10.0.2.2:8000/api/favoris/add';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> removefavoris(
+      String token, Map<String, dynamic> body) {
+    final $url = 'http://10.0.2.2:8000/api/favoris/remove';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $body = body;
+    final $request =
+        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> searchetablissementsbyfilters(int idCategorie,
+      {String? idCommodites, int? idUser}) {
+    final $url = 'http://10.0.2.2:8000/api/search/etablissements/filter';
+    final $params = <String, dynamic>{
+      'id_categorie': idCategorie,
+      'idCommodites': idCommodites,
+      'user_id': idUser
+    };
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl,
+        parameters: $params, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
 }
