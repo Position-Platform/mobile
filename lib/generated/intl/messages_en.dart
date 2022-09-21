@@ -128,6 +128,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "savedplaces": MessageLookupByLibrary.simpleMessage("My Saved Places"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for an establishment, a place..."),
+        "searcherror": MessageLookupByLibrary.simpleMessage("Load error"),
+        "searchnotfound":
+            MessageLookupByLibrary.simpleMessage("No results found"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select a language"),
         "selectLayer": MessageLookupByLibrary.simpleMessage("Select Layer"),

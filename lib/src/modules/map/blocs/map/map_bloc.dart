@@ -1,11 +1,15 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
@@ -36,6 +40,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<GetUserLocationEvent>(_getUserLocation);
     on<GetCategories>(_getCategories);
     on<CategorieClick>(_selectCategorie);
+    on<ShowSearchInMap>(_showSearchInMap);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -79,6 +84,32 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     } catch (e) {
       emit(CategoriesError());
     }
+  }
+
+  _showSearchInMap(ShowSearchInMap event, Emitter<MapState> emit) async {
+    if (_mapController!.symbols.isNotEmpty) {
+      _mapController?.clearSymbols();
+    }
+
+    if (!event.searchModel!.logomap!.contains("http")) {
+      var response =
+          await http.get(Uri.parse(apiUrl + event.searchModel!.logomap!));
+      _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+    } else {
+      var response = await http.get(Uri.parse(event.searchModel!.logomap!));
+      _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+    }
+    _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(double.parse(event.searchModel!.latitude!),
+            double.parse(event.searchModel!.longitude!)),
+        zoom: initMapZoom)));
+    _mapController?.addSymbol(
+      SymbolOptions(
+          geometry: LatLng(double.parse(event.searchModel!.latitude!),
+              double.parse(event.searchModel!.longitude!)),
+          iconImage: event.searchModel!.name!,
+          iconSize: event.searchModel!.type! == "nominatim" ? 2.5 : 4),
+    );
   }
 
   @override

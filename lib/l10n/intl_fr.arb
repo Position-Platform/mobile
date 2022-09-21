@@ -107,5 +107,7 @@
   "opennow": "Ouvert Maintenant : ",
   "presentation": "Présentation",
   "showmorereviews": "Voir Plus D'avis",
-  "latestreview": "Les plus récents"
+  "latestreview": "Les plus récents",
+  "searcherror": "Erreur de Chargement",
+  "searchnotfound": "Aucun resultat trouvé"
 }

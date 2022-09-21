@@ -1,9 +1,13 @@
+// ignore_for_file: null_check_always_fails
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
+import 'package:position/src/modules/map/views/profile.dart';
 import 'package:position/src/modules/map/widgets/searchItem.dart';
 import 'package:position/src/widgets/loading.dart';
 
@@ -34,12 +38,24 @@ class CustomSearchDelegate extends SearchDelegate {
       const VerticalDivider(
         color: grey3,
       ),
-      Container(
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(right: 10),
-        height: 20,
-        width: 40,
-        child: SvgPicture.asset("assets/images/svg/icon-perm_identity.svg"),
+      InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return ProfilePage(user: user);
+              },
+            ),
+          );
+        },
+        child: Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(right: 10),
+          height: 20,
+          width: 40,
+          child: SvgPicture.asset("assets/images/svg/icon-perm_identity.svg"),
+        ),
       ),
     ];
   }
@@ -70,25 +86,24 @@ class CustomSearchDelegate extends SearchDelegate {
           );
         }
         if (state is SearchError) {
-          if (query.isEmpty) {
-            return const Center(
-              child: Text('Aucune entrée'),
-            );
-          }
-          return const Center(
-            child: Text('Failed To Load'),
+          return Center(
+            child: Text(S.of(context).searcherror),
           );
         }
         if (state is SearchLoaded) {
           if (state.searchresult!.isEmpty) {
-            return const Center(
-              child: Text('No Results Found'),
+            return Center(
+              child: Text(S.of(context).searchnotfound),
             );
           }
           return ListView.builder(
             itemCount: state.searchresult!.length,
             itemBuilder: (context, index) {
-              return searchItem(state.searchresult![index]);
+              return InkWell(
+                  onTap: () {
+                    close(context, state.searchresult![index]);
+                  },
+                  child: searchItem(state.searchresult![index]));
             },
           );
         }

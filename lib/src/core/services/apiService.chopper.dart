@@ -196,7 +196,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getetablissementbyid(
-      int idEtablissement, int? idUser) {
+      int idEtablissement, int idUser) {
     final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
     final $params = <String, dynamic>{'user_id': idUser};
     final $headers = {
@@ -209,7 +209,7 @@ class _$ApiService extends ApiService {
   }
 
   @override
-  Future<Response<dynamic>> searchetablissements(String query, int? idUser) {
+  Future<Response<dynamic>> searchetablissements(String query, int idUser) {
     final $url = 'http://10.0.2.2:8000/api/search/etablissements';
     final $params = <String, dynamic>{'q': query, 'user_id': idUser};
     final $headers = {
@@ -281,7 +281,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> searchetablissementsbyfilters(
-      int idCategorie, String? idCommodites, int? idUser) {
+      int idCategorie, String? idCommodites, int idUser) {
     final $url = 'http://10.0.2.2:8000/api/search/etablissements/filter';
     final $params = <String, dynamic>{
       'id_categorie': idCategorie,

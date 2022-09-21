@@ -63,7 +63,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             latitude: nominatimModel.features![i].geometry!.coordinates![1]
                 .toString(),
             logo: nominatimModel.features![i].properties!.icon ??
-                "$apiUrl/images/icon-icon-position-pin.png")
+                "$apiUrl/images/icon-icon-position-pin.png",
+            logomap: "$apiUrl/images/icon-icon-position-pin.png")
     ];
   }
 
@@ -85,7 +86,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 etablissementsModel
                     .data!.etablissements![i].sousCategories![0].logourl ??
                 etablissementsModel.data!.etablissements![i].sousCategories![0]
-                    .category!.logourl)
+                    .category!.logourl,
+            logomap: etablissementsModel.data!.etablissements![i].logoMap ??
+                etablissementsModel
+                    .data!.etablissements![i].sousCategories![0].logourlmap ??
+                etablissementsModel.data!.etablissements![i].sousCategories![0]
+                    .category!.logourlmap)
     ];
   }
 
@@ -97,7 +103,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             details: "categorie",
             type: "categorie",
             id: categoriesModel.data!.categories![i].id.toString(),
-            logo: apiUrl + categoriesModel.data!.categories![i].logourl!)
+            logo: apiUrl + categoriesModel.data!.categories![i].logourl!,
+            logomap: apiUrl + categoriesModel.data!.categories![i].logourlmap!)
     ];
   }
 }

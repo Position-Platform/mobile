@@ -140,6 +140,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mes Lieux enregistrés"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Rechercher un établissement, un lieu..."),
+        "searcherror":
+            MessageLookupByLibrary.simpleMessage("Erreur de Chargement"),
+        "searchnotfound":
+            MessageLookupByLibrary.simpleMessage("Aucun resultat trouvé"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Selectionnez une langue"),
         "selectLayer":

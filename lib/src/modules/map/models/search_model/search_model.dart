@@ -8,6 +8,7 @@ class SearchModel {
   String? id;
   String? type;
   String? logo;
+  String? logomap;
   String? details;
   String? longitude;
   String? latitude;
@@ -17,6 +18,7 @@ class SearchModel {
     this.id,
     this.type,
     this.logo,
+    this.logomap,
     this.details,
     this.longitude,
     this.latitude,
@@ -24,7 +26,7 @@ class SearchModel {
 
   @override
   String toString() {
-    return 'SearchModel(name: $name, id: $id, type: $type, logo: $logo, details: $details, longitude: $longitude, latitude: $latitude)';
+    return 'SearchModel(name: $name, id: $id, type: $type, logo: $logo, logomap:$logomap, details: $details, longitude: $longitude, latitude: $latitude)';
   }
 
   factory SearchModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class SearchModel {
     String? id,
     String? type,
     String? logo,
+    String? logomap,
     String? details,
     String? longitude,
     String? latitude,
@@ -47,6 +50,7 @@ class SearchModel {
       id: id ?? this.id,
       type: type ?? this.type,
       logo: logo ?? this.logo,
+      logomap: logomap ?? logomap,
       details: details ?? this.details,
       longitude: longitude ?? this.longitude,
       latitude: latitude ?? this.latitude,
