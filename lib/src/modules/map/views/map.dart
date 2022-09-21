@@ -7,7 +7,8 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
-import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
@@ -34,6 +35,7 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     _mapBloc = BlocProvider.of<MapBloc>(context);
+
     _mapBloc?.add(GetCategories());
   }
 
@@ -88,7 +90,9 @@ class _MapPageState extends State<MapPage> {
                       showSearch(
                           context: context,
                           delegate: CustomSearchDelegate(
-                              hintText: S.of(context).hintSearch));
+                              hintText: S.of(context).hintSearch,
+                              searchBloc: BlocProvider.of<SearchBloc>(context),
+                              user: widget.user));
                     }),
                     const SizedBox(
                       height: 5,

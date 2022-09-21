@@ -10,11 +10,10 @@ import 'package:position/src/modules/map/submodules/etablissements/models/favori
 abstract class EtablissementRepository {
   Future<Result<EtablissementsModel>> getalletablissements();
 
-  Future<Result<EtablissementModel>> getetablissementbyid(int id,
-      {int? idUser});
+  Future<Result<EtablissementModel>> getetablissementbyid(int id, int idUser);
 
-  Future<Result<EtablissementsModel>> searchetablissements(String query,
-      {int? idUser});
+  Future<Result<EtablissementsModel>> searchetablissements(
+      String query, int idUser);
 
   Future<Result<EtablissementModel>> updateetablissementbyid(
       int id, Etablissement etablissement);
@@ -26,7 +25,8 @@ abstract class EtablissementRepository {
   Future<Result<FavoriteModel>> removefavorite(int idEtablissement);
 
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-      int idCategorie,
-      {String? idCommodites,
-      int? idUser});
+    int idCategorie,
+    int idUser,
+    String? idCommodites,
+  );
 }

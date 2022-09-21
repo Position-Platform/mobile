@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/widgets/chips.dart';
 import 'package:position/src/modules/map/widgets/expanded.dart';

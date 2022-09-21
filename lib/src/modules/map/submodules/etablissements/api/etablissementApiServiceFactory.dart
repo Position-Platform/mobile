@@ -50,11 +50,11 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
   }
 
   @override
-  Future<Response> getEtablissementById(int id, {int? idUser}) async {
+  Future<Response> getEtablissementById(int id, int idUser) async {
     Response response;
 
     try {
-      response = await apiService!.getetablissementbyid(id, idUser: idUser!);
+      response = await apiService!.getetablissementbyid(id, idUser);
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;
@@ -77,11 +77,11 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
   }
 
   @override
-  Future<Response> searchEtablissement(String query, {int? idUser}) async {
+  Future<Response> searchEtablissement(String query, int idUser) async {
     Response response;
 
     try {
-      response = await apiService!.searchetablissements(query, idUser: idUser!);
+      response = await apiService!.searchetablissements(query, idUser);
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;
@@ -90,13 +90,16 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
   }
 
   @override
-  Future<Response> searchEtablissementByFilter(int idCategorie,
-      {String? idCommodites, int? idUser}) async {
+  Future<Response> searchEtablissementByFilter(
+      int idCategorie, int idUser, String? idCommodites) async {
     Response response;
 
     try {
-      response = await apiService!.searchetablissementsbyfilters(idCategorie,
-          idCommodites: idCommodites, idUser: idUser);
+      response = await apiService!.searchetablissementsbyfilters(
+        idCategorie,
+        idCommodites,
+        idUser,
+      );
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;

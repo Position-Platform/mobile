@@ -4,6 +4,7 @@ import 'package:position/src/core/app/bloc/app_bloc.dart';
 import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/services/apiService.dart';
+import 'package:position/src/core/services/nominatimService.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/auth/api/authApiService.dart';
 import 'package:position/src/modules/auth/api/authApiServiceFactory.dart';
@@ -13,7 +14,8 @@ import 'package:position/src/modules/auth/blocs/register/register_bloc.dart';
 import 'package:position/src/modules/auth/repositories/authRepository.dart';
 import 'package:position/src/modules/auth/repositories/authRepositoryImpl.dart';
 import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
-import 'package:position/src/modules/map/bloc/map_bloc.dart';
+import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/api/categoriesApiService.dart';
 import 'package:position/src/modules/map/submodules/categories/api/categoriesApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
@@ -22,6 +24,10 @@ import 'package:position/src/modules/map/submodules/etablissements/api/etablisse
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepositoryImpl.dart';
+import 'package:position/src/modules/map/submodules/nominatim/api/nominatimApiService.dart';
+import 'package:position/src/modules/map/submodules/nominatim/api/nominatimApiServiceFactory.dart';
+import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
+import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepositoryImpl.dart';
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiService.dart';
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
@@ -31,12 +37,14 @@ final GetIt getIt = GetIt.instance;
 
 Future<void> init() async {
   final chopper = ChopperClient(services: [
-    ApiService.create()
+    ApiService.create(),
+    NominatimService.create()
   ], interceptors: [
     const HeadersInterceptor({'X-Authorization': apiKey})
   ], converter: const JsonConverter(), errorConverter: const JsonConverter());
 
   final apiService = ApiService.create(chopper);
+  final nominatimService = NominatimService.create(chopper);
 
   //Utils
   getIt.registerLazySingleton<NetworkInfoHelper>(() => NetworkInfoHelper());
@@ -55,6 +63,9 @@ Future<void> init() async {
 
   getIt.registerLazySingleton<EtablissementApiService>(
       () => EtablissementApiServiceFactory(apiService));
+
+  getIt.registerLazySingleton<NominatimApiService>(
+      () => NominatimApiServiceFactory(nominatimService));
 
   //Repository
   getIt.registerFactory<AuthRepository>(
@@ -89,6 +100,13 @@ Future<void> init() async {
     ),
   );
 
+  getIt.registerFactory<NominatimRepository>(
+    () => NominatimRepositoryImpl(
+      nominatimApiService: getIt(),
+      networkInfoHelper: getIt(),
+    ),
+  );
+
   //Bloc
   getIt.registerFactory<AppBloc>(() => AppBloc());
   getIt.registerFactory<GpsBloc>(() => GpsBloc());
@@ -102,4 +120,8 @@ Future<void> init() async {
       categoriesRepository: getIt(),
       sharedPreferencesHelper: getIt(),
       trackingRepository: getIt()));
+  getIt.registerFactory<SearchBloc>(() => SearchBloc(
+      categoriesRepository: getIt(),
+      etablissementRepository: getIt(),
+      nominatimRepository: getIt()));
 }
