@@ -76,7 +76,9 @@ class _MapPageState extends State<MapPage> {
             isMarkerAdded = false;
           }
           if (state is SymboleClicked) {
-            expandablesheet.currentState!.expand();
+            if (searchModel!.type == "etablissement") {
+              expandablesheet.currentState!.expand();
+            }
           }
         },
         child: BlocBuilder<MapBloc, MapState>(
@@ -85,7 +87,9 @@ class _MapPageState extends State<MapPage> {
               key: expandablesheet,
               enableToggle: true,
               expandableContent:
-                  isMarkerAdded ? const EtablissementPage() : const SizedBox(),
+                  isMarkerAdded && searchModel!.type == "etablissement"
+                      ? etablissementPage(context, searchModel!)
+                      : const SizedBox(),
               persistentHeader: isMarkerAdded
                   ? placeBottomSheet(context, searchModel!)
                   : const SizedBox(),
