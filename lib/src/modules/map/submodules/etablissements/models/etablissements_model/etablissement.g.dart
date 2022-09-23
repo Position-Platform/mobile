@@ -37,7 +37,7 @@ Etablissement _$EtablissementFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['updated_at'] as String),
       isFavoris: json['isFavoris'] as bool?,
-      moyenne: json['moyenne'] as int?,
+      moyenne: json['moyenne'],
       avis: json['avis'] as int?,
       count: (json['count'] as List<dynamic>?)
           ?.map((e) => Count.fromJson(e as Map<String, dynamic>))

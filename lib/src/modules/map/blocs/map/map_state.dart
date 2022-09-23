@@ -24,3 +24,19 @@ class CategoriesLoaded extends MapState {
   @override
   String toString() => 'CategoriesLoaded { Categories: $categories }';
 }
+
+class SymboledAdded extends MapState {
+  final SearchModel? searchresult;
+
+  const SymboledAdded(this.searchresult);
+
+  @override
+  List<Object> get props => [searchresult!];
+
+  @override
+  String toString() => 'SymboledAdded { Search Result: $searchresult }';
+}
+
+class SymboleClicked extends MapState {}
+
+class SymboleRemoved extends MapState {}

@@ -1129,6 +1129,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Load error`
+  String get searcherror {
+    return Intl.message(
+      'Load error',
+      name: 'searcherror',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No results found`
+  String get searchnotfound {
+    return Intl.message(
+      'No results found',
+      name: 'searchnotfound',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

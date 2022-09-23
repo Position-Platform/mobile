@@ -3,8 +3,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/sizes.dart';
+import 'package:position/src/modules/map/models/search_model/search_model.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/count.dart';
 
-Widget etablissementReview(String label, String labelavis, String labelreview) {
+Widget etablissementReview(String label, String labelavis, String labelreview,
+    SearchModel searchModel, double avis) {
   return Container(
     margin: const EdgeInsets.only(left: 20, right: 60),
     child: Column(
@@ -13,127 +16,23 @@ Widget etablissementReview(String label, String labelavis, String labelreview) {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
-              children: [
-                Row(
-                  children: const [
-                    Text(
-                      "5",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 160,
-                      height: 5,
-                      child: LinearProgressIndicator(
-                        value: 0.5,
-                        color: accentColor,
-                        backgroundColor: grey2,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      "4",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 160,
-                      height: 5,
-                      child: LinearProgressIndicator(
-                        value: 0.4,
-                        color: accentColor,
-                        backgroundColor: grey2,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      "3",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 160,
-                      height: 5,
-                      child: LinearProgressIndicator(
-                        value: 0.6,
-                        color: accentColor,
-                        backgroundColor: grey2,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      "2",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 160,
-                      height: 5,
-                      child: LinearProgressIndicator(
-                        value: 0.3,
-                        color: accentColor,
-                        backgroundColor: grey2,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Text(
-                      "1",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 160,
-                      height: 5,
-                      child: LinearProgressIndicator(
-                        value: 0.7,
-                        color: accentColor,
-                        backgroundColor: grey2,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              children: buildRatings(searchModel.etablissement!.count!, avis),
             ),
             Column(
               children: [
-                const Text(
-                  "3,9",
-                  style: TextStyle(fontFamily: "OpenSans-Bold", fontSize: 16),
+                Text(
+                  searchModel.etablissement!.moyenne.toString(),
+                  style: const TextStyle(
+                      fontFamily: "OpenSans-Bold", fontSize: 16),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
                 RatingBar.builder(
                   itemSize: 14,
-                  initialRating: 3.9,
-                  minRating: 1,
+                  initialRating: double.parse(
+                      searchModel.etablissement!.moyenne.toString()),
+                  minRating: 0,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
@@ -151,9 +50,10 @@ Widget etablissementReview(String label, String labelavis, String labelreview) {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "212 ",
-                      style: TextStyle(fontFamily: "OpenSans", fontSize: 14),
+                    Text(
+                      "${searchModel.etablissement!.avis!} ",
+                      style:
+                          const TextStyle(fontFamily: "OpenSans", fontSize: 14),
                     ),
                     Text(
                       labelavis,
@@ -223,4 +123,32 @@ Widget etablissementReview(String label, String labelavis, String labelreview) {
       ],
     ),
   );
+}
+
+List<Widget> buildRatings(List<Count> counts, double avis) {
+  List<Widget> items = [];
+  for (var i = 0; i < counts.length; i++) {
+    Widget item = Row(
+      children: [
+        Text(
+          counts[i].rating.toString(),
+          style: const TextStyle(fontFamily: "OpenSans", color: greyColor),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        SizedBox(
+          width: 160,
+          height: 5,
+          child: LinearProgressIndicator(
+            value: double.parse(counts[i].count.toString()) / avis,
+            color: accentColor,
+            backgroundColor: grey2,
+          ),
+        ),
+      ],
+    );
+    items.add(item);
+  }
+  return items;
 }

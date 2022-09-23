@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'category.dart';
 
 part 'sous_category.g.dart';
 
@@ -16,6 +17,8 @@ class SousCategory {
   DateTime? createdAt;
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
+  @JsonKey(name: 'categorie')
+  Category? category;
 
   SousCategory({
     this.id,
@@ -26,11 +29,12 @@ class SousCategory {
     this.deletedAt,
     this.createdAt,
     this.updatedAt,
+    this.category,
   });
 
   @override
   String toString() {
-    return 'SousCategory(id: $id, nom: $nom, categorieId: $categorieId, logourl: $logourl, logourlmap: $logourlmap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'SousCategory(id: $id, nom: $nom, categorieId: $categorieId, logourl: $logourl, logourlmap: $logourlmap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt,category:$category)';
   }
 
   factory SousCategory.fromJson(Map<String, dynamic> json) {
@@ -39,25 +43,25 @@ class SousCategory {
 
   Map<String, dynamic> toJson() => _$SousCategoryToJson(this);
 
-  SousCategory copyWith({
-    int? id,
-    String? nom,
-    int? categorieId,
-    dynamic logourl,
-    dynamic logourlmap,
-    dynamic deletedAt,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) {
+  SousCategory copyWith(
+      {int? id,
+      String? nom,
+      int? categorieId,
+      dynamic logourl,
+      dynamic logourlmap,
+      dynamic deletedAt,
+      DateTime? createdAt,
+      DateTime? updatedAt,
+      Category? category}) {
     return SousCategory(
-      id: id ?? this.id,
-      nom: nom ?? this.nom,
-      categorieId: categorieId ?? this.categorieId,
-      logourl: logourl ?? this.logourl,
-      logourlmap: logourlmap ?? this.logourlmap,
-      deletedAt: deletedAt ?? this.deletedAt,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
+        id: id ?? this.id,
+        nom: nom ?? this.nom,
+        categorieId: categorieId ?? this.categorieId,
+        logourl: logourl ?? this.logourl,
+        logourlmap: logourlmap ?? this.logourlmap,
+        deletedAt: deletedAt ?? this.deletedAt,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        category: category ?? this.category);
   }
 }

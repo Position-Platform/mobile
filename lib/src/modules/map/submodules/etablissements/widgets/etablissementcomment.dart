@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 
-Widget etablissementComment() {
+Widget etablissementComment(Commentaire commentaire) {
   return Container(
     margin: const EdgeInsets.only(left: 20, right: 40),
     child: Column(
@@ -20,7 +22,9 @@ Widget etablissementComment() {
                         ),
                   ),
                   child: Image.network(
-                    "https://sessionize.com/image/721c-400o400o2-SdV7M2MzJoyhWRfxhezGtj.jpg",
+                    commentaire.user!.imageProfil!.contains("http")
+                        ? commentaire.user!.imageProfil!
+                        : apiUrl + commentaire.user!.imageProfil!,
                     height: 30,
                     width: 30,
                   ),
@@ -30,19 +34,19 @@ Widget etablissementComment() {
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Mical Annette',
-                      style: TextStyle(
+                      commentaire.user!.name!,
+                      style: const TextStyle(
                           fontFamily: "OpenSans-Bold",
                           fontSize: 14,
                           color: greyColor),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Text('3 Semaines',
-                        style: TextStyle(
+                    Text(commentaire.createdAt!.toLocal().toString(),
+                        style: const TextStyle(
                             color: greyColor,
                             fontSize: 12,
                             fontFamily: "OpenSans")),
@@ -54,8 +58,8 @@ Widget etablissementComment() {
               margin: const EdgeInsets.only(bottom: 15),
               child: RatingBar.builder(
                 itemSize: 12,
-                initialRating: 3.9,
-                minRating: 1,
+                initialRating: double.parse(commentaire.rating.toString()),
+                minRating: 0,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
@@ -75,11 +79,12 @@ Widget etablissementComment() {
           height: 10,
         ),
         Container(
+          alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(right: 10),
-          child: const Flexible(
+          child: Flexible(
               child: Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            style: TextStyle(fontFamily: "OpenSans", color: greyColor),
+            commentaire.commentaire!,
+            style: const TextStyle(fontFamily: "OpenSans", color: greyColor),
           )),
         ),
         const SizedBox(

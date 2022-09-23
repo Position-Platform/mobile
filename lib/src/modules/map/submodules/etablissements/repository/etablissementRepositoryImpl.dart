@@ -82,13 +82,13 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
   }
 
   @override
-  Future<Result<EtablissementModel>> getetablissementbyid(int id,
-      {int? idUser}) async {
+  Future<Result<EtablissementModel>> getetablissementbyid(
+      int id, int idUser) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     if (isConnected) {
       try {
-        final Response response = await etablissementApiService!
-            .getEtablissementById(id, idUser: idUser);
+        final Response response =
+            await etablissementApiService!.getEtablissementById(id, idUser);
 
         var model = EtablissementModel.fromJson(response.body);
 
@@ -122,13 +122,13 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
   }
 
   @override
-  Future<Result<EtablissementsModel>> searchetablissements(String query,
-      {int? idUser}) async {
+  Future<Result<EtablissementsModel>> searchetablissements(
+      String query, int idUser) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     if (isConnected) {
       try {
-        final Response response = await etablissementApiService!
-            .searchEtablissement(query, idUser: idUser);
+        final Response response =
+            await etablissementApiService!.searchEtablissement(query, idUser);
 
         var model = EtablissementsModel.fromJson(response.body);
 
@@ -143,15 +143,15 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
 
   @override
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-      int idCategorie,
-      {String? idCommodites,
-      int? idUser}) async {
+    int idCategorie,
+    int idUser,
+    String? idCommodites,
+  ) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     if (isConnected) {
       try {
         final Response response = await etablissementApiService!
-            .searchEtablissementByFilter(idCategorie,
-                idCommodites: idCommodites, idUser: idUser);
+            .searchEtablissementByFilter(idCategorie, idUser, idCommodites);
 
         var model = EtablissementsModel.fromJson(response.body);
 

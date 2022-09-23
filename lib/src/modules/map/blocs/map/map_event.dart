@@ -26,5 +26,21 @@ class CategorieClick extends MapEvent {
   List<Object> get props => [categorie!];
 
   @override
-  String toString() => 'Categorie { Categorie: $categorie }';
+  String toString() => 'CategorieClick { Categorie: $categorie }';
 }
+
+class ShowSearchInMap extends MapEvent {
+  final SearchModel? searchModel;
+
+  const ShowSearchInMap(this.searchModel);
+
+  @override
+  List<Object> get props => [searchModel!];
+
+  @override
+  String toString() => 'ShowSearchInMap { SearchModel: $searchModel }';
+}
+
+class OnSymboleClick extends MapEvent {}
+
+class RemoveSymboleInMap extends MapEvent {}

@@ -5,9 +5,9 @@ import 'package:chopper/chopper.dart';
 abstract class EtablissementApiService {
   Future<Response> getAllEtablissements();
 
-  Future<Response> getEtablissementById(int id, {int? idUser});
+  Future<Response> getEtablissementById(int id, int idUser);
 
-  Future<Response> searchEtablissement(String query, {int? idUser});
+  Future<Response> searchEtablissement(String query, int idUser);
 
   Future<Response> updateEtablissementById(
       String token, int id, Map<String, dynamic> body);
@@ -18,6 +18,6 @@ abstract class EtablissementApiService {
 
   Future<Response> removeFavoris(String token, int idEtablissement);
 
-  Future<Response> searchEtablissementByFilter(int idCategorie,
-      {String? idCommodites, int? idUser});
+  Future<Response> searchEtablissementByFilter(
+      int idCategorie, int idUser, String? idCommodites);
 }
