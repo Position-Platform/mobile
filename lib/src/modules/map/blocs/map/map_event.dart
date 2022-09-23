@@ -40,3 +40,7 @@ class ShowSearchInMap extends MapEvent {
   @override
   String toString() => 'ShowSearchInMap { SearchModel: $searchModel }';
 }
+
+class OnSymboleClick extends MapEvent {}
+
+class RemoveSymboleInMap extends MapEvent {}

@@ -41,6 +41,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<GetCategories>(_getCategories);
     on<CategorieClick>(_selectCategorie);
     on<ShowSearchInMap>(_showSearchInMap);
+    on<RemoveSymboleInMap>(_removeSymbolInMap);
+    on<OnSymboleClick>(_symbolClick);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -50,6 +52,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
             .listen((Position position) async {
       await trackingRepository?.addtracking(
           position.longitude, position.latitude);
+    });
+    _mapController?.onFeatureTapped.add((id, point, coordinates) async {
+      add(OnSymboleClick());
     });
   }
 
@@ -91,25 +96,39 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       _mapController?.clearSymbols();
     }
 
-    if (!event.searchModel!.logomap!.contains("http")) {
-      var response =
-          await http.get(Uri.parse(apiUrl + event.searchModel!.logomap!));
-      _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
-    } else {
-      var response = await http.get(Uri.parse(event.searchModel!.logomap!));
-      _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+    if (event.searchModel!.type != "categorie") {
+      if (!event.searchModel!.logomap!.contains("http")) {
+        var response =
+            await http.get(Uri.parse(apiUrl + event.searchModel!.logomap!));
+        _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+      } else {
+        var response = await http.get(Uri.parse(event.searchModel!.logomap!));
+        _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+      }
+      _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(double.parse(event.searchModel!.latitude!),
+                  double.parse(event.searchModel!.longitude!)),
+              zoom: initMapZoom)));
+      _mapController?.addSymbol(
+        SymbolOptions(
+            geometry: LatLng(double.parse(event.searchModel!.latitude!),
+                double.parse(event.searchModel!.longitude!)),
+            iconImage: event.searchModel!.name!,
+            iconSize: event.searchModel!.type! == "nominatim" ? 2.5 : 4),
+      );
+
+      emit(SymboledAdded(event.searchModel));
     }
-    _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(double.parse(event.searchModel!.latitude!),
-            double.parse(event.searchModel!.longitude!)),
-        zoom: initMapZoom)));
-    _mapController?.addSymbol(
-      SymbolOptions(
-          geometry: LatLng(double.parse(event.searchModel!.latitude!),
-              double.parse(event.searchModel!.longitude!)),
-          iconImage: event.searchModel!.name!,
-          iconSize: event.searchModel!.type! == "nominatim" ? 2.5 : 4),
-    );
+  }
+
+  _removeSymbolInMap(RemoveSymboleInMap event, Emitter<MapState> emit) {
+    _mapController?.clearSymbols();
+    emit(SymboleRemoved());
+  }
+
+  _symbolClick(OnSymboleClick event, Emitter<MapState> emit) {
+    emit(SymboleClicked());
   }
 
   @override

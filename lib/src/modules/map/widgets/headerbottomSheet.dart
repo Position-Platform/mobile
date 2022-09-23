@@ -2,6 +2,8 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/models/search_model/search_model.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -12,12 +14,17 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-Widget headerBottomSheet() {
+Widget headerBottomSheet(SearchModel searchModel) {
   return CarouselSlider(
-      items: imgList
+      items: searchModel.etablissement!.images!
           .map((item) => Container(
               alignment: Alignment.topLeft,
-              child: Image.network(item, fit: BoxFit.cover, width: 170)))
+              child: Image.network(
+                apiUrl + item.imageUrl!,
+                fit: BoxFit.cover,
+                width: 170,
+                height: 150,
+              )))
           .toList(),
       options: CarouselOptions(
         height: 90,

@@ -9,7 +9,7 @@ Widget etablissementCard() {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20.0), //<-- SEE HERE
     ),
-    elevation: 5,
+    elevation: 50,
     child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
       child: ClipRRect(

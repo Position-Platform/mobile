@@ -36,6 +36,7 @@ dependencies:
   drift: ^2.1.0
   dropdown_button2: ^1.7.2
   equatable: ^2.0.5
+  expandable_bottom_sheet: ^1.1.1+1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1

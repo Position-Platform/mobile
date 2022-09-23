@@ -16,9 +16,11 @@ class EtablissementPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     changeStatusColor(whiteColor);
-    return Scaffold(
-      backgroundColor: whiteColor,
-      body: SafeArea(
+    return SafeArea(
+      child: Container(
+        color: whiteColor,
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             children: [

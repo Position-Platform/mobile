@@ -50,7 +50,7 @@ class Etablissement {
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   bool? isFavoris;
-  int? moyenne;
+  dynamic moyenne;
   int? avis;
   List<Count>? count;
   Batiment? batiment;
@@ -137,7 +137,7 @@ class Etablissement {
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? isFavoris,
-    int? moyenne,
+    dynamic moyenne,
     int? avis,
     List<Count>? count,
     Batiment? batiment,
