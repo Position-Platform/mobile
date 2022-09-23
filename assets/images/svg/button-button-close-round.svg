@@ -1,0 +1,29 @@
+<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <filter x="-91.7%" y="-88.3%" width="283.3%" height="283.3%" filterUnits="objectBoundingBox" id="yxwwt5t2ha">
+            <feMorphology radius=".5" in="SourceAlpha" result="shadowSpreadOuter1"/>
+            <feOffset dy="3" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0" in="shadowBlurOuter1" result="shadowMatrixOuter1"/>
+            <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter2"/>
+            <feGaussianBlur stdDeviation="9" in="shadowOffsetOuter2" result="shadowBlurOuter2"/>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0" in="shadowBlurOuter2" result="shadowMatrixOuter2"/>
+            <feOffset dy="6" in="SourceAlpha" result="shadowOffsetOuter3"/>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter3" result="shadowBlurOuter3"/>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0" in="shadowBlurOuter3" result="shadowMatrixOuter3"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="shadowMatrixOuter2"/>
+                <feMergeNode in="shadowMatrixOuter3"/>
+            </feMerge>
+        </filter>
+        <rect id="wo1yqzh0rb" x="0" y="0" width="30" height="30" rx="15"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <use fill="#000" filter="url(#yxwwt5t2ha)" xlink:href="#wo1yqzh0rb"/>
+            <use fill="#FFF" xlink:href="#wo1yqzh0rb"/>
+        </g>
+        <path d="M21.3 8.71a.996.996 0 0 0-1.41 0L15 13.59 10.11 8.7a.996.996 0 1 0-1.41 1.41L13.59 15 8.7 19.89a.996.996 0 1 0 1.41 1.41L15 16.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L16.41 15l4.89-4.89c.38-.38.38-1.02 0-1.4z" fill="#05BF95" fill-rule="nonzero"/>
+    </g>
+</svg>

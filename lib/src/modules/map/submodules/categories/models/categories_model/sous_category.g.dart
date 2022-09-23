@@ -19,6 +19,9 @@ SousCategory _$SousCategoryFromJson(Map<String, dynamic> json) => SousCategory(
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
+      category: json['categorie'] == null
+          ? null
+          : Category.fromJson(json['categorie'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SousCategoryToJson(SousCategory instance) =>
@@ -31,4 +34,5 @@ Map<String, dynamic> _$SousCategoryToJson(SousCategory instance) =>
       'deleted_at': instance.deletedAt,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
+      'categorie': instance.category,
     };

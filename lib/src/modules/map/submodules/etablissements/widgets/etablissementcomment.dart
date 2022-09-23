@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 
-Widget etablissementComment() {
+Widget etablissementComment(Commentaire commentaire) {
   return Container(
     margin: const EdgeInsets.only(left: 20, right: 40),
     child: Column(
@@ -20,7 +22,9 @@ Widget etablissementComment() {
                         ),
                   ),
                   child: Image.network(
-                    "https://lh3.googleusercontent.com/EvLrgTmPxI7PolPNdlGB99kLymh8LspsxHhhe-qHsoX4QqYIUjra4G_fAoSXM0nQSQGkOTGPFSJHymyYgcSox-oUMWkrOAEfhAnnFEHNbPzUKRXKvLAxg52iVyJnaTL5dVe9EfsdRDpNVAhj6QqUfT-XfKtm_k1_i3xHlkN-H-PMQupnoZ-_V3K-NKXSNvpHewebGWWhGHWq-vTxuyHPyiWJe1VPXXo47uLqybMgPeHXi85U0BFFJKn3_39fXdN9FIQ8isYomRANLGXQc6TvyNy8WKUBdAWtC48E2yzyGFP7y3PnbgnoYLZE32HHE0XN8XaZI3-9rjszXXuHE1UCG8swRFh7G4wtHuahQGg_sNxDYriRTOwZ4pylWZ0ydu9bRbpnO7c64QIIZge42T7SqCB86J6SK8CJGoEYL1rSGW2APc6Muoa7M0mshdI81R40CFjYi9z6JYnifaYa6K0IjOHBk-l_Y2RRnvS-bdIn-TpDLNs_XzftdyLT5KvCq5Ww4dyfApj6NGbaqAC5CUnYz1G0Vgo_LZ6WhckvyiS68sltf97YuNdWVRgTjLphz3YoeiDcHftMbO0cuR5SnKy2XH2IokgmRcipVqDjImilHUrB_mz4U7uyZq3mLbncqgKf3AKbxjHpJJUmbWy7Vwy_o-g06dyH6u7AVgrxKO41JzlyHnltJKA09NCK5KRKUaY-MN-DJba-MuQd3o810qrqbqzjTheI9qRvKyPqumHFQgTF1InrYmwr4mSHNfXaCHuweksc2CIAFGma13mYRvSfl6izboWtRdG9HTkGZcrYkj_bOq85Pm1DaaFvYDAnN2vq4KtQ9kxzAQ=w620-h625-no?authuser=0",
+                    commentaire.user!.imageProfil!.contains("http")
+                        ? commentaire.user!.imageProfil!
+                        : apiUrl + commentaire.user!.imageProfil!,
                     height: 30,
                     width: 30,
                   ),
@@ -30,19 +34,19 @@ Widget etablissementComment() {
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Mical Annette',
-                      style: TextStyle(
+                      commentaire.user!.name!,
+                      style: const TextStyle(
                           fontFamily: "OpenSans-Bold",
                           fontSize: 14,
                           color: greyColor),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Text('3 Semaines',
-                        style: TextStyle(
+                    Text(commentaire.createdAt!.toLocal().toString(),
+                        style: const TextStyle(
                             color: greyColor,
                             fontSize: 12,
                             fontFamily: "OpenSans")),
@@ -54,8 +58,8 @@ Widget etablissementComment() {
               margin: const EdgeInsets.only(bottom: 15),
               child: RatingBar.builder(
                 itemSize: 12,
-                initialRating: 3.9,
-                minRating: 1,
+                initialRating: double.parse(commentaire.rating.toString()),
+                minRating: 0,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
@@ -75,11 +79,12 @@ Widget etablissementComment() {
           height: 10,
         ),
         Container(
+          alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(right: 10),
-          child: const Flexible(
+          child: Flexible(
               child: Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            style: TextStyle(fontFamily: "OpenSans", color: greyColor),
+            commentaire.commentaire!,
+            style: const TextStyle(fontFamily: "OpenSans", color: greyColor),
           )),
         ),
         const SizedBox(

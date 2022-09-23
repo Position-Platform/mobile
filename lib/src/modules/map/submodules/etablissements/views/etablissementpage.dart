@@ -4,40 +4,55 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/core/utils/tools.dart';
+import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/models/search_model/search_model.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcomment.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementreview.dart';
 import 'package:position/src/modules/map/widgets/bottomSheetButtonNoLabel.dart';
-import 'package:position/src/modules/map/widgets/headerbottomSheet.dart';
+import 'package:position/src/modules/map/widgets/placebottomsheet.dart';
 
-class EtablissementPage extends StatelessWidget {
-  const EtablissementPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    changeStatusColor(whiteColor);
-    return Scaffold(
-      backgroundColor: whiteColor,
-      body: SingleChildScrollView(
+Widget etablissementPage(BuildContext context, SearchModel searchModel) {
+  return SafeArea(
+    child: Container(
+      color: whiteColor,
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
         child: Column(
           children: [
-            CarouselSlider(
-                items: imgList
-                    .map((item) => Container(
-                        alignment: Alignment.topLeft,
-                        child: Image.network(
-                          item,
-                          fit: BoxFit.cover,
-                          width: 160,
-                          height: 190,
-                        )))
-                    .toList(),
-                options: CarouselOptions(
-                  height: 190,
-                  enableInfiniteScroll: true,
-                  scrollDirection: Axis.horizontal,
-                  viewportFraction: 0.3,
-                )),
+            Stack(
+              children: [
+                CarouselSlider(
+                    items: searchModel.etablissement!.images!
+                        .map((item) => Container(
+                            alignment: Alignment.topLeft,
+                            child: Image.network(
+                              apiUrl + item.imageUrl!,
+                              fit: BoxFit.cover,
+                              width: 160,
+                              height: 150,
+                            )))
+                        .toList(),
+                    options: CarouselOptions(
+                      height: 150,
+                      enableInfiniteScroll: true,
+                      scrollDirection: Axis.horizontal,
+                      viewportFraction: 0.3,
+                    )),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Positioned(
+                    right: 10.0,
+                    top: 10.0,
+                    child: SvgPicture.asset(
+                        "assets/images/svg/button-button-close-round.svg"),
+                  ),
+                )
+              ],
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -49,22 +64,23 @@ class EtablissementPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'TonGou Hotel',
-                        style: TextStyle(
+                      Text(
+                        searchModel.name!,
+                        style: const TextStyle(
                             fontFamily: "OpenSans-Bold", fontSize: 14),
                       ),
                       Row(
                         children: [
-                          const Text(
-                            "3,9",
-                            style: TextStyle(
+                          Text(
+                            searchModel.etablissement!.moyenne.toString(),
+                            style: const TextStyle(
                                 fontFamily: "OpenSans-Bold", fontSize: 12),
                           ),
                           RatingBar.builder(
                             itemSize: 12,
-                            initialRating: 3.9,
-                            minRating: 1,
+                            initialRating: double.parse(
+                                searchModel.etablissement!.moyenne.toString()),
+                            minRating: 0,
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
@@ -80,9 +96,9 @@ class EtablissementPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Text(
-                                "212 ",
-                                style: TextStyle(
+                              Text(
+                                "${searchModel.etablissement!.avis!} ",
+                                style: const TextStyle(
                                     fontFamily: "OpenSans", fontSize: 14),
                               ),
                               Text(
@@ -99,8 +115,8 @@ class EtablissementPage extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text('Test Video',
-                      style: TextStyle(
+                  Text(searchModel.details!,
+                      style: const TextStyle(
                           color: greyColor,
                           fontSize: 12,
                           fontFamily: "OpenSans")),
@@ -165,53 +181,8 @@ class EtablissementPage extends StatelessWidget {
               margin: const EdgeInsets.only(left: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                          "assets/images/svg/icon-service-check.svg"),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      const Text(
-                        "Ouvert jusqu'a 19h",
-                        style: TextStyle(fontFamily: "OpenSans", fontSize: 12),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                          "assets/images/svg/icon-service-check.svg"),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      const Text(
-                        "Paiment mobile",
-                        style: TextStyle(fontFamily: "OpenSans", fontSize: 12),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                          "assets/images/svg/icon-service-check.svg"),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      const Text(
-                        "espèce",
-                        style: TextStyle(fontFamily: "OpenSans", fontSize: 12),
-                      )
-                    ],
-                  ),
-                ],
+                children:
+                    buildCommodites(searchModel.etablissement!.commodites!),
               ),
             ),
             const SizedBox(
@@ -243,9 +214,10 @@ class EtablissementPage extends StatelessWidget {
             Container(
               alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(left: 20, right: 20),
-              child: const Text(
-                "restaurant • bar • terrasse • piscine • spa • accueil 24h/24…",
-                style: TextStyle(fontFamily: "OpenSans", color: greyColor),
+              child: Text(
+                searchModel.etablissement!.services!.replaceAll(";", " • "),
+                style:
+                    const TextStyle(fontFamily: "OpenSans", color: greyColor),
               ),
             ),
             const SizedBox(
@@ -292,11 +264,11 @@ class EtablissementPage extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "Rue de Mélen, face polytech et à côté de l'hôtel « La Résidence », BP 14410 YAOUNDÉ, Cameroun",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
+                      "${searchModel.etablissement!.batiment!.rue!} ${searchModel.etablissement!.batiment!.quartier!} ${searchModel.etablissement!.batiment!.ville!} ${searchModel.etablissement!.batiment!.indication!} ${searchModel.etablissement!.codePostal!}",
+                      style: const TextStyle(
+                          fontFamily: "OpenSans", color: greyColor),
                     ),
                   ),
                 ],
@@ -313,11 +285,11 @@ class EtablissementPage extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "www.monhotel.com",
-                      style:
-                          TextStyle(fontFamily: "OpenSans", color: greyColor),
+                      searchModel.etablissement!.siteInternet!,
+                      style: const TextStyle(
+                          fontFamily: "OpenSans", color: greyColor),
                     ),
                   ),
                 ],
@@ -345,11 +317,13 @@ class EtablissementPage extends StatelessWidget {
               height: 15,
             ),
             Container(
+              alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(left: 20, right: 20),
-              child: const Flexible(
+              child: Flexible(
                   child: Text(
-                "Les chambres standards et colorées disposent du Wi-Fi gratuit, d'une télévision à écran plat et d'une salle de bain commune. Certaines sont dotées de lits superposés. Celles de catégorie supérieure sont pourvues d'une salle de bain attenante. Le parking est inclus. L'établissement possède un espace repas branché. Le petit-déjeuner est payant, et les animaux de compagnie sont acceptés moyennant un supplément.",
-                style: TextStyle(fontFamily: "OpenSans", color: greyColor),
+                searchModel.etablissement!.description!,
+                style:
+                    const TextStyle(fontFamily: "OpenSans", color: greyColor),
               )),
             ),
             const SizedBox(
@@ -373,8 +347,12 @@ class EtablissementPage extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            etablissementReview(S.of(context).newreview, S.of(context).avis,
-                S.of(context).latestreview),
+            etablissementReview(
+                S.of(context).newreview,
+                S.of(context).avis,
+                S.of(context).latestreview,
+                searchModel,
+                double.parse(searchModel.etablissement!.avis.toString())),
             const SizedBox(
               height: 15,
             ),
@@ -384,10 +362,10 @@ class EtablissementPage extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            etablissementComment(),
-            etablissementComment(),
-            etablissementComment(),
-            etablissementComment(),
+            Column(
+              children:
+                  buildCommentaires(searchModel.etablissement!.commentaires!),
+            ),
             Text(
               S.of(context).showmorereviews,
               style: const TextStyle(
@@ -401,6 +379,15 @@ class EtablissementPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+  );
+}
+
+List<Widget> buildCommentaires(List<Commentaire> comentaires) {
+  List<Widget> items = [];
+  for (var i = 0; i < comentaires.length; i++) {
+    Widget item = etablissementComment(comentaires[i]);
+    items.add(item);
   }
+  return items;
 }

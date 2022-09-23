@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
+import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcard.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
@@ -18,6 +20,11 @@ class EtablissementListPage extends StatefulWidget {
 }
 
 class _EtablissementListPageState extends State<EtablissementListPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -33,8 +40,10 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
             }, () {
               showSearch(
                   context: context,
-                  delegate:
-                      CustomSearchDelegate(hintText: S.of(context).hintSearch));
+                  delegate: CustomSearchDelegate(
+                      hintText: S.of(context).hintSearch,
+                      searchBloc: BlocProvider.of<SearchBloc>(context),
+                      user: widget.user));
             }),
             filterContainer(context),
             const SizedBox(
