@@ -116,11 +116,13 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  buttonBottomSheet(
-                      S.of(context).contacter,
-                      "assets/images/svg/icon-action-vignette-appeler.svg",
-                      primaryColor,
-                      whiteColor),
+                  searchModel.type! == "nominatim"
+                      ? const SizedBox()
+                      : buttonBottomSheet(
+                          S.of(context).contacter,
+                          "assets/images/svg/icon-action-vignette-appeler.svg",
+                          primaryColor,
+                          whiteColor),
                   buttonBottomSheet(
                       S.of(context).routing,
                       "assets/images/svg/icon-action-vignette-itinéraire.svg",
@@ -131,11 +133,19 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                       "assets/images/svg/icon-action-vignette-partager.svg",
                       whiteColor,
                       primaryColor),
-                  buttonBottomSheet(
-                      S.of(context).save,
-                      "assets/images/svg/icon-action-vignette-enregistrer.svg",
-                      whiteColor,
-                      primaryColor),
+                  searchModel.type! == "nominatim"
+                      ? const SizedBox()
+                      : searchModel.etablissement!.isFavoris!
+                          ? buttonBottomSheet(
+                              S.of(context).saved,
+                              "assets/images/svg/icon-action-vignette-remove.svg",
+                              primaryColor,
+                              whiteColor)
+                          : buttonBottomSheet(
+                              S.of(context).save,
+                              "assets/images/svg/icon-action-vignette-enregistrer.svg",
+                              whiteColor,
+                              primaryColor),
                 ],
               ),
             )

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
@@ -8,7 +8,7 @@ import 'package:position/src/modules/auth/repositories/authRepository.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   final AuthRepository? authRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
@@ -117,5 +117,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   Future<void> close() {
     return super.close();
+  }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json) {
+    try {
+      final user = User.fromJson(json);
+      return AuthSuccess(user);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    if (state is AuthSuccess) {
+      return state.user.toJson();
+    }
+    return null;
   }
 }
