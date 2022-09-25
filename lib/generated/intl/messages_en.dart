@@ -125,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "routing": MessageLookupByLibrary.simpleMessage("Routing"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saved": MessageLookupByLibrary.simpleMessage("Registered"),
         "savedplaces": MessageLookupByLibrary.simpleMessage("My Saved Places"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for an establishment, a place..."),

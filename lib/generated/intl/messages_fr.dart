@@ -136,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Reinitialiser le Mot de Passe"),
         "routing": MessageLookupByLibrary.simpleMessage("Itinéraire"),
         "save": MessageLookupByLibrary.simpleMessage("Enregistrer"),
+        "saved": MessageLookupByLibrary.simpleMessage("Enregistré"),
         "savedplaces":
             MessageLookupByLibrary.simpleMessage("Mes Lieux enregistrés"),
         "search": MessageLookupByLibrary.simpleMessage(

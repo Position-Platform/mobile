@@ -129,11 +129,13 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buttonBottomSheetNoLabel(
-                  S.of(context).contacter,
-                  "assets/images/svg/icon-action-vignette-appeler.svg",
-                  primaryColor,
-                ),
+                searchModel.type! == "nominatim"
+                    ? const SizedBox()
+                    : buttonBottomSheetNoLabel(
+                        S.of(context).contacter,
+                        "assets/images/svg/icon-action-vignette-appeler.svg",
+                        primaryColor,
+                      ),
                 buttonBottomSheetNoLabel(
                   S.of(context).routing,
                   "assets/images/svg/icon-action-vignette-itinéraire.svg",
@@ -144,11 +146,19 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                   "assets/images/svg/icon-action-vignette-partager.svg",
                   whiteColor,
                 ),
-                buttonBottomSheetNoLabel(
-                  S.of(context).save,
-                  "assets/images/svg/icon-action-vignette-enregistrer.svg",
-                  whiteColor,
-                ),
+                searchModel.type! == "nominatim"
+                    ? const SizedBox()
+                    : searchModel.etablissement!.isFavoris!
+                        ? buttonBottomSheetNoLabel(
+                            S.of(context).saved,
+                            "assets/images/svg/icon-action-vignette-remove.svg",
+                            primaryColor,
+                          )
+                        : buttonBottomSheetNoLabel(
+                            S.of(context).save,
+                            "assets/images/svg/icon-action-vignette-enregistrer.svg",
+                            whiteColor,
+                          ),
               ],
             ),
             const SizedBox(

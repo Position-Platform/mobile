@@ -1149,6 +1149,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Registered`
+  String get saved {
+    return Intl.message(
+      'Registered',
+      name: 'saved',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
