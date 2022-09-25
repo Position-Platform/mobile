@@ -37,6 +37,7 @@ Etablissement _$EtablissementFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['updated_at'] as String),
       isFavoris: json['isFavoris'] as bool?,
+      isopen: json['isopen'] as bool?,
       moyenne: json['moyenne'],
       avis: json['avis'] as int?,
       count: (json['count'] as List<dynamic>?)
@@ -92,6 +93,7 @@ Map<String, dynamic> _$EtablissementToJson(Etablissement instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'isFavoris': instance.isFavoris,
+      'isopen': instance.isopen,
       'moyenne': instance.moyenne,
       'avis': instance.avis,
       'count': instance.count,

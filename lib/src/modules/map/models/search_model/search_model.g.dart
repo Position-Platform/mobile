@@ -25,6 +25,9 @@ SearchModel _$SearchModelFromJson(Map<String, dynamic> json) => SearchModel(
       category: json['category'] == null
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),
+      isOpenNow: json['isOpenNow'] as bool?,
+      distance: (json['distance'] as num?)?.toDouble(),
+      plageDay: json['plageDay'] as String?,
     );
 
 Map<String, dynamic> _$SearchModelToJson(SearchModel instance) =>
@@ -40,4 +43,7 @@ Map<String, dynamic> _$SearchModelToJson(SearchModel instance) =>
       'features': instance.features,
       'etablissement': instance.etablissement,
       'category': instance.category,
+      'isOpenNow': instance.isOpenNow,
+      'distance': instance.distance,
+      'plageDay': instance.plageDay,
     };

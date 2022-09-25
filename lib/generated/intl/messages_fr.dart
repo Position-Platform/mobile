@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
+        "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
         "commodite": MessageLookupByLibrary.simpleMessage("Commodités"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Conditions d\'utilisation"),

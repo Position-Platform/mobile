@@ -1,15 +1,18 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/models/nominatim.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
+import 'package:turf/turf.dart' as turf;
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -40,9 +43,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       var categoriesResult =
           await categoriesRepository!.searchcategories(event.query!);
       List<SearchModel> searchResults = [
-        ..._getEtablissementFromResponse(etablissementsResult.success!),
+        ...await _getEtablissementFromResponse(etablissementsResult.success!),
         ..._getCategorieFromResponse(categoriesResult.success!),
-        ..._getNominatimFromResponse(nominatimResult.success!)
+        ...await _getNominatimFromResponse(nominatimResult.success!)
       ];
 
       emit(SearchLoaded(searchResults));
@@ -51,7 +54,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  List<SearchModel> _getNominatimFromResponse(NominatimModel nominatimModel) {
+  Future<List<SearchModel>> _getNominatimFromResponse(
+      NominatimModel nominatimModel) async {
     return [
       for (var i = 0; i < nominatimModel.features!.length; i++)
         SearchModel(
@@ -66,12 +70,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             logo: nominatimModel.features![i].properties!.icon ??
                 "$apiUrl/images/icon-icon-position-pin.png",
             logomap: "$apiUrl/images/icon-icon-position-pin.png",
-            features: nominatimModel.features![i])
+            features: nominatimModel.features![i],
+            distance: await _calculateDistance(
+                nominatimModel.features![i].geometry!.coordinates![0]
+                    .toString(),
+                nominatimModel.features![i].geometry!.coordinates![1]
+                    .toString()))
     ];
   }
 
-  List<SearchModel> _getEtablissementFromResponse(
-      EtablissementsModel etablissementsModel) {
+  Future<List<SearchModel>> _getEtablissementFromResponse(
+      EtablissementsModel etablissementsModel) async {
     return [
       for (var i = 0; i < etablissementsModel.data!.etablissements!.length; i++)
         SearchModel(
@@ -94,7 +103,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                     .data!.etablissements![i].sousCategories![0].logourlmap ??
                 etablissementsModel.data!.etablissements![i].sousCategories![0]
                     .category!.logourlmap,
-            etablissement: etablissementsModel.data!.etablissements![i])
+            etablissement: etablissementsModel.data!.etablissements![i],
+            isOpenNow: etablissementsModel.data!.etablissements![i].isopen,
+            plageDay: _checkIfEtablissementIsOpen(
+                etablissementsModel.data!.etablissements![i]),
+            distance: await _calculateDistance(
+                etablissementsModel
+                    .data!.etablissements![i].batiment!.longitude!,
+                etablissementsModel
+                    .data!.etablissements![i].batiment!.latitude!))
     ];
   }
 
@@ -110,5 +127,44 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             logomap: apiUrl + categoriesModel.data!.categories![i].logourlmap!,
             category: categoriesModel.data!.categories![i])
     ];
+  }
+
+  String _checkIfEtablissementIsOpen(Etablissement etablissement) {
+    var now = DateTime.now().weekday;
+    String plage = "";
+
+    for (var i = 0; i < etablissement.horaires!.length; i++) {
+      if (etablissement.horaires![i].jour == "lundi" && now == 1) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      } else if (etablissement.horaires![i].jour == "mardi" && now == 2) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      } else if (etablissement.horaires![i].jour == "mercredi" && now == 3) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      } else if (etablissement.horaires![i].jour == "jeudi" && now == 4) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      } else if (etablissement.horaires![i].jour == "vendredi" && now == 5) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      } else if (etablissement.horaires![i].jour == "samedi" && now == 6) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      } else if (etablissement.horaires![i].jour == "dimanche" && now == 7) {
+        plage = etablissement.horaires![i].plageHoraire!;
+      }
+    }
+
+    return plage;
+  }
+
+  Future<double> _calculateDistance(String lon, String lat) async {
+    var position = await Geolocator.getCurrentPosition();
+    var posiFrom = turf.Point(
+        coordinates: turf.Position(position.longitude, position.latitude));
+
+    var posiTo = turf.Point(
+        coordinates: turf.Position(double.parse(lon), double.parse(lat)));
+
+    var distance = turf.distance(posiFrom, posiTo);
+    double result = double.parse(distance.toString());
+
+    return result;
   }
 }
