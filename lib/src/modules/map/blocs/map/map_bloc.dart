@@ -3,16 +3,19 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
 
 part 'map_event.dart';
@@ -22,6 +25,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   MapboxMapController? _mapController;
   CategoriesRepository? categoriesRepository;
   TrackingRepository? trackingRepository;
+  NominatimRepository? nominatimRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
   late StreamSubscription<Position> positionStream;
@@ -34,7 +38,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   MapBloc(
       {this.categoriesRepository,
       this.sharedPreferencesHelper,
-      this.trackingRepository})
+      this.trackingRepository,
+      this.nominatimRepository})
       : super(MapInitial()) {
     on<OnMapInitializedEvent>(_onInitMap);
     on<GetUserLocationEvent>(_getUserLocation);
@@ -43,6 +48,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<ShowSearchInMap>(_showSearchInMap);
     on<RemoveSymboleInMap>(_removeSymbolInMap);
     on<OnSymboleClick>(_symbolClick);
+    on<AddSymboleOnMap>(_addSymbolOnMap);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -129,6 +135,49 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _symbolClick(OnSymboleClick event, Emitter<MapState> emit) {
     emit(SymboleClicked());
+  }
+
+  _addSymbolOnMap(AddSymboleOnMap event, Emitter<MapState> emit) async {
+    if (_mapController!.symbols.isNotEmpty) {
+      _mapController?.clearSymbols();
+    }
+    final ByteData bytes =
+        await rootBundle.load("assets/images/png/icon-icon-position-pin.png");
+    final Uint8List list = bytes.buffer.asUint8List();
+    _mapController?.addImage("markerImage", list);
+
+    _mapController?.addSymbol(SymbolOptions(
+        geometry: event.latLng, iconImage: "markerImage", iconSize: 2));
+
+    try {
+      final nominatimResult = await nominatimRepository?.reverse(
+          event.latLng!.longitude.toString(),
+          event.latLng!.latitude.toString());
+      var searchModel = SearchModel(
+          name: nominatimResult!.success!.features![0].properties!.displayName,
+          details: nominatimResult
+              .success!.features![0].properties!.address!.country,
+          id: nominatimResult.success!.features![0].properties!.osmId
+              .toString(),
+          longitude: nominatimResult
+              .success!.features![0].geometry!.coordinates![0]
+              .toString(),
+          latitude: nominatimResult
+              .success!.features![0].geometry!.coordinates![1]
+              .toString(),
+          logo: "$apiUrl/images/icon-icon-position-pin.png",
+          logomap: "$apiUrl/images/icon-icon-position-pin.png",
+          type: "nominatim",
+          distance: await calculateDistance(
+              nominatimResult.success!.features![0].geometry!.coordinates![0]
+                  .toString(),
+              nominatimResult.success!.features![0].geometry!.coordinates![1]
+                  .toString()));
+
+      emit(SymboledAdded(searchModel));
+    } catch (e) {
+      emit(MapError());
+    }
   }
 
   @override
