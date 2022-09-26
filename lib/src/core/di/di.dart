@@ -119,7 +119,8 @@ Future<void> init() async {
   getIt.registerFactory<MapBloc>(() => MapBloc(
       categoriesRepository: getIt(),
       sharedPreferencesHelper: getIt(),
-      trackingRepository: getIt()));
+      trackingRepository: getIt(),
+      nominatimRepository: getIt()));
   getIt.registerFactory<SearchBloc>(() => SearchBloc(
       categoriesRepository: getIt(),
       etablissementRepository: getIt(),

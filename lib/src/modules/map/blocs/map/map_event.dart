@@ -44,3 +44,15 @@ class ShowSearchInMap extends MapEvent {
 class OnSymboleClick extends MapEvent {}
 
 class RemoveSymboleInMap extends MapEvent {}
+
+class AddSymboleOnMap extends MapEvent {
+  final LatLng? latLng;
+
+  const AddSymboleOnMap(this.latLng);
+
+  @override
+  List<Object> get props => [latLng!];
+
+  @override
+  String toString() => 'AddSymboleOnMap { LatLng: $latLng }';
+}

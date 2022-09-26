@@ -18,7 +18,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> login(Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/auth/login';
+    final $url = 'http://192.168.100.223:8000/api/auth/login';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -31,7 +31,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> register(Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/auth/register';
+    final $url = 'http://192.168.100.223:8000/api/auth/register';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -44,7 +44,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> registerfacebook(Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/auth/register/facebook';
+    final $url = 'http://192.168.100.223:8000/api/auth/register/facebook';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -57,7 +57,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> registergoogle(Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/auth/register/google';
+    final $url = 'http://192.168.100.223:8000/api/auth/register/google';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -70,7 +70,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getuser(String token) {
-    final $url = 'http://10.0.2.2:8000/api/user/me';
+    final $url = 'http://192.168.100.223:8000/api/user/me';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -82,7 +82,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> forgetPassword(Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/auth/password/forgot';
+    final $url = 'http://192.168.100.223:8000/api/auth/password/forgot';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -95,7 +95,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> resetPassword(Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/auth/password/reset';
+    final $url = 'http://192.168.100.223:8000/api/auth/password/reset';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -108,7 +108,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> logout(String token) {
-    final $url = 'http://10.0.2.2:8000/api/auth/logout';
+    final $url = 'http://192.168.100.223:8000/api/auth/logout';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -120,7 +120,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getcategories() {
-    final $url = 'http://10.0.2.2:8000/api/categories';
+    final $url = 'http://192.168.100.223:8000/api/categories';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -131,7 +131,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getcategoriesbyid(int idCategorie) {
-    final $url = 'http://10.0.2.2:8000/api/categories/${idCategorie}';
+    final $url = 'http://192.168.100.223:8000/api/categories/${idCategorie}';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -142,7 +142,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> searchcategories(String query) {
-    final $url = 'http://10.0.2.2:8000/api/search/categories';
+    final $url = 'http://192.168.100.223:8000/api/search/categories';
     final $params = <String, dynamic>{'q': query};
     final $headers = {
       'Accept': 'application/json',
@@ -156,7 +156,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> updatecategoriebyid(
       String token, int idCategorie, Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/categories/${idCategorie}';
+    final $url = 'http://192.168.100.223:8000/api/categories/${idCategorie}';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -171,7 +171,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> addtracking(
       String token, Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/tracking';
+    final $url = 'http://192.168.100.223:8000/api/tracking';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -185,7 +185,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getetablissements() {
-    final $url = 'http://10.0.2.2:8000/api/etablissements';
+    final $url = 'http://192.168.100.223:8000/api/etablissements';
     final $headers = {
       'Accept': 'application/json',
     };
@@ -197,7 +197,8 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> getetablissementbyid(
       int idEtablissement, int idUser) {
-    final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
+    final $url =
+        'http://192.168.100.223:8000/api/etablissements/${idEtablissement}';
     final $params = <String, dynamic>{'user_id': idUser};
     final $headers = {
       'Accept': 'application/json',
@@ -210,7 +211,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> searchetablissements(String query, int idUser) {
-    final $url = 'http://10.0.2.2:8000/api/search/etablissements';
+    final $url = 'http://192.168.100.223:8000/api/search/etablissements';
     final $params = <String, dynamic>{'q': query, 'user_id': idUser};
     final $headers = {
       'Accept': 'application/json',
@@ -224,7 +225,8 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> updateetablissementbyid(
       String token, int idEtablissement, Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
+    final $url =
+        'http://192.168.100.223:8000/api/etablissements/${idEtablissement}';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -239,7 +241,8 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> deleteetablissementbyid(
       String token, int idEtablissement) {
-    final $url = 'http://10.0.2.2:8000/api/etablissements/${idEtablissement}';
+    final $url =
+        'http://192.168.100.223:8000/api/etablissements/${idEtablissement}';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -252,7 +255,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> addfavoris(
       String token, Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/favoris/add';
+    final $url = 'http://192.168.100.223:8000/api/favoris/add';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -267,7 +270,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> removefavoris(
       String token, Map<String, dynamic> body) {
-    final $url = 'http://10.0.2.2:8000/api/favoris/remove';
+    final $url = 'http://192.168.100.223:8000/api/favoris/remove';
     final $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -282,7 +285,7 @@ class _$ApiService extends ApiService {
   @override
   Future<Response<dynamic>> searchetablissementsbyfilters(
       int idCategorie, String? idCommodites, int idUser) {
-    final $url = 'http://10.0.2.2:8000/api/search/etablissements/filter';
+    final $url = 'http://192.168.100.223:8000/api/search/etablissements/filter';
     final $params = <String, dynamic>{
       'id_categorie': idCategorie,
       'idCommodites': idCommodites,

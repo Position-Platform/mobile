@@ -1,4 +1,4 @@
-const String apiUrl = "http://10.0.2.2:8000";
+const String apiUrl = "http://192.168.100.223:8000"; // http://10.0.2.2:8000;
 const String apiKey =
     "2TwzaZP7EFstOF3kkocbOra6OYja68XQbE9dqON7Dc9YK7QNdqjOqabI95cx9iC8";
 const String mapboxApiKey =

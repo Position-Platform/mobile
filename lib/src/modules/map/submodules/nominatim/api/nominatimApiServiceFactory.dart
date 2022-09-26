@@ -22,4 +22,17 @@ class NominatimApiServiceFactory implements NominatimApiService {
     }
     return response;
   }
+
+  @override
+  Future<Response> revserse(String lon, String lat) async {
+    Response response;
+
+    try {
+      response = await nominatimService!.reverse("geojson", lon, lat);
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
 }

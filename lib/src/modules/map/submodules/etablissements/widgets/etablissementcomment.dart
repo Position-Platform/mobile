@@ -6,7 +6,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 
 Widget etablissementComment(Commentaire commentaire) {
   return Container(
-    margin: const EdgeInsets.only(left: 20, right: 40),
+    margin: const EdgeInsets.only(left: 20, right: 30),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -48,7 +48,7 @@ Widget etablissementComment(Commentaire commentaire) {
                     Text(commentaire.createdAt!.toLocal().toString(),
                         style: const TextStyle(
                             color: greyColor,
-                            fontSize: 12,
+                            fontSize: 11,
                             fontFamily: "OpenSans")),
                   ],
                 ),
@@ -57,6 +57,7 @@ Widget etablissementComment(Commentaire commentaire) {
             Container(
               margin: const EdgeInsets.only(bottom: 15),
               child: RatingBar.builder(
+                ignoreGestures: true,
                 itemSize: 12,
                 initialRating: double.parse(commentaire.rating.toString()),
                 minRating: 0,

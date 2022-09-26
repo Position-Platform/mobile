@@ -3,14 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/core/utils/sizes.dart';
 
 Widget buttonBottomSheet(
     String label, String asset, Color backgroundColor, Color textColor) {
   return Container(
-      width: 110,
+      width: 100,
       height: 35,
-      margin: const EdgeInsets.only(left: 20),
+      margin: const EdgeInsets.only(left: 10),
       decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(8),
@@ -27,7 +26,7 @@ Widget buttonBottomSheet(
                 style: TextStyle(
                   fontFamily: 'OpenSans-Bold',
                   color: textColor,
-                  fontSize: textSize,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
                   fontStyle: FontStyle.normal,
                 )),

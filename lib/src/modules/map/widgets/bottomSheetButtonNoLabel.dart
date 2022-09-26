@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/core/utils/sizes.dart';
 
 Widget buttonBottomSheetNoLabel(
     String label, String asset, Color backgroundColor) {
@@ -13,9 +12,9 @@ Widget buttonBottomSheetNoLabel(
       children: [
         Container(
             alignment: Alignment.center,
-            width: 50,
-            height: 50,
-            margin: const EdgeInsets.only(left: 30, right: 30),
+            width: 40,
+            height: 40,
+            margin: const EdgeInsets.only(left: 20, right: 20),
             decoration: BoxDecoration(
                 color: backgroundColor,
                 borderRadius: BorderRadius.circular(8),
@@ -34,10 +33,10 @@ Widget buttonBottomSheetNoLabel(
           height: 5,
         ),
         Text(label,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'OpenSans-Bold',
               color: primaryColor,
-              fontSize: textSize,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.normal,
             )),

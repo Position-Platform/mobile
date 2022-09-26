@@ -55,7 +55,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(whiteColor);
+    changeStatusColor(transparent);
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -84,6 +84,8 @@ class _MapPageState extends State<MapPage> {
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
             return ExpandableBottomSheet(
+              animationDurationContract: const Duration(milliseconds: 500),
+              animationDurationExtend: const Duration(milliseconds: 500),
               key: expandablesheet,
               enableToggle: true,
               expandableContent:
@@ -107,7 +109,8 @@ class _MapPageState extends State<MapPage> {
                   styleString:
                       "mapbox://styles/gauty96/ckz194r6x000616o9hq4pcgkz",
                   accessToken: mapboxApiKey,
-                  // onMapLongClick: (point, latLng) => mapBloc?.add(NewBatiment(latLng)),
+                  onMapLongClick: (point, latLng) =>
+                      _mapBloc?.add(AddSymboleOnMap(latLng)),
                   onMapCreated: (controller) =>
                       _mapBloc?.add(OnMapInitializedEvent(controller)),
                   doubleClickZoomEnabled: true,
