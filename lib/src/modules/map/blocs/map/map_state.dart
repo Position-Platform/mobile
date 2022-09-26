@@ -9,6 +9,8 @@ abstract class MapState extends Equatable {
 
 class MapInitial extends MapState {}
 
+class MapError extends MapState {}
+
 class CategoriesLoading extends MapState {}
 
 class CategoriesError extends MapState {}

@@ -4,4 +4,6 @@ import 'package:chopper/chopper.dart';
 
 abstract class NominatimApiService {
   Future<Response> searchPlace(String query);
+
+  Future<Response> revserse(String lon, String lat);
 }

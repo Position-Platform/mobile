@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
@@ -12,7 +12,6 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/models/nominatim.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
-import 'package:turf/turf.dart' as turf;
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -71,7 +70,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 "$apiUrl/images/icon-icon-position-pin.png",
             logomap: "$apiUrl/images/icon-icon-position-pin.png",
             features: nominatimModel.features![i],
-            distance: await _calculateDistance(
+            distance: await calculateDistance(
                 nominatimModel.features![i].geometry!.coordinates![0]
                     .toString(),
                 nominatimModel.features![i].geometry!.coordinates![1]
@@ -107,7 +106,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             isOpenNow: etablissementsModel.data!.etablissements![i].isopen,
             plageDay: _checkIfEtablissementIsOpen(
                 etablissementsModel.data!.etablissements![i]),
-            distance: await _calculateDistance(
+            distance: await calculateDistance(
                 etablissementsModel
                     .data!.etablissements![i].batiment!.longitude!,
                 etablissementsModel
@@ -152,19 +151,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
 
     return plage;
-  }
-
-  Future<double> _calculateDistance(String lon, String lat) async {
-    var position = await Geolocator.getCurrentPosition();
-    var posiFrom = turf.Point(
-        coordinates: turf.Position(position.longitude, position.latitude));
-
-    var posiTo = turf.Point(
-        coordinates: turf.Position(double.parse(lon), double.parse(lat)));
-
-    var distance = turf.distance(posiFrom, posiTo);
-    double result = double.parse(distance.toString());
-
-    return result;
   }
 }
