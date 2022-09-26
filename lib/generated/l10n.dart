@@ -1100,6 +1100,16 @@ class S {
     );
   }
 
+  /// `Fermé : `
+  String get close {
+    return Intl.message(
+      'Fermé : ',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Presentation`
   String get presentation {
     return Intl.message(
