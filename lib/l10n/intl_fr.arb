@@ -105,9 +105,11 @@
   "commodite": "Commodités",
   "services": "Services et Prestations",
   "opennow": "Ouvert Maintenant : ",
+  "close": "Fermé : ",
   "presentation": "Présentation",
   "showmorereviews": "Voir Plus D'avis",
   "latestreview": "Les plus récents",
   "searcherror": "Erreur de Chargement",
-  "searchnotfound": "Aucun resultat trouvé"
+  "searchnotfound": "Aucun resultat trouvé",
+  "saved": "Enregistré"
 }

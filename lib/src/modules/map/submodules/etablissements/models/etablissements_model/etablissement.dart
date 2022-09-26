@@ -50,6 +50,7 @@ class Etablissement {
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   bool? isFavoris;
+  bool? isopen;
   dynamic moyenne;
   int? avis;
   List<Count>? count;
@@ -88,6 +89,7 @@ class Etablissement {
     this.createdAt,
     this.updatedAt,
     this.isFavoris,
+    this.isopen,
     this.moyenne,
     this.avis,
     this.count,
@@ -102,7 +104,7 @@ class Etablissement {
 
   @override
   String toString() {
-    return 'Etablissement(id: $id, nom: $nom, batimentId: $batimentId, indicationAdresse: $indicationAdresse, codePostal: $codePostal, siteInternet: $siteInternet, nomManager: $nomManager, contactManager: $contactManager, userId: $userId, etage: $etage, cover: $cover, phone: $phone, whatsapp1: $whatsapp1, whatsapp2: $whatsapp2, description: $description, osmId: $osmId, services: $services, ameliorations: $ameliorations, vues: $vues, logo: $logo, logoMap: $logoMap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, isFavoris: $isFavoris, moyenne: $moyenne, avis: $avis, count: $count, batiment: $batiment, sousCategories: $sousCategories, commodites: $commodites, images: $images, horaires: $horaires, commentaires: $commentaires, user: $user)';
+    return 'Etablissement(id: $id, nom: $nom, batimentId: $batimentId, indicationAdresse: $indicationAdresse, codePostal: $codePostal, siteInternet: $siteInternet, nomManager: $nomManager, contactManager: $contactManager, userId: $userId, etage: $etage, cover: $cover, phone: $phone, whatsapp1: $whatsapp1, whatsapp2: $whatsapp2, description: $description, osmId: $osmId, services: $services, ameliorations: $ameliorations, vues: $vues, logo: $logo, logoMap: $logoMap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, isFavoris: $isFavoris, isopen: $isopen, moyenne: $moyenne, avis: $avis, count: $count, batiment: $batiment, sousCategories: $sousCategories, commodites: $commodites, images: $images, horaires: $horaires, commentaires: $commentaires, user: $user)';
   }
 
   factory Etablissement.fromJson(Map<String, dynamic> json) {
@@ -137,6 +139,7 @@ class Etablissement {
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? isFavoris,
+    bool? isopen,
     dynamic moyenne,
     int? avis,
     List<Count>? count,
@@ -174,6 +177,7 @@ class Etablissement {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       isFavoris: isFavoris ?? this.isFavoris,
+      isopen: isopen ?? isopen,
       moyenne: moyenne ?? this.moyenne,
       avis: avis ?? this.avis,
       count: count ?? this.count,

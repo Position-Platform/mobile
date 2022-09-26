@@ -7,10 +7,13 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/horaire.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcomment.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementreview.dart';
 import 'package:position/src/modules/map/widgets/bottomSheetButtonNoLabel.dart';
 import 'package:position/src/modules/map/widgets/placebottomsheet.dart';
+
+bool isVisible = true;
 
 Widget etablissementPage(BuildContext context, SearchModel searchModel) {
   return SafeArea(
@@ -129,11 +132,13 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buttonBottomSheetNoLabel(
-                  S.of(context).contacter,
-                  "assets/images/svg/icon-action-vignette-appeler.svg",
-                  primaryColor,
-                ),
+                searchModel.type! == "nominatim"
+                    ? const SizedBox()
+                    : buttonBottomSheetNoLabel(
+                        S.of(context).contacter,
+                        "assets/images/svg/icon-action-vignette-appeler.svg",
+                        primaryColor,
+                      ),
                 buttonBottomSheetNoLabel(
                   S.of(context).routing,
                   "assets/images/svg/icon-action-vignette-itinéraire.svg",
@@ -144,11 +149,19 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                   "assets/images/svg/icon-action-vignette-partager.svg",
                   whiteColor,
                 ),
-                buttonBottomSheetNoLabel(
-                  S.of(context).save,
-                  "assets/images/svg/icon-action-vignette-enregistrer.svg",
-                  whiteColor,
-                ),
+                searchModel.type! == "nominatim"
+                    ? const SizedBox()
+                    : searchModel.etablissement!.isFavoris!
+                        ? buttonBottomSheetNoLabel(
+                            S.of(context).saved,
+                            "assets/images/svg/icon-action-vignette-remove.svg",
+                            primaryColor,
+                          )
+                        : buttonBottomSheetNoLabel(
+                            S.of(context).save,
+                            "assets/images/svg/icon-action-vignette-enregistrer.svg",
+                            whiteColor,
+                          ),
               ],
             ),
             const SizedBox(
@@ -237,20 +250,39 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                   const SizedBox(
                     width: 5,
                   ),
+                  searchModel.isOpenNow!
+                      ? Text(
+                          S.of(context).opennow,
+                          style: const TextStyle(
+                              fontFamily: "OpenSans", color: greyColor),
+                        )
+                      : Text(
+                          S.of(context).close,
+                          style: const TextStyle(
+                              fontFamily: "OpenSans", color: greyColor),
+                        ),
                   Text(
-                    S.of(context).opennow,
+                    searchModel.plageDay!,
                     style: const TextStyle(
                         fontFamily: "OpenSans", color: greyColor),
-                  ),
-                  const Text(
-                    "08:30 - 19:00",
-                    style: TextStyle(fontFamily: "OpenSans", color: greyColor),
                   ),
                   const SizedBox(
                     width: 5,
                   ),
                   SvgPicture.asset("assets/images/svg/icon-icon-see-more.svg"),
                 ],
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Visibility(
+              visible: isVisible,
+              child: Container(
+                margin: const EdgeInsets.only(left: 100, right: 100),
+                child: Column(
+                  children: buildHoraires(searchModel.etablissement!.horaires!),
+                ),
               ),
             ),
             const SizedBox(
@@ -387,6 +419,40 @@ List<Widget> buildCommentaires(List<Commentaire> comentaires) {
   List<Widget> items = [];
   for (var i = 0; i < comentaires.length; i++) {
     Widget item = etablissementComment(comentaires[i]);
+    items.add(item);
+  }
+  return items;
+}
+
+List<Widget> buildHoraires(List<Horaire> horaires) {
+  List<Widget> items = [];
+  for (var i = 0; i < horaires.length; i++) {
+    Widget item = Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              horaires[i].jour!,
+              style: const TextStyle(
+                  color: greyColor, fontFamily: "OpenSans", fontSize: 13),
+            ),
+            const SizedBox(
+              width: 50,
+            ),
+            Text(
+              horaires[i].plageHoraire!,
+              style: const TextStyle(
+                  color: greyColor, fontFamily: "OpenSans", fontSize: 13),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 5,
+        )
+      ],
+    );
+
     items.add(item);
   }
   return items;

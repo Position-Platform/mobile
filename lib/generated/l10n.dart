@@ -1100,6 +1100,16 @@ class S {
     );
   }
 
+  /// `Fermé : `
+  String get close {
+    return Intl.message(
+      'Fermé : ',
+      name: 'close',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Presentation`
   String get presentation {
     return Intl.message(
@@ -1145,6 +1155,16 @@ class S {
     return Intl.message(
       'No results found',
       name: 'searchnotfound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registered`
+  String get saved {
+    return Intl.message(
+      'Registered',
+      name: 'saved',
       desc: '',
       args: [],
     );

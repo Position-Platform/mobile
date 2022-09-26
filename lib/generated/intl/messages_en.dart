@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
+        "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
         "commodite": MessageLookupByLibrary.simpleMessage("Amenities"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
@@ -125,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "routing": MessageLookupByLibrary.simpleMessage("Routing"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saved": MessageLookupByLibrary.simpleMessage("Registered"),
         "savedplaces": MessageLookupByLibrary.simpleMessage("My Saved Places"),
         "search": MessageLookupByLibrary.simpleMessage(
             "Search for an establishment, a place..."),
