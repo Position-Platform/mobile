@@ -115,7 +115,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
             geometry: LatLng(double.parse(event.searchModel!.latitude!),
                 double.parse(event.searchModel!.longitude!)),
             iconImage: event.searchModel!.name!,
-            iconSize: event.searchModel!.type! == "nominatim" ? 2.5 : 4),
+            iconSize: event.searchModel!.type! == "nominatim" ? 2 : 3),
       );
 
       emit(SymboledAdded(event.searchModel));

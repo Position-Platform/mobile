@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/core/utils/sizes.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/count.dart';
 
 Widget etablissementReview(String label, String labelavis, String labelreview,
     SearchModel searchModel, double avis) {
   return Container(
-    margin: const EdgeInsets.only(left: 20, right: 60),
+    margin: const EdgeInsets.only(left: 20, right: 20),
     child: Column(
       children: [
         Row(
@@ -29,6 +28,7 @@ Widget etablissementReview(String label, String labelavis, String labelreview,
                   height: 5,
                 ),
                 RatingBar.builder(
+                  ignoreGestures: true,
                   itemSize: 14,
                   initialRating: double.parse(
                       searchModel.etablissement!.moyenne.toString()),
@@ -70,7 +70,7 @@ Widget etablissementReview(String label, String labelavis, String labelreview,
           height: 20,
         ),
         Container(
-            width: 130,
+            width: 100,
             height: 35,
             decoration: BoxDecoration(
               color: primaryColor,
@@ -96,10 +96,10 @@ Widget etablissementReview(String label, String labelavis, String labelreview,
             child: Container(
               alignment: Alignment.center,
               child: Text(label,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'OpenSans-Bold',
                     color: whiteColor,
-                    fontSize: textSize,
+                    fontSize: 12,
                     fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.normal,
                   )),
@@ -112,7 +112,8 @@ Widget etablissementReview(String label, String labelavis, String labelreview,
           children: [
             Text(
               labelreview,
-              style: const TextStyle(fontFamily: "OpenSans"),
+              style: const TextStyle(
+                  fontFamily: "OpenSans", color: greyColor, fontSize: 12),
             ),
             const SizedBox(
               width: 5,

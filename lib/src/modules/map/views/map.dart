@@ -55,7 +55,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(whiteColor);
+    changeStatusColor(transparent);
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,

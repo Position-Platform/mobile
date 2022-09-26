@@ -43,17 +43,6 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                       scrollDirection: Axis.horizontal,
                       viewportFraction: 0.3,
                     )),
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Positioned(
-                    right: 10.0,
-                    top: 10.0,
-                    child: SvgPicture.asset(
-                        "assets/images/svg/button-button-close-round.svg"),
-                  ),
-                )
               ],
             ),
             const SizedBox(
@@ -80,6 +69,7 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                                 fontFamily: "OpenSans-Bold", fontSize: 12),
                           ),
                           RatingBar.builder(
+                            ignoreGestures: true,
                             itemSize: 12,
                             initialRating: double.parse(
                                 searchModel.etablissement!.moyenne.toString()),
@@ -254,17 +244,21 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                       ? Text(
                           S.of(context).opennow,
                           style: const TextStyle(
-                              fontFamily: "OpenSans", color: greyColor),
+                              fontFamily: "OpenSans",
+                              color: greyColor,
+                              fontSize: 12),
                         )
                       : Text(
                           S.of(context).close,
                           style: const TextStyle(
-                              fontFamily: "OpenSans", color: greyColor),
+                              fontFamily: "OpenSans",
+                              color: greyColor,
+                              fontSize: 12),
                         ),
                   Text(
                     searchModel.plageDay!,
                     style: const TextStyle(
-                        fontFamily: "OpenSans", color: greyColor),
+                        fontFamily: "OpenSans", color: greyColor, fontSize: 12),
                   ),
                   const SizedBox(
                     width: 5,
@@ -279,7 +273,7 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
             Visibility(
               visible: isVisible,
               child: Container(
-                margin: const EdgeInsets.only(left: 100, right: 100),
+                margin: const EdgeInsets.only(left: 50, right: 50),
                 child: Column(
                   children: buildHoraires(searchModel.etablissement!.horaires!),
                 ),
@@ -300,7 +294,9 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                     child: Text(
                       "${searchModel.etablissement!.batiment!.rue!} ${searchModel.etablissement!.batiment!.quartier!} ${searchModel.etablissement!.batiment!.ville!} ${searchModel.etablissement!.batiment!.indication!} ${searchModel.etablissement!.codePostal!}",
                       style: const TextStyle(
-                          fontFamily: "OpenSans", color: greyColor),
+                          fontFamily: "OpenSans",
+                          color: greyColor,
+                          fontSize: 12),
                     ),
                   ),
                 ],
@@ -321,7 +317,9 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                     child: Text(
                       searchModel.etablissement!.siteInternet!,
                       style: const TextStyle(
-                          fontFamily: "OpenSans", color: greyColor),
+                          fontFamily: "OpenSans",
+                          color: greyColor,
+                          fontSize: 12),
                     ),
                   ),
                 ],
@@ -354,8 +352,8 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
               child: Flexible(
                   child: Text(
                 searchModel.etablissement!.description!,
-                style:
-                    const TextStyle(fontFamily: "OpenSans", color: greyColor),
+                style: const TextStyle(
+                    fontFamily: "OpenSans", color: greyColor, fontSize: 12),
               )),
             ),
             const SizedBox(
@@ -403,7 +401,7 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
               style: const TextStyle(
                   fontFamily: "OpenSans-Bold",
                   color: primaryColor,
-                  fontSize: 16),
+                  fontSize: 14),
             ),
             const SizedBox(
               height: 20,

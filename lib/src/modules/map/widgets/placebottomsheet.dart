@@ -34,7 +34,7 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                         child: Text(
                           searchModel.name!,
                           style: const TextStyle(
-                              fontFamily: "OpenSans-Bold", fontSize: 14),
+                              fontFamily: "OpenSans-Bold", fontSize: 12),
                         ),
                       ),
                       searchModel.type! == "etablissement"
@@ -45,10 +45,11 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                                       .toString(),
                                   style: const TextStyle(
                                       fontFamily: "OpenSans-Bold",
-                                      fontSize: 12),
+                                      fontSize: 10),
                                 ),
                                 RatingBar.builder(
-                                  itemSize: 12,
+                                  ignoreGestures: true,
+                                  itemSize: 10,
                                   initialRating: double.parse(searchModel
                                       .etablissement!.moyenne
                                       .toString()),
@@ -71,12 +72,12 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                                     Text(
                                       "${searchModel.etablissement!.avis} ",
                                       style: const TextStyle(
-                                          fontFamily: "OpenSans", fontSize: 14),
+                                          fontFamily: "OpenSans", fontSize: 12),
                                     ),
                                     Text(
                                       S.of(context).avis,
                                       style: const TextStyle(
-                                          fontFamily: "OpenSans", fontSize: 14),
+                                          fontFamily: "OpenSans", fontSize: 12),
                                     ),
                                   ],
                                 )
@@ -161,7 +162,9 @@ List<Widget> buildCommodites(List<Commodite> commodites) {
   for (var i = 0; i < commodites.length; i++) {
     Widget item = Row(
       children: [
-        SvgPicture.asset("assets/images/svg/icon-service-check.svg"),
+        SvgPicture.asset(
+          "assets/images/svg/icon-service-check.svg",
+        ),
         const SizedBox(
           width: 3,
         ),
