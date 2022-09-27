@@ -153,6 +153,47 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                                   "assets/images/svg/icon-action-vignette-enregistrer.svg",
                                   whiteColor,
                                   primaryColor),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      searchModel.type! == "nominatim"
+                          ? Container(
+                              alignment: Alignment.center,
+                              width: 105,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: shadow1,
+                                      offset: Offset(0, 1),
+                                      blurRadius: 8,
+                                      spreadRadius: 0),
+                                  BoxShadow(
+                                      color: shadow2,
+                                      offset: Offset(0, 3),
+                                      blurRadius: 3,
+                                      spreadRadius: -2),
+                                  BoxShadow(
+                                      color: shadow3,
+                                      offset: Offset(0, 3),
+                                      blurRadius: 4,
+                                      spreadRadius: 0)
+                                ],
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Text(S.of(context).addEtablissement,
+                                    style: const TextStyle(
+                                      fontFamily: 'OpenSans-Bold',
+                                      color: whiteColor,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w700,
+                                      fontStyle: FontStyle.normal,
+                                    )),
+                              ))
+                          : const SizedBox(),
                     ],
                   ),
                 )

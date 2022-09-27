@@ -600,10 +600,10 @@ class S {
     );
   }
 
-  /// `Add a New Company`
+  /// `New Company`
   String get addEtablissement {
     return Intl.message(
-      'Add a New Company',
+      'New Company',
       name: 'addEtablissement',
       desc: '',
       args: [],
