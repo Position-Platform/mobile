@@ -55,7 +55,7 @@
   "shareMyPosition": "Share My Position",
   "sharePosition": "Share Position",
   "delete": "Delete",
-  "addEtablissement": "Add a New Company",
+  "addEtablissement": "New Company",
   "editEtablissement": "Edit a Company",
   "step": "Step",
   "chooseTheme": "Choose a Theme",
@@ -111,5 +111,6 @@
   "latestreview": "The most recent",
   "searcherror": "Load error",
   "searchnotfound": "No results found",
-  "saved": "Registered"
+  "saved": "Registered",
+  "nowebsite": "No Website"
 }
