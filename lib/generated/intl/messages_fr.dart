@@ -24,8 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addEmail":
             MessageLookupByLibrary.simpleMessage("Remplissez l\'adresse mail"),
-        "addEtablissement": MessageLookupByLibrary.simpleMessage(
-            "Ajout d\'une Nouvelle Entreprise"),
+        "addEtablissement":
+            MessageLookupByLibrary.simpleMessage("Nouvelle Entreprise"),
         "adress": MessageLookupByLibrary.simpleMessage("Adresse"),
         "aide": MessageLookupByLibrary.simpleMessage("Aide"),
         "alreadyAccount":
@@ -118,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pas de connexion internet"),
         "noLocation": MessageLookupByLibrary.simpleMessage(
             "Impossible d\'obtenir l\'emplacement actuel"),
+        "nowebsite":
+            MessageLookupByLibrary.simpleMessage("Pas de Site Internet"),
         "opennow": MessageLookupByLibrary.simpleMessage("Ouvert Maintenant : "),
         "or": MessageLookupByLibrary.simpleMessage("- OU -"),
         "passError":

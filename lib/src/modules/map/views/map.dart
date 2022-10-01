@@ -106,8 +106,7 @@ class _MapPageState extends State<MapPage> {
                   compassEnabled: true,
                   onMapClick: (point, coordinates) =>
                       _mapBloc?.add(RemoveSymboleInMap()),
-                  styleString:
-                      "mapbox://styles/gauty96/ckz194r6x000616o9hq4pcgkz",
+                  styleString: MapboxStyles.MAPBOX_STREETS,
                   accessToken: mapboxApiKey,
                   onMapLongClick: (point, latLng) =>
                       _mapBloc?.add(AddSymboleOnMap(latLng)),

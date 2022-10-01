@@ -292,7 +292,7 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                   ),
                   Flexible(
                     child: Text(
-                      "${searchModel.etablissement!.batiment!.rue!} ${searchModel.etablissement!.batiment!.quartier!} ${searchModel.etablissement!.batiment!.ville!} ${searchModel.etablissement!.batiment!.indication!} ${searchModel.etablissement!.codePostal!}",
+                      "${searchModel.etablissement!.batiment!.rue!} ${searchModel.etablissement!.batiment!.quartier! == "Non Defini" ? "" : searchModel.etablissement!.batiment!.quartier!} ${searchModel.etablissement!.batiment!.ville!} ${searchModel.etablissement!.batiment!.indication ?? ""} ${searchModel.etablissement!.codePostal == "null" ? "" : searchModel.etablissement!.codePostal}",
                       style: const TextStyle(
                           fontFamily: "OpenSans",
                           color: greyColor,
@@ -315,7 +315,9 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                   ),
                   Flexible(
                     child: Text(
-                      searchModel.etablissement!.siteInternet!,
+                      searchModel.etablissement!.siteInternet == "null"
+                          ? S.of(context).nowebsite
+                          : searchModel.etablissement!.siteInternet!,
                       style: const TextStyle(
                           fontFamily: "OpenSans",
                           color: greyColor,

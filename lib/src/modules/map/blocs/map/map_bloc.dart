@@ -121,7 +121,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
             geometry: LatLng(double.parse(event.searchModel!.latitude!),
                 double.parse(event.searchModel!.longitude!)),
             iconImage: event.searchModel!.name!,
-            iconSize: event.searchModel!.type! == "nominatim" ? 2 : 3),
+            iconSize: event.searchModel!.type! == "nominatim" ? 2.8 : 3),
       );
 
       emit(SymboledAdded(event.searchModel));
@@ -147,7 +147,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController?.addImage("markerImage", list);
 
     _mapController?.addSymbol(SymbolOptions(
-        geometry: event.latLng, iconImage: "markerImage", iconSize: 2));
+        geometry: event.latLng, iconImage: "markerImage", iconSize: 2.8));
 
     try {
       final nominatimResult = await nominatimRepository?.reverse(

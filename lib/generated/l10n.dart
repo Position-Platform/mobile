@@ -600,10 +600,10 @@ class S {
     );
   }
 
-  /// `Add a New Company`
+  /// `New Company`
   String get addEtablissement {
     return Intl.message(
-      'Add a New Company',
+      'New Company',
       name: 'addEtablissement',
       desc: '',
       args: [],
@@ -1165,6 +1165,16 @@ class S {
     return Intl.message(
       'Registered',
       name: 'saved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Website`
+  String get nowebsite {
+    return Intl.message(
+      'No Website',
+      name: 'nowebsite',
       desc: '',
       args: [],
     );
