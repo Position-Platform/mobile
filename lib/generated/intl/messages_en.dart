@@ -107,6 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "noLocation":
             MessageLookupByLibrary.simpleMessage("Cannot get current location"),
+        "nowebsite": MessageLookupByLibrary.simpleMessage("No Website"),
         "opennow": MessageLookupByLibrary.simpleMessage("Open Now : "),
         "or": MessageLookupByLibrary.simpleMessage("- OR -"),
         "passError":

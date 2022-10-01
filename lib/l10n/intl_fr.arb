@@ -111,5 +111,6 @@
   "latestreview": "Les plus récents",
   "searcherror": "Erreur de Chargement",
   "searchnotfound": "Aucun resultat trouvé",
-  "saved": "Enregistré"
+  "saved": "Enregistré",
+  "nowebsite": "Pas de Site Internet"
 }

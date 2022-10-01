@@ -7,6 +7,7 @@ import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
+import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/views/profile.dart';
 import 'package:position/src/modules/map/widgets/searchItem.dart';
 import 'package:position/src/widgets/loading.dart';
@@ -65,7 +66,7 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: () {
-        close(context, null);
+        close(context, SearchModel());
       },
       icon: SvgPicture.asset(
         "assets/images/svg/icon-arrow_left.svg",
