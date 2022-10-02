@@ -5,3 +5,4 @@ const String mapboxApiKey =
     "pk.eyJ1IjoiZ2F1dHk5NiIsImEiOiJjanN4aDd2cG8wMmw3NDRwaDc2cnc2OXJwIn0.YRVVo-3FkQtfkMPH4lt2hw";
 const double initMapZoom = 15.0;
 const String nominatimUrl = "https://nominatim.openstreetmap.org";
+const String routingUrl = "https://router.project-osrm.org/route/v1/driving";

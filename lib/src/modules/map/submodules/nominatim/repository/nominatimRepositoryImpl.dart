@@ -6,6 +6,7 @@ import 'package:position/src/modules/map/submodules/nominatim/api/nominatimApiSe
 import 'package:position/src/modules/map/submodules/nominatim/models/nominatim.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/modules/map/submodules/nominatim/models/reverse.dart';
+import 'package:position/src/modules/map/submodules/nominatim/models/routing.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 
 class NominatimRepositoryImpl implements NominatimRepository {
@@ -39,6 +40,25 @@ class NominatimRepositoryImpl implements NominatimRepository {
         final Response response = await nominatimApiService!.revserse(lon, lat);
 
         var model = Reverse.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
+
+  @override
+  Future<Result<Routing>> getroute(String coordinates) async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    if (isConnected) {
+      try {
+        final Response response =
+            await nominatimApiService!.getRoute(coordinates);
+
+        var model = Routing.fromJson(response.body);
 
         return Result(success: model);
       } catch (e) {

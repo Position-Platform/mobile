@@ -56,3 +56,16 @@ class AddSymboleOnMap extends MapEvent {
   @override
   String toString() => 'AddSymboleOnMap { LatLng: $latLng }';
 }
+
+class AddRoutingInMap extends MapEvent {
+  final String? lon;
+  final String? lat;
+
+  const AddRoutingInMap(this.lon, this.lat);
+
+  @override
+  List<Object> get props => [lon!, lat!];
+
+  @override
+  String toString() => 'AddRoutingInMap { Lat: $lat , Lon: $lon }';
+}

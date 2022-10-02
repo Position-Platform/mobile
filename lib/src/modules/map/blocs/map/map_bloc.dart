@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, non_constant_identifier_names
 
 import 'dart:async';
 
@@ -35,6 +35,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     distanceFilter: 5,
   );
 
+  String GEOJSON_SOURCE_ID = "geojson-source-id";
+  String ROUTE_LAYER = "route_layer";
+
   MapBloc(
       {this.categoriesRepository,
       this.sharedPreferencesHelper,
@@ -49,6 +52,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<RemoveSymboleInMap>(_removeSymbolInMap);
     on<OnSymboleClick>(_symbolClick);
     on<AddSymboleOnMap>(_addSymbolOnMap);
+    on<AddRoutingInMap>(_addRoutingInMap);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -130,6 +134,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _removeSymbolInMap(RemoveSymboleInMap event, Emitter<MapState> emit) {
     _mapController?.clearSymbols();
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
     emit(SymboleRemoved());
   }
 
@@ -140,6 +146,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   _addSymbolOnMap(AddSymboleOnMap event, Emitter<MapState> emit) async {
     if (_mapController!.symbols.isNotEmpty) {
       _mapController?.clearSymbols();
+      _mapController!.removeLayer(ROUTE_LAYER);
+      _mapController!.removeSource(GEOJSON_SOURCE_ID);
     }
     final ByteData bytes =
         await rootBundle.load("assets/images/png/icon-icon-position-pin.png");
@@ -177,6 +185,60 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       emit(SymboledAdded(searchModel));
     } catch (e) {
       emit(MapError());
+    }
+  }
+
+  _addRoutingInMap(AddRoutingInMap event, Emitter<MapState> emit) async {
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
+    Position position = await Geolocator.getCurrentPosition();
+
+    String coordonnees =
+        "${position.longitude},${position.latitude};${event.lon!},${event.lat!}";
+
+    try {
+      var routeResult = await nominatimRepository!.getroute(coordonnees);
+      var responses = [];
+
+      if (routeResult.success!.code == "Ok") {
+        var properties = {
+          "distance": routeResult.success!.routes![0].distance,
+          "duration": routeResult.success!.routes![0].duration
+        };
+
+        var response = {
+          "type": 'Feature',
+          "geometry": routeResult.success!.routes![0].geometry!.toJson(),
+          "properties": properties,
+        };
+
+        responses.add(response);
+
+        var geojson = {
+          "type": 'FeatureCollection',
+          "features": responses,
+        };
+
+        _mapController!.addSource(
+            GEOJSON_SOURCE_ID, GeojsonSourceProperties(data: geojson));
+
+        _mapController!.addLayer(
+            GEOJSON_SOURCE_ID,
+            ROUTE_LAYER,
+            const LineLayerProperties(
+              lineColor: "#05BF95",
+              lineWidth: 7,
+              lineOpacity: 0.7,
+              lineJoin: "round",
+              lineCap: "round",
+            ));
+
+        _mapController!.animateCamera(CameraUpdate.zoomTo(13));
+      } else {
+        emit(RoutingError());
+      }
+    } catch (e) {
+      emit(RoutingError());
     }
   }
 

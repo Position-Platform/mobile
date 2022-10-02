@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
+import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/horaire.dart';
@@ -17,7 +19,8 @@ import 'package:position/src/modules/map/widgets/placebottomsheet.dart';
 
 bool isVisible = true;
 
-Widget etablissementPage(BuildContext context, SearchModel searchModel) {
+Widget etablissementPage(BuildContext context, SearchModel searchModel,
+    MapBloc mapBloc, GlobalKey<ExpandableBottomSheetState> expandablesheet) {
   searchModel.etablissement!.images!.add(image.Image(
       etablissementId: searchModel.etablissement!.id,
       imageUrl: searchModel.etablissement!.cover));
@@ -27,23 +30,35 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          CarouselSlider(
-              items: searchModel.etablissement!.images!
-                  .map((item) => Container(
-                      alignment: Alignment.topLeft,
-                      child: Image.network(
-                        apiUrl + item.imageUrl!,
-                        fit: BoxFit.cover,
-                        width: 160,
-                        height: 150,
-                      )))
-                  .toList(),
-              options: CarouselOptions(
-                height: 150,
-                enableInfiniteScroll: true,
-                scrollDirection: Axis.horizontal,
-                viewportFraction: 0.3,
-              )),
+          Stack(children: [
+            CarouselSlider(
+                items: searchModel.etablissement!.images!
+                    .map((item) => Container(
+                        alignment: Alignment.topLeft,
+                        child: Image.network(
+                          apiUrl + item.imageUrl!,
+                          fit: BoxFit.cover,
+                          width: 160,
+                          height: 170,
+                        )))
+                    .toList(),
+                options: CarouselOptions(
+                  height: 170,
+                  enableInfiniteScroll: true,
+                  scrollDirection: Axis.horizontal,
+                  viewportFraction: 0.3,
+                )),
+            Positioned(
+                top: 35,
+                right: 20,
+                child: InkWell(
+                  onTap: () {
+                    expandablesheet.currentState!.contract();
+                  },
+                  child: SvgPicture.asset(
+                      "assets/images/svg/button-button-close-round.svg"),
+                )),
+          ]),
           const SizedBox(
             height: 30,
           ),
@@ -127,17 +142,20 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                       S.of(context).contacter,
                       "assets/images/svg/icon-action-vignette-appeler.svg",
                       primaryColor,
-                    ),
+                      null),
               buttonBottomSheetNoLabel(
-                S.of(context).routing,
-                "assets/images/svg/icon-action-vignette-itinéraire.svg",
-                whiteColor,
-              ),
+                  S.of(context).routing,
+                  "assets/images/svg/icon-action-vignette-itinéraire.svg",
+                  whiteColor, () {
+                mapBloc.add(AddRoutingInMap(
+                    searchModel.longitude, searchModel.latitude));
+                expandablesheet.currentState!.contract();
+              }),
               buttonBottomSheetNoLabel(
-                S.of(context).share,
-                "assets/images/svg/icon-action-vignette-partager.svg",
-                whiteColor,
-              ),
+                  S.of(context).share,
+                  "assets/images/svg/icon-action-vignette-partager.svg",
+                  whiteColor,
+                  null),
               searchModel.type! == "nominatim"
                   ? const SizedBox()
                   : searchModel.etablissement!.isFavoris!
@@ -145,12 +163,12 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel) {
                           S.of(context).saved,
                           "assets/images/svg/icon-action-vignette-remove.svg",
                           primaryColor,
-                        )
+                          null)
                       : buttonBottomSheetNoLabel(
                           S.of(context).save,
                           "assets/images/svg/icon-action-vignette-enregistrer.svg",
                           whiteColor,
-                        ),
+                          null),
             ],
           ),
           const SizedBox(

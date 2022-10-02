@@ -10,7 +10,8 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/widgets/bottomSheetButton.dart';
 import 'package:position/src/modules/map/widgets/headerbottomSheet.dart';
 
-Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
+Widget placeBottomSheet(
+    BuildContext context, SearchModel searchModel, MapBloc mapBloc) {
   return BlocBuilder<MapBloc, MapState>(
     builder: (context, state) {
       return Column(
@@ -19,13 +20,19 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
               ? headerBottomSheet(searchModel)
               : const SizedBox(),
           Container(
-            height: 150,
+            height: 160,
             color: whiteColor,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
-                ),
+                searchModel.type! == "etablissement"
+                    ? SvgPicture.asset(
+                        "assets/images/svg/horizontal-bar.svg",
+                        height: 30,
+                        color: grey5,
+                      )
+                    : const SizedBox(
+                        height: 30,
+                      ),
                 Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
                   child: Column(
@@ -129,17 +136,22 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                               S.of(context).contacter,
                               "assets/images/svg/icon-action-vignette-appeler.svg",
                               primaryColor,
-                              whiteColor),
+                              whiteColor,
+                              null),
                       buttonBottomSheet(
                           S.of(context).routing,
                           "assets/images/svg/icon-action-vignette-itinéraire.svg",
                           whiteColor,
-                          primaryColor),
+                          primaryColor, () {
+                        mapBloc.add(AddRoutingInMap(
+                            searchModel.longitude, searchModel.latitude));
+                      }),
                       buttonBottomSheet(
                           S.of(context).share,
                           "assets/images/svg/icon-action-vignette-partager.svg",
                           whiteColor,
-                          primaryColor),
+                          primaryColor,
+                          null),
                       searchModel.type! == "nominatim"
                           ? const SizedBox()
                           : searchModel.etablissement!.isFavoris!
@@ -147,12 +159,14 @@ Widget placeBottomSheet(BuildContext context, SearchModel searchModel) {
                                   S.of(context).saved,
                                   "assets/images/svg/icon-action-vignette-remove.svg",
                                   primaryColor,
-                                  whiteColor)
+                                  whiteColor,
+                                  null)
                               : buttonBottomSheet(
                                   S.of(context).save,
                                   "assets/images/svg/icon-action-vignette-enregistrer.svg",
                                   whiteColor,
-                                  primaryColor),
+                                  primaryColor,
+                                  null),
                       const SizedBox(
                         width: 10,
                       ),

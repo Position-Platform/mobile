@@ -42,3 +42,7 @@ class SymboledAdded extends MapState {
 class SymboleClicked extends MapState {}
 
 class SymboleRemoved extends MapState {}
+
+class RoutingAdded extends MapState {}
+
+class RoutingError extends MapState {}

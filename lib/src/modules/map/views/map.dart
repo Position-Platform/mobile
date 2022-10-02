@@ -87,13 +87,13 @@ class _MapPageState extends State<MapPage> {
               animationDurationContract: const Duration(milliseconds: 500),
               animationDurationExtend: const Duration(milliseconds: 500),
               key: expandablesheet,
-              enableToggle: true,
               expandableContent:
                   isMarkerAdded && searchModel!.type == "etablissement"
-                      ? etablissementPage(context, searchModel!)
+                      ? etablissementPage(
+                          context, searchModel!, _mapBloc!, expandablesheet)
                       : const SizedBox(),
               persistentHeader: isMarkerAdded
-                  ? placeBottomSheet(context, searchModel!)
+                  ? placeBottomSheet(context, searchModel!, _mapBloc!)
                   : const SizedBox(),
               background: Stack(children: [
                 MapboxMap(
