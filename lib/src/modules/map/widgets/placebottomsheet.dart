@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commodite.dart';
@@ -136,8 +137,9 @@ Widget placeBottomSheet(
                               S.of(context).contacter,
                               "assets/images/svg/icon-action-vignette-appeler.svg",
                               primaryColor,
-                              whiteColor,
-                              null),
+                              whiteColor, () {
+                              makePhoneCall(searchModel.etablissement!.phone!);
+                            }),
                       buttonBottomSheet(
                           S.of(context).routing,
                           "assets/images/svg/icon-action-vignette-itinéraire.svg",
