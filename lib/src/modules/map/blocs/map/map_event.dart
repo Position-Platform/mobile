@@ -69,3 +69,27 @@ class AddRoutingInMap extends MapEvent {
   @override
   String toString() => 'AddRoutingInMap { Lat: $lat , Lon: $lon }';
 }
+
+class AddFavorite extends MapEvent {
+  final int? idEtablissement;
+
+  const AddFavorite(this.idEtablissement);
+
+  @override
+  List<Object> get props => [idEtablissement!];
+
+  @override
+  String toString() => 'AddFavorite { idEtablissement: $idEtablissement }';
+}
+
+class RemoveFavorite extends MapEvent {
+  final int? idEtablissement;
+
+  const RemoveFavorite(this.idEtablissement);
+
+  @override
+  List<Object> get props => [idEtablissement!];
+
+  @override
+  String toString() => 'RemoveFavorite { idEtablissement: $idEtablissement }';
+}

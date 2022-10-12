@@ -15,6 +15,7 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
 
@@ -26,6 +27,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   CategoriesRepository? categoriesRepository;
   TrackingRepository? trackingRepository;
   NominatimRepository? nominatimRepository;
+  EtablissementRepository? etablissementRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
   late StreamSubscription<Position> positionStream;
@@ -42,7 +44,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       {this.categoriesRepository,
       this.sharedPreferencesHelper,
       this.trackingRepository,
-      this.nominatimRepository})
+      this.nominatimRepository,
+      this.etablissementRepository})
       : super(MapInitial()) {
     on<OnMapInitializedEvent>(_onInitMap);
     on<GetUserLocationEvent>(_getUserLocation);
@@ -53,6 +56,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<OnSymboleClick>(_symbolClick);
     on<AddSymboleOnMap>(_addSymbolOnMap);
     on<AddRoutingInMap>(_addRoutingInMap);
+    on<AddFavorite>(_addFavorite);
+    on<RemoveFavorite>(_removeFavorite);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -239,6 +244,32 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       }
     } catch (e) {
       emit(RoutingError());
+    }
+  }
+
+  _addFavorite(AddFavorite event, Emitter<MapState> emit) async {
+    try {
+      var favoriteResult =
+          await etablissementRepository!.addfavorite(event.idEtablissement!);
+
+      if (favoriteResult.success!.success!) {
+        emit(FavoriteAdded());
+      }
+    } catch (e) {
+      emit(FavoriteError());
+    }
+  }
+
+  _removeFavorite(RemoveFavorite event, Emitter<MapState> emit) async {
+    try {
+      var favoriteResult =
+          await etablissementRepository!.removefavorite(event.idEtablissement!);
+
+      if (favoriteResult.success!.success!) {
+        emit(FavoriteRemoved());
+      }
+    } catch (e) {
+      emit(FavoriteError());
     }
   }
 

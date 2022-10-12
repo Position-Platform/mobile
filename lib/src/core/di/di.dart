@@ -123,7 +123,8 @@ Future<void> init() async {
       categoriesRepository: getIt(),
       sharedPreferencesHelper: getIt(),
       trackingRepository: getIt(),
-      nominatimRepository: getIt()));
+      nominatimRepository: getIt(),
+      etablissementRepository: getIt()));
   getIt.registerFactory<SearchBloc>(() => SearchBloc(
       categoriesRepository: getIt(),
       etablissementRepository: getIt(),

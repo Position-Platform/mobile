@@ -156,19 +156,24 @@ Widget placeBottomSheet(
                           null),
                       searchModel.type! == "nominatim"
                           ? const SizedBox()
-                          : searchModel.etablissement!.isFavoris!
+                          : searchModel.etablissement!.isFavoris! ||
+                                  state is FavoriteAdded
                               ? buttonBottomSheet(
                                   S.of(context).saved,
                                   "assets/images/svg/icon-action-vignette-remove.svg",
                                   primaryColor,
-                                  whiteColor,
-                                  null)
+                                  whiteColor, () {
+                                  mapBloc.add(RemoveFavorite(
+                                      searchModel.etablissement!.id));
+                                })
                               : buttonBottomSheet(
                                   S.of(context).save,
                                   "assets/images/svg/icon-action-vignette-enregistrer.svg",
                                   whiteColor,
-                                  primaryColor,
-                                  null),
+                                  primaryColor, () {
+                                  mapBloc.add(AddFavorite(
+                                      searchModel.etablissement!.id));
+                                }),
                       const SizedBox(
                         width: 10,
                       ),

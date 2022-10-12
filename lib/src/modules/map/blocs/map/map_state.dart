@@ -46,3 +46,9 @@ class SymboleRemoved extends MapState {}
 class RoutingAdded extends MapState {}
 
 class RoutingError extends MapState {}
+
+class FavoriteAdded extends MapState {}
+
+class FavoriteRemoved extends MapState {}
+
+class FavoriteError extends MapState {}
