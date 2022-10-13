@@ -2,10 +2,13 @@
 
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:position/blocobserver.dart';
+import 'package:position/firebase_options.dart';
 import 'package:position/src/app.dart';
 import 'package:position/src/core/di/di.dart' as di;
 import 'package:path_provider/path_provider.dart';
@@ -15,6 +18,9 @@ void main() async {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     await di.init();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     final storage = await HydratedStorage.build(
       storageDirectory: await getApplicationSupportDirectory(),
     );
@@ -28,6 +34,6 @@ void main() async {
     print('runZonedGuarded: Caught error in my root zone.');
     print(stackTrace);
     print(error);
-    //  FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }
