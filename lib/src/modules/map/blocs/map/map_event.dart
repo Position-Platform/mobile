@@ -56,3 +56,52 @@ class AddSymboleOnMap extends MapEvent {
   @override
   String toString() => 'AddSymboleOnMap { LatLng: $latLng }';
 }
+
+class AddRoutingInMap extends MapEvent {
+  final String? lon;
+  final String? lat;
+
+  const AddRoutingInMap(this.lon, this.lat);
+
+  @override
+  List<Object> get props => [lon!, lat!];
+
+  @override
+  String toString() => 'AddRoutingInMap { Lat: $lat , Lon: $lon }';
+}
+
+class AddFavorite extends MapEvent {
+  final int? idEtablissement;
+
+  const AddFavorite(this.idEtablissement);
+
+  @override
+  List<Object> get props => [idEtablissement!];
+
+  @override
+  String toString() => 'AddFavorite { idEtablissement: $idEtablissement }';
+}
+
+class RemoveFavorite extends MapEvent {
+  final int? idEtablissement;
+
+  const RemoveFavorite(this.idEtablissement);
+
+  @override
+  List<Object> get props => [idEtablissement!];
+
+  @override
+  String toString() => 'RemoveFavorite { idEtablissement: $idEtablissement }';
+}
+
+class SharePlace extends MapEvent {
+  final SearchModel? searchModel;
+
+  const SharePlace(this.searchModel);
+
+  @override
+  List<Object> get props => [searchModel!];
+
+  @override
+  String toString() => 'SharePlace { SearchModel: $searchModel }';
+}

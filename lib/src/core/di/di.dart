@@ -5,6 +5,7 @@ import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/services/apiService.dart';
 import 'package:position/src/core/services/nominatimService.dart';
+import 'package:position/src/core/services/routingService.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/auth/api/authApiService.dart';
 import 'package:position/src/modules/auth/api/authApiServiceFactory.dart';
@@ -38,13 +39,15 @@ final GetIt getIt = GetIt.instance;
 Future<void> init() async {
   final chopper = ChopperClient(services: [
     ApiService.create(),
-    NominatimService.create()
+    NominatimService.create(),
+    RoutingService.create()
   ], interceptors: [
     const HeadersInterceptor({'X-Authorization': apiKey})
   ], converter: const JsonConverter(), errorConverter: const JsonConverter());
 
   final apiService = ApiService.create(chopper);
   final nominatimService = NominatimService.create(chopper);
+  final routingService = RoutingService.create(chopper);
 
   //Utils
   getIt.registerLazySingleton<NetworkInfoHelper>(() => NetworkInfoHelper());
@@ -65,7 +68,7 @@ Future<void> init() async {
       () => EtablissementApiServiceFactory(apiService));
 
   getIt.registerLazySingleton<NominatimApiService>(
-      () => NominatimApiServiceFactory(nominatimService));
+      () => NominatimApiServiceFactory(nominatimService, routingService));
 
   //Repository
   getIt.registerFactory<AuthRepository>(
@@ -120,7 +123,8 @@ Future<void> init() async {
       categoriesRepository: getIt(),
       sharedPreferencesHelper: getIt(),
       trackingRepository: getIt(),
-      nominatimRepository: getIt()));
+      nominatimRepository: getIt(),
+      etablissementRepository: getIt()));
   getIt.registerFactory<SearchBloc>(() => SearchBloc(
       categoriesRepository: getIt(),
       etablissementRepository: getIt(),

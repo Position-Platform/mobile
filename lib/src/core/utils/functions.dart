@@ -1,5 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:turf/turf.dart' as turf;
+import 'package:url_launcher/url_launcher.dart';
 
 Future<double> calculateDistance(String lon, String lat) async {
   var position = await Geolocator.getCurrentPosition();
@@ -13,4 +14,12 @@ Future<double> calculateDistance(String lon, String lat) async {
   double result = double.parse(distance.toString());
 
   return result;
+}
+
+Future<void> makePhoneCall(String phoneNumber) async {
+  final Uri launchUri = Uri(
+    scheme: 'tel',
+    path: phoneNumber,
+  );
+  await launchUrl(launchUri);
 }

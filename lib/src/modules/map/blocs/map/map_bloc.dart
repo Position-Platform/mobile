@@ -1,8 +1,10 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
@@ -15,6 +17,7 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
 
@@ -26,6 +29,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   CategoriesRepository? categoriesRepository;
   TrackingRepository? trackingRepository;
   NominatimRepository? nominatimRepository;
+  EtablissementRepository? etablissementRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
   late StreamSubscription<Position> positionStream;
@@ -35,11 +39,17 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     distanceFilter: 5,
   );
 
+  String GEOJSON_SOURCE_ID = "geojson-source-id";
+  String ROUTE_LAYER = "route_layer";
+
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
   MapBloc(
       {this.categoriesRepository,
       this.sharedPreferencesHelper,
       this.trackingRepository,
-      this.nominatimRepository})
+      this.nominatimRepository,
+      this.etablissementRepository})
       : super(MapInitial()) {
     on<OnMapInitializedEvent>(_onInitMap);
     on<GetUserLocationEvent>(_getUserLocation);
@@ -49,6 +59,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<RemoveSymboleInMap>(_removeSymbolInMap);
     on<OnSymboleClick>(_symbolClick);
     on<AddSymboleOnMap>(_addSymbolOnMap);
+    on<AddRoutingInMap>(_addRoutingInMap);
+    on<AddFavorite>(_addFavorite);
+    on<RemoveFavorite>(_removeFavorite);
+    on<SharePlace>(_sharePlace);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -62,6 +76,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController?.onFeatureTapped.add((id, point, coordinates) async {
       add(OnSymboleClick());
     });
+    emit(MapInitialized());
   }
 
   _getUserLocation(GetUserLocationEvent event, Emitter<MapState> emit) async {
@@ -130,6 +145,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _removeSymbolInMap(RemoveSymboleInMap event, Emitter<MapState> emit) {
     _mapController?.clearSymbols();
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
     emit(SymboleRemoved());
   }
 
@@ -140,6 +157,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   _addSymbolOnMap(AddSymboleOnMap event, Emitter<MapState> emit) async {
     if (_mapController!.symbols.isNotEmpty) {
       _mapController?.clearSymbols();
+      _mapController!.removeLayer(ROUTE_LAYER);
+      _mapController!.removeSource(GEOJSON_SOURCE_ID);
     }
     final ByteData bytes =
         await rootBundle.load("assets/images/png/icon-icon-position-pin.png");
@@ -177,6 +196,120 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       emit(SymboledAdded(searchModel));
     } catch (e) {
       emit(MapError());
+    }
+  }
+
+  _addRoutingInMap(AddRoutingInMap event, Emitter<MapState> emit) async {
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
+    Position position = await Geolocator.getCurrentPosition();
+
+    String coordonnees =
+        "${position.longitude},${position.latitude};${event.lon!},${event.lat!}";
+
+    try {
+      var routeResult = await nominatimRepository!.getroute(coordonnees);
+      var responses = [];
+
+      if (routeResult.success!.code == "Ok") {
+        var properties = {
+          "distance": routeResult.success!.routes![0].distance,
+          "duration": routeResult.success!.routes![0].duration
+        };
+
+        var response = {
+          "type": 'Feature',
+          "geometry": routeResult.success!.routes![0].geometry!.toJson(),
+          "properties": properties,
+        };
+
+        responses.add(response);
+
+        var geojson = {
+          "type": 'FeatureCollection',
+          "features": responses,
+        };
+
+        _mapController!.addSource(
+            GEOJSON_SOURCE_ID, GeojsonSourceProperties(data: geojson));
+
+        _mapController!.addLayer(
+            GEOJSON_SOURCE_ID,
+            ROUTE_LAYER,
+            const LineLayerProperties(
+              lineColor: "#05BF95",
+              lineWidth: 7,
+              lineOpacity: 0.7,
+              lineJoin: "round",
+              lineCap: "round",
+            ));
+
+        _mapController!.animateCamera(CameraUpdate.zoomTo(13));
+      } else {
+        emit(RoutingError());
+      }
+    } catch (e) {
+      emit(RoutingError());
+    }
+  }
+
+  _addFavorite(AddFavorite event, Emitter<MapState> emit) async {
+    try {
+      var favoriteResult =
+          await etablissementRepository!.addfavorite(event.idEtablissement!);
+
+      if (favoriteResult.success!.success!) {
+        emit(FavoriteAdded());
+      }
+    } catch (e) {
+      emit(FavoriteError());
+    }
+  }
+
+  _removeFavorite(RemoveFavorite event, Emitter<MapState> emit) async {
+    try {
+      var favoriteResult =
+          await etablissementRepository!.removefavorite(event.idEtablissement!);
+
+      if (favoriteResult.success!.success!) {
+        emit(FavoriteRemoved());
+      }
+    } catch (e) {
+      emit(FavoriteError());
+    }
+  }
+
+  _sharePlace(SharePlace event, Emitter<MapState> emit) async {
+    String searchmodel = json.encode(event.searchModel!.toJson());
+
+    try {
+      final DynamicLinkParameters parameters = DynamicLinkParameters(
+        uriPrefix: 'https://position.page.link/',
+        link: Uri.parse('https://position.page.link?searchmodel=$searchmodel'),
+        androidParameters: const AndroidParameters(
+          packageName: 'cm.geosmfamily.position',
+          minimumVersion: 0,
+        ),
+        iosParameters: const IOSParameters(
+          bundleId: 'cm.geosmfamily.position',
+          minimumVersion: '0',
+        ),
+        socialMetaTagParameters: SocialMetaTagParameters(
+          title: event.searchModel!.name,
+          description: event.searchModel!.details,
+          imageUrl: event.searchModel!.type == "etablissement"
+              ? Uri.parse(apiUrl + event.searchModel!.etablissement!.cover)
+              : null,
+        ),
+      );
+
+      final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(
+          parameters,
+          shortLinkType: ShortDynamicLinkType.unguessable);
+
+      emit(PlaceShared(shortLink.shortUrl.toString()));
+    } catch (e) {
+      emit(SharedError());
     }
   }
 

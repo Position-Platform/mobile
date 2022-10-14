@@ -6,4 +6,6 @@ abstract class NominatimApiService {
   Future<Response> searchPlace(String query);
 
   Future<Response> revserse(String lon, String lat);
+
+  Future<Response> getRoute(String coordinates);
 }
