@@ -1,11 +1,18 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/views/profile.dart';
 
-Widget searchBar(BuildContext context, User user, String labelSearch,
-    String fontFamily, VoidCallback callback, VoidCallback callbackSearch) {
+Widget searchBar(
+    BuildContext context,
+    User user,
+    String labelSearch,
+    String fontFamily,
+    VoidCallback callback,
+    VoidCallback callbackSearch,
+    PendingDynamicLinkData? initialLink) {
   return Card(
     elevation: 10,
     margin: EdgeInsets.zero,
@@ -44,7 +51,10 @@ Widget searchBar(BuildContext context, User user, String labelSearch,
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return ProfilePage(user: user);
+                    return ProfilePage(
+                      user: user,
+                      initialLink: initialLink,
+                    );
                   },
                 ),
               );

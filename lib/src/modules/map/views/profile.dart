@@ -1,3 +1,6 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,7 +17,8 @@ import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/widgets/footer.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key, @required this.user});
+  PendingDynamicLinkData? initialLink;
+  ProfilePage({super.key, @required this.user, @required this.initialLink});
   final User? user;
 
   @override
@@ -133,7 +137,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       return BlocProvider<AuthBloc>(
                         create: (context) =>
                             getIt<AuthBloc>()..add(AuthStarted()),
-                        child: const InitPage(),
+                        child: InitPage(
+                          initialLink: widget.initialLink,
+                        ),
                       );
                     },
                   ),

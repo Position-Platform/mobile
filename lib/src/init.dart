@@ -1,3 +1,6 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:position/generated/l10n.dart';
@@ -11,7 +14,8 @@ import 'package:position/src/splash.dart';
 import 'package:position/src/widgets/error.dart';
 
 class InitPage extends StatelessWidget {
-  const InitPage({Key? key}) : super(key: key);
+  PendingDynamicLinkData? initialLink;
+  InitPage({Key? key, @required this.initialLink}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,7 @@ class InitPage extends StatelessWidget {
         if (state is AuthSuccess) {
           return MapPage(
             user: state.user,
+            initialLink: initialLink,
           );
         }
         if (state is AuthNoInternet) {

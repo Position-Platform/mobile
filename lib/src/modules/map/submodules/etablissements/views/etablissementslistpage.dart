@@ -1,3 +1,4 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:position/generated/l10n.dart';
@@ -12,8 +13,10 @@ import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 
 class EtablissementListPage extends StatefulWidget {
-  const EtablissementListPage({super.key, @required this.user});
+  const EtablissementListPage(
+      {super.key, @required this.user, @required this.initialLink});
   final User? user;
+  final PendingDynamicLinkData? initialLink;
 
   @override
   State<EtablissementListPage> createState() => _EtablissementListPageState();
@@ -43,8 +46,9 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                   delegate: CustomSearchDelegate(
                       hintText: S.of(context).hintSearch,
                       searchBloc: BlocProvider.of<SearchBloc>(context),
-                      user: widget.user));
-            }),
+                      user: widget.user,
+                      initialLink: widget.initialLink));
+            }, widget.initialLink),
             filterContainer(context),
             const SizedBox(
               height: 10,
