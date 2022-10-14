@@ -93,3 +93,15 @@ class RemoveFavorite extends MapEvent {
   @override
   String toString() => 'RemoveFavorite { idEtablissement: $idEtablissement }';
 }
+
+class SharePlace extends MapEvent {
+  final SearchModel? searchModel;
+
+  const SharePlace(this.searchModel);
+
+  @override
+  List<Object> get props => [searchModel!];
+
+  @override
+  String toString() => 'SharePlace { SearchModel: $searchModel }';
+}

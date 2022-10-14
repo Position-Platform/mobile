@@ -1,4 +1,9 @@
+// ignore_for_file: must_be_immutable
+
+import 'dart:convert';
+
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,9 +24,11 @@ import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/placebottomsheet.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 import 'package:position/src/widgets/loading.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({super.key, @required this.user});
+  PendingDynamicLinkData? initialLink;
+  MapPage({super.key, @required this.user, @required this.initialLink});
   final User? user;
 
   @override
@@ -47,6 +54,12 @@ class _MapPageState extends State<MapPage> {
 
     _mapBloc = BlocProvider.of<MapBloc>(context);
 
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
+      var searchModel = SearchModel.fromJson(
+          json.decode(dynamicLinkData.link.queryParameters['searchmodel']!));
+      _mapBloc?.add(ShowSearchInMap(searchModel));
+    }).onError((error) {});
+
     _mapBloc?.add(GetCategories());
   }
 
@@ -61,6 +74,16 @@ class _MapPageState extends State<MapPage> {
       resizeToAvoidBottomInset: false,
       body: BlocListener<MapBloc, MapState>(
         listener: (context, state) {
+          if (state is MapInitialized) {
+            if (widget.initialLink != null) {
+              final Uri deepLink = widget.initialLink!.link;
+
+              var searchModel = SearchModel.fromJson(
+                  json.decode(deepLink.queryParameters['searchmodel']!));
+
+              _mapBloc?.add(ShowSearchInMap(searchModel));
+            }
+          }
           if (state is CategoriesLoading) {
             isCategoriesLoading = true;
           }
@@ -79,6 +102,11 @@ class _MapPageState extends State<MapPage> {
             if (searchModel!.type == "etablissement") {
               expandablesheet.currentState!.expand();
             }
+          }
+          if (state is PlaceShared) {
+            Share.share(
+              state.url!,
+            );
           }
         },
         child: BlocBuilder<MapBloc, MapState>(
@@ -124,17 +152,19 @@ class _MapPageState extends State<MapPage> {
                         scaffoldKey.currentState!.openDrawer();
                       }, () async {
                         var result = await showSearch(
-                            context: context,
-                            delegate: CustomSearchDelegate(
-                                hintText: S.of(context).hintSearch,
-                                searchBloc:
-                                    BlocProvider.of<SearchBloc>(context),
-                                user: widget.user)) as SearchModel;
+                                context: context,
+                                delegate: CustomSearchDelegate(
+                                    hintText: S.of(context).hintSearch,
+                                    searchBloc:
+                                        BlocProvider.of<SearchBloc>(context),
+                                    user: widget.user,
+                                    initialLink: widget.initialLink))
+                            as SearchModel;
 
                         setState(() {
                           _mapBloc?.add(ShowSearchInMap(result));
                         });
-                      }),
+                      }, widget.initialLink),
                       const SizedBox(
                         height: 5,
                       ),

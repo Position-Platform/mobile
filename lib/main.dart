@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -24,10 +25,15 @@ void main() async {
     final storage = await HydratedStorage.build(
       storageDirectory: await getApplicationSupportDirectory(),
     );
+    final PendingDynamicLinkData? initialLink =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+
     HydratedBlocOverrides.runZoned(() async {
       runApp(BlocProvider(
         create: (_) => di.getIt<GpsBloc>(),
-        child: const MyApp(),
+        child: MyApp(
+          initialLink: initialLink,
+        ),
       ));
     }, storage: storage, blocObserver: SimpleBlocObserver());
   }, (error, stackTrace) {

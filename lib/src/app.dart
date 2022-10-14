@@ -1,3 +1,6 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,7 +12,8 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  PendingDynamicLinkData? initialLink;
+  MyApp({super.key, @required this.initialLink});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,9 @@ class MyApp extends StatelessWidget {
               locale: state.locale,
               supportedLocales: S.delegate.supportedLocales,
               debugShowCheckedModeBanner: false,
-              home: const LoadingPage(),
+              home: LoadingPage(
+                initialLink: initialLink,
+              ),
             );
           },
         ));

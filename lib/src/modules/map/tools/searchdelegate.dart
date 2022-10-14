@@ -1,5 +1,6 @@
 // ignore_for_file: null_check_always_fails
 
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,8 +17,12 @@ class CustomSearchDelegate extends SearchDelegate {
   final String? hintText;
   final SearchBloc? searchBloc;
   final User? user;
+  final PendingDynamicLinkData? initialLink;
   CustomSearchDelegate(
-      {this.hintText, @required this.searchBloc, @required this.user});
+      {this.hintText,
+      @required this.searchBloc,
+      @required this.user,
+      @required this.initialLink});
   String? queryString;
 
   @override
@@ -45,7 +50,10 @@ class CustomSearchDelegate extends SearchDelegate {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return ProfilePage(user: user);
+                return ProfilePage(
+                  user: user,
+                  initialLink: initialLink,
+                );
               },
             ),
           );

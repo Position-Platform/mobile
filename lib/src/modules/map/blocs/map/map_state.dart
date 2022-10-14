@@ -9,6 +9,8 @@ abstract class MapState extends Equatable {
 
 class MapInitial extends MapState {}
 
+class MapInitialized extends MapState {}
+
 class MapError extends MapState {}
 
 class CategoriesLoading extends MapState {}
@@ -52,3 +54,17 @@ class FavoriteAdded extends MapState {}
 class FavoriteRemoved extends MapState {}
 
 class FavoriteError extends MapState {}
+
+class PlaceShared extends MapState {
+  final String? url;
+
+  const PlaceShared(this.url);
+
+  @override
+  List<Object> get props => [url!];
+
+  @override
+  String toString() => 'PlaceShared { ShareUrl: $url }';
+}
+
+class SharedError extends MapState {}

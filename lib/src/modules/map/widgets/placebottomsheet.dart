@@ -152,8 +152,9 @@ Widget placeBottomSheet(
                           S.of(context).share,
                           "assets/images/svg/icon-action-vignette-partager.svg",
                           whiteColor,
-                          primaryColor,
-                          null),
+                          primaryColor, () {
+                        mapBloc.add(SharePlace(searchModel));
+                      }),
                       searchModel.type! == "nominatim"
                           ? const SizedBox()
                           : searchModel.etablissement!.isFavoris! ||

@@ -158,8 +158,9 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel,
                 buttonBottomSheetNoLabel(
                     S.of(context).share,
                     "assets/images/svg/icon-action-vignette-partager.svg",
-                    whiteColor,
-                    null),
+                    whiteColor, () {
+                  mapBloc.add(SharePlace(searchModel));
+                }),
                 searchModel.type! == "nominatim"
                     ? const SizedBox()
                     : searchModel.etablissement!.isFavoris! ||

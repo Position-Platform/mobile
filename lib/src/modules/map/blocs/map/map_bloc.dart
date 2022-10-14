@@ -1,8 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages, non_constant_identifier_names
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
@@ -40,6 +42,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   String GEOJSON_SOURCE_ID = "geojson-source-id";
   String ROUTE_LAYER = "route_layer";
 
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
   MapBloc(
       {this.categoriesRepository,
       this.sharedPreferencesHelper,
@@ -58,6 +62,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<AddRoutingInMap>(_addRoutingInMap);
     on<AddFavorite>(_addFavorite);
     on<RemoveFavorite>(_removeFavorite);
+    on<SharePlace>(_sharePlace);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -71,6 +76,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController?.onFeatureTapped.add((id, point, coordinates) async {
       add(OnSymboleClick());
     });
+    emit(MapInitialized());
   }
 
   _getUserLocation(GetUserLocationEvent event, Emitter<MapState> emit) async {
@@ -270,6 +276,40 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       }
     } catch (e) {
       emit(FavoriteError());
+    }
+  }
+
+  _sharePlace(SharePlace event, Emitter<MapState> emit) async {
+    String searchmodel = json.encode(event.searchModel!.toJson());
+
+    try {
+      final DynamicLinkParameters parameters = DynamicLinkParameters(
+        uriPrefix: 'https://position.page.link/',
+        link: Uri.parse('https://position.page.link?searchmodel=$searchmodel'),
+        androidParameters: const AndroidParameters(
+          packageName: 'cm.geosmfamily.position',
+          minimumVersion: 0,
+        ),
+        iosParameters: const IOSParameters(
+          bundleId: 'cm.geosmfamily.position',
+          minimumVersion: '0',
+        ),
+        socialMetaTagParameters: SocialMetaTagParameters(
+          title: event.searchModel!.name,
+          description: event.searchModel!.details,
+          imageUrl: event.searchModel!.type == "etablissement"
+              ? Uri.parse(apiUrl + event.searchModel!.etablissement!.cover)
+              : null,
+        ),
+      );
+
+      final ShortDynamicLink shortLink = await dynamicLinks.buildShortLink(
+          parameters,
+          shortLinkType: ShortDynamicLinkType.unguessable);
+
+      emit(PlaceShared(shortLink.shortUrl.toString()));
+    } catch (e) {
+      emit(SharedError());
     }
   }
 

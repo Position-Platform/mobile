@@ -39,6 +39,7 @@ dependencies:
   expandable_bottom_sheet: ^1.1.1+1
   firebase_core: ^1.24.0
   firebase_crashlytics: ^2.9.0
+  firebase_dynamic_links: ^4.3.11
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -63,6 +64,7 @@ dependencies:
   path_provider: ^2.0.11
   permission_handler: ^10.0.0
   rxdart: ^0.27.5
+  share_plus: ^5.0.0
   shared_preferences: ^2.0.15
   sqlite3_flutter_libs: ^0.5.9
   turf: ^0.0.7
