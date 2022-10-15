@@ -112,5 +112,7 @@
   "searcherror": "Load error",
   "searchnotfound": "No results found",
   "saved": "Registered",
-  "nowebsite": "No Website"
+  "nowebsite": "No Website",
+  "etablissementLoaded": "Establishments Charged",
+  "etablissementError": "Loading Error"
 }

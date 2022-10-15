@@ -13,13 +13,16 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
+import 'package:position/src/modules/map/tools/mapTools.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -41,6 +44,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   String GEOJSON_SOURCE_ID = "geojson-source-id";
   String ROUTE_LAYER = "route_layer";
+  String GEOJSON_ETABLISSEMENT_SOURCE_ID = "geojson-etablissement-source-id";
+  String ETABLISSEMENTS_POINTS = "etablissement-points";
 
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
@@ -74,9 +79,68 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           position.longitude, position.latitude);
     });
     _mapController?.onFeatureTapped.add((id, point, coordinates) async {
-      add(OnSymboleClick());
+      if (id == "") {
+        List<dynamic>? features = await _mapController?.queryRenderedFeatures(
+            point, [ETABLISSEMENTS_POINTS], null);
+        if (features!.isNotEmpty) {
+          add(ShowSearchInMap(
+              await onFeatureClick(
+                features[0],
+                Offset(point.x, point.y),
+              ),
+              event.user));
+        }
+      } else {
+        add(OnSymboleClick());
+      }
     });
     emit(MapInitialized());
+  }
+
+  Future<SearchModel> onFeatureClick(dynamic data, Offset point) async {
+    data["properties"]["id"] = data["properties"]["id"].toInt();
+    data["properties"]["batiment_id"] =
+        data["properties"]["batiment_id"].toInt();
+    data["properties"]["user_id"] = data["properties"]["user_id"].toInt();
+    data["properties"]["etage"] = data["properties"]["etage"].toInt();
+    data["properties"]["vues"] = data["properties"]["vues"].toInt();
+    data["properties"]["avis"] = data["properties"]["avis"].toInt();
+    data["properties"]["batiment"] =
+        json.decode(data["properties"]["batiment"].toString());
+    data["properties"]["sous_categories"] =
+        json.decode(data["properties"]["sous_categories"].toString());
+    data["properties"]["commodites"] =
+        json.decode(data["properties"]["commodites"].toString());
+    data["properties"]["images"] =
+        json.decode(data["properties"]["images"].toString());
+    data["properties"]["horaires"] =
+        json.decode(data["properties"]["horaires"].toString());
+    data["properties"]["commentaires"] =
+        json.decode(data["properties"]["commentaires"].toString());
+    data["properties"]["user"] =
+        json.decode(data["properties"]["user"].toString());
+    var etabissement = Etablissement.fromJson(data['properties']);
+
+    var searchModel = SearchModel(
+        name: etabissement.nom,
+        details: etabissement.sousCategories![0].nom,
+        type: "etablissement",
+        id: etabissement.id.toString(),
+        longitude: etabissement.batiment!.longitude,
+        latitude: etabissement.batiment!.latitude,
+        logo: etabissement.logo ??
+            etabissement.sousCategories![0].logourl ??
+            etabissement.sousCategories![0].category!.logourl,
+        logomap: etabissement.logoMap ??
+            etabissement.sousCategories![0].logourlmap ??
+            etabissement.sousCategories![0].category!.logourlmap,
+        etablissement: etabissement,
+        isOpenNow: etabissement.isopen,
+        plageDay: checkIfEtablissementIsOpen(etabissement),
+        distance: await calculateDistance(etabissement.batiment!.longitude!,
+            etabissement.batiment!.latitude!));
+
+    return searchModel;
   }
 
   _getUserLocation(GetUserLocationEvent event, Emitter<MapState> emit) async {
@@ -117,15 +181,19 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       _mapController?.clearSymbols();
     }
 
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
+
+    if (!event.searchModel!.logomap!.contains("http")) {
+      var response =
+          await http.get(Uri.parse(apiUrl + event.searchModel!.logomap!));
+      _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+    } else {
+      var response = await http.get(Uri.parse(event.searchModel!.logomap!));
+      _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
+    }
+
     if (event.searchModel!.type != "categorie") {
-      if (!event.searchModel!.logomap!.contains("http")) {
-        var response =
-            await http.get(Uri.parse(apiUrl + event.searchModel!.logomap!));
-        _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
-      } else {
-        var response = await http.get(Uri.parse(event.searchModel!.logomap!));
-        _mapController?.addImage(event.searchModel!.name!, response.bodyBytes);
-      }
       _mapController?.animateCamera(CameraUpdate.newCameraPosition(
           CameraPosition(
               target: LatLng(double.parse(event.searchModel!.latitude!),
@@ -140,6 +208,34 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       );
 
       emit(SymboledAdded(event.searchModel));
+    } else {
+      try {
+        var etablissementsResults = await etablissementRepository!
+            .searchetablissementsbyfilters(
+                int.parse(event.searchModel!.id!), event.user!.id!, null);
+
+        if (etablissementsResults.success!.success!) {
+          var geojson = createGeoJsonEtablissements(
+              etablissementsResults.success!.data!.etablissements);
+
+          await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
+              GeojsonSourceProperties(data: geojson));
+
+          await _mapController?.addLayer(
+              GEOJSON_ETABLISSEMENT_SOURCE_ID,
+              ETABLISSEMENTS_POINTS,
+              SymbolLayerProperties(
+                  iconImage: event.searchModel!.name!,
+                  iconSize: 3,
+                  iconAllowOverlap: true,
+                  symbolSortKey: 10.0));
+          emit(EtablissementsLoaded());
+        } else {
+          emit(EtablissementsError());
+        }
+      } catch (e) {
+        emit(EtablissementsError());
+      }
     }
   }
 
@@ -147,6 +243,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController?.clearSymbols();
     _mapController!.removeLayer(ROUTE_LAYER);
     _mapController!.removeSource(GEOJSON_SOURCE_ID);
+
+    _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+    _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
     emit(SymboleRemoved());
   }
 
@@ -159,6 +258,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       _mapController?.clearSymbols();
       _mapController!.removeLayer(ROUTE_LAYER);
       _mapController!.removeSource(GEOJSON_SOURCE_ID);
+
+      _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+      _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
     }
     final ByteData bytes =
         await rootBundle.load("assets/images/png/icon-icon-position-pin.png");
@@ -202,6 +304,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   _addRoutingInMap(AddRoutingInMap event, Emitter<MapState> emit) async {
     _mapController!.removeLayer(ROUTE_LAYER);
     _mapController!.removeSource(GEOJSON_SOURCE_ID);
+
+    _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+    _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
     Position position = await Geolocator.getCurrentPosition();
 
     String coordonnees =
@@ -244,7 +349,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
               lineCap: "round",
             ));
 
-        _mapController!.animateCamera(CameraUpdate.zoomTo(13));
+        _mapController!.animateCamera(CameraUpdate.zoomTo(14));
       } else {
         emit(RoutingError());
       }

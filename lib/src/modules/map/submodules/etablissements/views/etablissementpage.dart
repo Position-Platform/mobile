@@ -73,10 +73,12 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        searchModel.name!,
-                        style: const TextStyle(
-                            fontFamily: "OpenSans-Bold", fontSize: 14),
+                      Flexible(
+                        child: Text(
+                          searchModel.name!,
+                          style: const TextStyle(
+                              fontFamily: "OpenSans-Bold", fontSize: 13),
+                        ),
                       ),
                       Row(
                         children: [

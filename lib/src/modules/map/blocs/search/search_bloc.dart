@@ -7,7 +7,6 @@ import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/models/nominatim.dart';
@@ -104,7 +103,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                     .category!.logourlmap,
             etablissement: etablissementsModel.data!.etablissements![i],
             isOpenNow: etablissementsModel.data!.etablissements![i].isopen,
-            plageDay: _checkIfEtablissementIsOpen(
+            plageDay: checkIfEtablissementIsOpen(
                 etablissementsModel.data!.etablissements![i]),
             distance: await calculateDistance(
                 etablissementsModel
@@ -126,30 +125,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             logomap: apiUrl + categoriesModel.data!.categories![i].logourlmap!,
             category: categoriesModel.data!.categories![i])
     ];
-  }
-
-  String _checkIfEtablissementIsOpen(Etablissement etablissement) {
-    var now = DateTime.now().weekday;
-    String plage = "";
-
-    for (var i = 0; i < etablissement.horaires!.length; i++) {
-      if (etablissement.horaires![i].jour == "lundi" && now == 1) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      } else if (etablissement.horaires![i].jour == "mardi" && now == 2) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      } else if (etablissement.horaires![i].jour == "mercredi" && now == 3) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      } else if (etablissement.horaires![i].jour == "jeudi" && now == 4) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      } else if (etablissement.horaires![i].jour == "vendredi" && now == 5) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      } else if (etablissement.horaires![i].jour == "samedi" && now == 6) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      } else if (etablissement.horaires![i].jour == "dimanche" && now == 7) {
-        plage = etablissement.horaires![i].plageHoraire!;
-      }
-    }
-
-    return plage;
   }
 }
