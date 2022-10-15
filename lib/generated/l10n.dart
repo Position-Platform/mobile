@@ -1179,6 +1179,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Establishments Charged`
+  String get etablissementLoaded {
+    return Intl.message(
+      'Establishments Charged',
+      name: 'etablissementLoaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading Error`
+  String get etablissementError {
+    return Intl.message(
+      'Loading Error',
+      name: 'etablissementError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

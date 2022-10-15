@@ -9,8 +9,9 @@ abstract class MapEvent extends Equatable {
 
 class OnMapInitializedEvent extends MapEvent {
   final MapboxMapController controller;
+  final User? user;
 
-  const OnMapInitializedEvent(this.controller);
+  const OnMapInitializedEvent(this.controller, this.user);
 }
 
 class GetUserLocationEvent extends MapEvent {}
@@ -31,14 +32,16 @@ class CategorieClick extends MapEvent {
 
 class ShowSearchInMap extends MapEvent {
   final SearchModel? searchModel;
+  final User? user;
 
-  const ShowSearchInMap(this.searchModel);
-
-  @override
-  List<Object> get props => [searchModel!];
+  const ShowSearchInMap(this.searchModel, this.user);
 
   @override
-  String toString() => 'ShowSearchInMap { SearchModel: $searchModel }';
+  List<Object> get props => [searchModel!, user!];
+
+  @override
+  String toString() =>
+      'ShowSearchInMap { SearchModel: $searchModel, User: $user }';
 }
 
 class OnSymboleClick extends MapEvent {}

@@ -7,6 +7,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
@@ -57,7 +58,7 @@ class _MapPageState extends State<MapPage> {
     FirebaseDynamicLinks.instance.onLink.listen((dynamicLinkData) {
       var searchModel = SearchModel.fromJson(
           json.decode(dynamicLinkData.link.queryParameters['searchmodel']!));
-      _mapBloc?.add(ShowSearchInMap(searchModel));
+      _mapBloc?.add(ShowSearchInMap(searchModel, widget.user));
     }).onError((error) {});
 
     _mapBloc?.add(GetCategories());
@@ -81,7 +82,7 @@ class _MapPageState extends State<MapPage> {
               var searchModel = SearchModel.fromJson(
                   json.decode(deepLink.queryParameters['searchmodel']!));
 
-              _mapBloc?.add(ShowSearchInMap(searchModel));
+              _mapBloc?.add(ShowSearchInMap(searchModel, widget.user));
             }
           }
           if (state is CategoriesLoading) {
@@ -107,6 +108,20 @@ class _MapPageState extends State<MapPage> {
             Share.share(
               state.url!,
             );
+          }
+          if (state is EtablissementsLoaded) {
+            Fluttertoast.showToast(
+                msg: S.of(context).etablissementLoaded,
+                backgroundColor: primaryColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
+          if (state is EtablissementsError) {
+            Fluttertoast.showToast(
+                msg: S.of(context).etablissementError,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
           }
         },
         child: BlocBuilder<MapBloc, MapState>(
@@ -138,8 +153,8 @@ class _MapPageState extends State<MapPage> {
                   accessToken: mapboxApiKey,
                   onMapLongClick: (point, latLng) =>
                       _mapBloc?.add(AddSymboleOnMap(latLng)),
-                  onMapCreated: (controller) =>
-                      _mapBloc?.add(OnMapInitializedEvent(controller)),
+                  onMapCreated: (controller) => _mapBloc
+                      ?.add(OnMapInitializedEvent(controller, widget.user)),
                   doubleClickZoomEnabled: true,
                   initialCameraPosition: const CameraPosition(
                       zoom: initMapZoom, target: LatLng(0, 0)),
@@ -162,7 +177,7 @@ class _MapPageState extends State<MapPage> {
                             as SearchModel;
 
                         setState(() {
-                          _mapBloc?.add(ShowSearchInMap(result));
+                          _mapBloc?.add(ShowSearchInMap(result, widget.user));
                         });
                       }, widget.initialLink),
                       const SizedBox(

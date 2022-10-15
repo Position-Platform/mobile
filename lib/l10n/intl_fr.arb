@@ -112,5 +112,7 @@
   "searcherror": "Erreur de Chargement",
   "searchnotfound": "Aucun resultat trouvé",
   "saved": "Enregistré",
-  "nowebsite": "Pas de Site Internet"
+  "nowebsite": "Pas de Site Internet",
+  "etablissementLoaded": "Etablissements Chargés",
+  "etablissementError": "Erreur Lors du Chargement"
 }

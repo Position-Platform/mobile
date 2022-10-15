@@ -68,3 +68,7 @@ class PlaceShared extends MapState {
 }
 
 class SharedError extends MapState {}
+
+class EtablissementsLoaded extends MapState {}
+
+class EtablissementsError extends MapState {}
