@@ -389,8 +389,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
     try {
       final DynamicLinkParameters parameters = DynamicLinkParameters(
-        uriPrefix: 'https://position.page.link/',
-        link: Uri.parse('https://position.page.link?searchmodel=$searchmodel'),
+        uriPrefix: 'https://app.position.cm/',
+        link: Uri.parse('https://app.position.cm?searchmodel=$searchmodel'),
         androidParameters: const AndroidParameters(
           packageName: 'cm.geosmfamily.position',
           minimumVersion: 0,
