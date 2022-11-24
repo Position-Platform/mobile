@@ -21,7 +21,7 @@ List<Widget> generateCategoryWidget(
             buildChip(categories[i].shortname!, categories[i].logourl!, () {
               Category category = categories[i];
               category.vues = categories[i].vues! + 1;
-              mapBloc?.add(const CategorieClick(true));
+              mapBloc?.add(CategorieClick(true, category));
             })
           ],
         ),
@@ -31,7 +31,7 @@ List<Widget> generateCategoryWidget(
           .add(buildChip(categories[i].shortname!, categories[i].logourl!, () {
         Category category = categories[i];
         category.vues = categories[i].vues! + 1;
-        mapBloc?.add(const CategorieClick(true));
+        mapBloc?.add(CategorieClick(true, category));
       }));
     }
   }

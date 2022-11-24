@@ -32,15 +32,16 @@ class CategoriesLoaded extends MapState {
 class CategoriesClicked extends MapState {
   final List<Commodite>? commodites;
   final bool? isClicked;
+  final Category? category;
 
-  const CategoriesClicked(this.commodites, this.isClicked);
+  const CategoriesClicked(this.commodites, this.isClicked, this.category);
 
   @override
-  List<Object> get props => [commodites!, isClicked!];
+  List<Object> get props => [commodites!, isClicked!, category!];
 
   @override
   String toString() =>
-      'CategoriesClicked { Commodites: $commodites , isClicked: $isClicked }';
+      'CategoriesClicked { Commodites: $commodites , isClicked: $isClicked , Category: $category}';
 }
 
 class SymboledAdded extends MapState {

@@ -20,14 +20,16 @@ class GetCategories extends MapEvent {}
 
 class CategorieClick extends MapEvent {
   final bool? isClick;
+  final Category? category;
 
-  const CategorieClick(this.isClick);
-
-  @override
-  List<Object> get props => [isClick!];
+  const CategorieClick(this.isClick, this.category);
 
   @override
-  String toString() => 'CategorieClick { isClick:$isClick }';
+  List<Object> get props => [isClick!, category!];
+
+  @override
+  String toString() =>
+      'CategorieClick { isClick:$isClick, Category: $category }';
 }
 
 class ShowSearchInMap extends MapEvent {
@@ -128,3 +130,19 @@ class DistanceSelect extends MapEvent {}
 class AvisSelect extends MapEvent {}
 
 class PertinenceSelect extends MapEvent {}
+
+class SearchEtablissementByFilter extends MapEvent {
+  final Category? categorie;
+  final User? user;
+  final String idsCommodite;
+
+  const SearchEtablissementByFilter(
+      this.categorie, this.user, this.idsCommodite);
+
+  @override
+  List<Object> get props => [categorie!, idsCommodite, user!];
+
+  @override
+  String toString() =>
+      'SearchEtablissementByFilter { categorie: $categorie , user : $user , idsCommodite : $idsCommodite }';
+}

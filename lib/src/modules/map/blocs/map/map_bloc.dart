@@ -16,6 +16,7 @@ import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
@@ -76,6 +77,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<DistanceSelect>(_distanceSelect);
     on<AvisSelect>(_avisSelect);
     on<PertinenceSelect>(_pertinenceSelect);
+    on<SearchEtablissementByFilter>(_searchEtablissementByFilters);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -190,13 +192,13 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   _selectCategorie(CategorieClick event, Emitter<MapState> emit) async {
     try {
       if (event.isClick! == false) {
-        emit(CategoriesClicked(const [], event.isClick));
+        emit(CategoriesClicked(const [], event.isClick, event.category));
       } else {
         var commoditeResult = await etablissementRepository!.getallcommodites();
 
         if (commoditeResult.success!.success!) {
-          emit(CategoriesClicked(
-              commoditeResult.success!.data!.commodites, event.isClick));
+          emit(CategoriesClicked(commoditeResult.success!.data!.commodites,
+              event.isClick, event.category));
         }
       }
     } catch (e) {
@@ -264,6 +266,53 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       } catch (e) {
         emit(EtablissementsError());
       }
+    }
+  }
+
+  _searchEtablissementByFilters(
+      SearchEtablissementByFilter event, Emitter<MapState> emit) async {
+    if (_mapController!.symbols.isNotEmpty) {
+      _mapController?.clearSymbols();
+    }
+
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
+
+    if (!event.categorie!.logourlmap!.contains("http")) {
+      var response =
+          await http.get(Uri.parse(apiUrl + event.categorie!.logourlmap!));
+      _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
+    } else {
+      var response = await http.get(Uri.parse(event.categorie!.logourlmap!));
+      _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
+    }
+
+    try {
+      var etablissementsResults = await etablissementRepository!
+          .searchetablissementsbyfilters(
+              event.categorie!.id!, event.user!.id!, event.idsCommodite);
+
+      if (etablissementsResults.success!.success!) {
+        var geojson = createGeoJsonEtablissements(
+            etablissementsResults.success!.data!.etablissements);
+
+        await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
+            GeojsonSourceProperties(data: geojson));
+
+        await _mapController?.addLayer(
+            GEOJSON_ETABLISSEMENT_SOURCE_ID,
+            ETABLISSEMENTS_POINTS,
+            SymbolLayerProperties(
+                iconImage: event.categorie!.shortname!,
+                iconSize: 3,
+                iconAllowOverlap: true,
+                symbolSortKey: 10.0));
+        emit(EtablissementsLoaded());
+      } else {
+        emit(EtablissementsError());
+      }
+    } catch (e) {
+      emit(EtablissementsError());
     }
   }
 

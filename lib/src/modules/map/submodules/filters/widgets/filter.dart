@@ -3,14 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/filters/views/filterpage.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
 
-Widget filterContainer(BuildContext context,
-    List<TypesCommodite> typeCommodites, MapBloc mapbloc) {
+Widget filterContainer(
+    BuildContext context,
+    List<TypesCommodite> typeCommodites,
+    MapBloc mapbloc,
+    Category category,
+    User user) {
   List<Commodite> commodites = [];
   return BlocBuilder<MapBloc, MapState>(builder: (context, state) {
     if (state is SelectedChips) {
@@ -33,6 +39,8 @@ Widget filterContainer(BuildContext context,
                             typesCommodites: typeCommodites,
                             mapbloc: mapbloc,
                             commoditeSelected: state.commoditesSelected,
+                            category: category,
+                            user: user,
                           );
                         },
                       ),
@@ -114,6 +122,8 @@ Widget filterContainer(BuildContext context,
                           typesCommodites: typeCommodites,
                           mapbloc: mapbloc,
                           commoditeSelected: const [],
+                          category: category,
+                          user: user,
                         );
                       },
                     ),

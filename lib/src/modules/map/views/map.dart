@@ -73,6 +73,7 @@ class _MapPageState extends State<MapPage> {
   bool isExpanded = false;
   bool isCategoriesLoading = false;
   bool categorieSelected = false;
+  Category? category;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +102,7 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is CategoriesClicked) {
             categorieSelected = state.isClicked!;
+            category = state.category;
             if (state.isClicked! == false) {
               commodites = [];
             } else {
@@ -205,8 +207,8 @@ class _MapPageState extends State<MapPage> {
                               height: 5,
                             ),
                       categorieSelected
-                          ? filterContainer(
-                              context, typescommodites!, _mapBloc!)
+                          ? filterContainer(context, typescommodites!,
+                              _mapBloc!, category!, widget.user!)
                           : Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius:

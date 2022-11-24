@@ -5,7 +5,9 @@ import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/sizes.dart';
 import 'package:position/src/core/utils/tools.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
@@ -15,11 +17,15 @@ class FiltersPage extends StatefulWidget {
       {super.key,
       @required this.typesCommodites,
       @required this.mapbloc,
-      @required this.commoditeSelected});
+      @required this.commoditeSelected,
+      @required this.category,
+      @required this.user});
   final List<TypesCommodite>? typesCommodites;
   final MapBloc? mapbloc;
 
   final List<Commodite>? commoditeSelected;
+  final Category? category;
+  final User? user;
 
   @override
   State<FiltersPage> createState() => _FiltersPageState();
@@ -214,7 +220,8 @@ class _FiltersPageState extends State<FiltersPage> {
                   children: [
                     InkWell(
                       onTap: () {
-                        widget.mapbloc?.add(const CategorieClick(false));
+                        widget.mapbloc
+                            ?.add(CategorieClick(false, widget.category));
                         Navigator.pop(context);
                       },
                       child: Text(S.of(context).cancel,
@@ -228,6 +235,16 @@ class _FiltersPageState extends State<FiltersPage> {
                     ),
                     InkWell(
                       onTap: () {
+                        List<int> idsCommoditeInt = [];
+                        for (var i = 0;
+                            i < state.commoditesSelected!.length;
+                            i++) {
+                          idsCommoditeInt.add(state.commoditesSelected![i].id!);
+                        }
+                        String idsCommodite = idsCommoditeInt.join(",");
+
+                        widget.mapbloc!.add(SearchEtablissementByFilter(
+                            widget.category, widget.user, idsCommodite));
                         Navigator.pop(context);
                       },
                       child: Container(
@@ -287,7 +304,8 @@ class _FiltersPageState extends State<FiltersPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      widget.mapbloc?.add(const CategorieClick(false));
+                      widget.mapbloc
+                          ?.add(CategorieClick(false, widget.category));
                       Navigator.pop(context);
                     },
                     child: Text(S.of(context).cancel,
@@ -301,7 +319,16 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      //Implement search by filter
+                      List<int> idsCommoditeInt = [];
+                      for (var i = 0;
+                          i < widget.commoditeSelected!.length;
+                          i++) {
+                        idsCommoditeInt.add(widget.commoditeSelected![i].id!);
+                      }
+                      String idsCommodite = idsCommoditeInt.join(",");
+
+                      widget.mapbloc!.add(SearchEtablissementByFilter(
+                          widget.category, widget.user, idsCommodite));
                       Navigator.pop(context);
                     },
                     child: Container(
