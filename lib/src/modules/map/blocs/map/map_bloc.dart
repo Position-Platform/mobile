@@ -16,9 +16,10 @@ import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
-import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
@@ -34,6 +35,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   NominatimRepository? nominatimRepository;
   EtablissementRepository? etablissementRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
+
+  List<Commodite>? commodites = [];
 
   late StreamSubscription<Position> positionStream;
 
@@ -68,6 +71,11 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<AddFavorite>(_addFavorite);
     on<RemoveFavorite>(_removeFavorite);
     on<SharePlace>(_sharePlace);
+    on<GetTypeCommodites>(_getTypesCommodite);
+    on<SelectChips>(_selectChip);
+    on<DistanceSelect>(_distanceSelect);
+    on<AvisSelect>(_avisSelect);
+    on<PertinenceSelect>(_pertinenceSelect);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -165,12 +173,32 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
   }
 
+  _getTypesCommodite(GetTypeCommodites event, Emitter<MapState> emit) async {
+    try {
+      var typesCommoditeResult =
+          await etablissementRepository?.getalltypescommodites();
+
+      if (typesCommoditeResult!.success!.success!) {
+        emit(TypeCommoditesLoaded(
+            typesCommoditeResult.success!.data!.typesCommodites!));
+      }
+    } catch (e) {
+      emit(CategoriesError());
+    }
+  }
+
   _selectCategorie(CategorieClick event, Emitter<MapState> emit) async {
     try {
-      var categorieResult = await categoriesRepository?.updatecategoriebyid(
-          event.categorie!.id!, event.categorie!);
+      if (event.isClick! == false) {
+        emit(CategoriesClicked(const [], event.isClick));
+      } else {
+        var commoditeResult = await etablissementRepository!.getallcommodites();
 
-      if (categorieResult!.success!.success!) {}
+        if (commoditeResult.success!.success!) {
+          emit(CategoriesClicked(
+              commoditeResult.success!.data!.commodites, event.isClick));
+        }
+      }
     } catch (e) {
       emit(CategoriesError());
     }
@@ -418,10 +446,32 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
   }
 
+  _selectChip(SelectChips event, Emitter<MapState> emit) {
+    if (event.commodite!.isSelected) {
+      commodites!.add(event.commodite!);
+      emit(SelectedChips(event.commodite, commodites));
+    } else {
+      commodites!.remove(event.commodite);
+      emit(UnSelectedChips(event.commodite));
+    }
+  }
+
+  _distanceSelect(DistanceSelect event, Emitter<MapState> emit) {
+    emit(DistanceSelected());
+  }
+
+  _avisSelect(AvisSelect event, Emitter<MapState> emit) {
+    emit(AvisSelected());
+  }
+
+  _pertinenceSelect(PertinenceSelect event, Emitter<MapState> emit) {
+    emit(PertinenceSelected());
+  }
+
   @override
   MapState? fromJson(Map<String, dynamic> json) {
     try {
-      final categories = CategoriesModel.fromJson(json);
+      final categories = CategoriesModel.fromJson(json['categories']);
       return CategoriesLoaded(categories);
     } catch (e) {
       return null;

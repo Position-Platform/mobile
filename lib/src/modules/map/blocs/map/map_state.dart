@@ -29,6 +29,20 @@ class CategoriesLoaded extends MapState {
   String toString() => 'CategoriesLoaded { Categories: $categories }';
 }
 
+class CategoriesClicked extends MapState {
+  final List<Commodite>? commodites;
+  final bool? isClicked;
+
+  const CategoriesClicked(this.commodites, this.isClicked);
+
+  @override
+  List<Object> get props => [commodites!, isClicked!];
+
+  @override
+  String toString() =>
+      'CategoriesClicked { Commodites: $commodites , isClicked: $isClicked }';
+}
+
 class SymboledAdded extends MapState {
   final SearchModel? searchresult;
 
@@ -72,3 +86,60 @@ class SharedError extends MapState {}
 class EtablissementsLoaded extends MapState {}
 
 class EtablissementsError extends MapState {}
+
+class CommoditeSelected extends MapState {
+  final List<Commodite>? commodites;
+
+  const CommoditeSelected(this.commodites);
+
+  @override
+  List<Object> get props => [commodites!];
+
+  @override
+  String toString() => 'CommoditeSelected { Commodites: $commodites }';
+}
+
+class TypeCommoditesLoaded extends MapState {
+  final List<TypesCommodite>? typesCommodites;
+
+  const TypeCommoditesLoaded(this.typesCommodites);
+
+  @override
+  List<Object> get props => [typesCommodites!];
+
+  @override
+  String toString() =>
+      'TypeCommoditesLoaded { TypesCommodites: $typesCommodites }';
+}
+
+class SelectedChips extends MapState {
+  final Commodite? commodite;
+  final List<Commodite>? commoditesSelected;
+
+  const SelectedChips(this.commodite, this.commoditesSelected);
+
+  @override
+  List<Object> get props => [commodite!, commoditesSelected!];
+
+  @override
+  String toString() =>
+      'SelectedChips { Commodite: $commodite,CommoditesSelected: $commoditesSelected }';
+}
+
+class UnSelectedChips extends MapState {
+  final Commodite? commodite;
+
+  const UnSelectedChips(this.commodite);
+
+  @override
+  List<Object> get props => [commodite!];
+
+  @override
+  String toString() => 'UnSelectedChips { Commodite: $commodite }';
+}
+
+class DistanceSelected extends MapState {}
+
+class AvisSelected extends MapState {}
+
+class PertinenceSelected extends MapState {}

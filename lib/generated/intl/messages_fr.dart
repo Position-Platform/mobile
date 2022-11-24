@@ -71,6 +71,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Etablissements Chargés"),
         "filters": MessageLookupByLibrary.simpleMessage("Filtres"),
+        "filtre": MessageLookupByLibrary.simpleMessage("filtre"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Trouvez ma Position"),
         "forgotPass":

@@ -6,17 +6,21 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcard.dart';
-import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 
 class EtablissementListPage extends StatefulWidget {
   const EtablissementListPage(
-      {super.key, @required this.user, @required this.initialLink});
+      {super.key,
+      @required this.user,
+      @required this.initialLink,
+      @required this.commodites});
   final User? user;
   final PendingDynamicLinkData? initialLink;
+  final List<Commodite>? commodites;
 
   @override
   State<EtablissementListPage> createState() => _EtablissementListPageState();
@@ -49,7 +53,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                       user: widget.user,
                       initialLink: widget.initialLink));
             }, widget.initialLink),
-            filterContainer(context),
+            //  filterContainer(context, widget.commodites!),
             const SizedBox(
               height: 10,
             ),

@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/sous_category.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 
 import 'batiment.dart';
 import 'commentaire.dart';
-import 'commodite.dart';
 import 'count.dart';
 import 'horaire.dart';
 import 'image.dart';
