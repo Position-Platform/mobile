@@ -137,6 +137,8 @@ class _MapPageState extends State<MapPage> {
           if (state is SymboleClicked) {
             if (searchModel!.type == "etablissement") {
               expandablesheet.currentState!.expand();
+              _mapBloc!
+                  .add(UpdateViewEtablissement(searchModel!.etablissement!.id));
             }
           }
           if (state is PlaceShared) {

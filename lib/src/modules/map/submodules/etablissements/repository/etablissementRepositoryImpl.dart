@@ -227,4 +227,25 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
       return Result(error: NoInternetError());
     }
   }
+
+  @override
+  Future<Result<EtablissementModel>> updateetablissementview(int id) async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    if (isConnected) {
+      try {
+        final Response response =
+            await etablissementApiService!.updateEtablissementView(
+          id,
+        );
+
+        var model = EtablissementModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
 }

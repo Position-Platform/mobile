@@ -20,6 +20,8 @@ abstract class EtablissementRepository {
   Future<Result<EtablissementModel>> updateetablissementbyid(
       int id, Etablissement etablissement);
 
+  Future<Result<EtablissementModel>> updateetablissementview(int id);
+
   Future<Result<ApiModel>> deleteetablissementbyid(int id);
 
   Future<Result<FavoriteModel>> addfavorite(int idEtablissement);
