@@ -107,6 +107,10 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                                       return etablissementCard(
                                           context, etablissements![index],
                                           () async {
+                                        widget.mapBloc!.add(
+                                            UpdateViewEtablissement(
+                                                etablissements![index].id));
+
                                         var searchModel = SearchModel(
                                             name: etablissements![index].nom,
                                             details: etablissements![index]
