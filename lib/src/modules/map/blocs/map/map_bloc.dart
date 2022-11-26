@@ -18,7 +18,9 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
@@ -34,6 +36,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   NominatimRepository? nominatimRepository;
   EtablissementRepository? etablissementRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
+
+  List<Commodite>? commodites = [];
 
   late StreamSubscription<Position> positionStream;
 
@@ -68,6 +72,13 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<AddFavorite>(_addFavorite);
     on<RemoveFavorite>(_removeFavorite);
     on<SharePlace>(_sharePlace);
+    on<GetTypeCommodites>(_getTypesCommodite);
+    on<SelectChips>(_selectChip);
+    on<DistanceSelect>(_distanceSelect);
+    on<AvisSelect>(_avisSelect);
+    on<PertinenceSelect>(_pertinenceSelect);
+    on<SearchEtablissementByFilter>(_searchEtablissementByFilters);
+    on<CloseExpanded>(_closeExpanded);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -165,12 +176,32 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
   }
 
+  _getTypesCommodite(GetTypeCommodites event, Emitter<MapState> emit) async {
+    try {
+      var typesCommoditeResult =
+          await etablissementRepository?.getalltypescommodites();
+
+      if (typesCommoditeResult!.success!.success!) {
+        emit(TypeCommoditesLoaded(
+            typesCommoditeResult.success!.data!.typesCommodites!));
+      }
+    } catch (e) {
+      emit(CategoriesError());
+    }
+  }
+
   _selectCategorie(CategorieClick event, Emitter<MapState> emit) async {
     try {
-      var categorieResult = await categoriesRepository?.updatecategoriebyid(
-          event.categorie!.id!, event.categorie!);
+      if (event.isClick! == false) {
+        emit(CategoriesClicked(const [], event.isClick, event.category));
+      } else {
+        var commoditeResult = await etablissementRepository!.getallcommodites();
 
-      if (categorieResult!.success!.success!) {}
+        if (commoditeResult.success!.success!) {
+          emit(CategoriesClicked(commoditeResult.success!.data!.commodites,
+              event.isClick, event.category));
+        }
+      }
     } catch (e) {
       emit(CategoriesError());
     }
@@ -209,6 +240,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       emit(SymboledAdded(event.searchModel));
     } else {
+      emit(EtablissementsLoading());
       try {
         var etablissementsResults = await etablissementRepository!
             .searchetablissementsbyfilters(
@@ -229,13 +261,92 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   iconSize: 3,
                   iconAllowOverlap: true,
                   symbolSortKey: 10.0));
-          emit(EtablissementsLoaded());
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
         } else {
           emit(EtablissementsError());
         }
       } catch (e) {
         emit(EtablissementsError());
       }
+    }
+  }
+
+  _searchEtablissementByFilters(
+      SearchEtablissementByFilter event, Emitter<MapState> emit) async {
+    if (_mapController!.symbols.isNotEmpty) {
+      _mapController?.clearSymbols();
+    }
+
+    _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+    _mapController!.removeSource(GEOJSON_SOURCE_ID);
+    _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
+
+    if (!event.categorie!.logourlmap!.contains("http")) {
+      var response =
+          await http.get(Uri.parse(apiUrl + event.categorie!.logourlmap!));
+      _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
+    } else {
+      var response = await http.get(Uri.parse(event.categorie!.logourlmap!));
+      _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
+    }
+    emit(EtablissementsLoading());
+    try {
+      var etablissementsResults = await etablissementRepository!
+          .searchetablissementsbyfilters(
+              event.categorie!.id!, event.user!.id!, event.idsCommodite);
+
+      if (etablissementsResults.success!.success!) {
+        var geojson = createGeoJsonEtablissements(
+            etablissementsResults.success!.data!.etablissements);
+
+        for (var i = 0;
+            i < etablissementsResults.success!.data!.etablissements!.length;
+            i++) {
+          etablissementsResults.success!.data!.etablissements![i].distance =
+              await calculateDistance(
+                  etablissementsResults
+                      .success!.data!.etablissements![i].batiment!.longitude
+                      .toString(),
+                  etablissementsResults
+                      .success!.data!.etablissements![i].batiment!.latitude
+                      .toString());
+        }
+
+        await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
+            GeojsonSourceProperties(data: geojson));
+
+        await _mapController?.addLayer(
+            GEOJSON_ETABLISSEMENT_SOURCE_ID,
+            ETABLISSEMENTS_POINTS,
+            SymbolLayerProperties(
+                iconImage: event.categorie!.shortname!,
+                iconSize: 3,
+                iconAllowOverlap: true,
+                symbolSortKey: 10.0));
+
+        if (event.distance!) {
+          etablissementsResults.success!.data!.etablissements!
+              .sort((a, b) => a.distance!.compareTo(b.distance!));
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
+        } else if (event.avis!) {
+          etablissementsResults.success!.data!.etablissements!
+              .sort((a, b) => a.avis!.compareTo(b.avis!));
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
+        } else if (event.pertinance!) {
+          etablissementsResults.success!.data!.etablissements!
+              .sort((a, b) => a.vues!.compareTo(b.vues!));
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
+        }
+      } else {
+        emit(EtablissementsError());
+      }
+    } catch (e) {
+      emit(EtablissementsError());
     }
   }
 
@@ -251,6 +362,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _symbolClick(OnSymboleClick event, Emitter<MapState> emit) {
     emit(SymboleClicked());
+  }
+
+  _closeExpanded(CloseExpanded event, Emitter<MapState> emit) {
+    emit(ExpandedClose());
   }
 
   _addSymbolOnMap(AddSymboleOnMap event, Emitter<MapState> emit) async {
@@ -389,8 +504,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
     try {
       final DynamicLinkParameters parameters = DynamicLinkParameters(
-        uriPrefix: 'https://position.page.link/',
-        link: Uri.parse('https://position.page.link?searchmodel=$searchmodel'),
+        uriPrefix: 'https://app.position.cm/',
+        link: Uri.parse('https://app.position.cm?searchmodel=$searchmodel'),
         androidParameters: const AndroidParameters(
           packageName: 'cm.geosmfamily.position',
           minimumVersion: 0,
@@ -418,10 +533,32 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
   }
 
+  _selectChip(SelectChips event, Emitter<MapState> emit) {
+    if (event.commodite!.isSelected) {
+      commodites!.add(event.commodite!);
+      emit(SelectedChips(event.commodite, commodites));
+    } else {
+      commodites!.remove(event.commodite);
+      emit(UnSelectedChips(event.commodite));
+    }
+  }
+
+  _distanceSelect(DistanceSelect event, Emitter<MapState> emit) {
+    emit(DistanceSelected());
+  }
+
+  _avisSelect(AvisSelect event, Emitter<MapState> emit) {
+    emit(AvisSelected());
+  }
+
+  _pertinenceSelect(PertinenceSelect event, Emitter<MapState> emit) {
+    emit(PertinenceSelected());
+  }
+
   @override
   MapState? fromJson(Map<String, dynamic> json) {
     try {
-      final categories = CategoriesModel.fromJson(json);
+      final categories = CategoriesModel.fromJson(json['categories']);
       return CategoriesLoaded(categories);
     } catch (e) {
       return null;

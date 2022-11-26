@@ -64,6 +64,7 @@ Etablissement _$EtablissementFromJson(Map<String, dynamic> json) =>
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
+      distance: (json['distance'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$EtablissementToJson(Etablissement instance) =>
@@ -104,4 +105,5 @@ Map<String, dynamic> _$EtablissementToJson(Etablissement instance) =>
       'horaires': instance.horaires,
       'commentaires': instance.commentaires,
       'user': instance.user,
+      'distance': instance.distance,
     };

@@ -20,4 +20,8 @@ abstract class EtablissementApiService {
 
   Future<Response> searchEtablissementByFilter(
       int idCategorie, int idUser, String? idCommodites);
+
+  Future<Response> getAllCommodites();
+
+  Future<Response> getAllTypeCommodites();
 }
