@@ -302,6 +302,18 @@ class _$ApiService extends ApiService {
   }
 
   @override
+  Future<Response<dynamic>> updateetablissementview(int idEtablissement) {
+    final $url =
+        'https://services.position.cm/api/etablissements/vues/${idEtablissement}';
+    final $headers = {
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('PUT', $url, client.baseUrl, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> getcommodites() {
     final $url = 'https://services.position.cm/api/commodites';
     final $headers = {

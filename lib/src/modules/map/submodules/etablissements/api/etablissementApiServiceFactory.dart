@@ -146,4 +146,17 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
     }
     return response;
   }
+
+  @override
+  Future<Response> updateEtablissementView(int id) async {
+    Response response;
+
+    try {
+      response = await apiService!.updateetablissementview(id);
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
 }

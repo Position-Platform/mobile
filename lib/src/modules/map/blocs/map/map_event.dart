@@ -99,6 +99,19 @@ class RemoveFavorite extends MapEvent {
   String toString() => 'RemoveFavorite { idEtablissement: $idEtablissement }';
 }
 
+class UpdateViewEtablissement extends MapEvent {
+  final int? idEtablissement;
+
+  const UpdateViewEtablissement(this.idEtablissement);
+
+  @override
+  List<Object> get props => [idEtablissement!];
+
+  @override
+  String toString() =>
+      'UpdateViewEtablissement { idEtablissement: $idEtablissement }';
+}
+
 class SharePlace extends MapEvent {
   final SearchModel? searchModel;
 

@@ -79,6 +79,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<PertinenceSelect>(_pertinenceSelect);
     on<SearchEtablissementByFilter>(_searchEtablissementByFilters);
     on<CloseExpanded>(_closeExpanded);
+    on<UpdateViewEtablissement>(_updateViewEtablissement);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -333,12 +334,12 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
               etablissementsResults.success!.data!.etablissements));
         } else if (event.avis!) {
           etablissementsResults.success!.data!.etablissements!
-              .sort((a, b) => a.avis!.compareTo(b.avis!));
+              .sort((a, b) => b.avis!.compareTo(a.avis!));
           emit(EtablissementsLoaded(
               etablissementsResults.success!.data!.etablissements));
         } else if (event.pertinance!) {
           etablissementsResults.success!.data!.etablissements!
-              .sort((a, b) => a.vues!.compareTo(b.vues!));
+              .sort((a, b) => b.vues!.compareTo(a.vues!));
           emit(EtablissementsLoaded(
               etablissementsResults.success!.data!.etablissements));
         }
@@ -347,6 +348,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       }
     } catch (e) {
       emit(EtablissementsError());
+    }
+  }
+
+  _updateViewEtablissement(
+      UpdateViewEtablissement event, Emitter<MapState> emit) async {
+    try {
+      await etablissementRepository!
+          .updateetablissementview(event.idEtablissement!);
+    } catch (e) {
+      //
     }
   }
 

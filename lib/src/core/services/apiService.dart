@@ -109,6 +109,12 @@ abstract class ApiService extends ChopperService {
       @Query('idCommodites') String? idCommodites,
       @Query('user_id') int idUser);
 
+  @Put(
+      path: '/api/etablissements/vues/{etablissement_id}',
+      headers: {'Accept': 'application/json'})
+  Future<Response> updateetablissementview(
+      @Path('etablissement_id') int idEtablissement);
+
   //Commodites
   @Get(path: '/api/commodites', headers: {'Accept': 'application/json'})
   Future<Response> getcommodites();
