@@ -4,12 +4,14 @@ import 'package:chopper/chopper.dart';
 import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/favorite_model/favorite_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissement_model/etablissement_model.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/core/app/models/api_model/api_model.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/type_commodites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 
 class EtablissementRepositoryImpl implements EtablissementRepository {
@@ -178,6 +180,44 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
             .updateEtablissementById(token!, id, etablissementjson);
 
         var model = EtablissementModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
+
+  @override
+  Future<Result<CommoditesModel>> getallcommodites() async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    if (isConnected) {
+      try {
+        final Response response =
+            await etablissementApiService!.getAllCommodites();
+
+        var model = CommoditesModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
+
+  @override
+  Future<Result<TypeCommoditesModel>> getalltypescommodites() async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    if (isConnected) {
+      try {
+        final Response response =
+            await etablissementApiService!.getAllTypeCommodites();
+
+        var model = TypeCommoditesModel.fromJson(response.body);
 
         return Result(success: model);
       } catch (e) {

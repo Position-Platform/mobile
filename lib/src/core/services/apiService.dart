@@ -108,4 +108,11 @@ abstract class ApiService extends ChopperService {
       @Query('id_categorie') int idCategorie,
       @Query('idCommodites') String? idCommodites,
       @Query('user_id') int idUser);
+
+  //Commodites
+  @Get(path: '/api/commodites', headers: {'Accept': 'application/json'})
+  Future<Response> getcommodites();
+
+  @Get(path: '/api/typecommodites', headers: {'Accept': 'application/json'})
+  Future<Response> gettypecommodites();
 }

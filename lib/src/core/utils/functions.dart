@@ -12,7 +12,7 @@ Future<double> calculateDistance(String lon, String lat) async {
       coordinates: turf.Position(double.parse(lon), double.parse(lat)));
 
   var distance = turf.distance(posiFrom, posiTo);
-  double result = double.parse(distance.toString());
+  double result = double.parse(distance.toStringAsFixed(2));
 
   return result;
 }

@@ -7,7 +7,7 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commodite.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/widgets/bottomSheetButton.dart';
 import 'package:position/src/modules/map/widgets/headerbottomSheet.dart';
 
@@ -18,7 +18,7 @@ Widget placeBottomSheet(
       return Column(
         children: [
           searchModel.type! == "etablissement"
-              ? headerBottomSheet(searchModel)
+              ? headerBottomSheet(searchModel, mapBloc)
               : const SizedBox(),
           Container(
             height: 160,
