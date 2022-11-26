@@ -120,4 +120,43 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
     }
     return response;
   }
+
+  @override
+  Future<Response> getAllCommodites() async {
+    Response response;
+
+    try {
+      response = await apiService!.getcommodites();
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
+
+  @override
+  Future<Response> getAllTypeCommodites() async {
+    Response response;
+
+    try {
+      response = await apiService!.gettypecommodites();
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
+
+  @override
+  Future<Response> updateEtablissementView(int id) async {
+    Response response;
+
+    try {
+      response = await apiService!.updateetablissementview(id);
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
 }

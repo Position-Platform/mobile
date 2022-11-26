@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 
-Widget filterChip(String label, bool isSelected) {
+Widget filterChip(Commodite commodite, MapBloc mapBloc) {
   return ChoiceChip(
-    selected: isSelected,
+    selected: commodite.isSelected,
     selectedColor: primaryColor,
     disabledColor: transparent,
     labelPadding: const EdgeInsets.all(1.0),
@@ -12,14 +14,18 @@ Widget filterChip(String label, bool isSelected) {
       color: grey2,
     )),
     labelStyle: TextStyle(
-        color: isSelected ? whiteColor : blackColor,
+        color: commodite.isSelected ? whiteColor : blackColor,
         fontFamily: "OpenSans-Bold"),
     label: Text(
-      label,
+      commodite.nom!,
     ),
     backgroundColor: whiteColor,
     elevation: 0.0,
     shadowColor: transparent,
     padding: const EdgeInsets.all(6.0),
+    onSelected: (value) {
+      commodite.isSelected = value;
+      mapBloc.add(SelectChips(commodite));
+    },
   );
 }

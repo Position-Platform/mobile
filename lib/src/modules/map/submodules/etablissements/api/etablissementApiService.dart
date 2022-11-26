@@ -12,6 +12,8 @@ abstract class EtablissementApiService {
   Future<Response> updateEtablissementById(
       String token, int id, Map<String, dynamic> body);
 
+  Future<Response> updateEtablissementView(int id);
+
   Future<Response> deleteEtablissementById(String token, int id);
 
   Future<Response> addFavoris(String token, int idEtablissement);
@@ -20,4 +22,8 @@ abstract class EtablissementApiService {
 
   Future<Response> searchEtablissementByFilter(
       int idCategorie, int idUser, String? idCommodites);
+
+  Future<Response> getAllCommodites();
+
+  Future<Response> getAllTypeCommodites();
 }

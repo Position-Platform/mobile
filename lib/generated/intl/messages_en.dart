@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Establishments Charged"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
+        "filtre": MessageLookupByLibrary.simpleMessage("filter"),
         "findPosition":
             MessageLookupByLibrary.simpleMessage("Find my position"),
         "forgotPass":
@@ -155,6 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("see all categories"),
+        "showlist": MessageLookupByLibrary.simpleMessage("View List"),
+        "showmap": MessageLookupByLibrary.simpleMessage("View Map"),
         "showmorereviews":
             MessageLookupByLibrary.simpleMessage("See More Reviews"),
         "signwith": MessageLookupByLibrary.simpleMessage("Sign in with"),
