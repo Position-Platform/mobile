@@ -1209,6 +1209,26 @@ class S {
       args: [],
     );
   }
+
+  /// `View Map`
+  String get showmap {
+    return Intl.message(
+      'View Map',
+      name: 'showmap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View List`
+  String get showlist {
+    return Intl.message(
+      'View List',
+      name: 'showlist',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

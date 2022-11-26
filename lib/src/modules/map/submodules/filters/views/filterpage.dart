@@ -10,6 +10,7 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
+import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
 
 class FiltersPage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _FiltersPageState extends State<FiltersPage> {
   bool distanceSelected = true;
   bool avisSelected = false;
   bool pertinanceSelected = false;
+
   @override
   Widget build(BuildContext context) {
     changeStatusColor(whiteColor);
@@ -245,7 +247,22 @@ class _FiltersPageState extends State<FiltersPage> {
 
                         widget.mapbloc!.add(SearchEtablissementByFilter(
                             widget.category, widget.user, idsCommodite));
-                        Navigator.pop(context);
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return EtablissementListPage(
+                                initialLink: null,
+                                mapBloc: widget.mapbloc,
+                                typescommodites: widget.typesCommodites,
+                                category: widget.category,
+                                user: widget.user,
+                                etablissements: const [],
+                              );
+                            },
+                          ),
+                        );
                       },
                       child: Container(
                           width: 130,
@@ -329,7 +346,22 @@ class _FiltersPageState extends State<FiltersPage> {
 
                       widget.mapbloc!.add(SearchEtablissementByFilter(
                           widget.category, widget.user, idsCommodite));
-                      Navigator.pop(context);
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return EtablissementListPage(
+                              initialLink: null,
+                              mapBloc: widget.mapbloc,
+                              typescommodites: widget.typesCommodites,
+                              category: widget.category,
+                              user: widget.user,
+                              etablissements: const [],
+                            );
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                         width: 130,

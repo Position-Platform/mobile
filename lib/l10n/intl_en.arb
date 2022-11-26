@@ -115,5 +115,7 @@
   "nowebsite": "No Website",
   "etablissementLoaded": "Establishments Charged",
   "etablissementError": "Loading Error",
-  "filtre": "filter"
+  "filtre": "filter",
+  "showmap": "View Map",
+  "showlist": "View List"
 }

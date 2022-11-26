@@ -78,6 +78,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<AvisSelect>(_avisSelect);
     on<PertinenceSelect>(_pertinenceSelect);
     on<SearchEtablissementByFilter>(_searchEtablissementByFilters);
+    on<CloseExpanded>(_closeExpanded);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -239,6 +240,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       emit(SymboledAdded(event.searchModel));
     } else {
+      emit(EtablissementsLoading());
       try {
         var etablissementsResults = await etablissementRepository!
             .searchetablissementsbyfilters(
@@ -259,7 +261,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   iconSize: 3,
                   iconAllowOverlap: true,
                   symbolSortKey: 10.0));
-          emit(EtablissementsLoaded());
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
         } else {
           emit(EtablissementsError());
         }
@@ -276,7 +279,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
 
     _mapController!.removeLayer(ROUTE_LAYER);
+    _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
     _mapController!.removeSource(GEOJSON_SOURCE_ID);
+    _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
 
     if (!event.categorie!.logourlmap!.contains("http")) {
       var response =
@@ -286,7 +291,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       var response = await http.get(Uri.parse(event.categorie!.logourlmap!));
       _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
     }
-
+    emit(EtablissementsLoading());
     try {
       var etablissementsResults = await etablissementRepository!
           .searchetablissementsbyfilters(
@@ -295,6 +300,19 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       if (etablissementsResults.success!.success!) {
         var geojson = createGeoJsonEtablissements(
             etablissementsResults.success!.data!.etablissements);
+
+        for (var i = 0;
+            i < etablissementsResults.success!.data!.etablissements!.length;
+            i++) {
+          etablissementsResults.success!.data!.etablissements![i].distance =
+              await calculateDistance(
+                  etablissementsResults
+                      .success!.data!.etablissements![i].batiment!.longitude
+                      .toString(),
+                  etablissementsResults
+                      .success!.data!.etablissements![i].batiment!.latitude
+                      .toString());
+        }
 
         await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
             GeojsonSourceProperties(data: geojson));
@@ -307,7 +325,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 iconSize: 3,
                 iconAllowOverlap: true,
                 symbolSortKey: 10.0));
-        emit(EtablissementsLoaded());
+        emit(EtablissementsLoaded(
+            etablissementsResults.success!.data!.etablissements));
       } else {
         emit(EtablissementsError());
       }
@@ -328,6 +347,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _symbolClick(OnSymboleClick event, Emitter<MapState> emit) {
     emit(SymboleClicked());
+  }
+
+  _closeExpanded(CloseExpanded event, Emitter<MapState> emit) {
+    emit(ExpandedClose());
   }
 
   _addSymbolOnMap(AddSymboleOnMap event, Emitter<MapState> emit) async {

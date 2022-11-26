@@ -84,7 +84,20 @@ class PlaceShared extends MapState {
 
 class SharedError extends MapState {}
 
-class EtablissementsLoaded extends MapState {}
+class EtablissementsLoaded extends MapState {
+  final List<Etablissement>? etablissements;
+
+  const EtablissementsLoaded(this.etablissements);
+
+  @override
+  List<Object> get props => [etablissements!];
+
+  @override
+  String toString() =>
+      'EtablissementsLoaded { Etablissements: $etablissements }';
+}
+
+class EtablissementsLoading extends MapState {}
 
 class EtablissementsError extends MapState {}
 
@@ -144,3 +157,5 @@ class DistanceSelected extends MapState {}
 class AvisSelected extends MapState {}
 
 class PertinenceSelected extends MapState {}
+
+class ExpandedClose extends MapState {}

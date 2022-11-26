@@ -146,3 +146,5 @@ class SearchEtablissementByFilter extends MapEvent {
   String toString() =>
       'SearchEtablissementByFilter { categorie: $categorie , user : $user , idsCommodite : $idsCommodite }';
 }
+
+class CloseExpanded extends MapEvent {}

@@ -31,7 +31,7 @@ Widget filterContainer(
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) {

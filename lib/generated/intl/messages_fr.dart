@@ -173,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Partager La Position"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("voir toutes les catégories"),
+        "showlist": MessageLookupByLibrary.simpleMessage("Voir la Liste"),
+        "showmap": MessageLookupByLibrary.simpleMessage("Voir la Carte"),
         "showmorereviews":
             MessageLookupByLibrary.simpleMessage("Voir Plus D\'avis"),
         "signwith": MessageLookupByLibrary.simpleMessage("Se Connecter avec"),

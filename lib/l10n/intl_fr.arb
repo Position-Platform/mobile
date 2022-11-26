@@ -115,5 +115,7 @@
   "nowebsite": "Pas de Site Internet",
   "etablissementLoaded": "Etablissements Chargés",
   "etablissementError": "Erreur Lors du Chargement",
-  "filtre": "filtre"
+  "filtre": "filtre",
+  "showmap": "Voir la Carte",
+  "showlist": "Voir la Liste"
 }

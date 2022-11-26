@@ -18,7 +18,7 @@ Widget placeBottomSheet(
       return Column(
         children: [
           searchModel.type! == "etablissement"
-              ? headerBottomSheet(searchModel)
+              ? headerBottomSheet(searchModel, mapBloc)
               : const SizedBox(),
           Container(
             height: 160,

@@ -19,8 +19,10 @@ import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
+import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
@@ -74,6 +76,9 @@ class _MapPageState extends State<MapPage> {
   bool isCategoriesLoading = false;
   bool categorieSelected = false;
   Category? category;
+  bool showList = false;
+  List<Etablissement>? etablissements = [];
+  bool expandedClose = false;
 
   @override
   Widget build(BuildContext context) {
@@ -110,12 +115,24 @@ class _MapPageState extends State<MapPage> {
             }
           }
 
+          if (state is ExpandedClose) {
+            isMarkerAdded = false;
+            showList = true;
+            expandedClose = true;
+            expandablesheet.currentState!.contract();
+          }
+
           if (state is SymboledAdded) {
             isMarkerAdded = true;
+            showList = false;
+            expandedClose = false;
             searchModel = state.searchresult;
           }
           if (state is SymboleRemoved) {
             isMarkerAdded = false;
+            showList = false;
+            expandedClose = false;
+            _mapBloc!.add(CategorieClick(false, category));
           }
           if (state is SymboleClicked) {
             if (searchModel!.type == "etablissement") {
@@ -128,6 +145,8 @@ class _MapPageState extends State<MapPage> {
             );
           }
           if (state is EtablissementsLoaded) {
+            showList = true;
+            etablissements = state.etablissements;
             Fluttertoast.showToast(
                 msg: S.of(context).etablissementLoaded,
                 backgroundColor: primaryColor,
@@ -156,7 +175,7 @@ class _MapPageState extends State<MapPage> {
                       ? etablissementPage(
                           context, searchModel!, _mapBloc!, expandablesheet)
                       : const SizedBox(),
-              persistentHeader: isMarkerAdded
+              persistentHeader: isMarkerAdded && !expandedClose
                   ? placeBottomSheet(context, searchModel!, _mapBloc!)
                   : const SizedBox(),
               background: Stack(children: [
@@ -322,7 +341,46 @@ class _MapPageState extends State<MapPage> {
                     : const SizedBox()
               ],
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Wrap(
+              direction: Axis.vertical,
+              children: [
+                showList
+                    ? SizedBox(
+                        child: FloatingActionButton.extended(
+                          heroTag: "Show List",
+                          tooltip: "Show List",
+                          label: Text(S.of(context).showlist,
+                              style: const TextStyle(
+                                  fontFamily: "OpenSans-Bold",
+                                  fontSize: 11,
+                                  color: whiteColor)),
+                          backgroundColor: primaryColor,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return EtablissementListPage(
+                                    initialLink: widget.initialLink,
+                                    mapBloc: _mapBloc,
+                                    typescommodites: typescommodites,
+                                    category: category,
+                                    user: widget.user,
+                                    etablissements: etablissements,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    : const SizedBox()
+              ],
+            ),
+          ),
         ]);
       }),
       drawer: const AppDrawer(),
