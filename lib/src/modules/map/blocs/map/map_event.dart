@@ -135,16 +135,20 @@ class SearchEtablissementByFilter extends MapEvent {
   final Category? categorie;
   final User? user;
   final String idsCommodite;
+  final bool? distance;
+  final bool? avis;
+  final bool? pertinance;
 
-  const SearchEtablissementByFilter(
-      this.categorie, this.user, this.idsCommodite);
+  const SearchEtablissementByFilter(this.categorie, this.user,
+      this.idsCommodite, this.distance, this.avis, this.pertinance);
 
   @override
-  List<Object> get props => [categorie!, idsCommodite, user!];
+  List<Object> get props =>
+      [categorie!, idsCommodite, user!, distance!, avis!, pertinance!];
 
   @override
   String toString() =>
-      'SearchEtablissementByFilter { categorie: $categorie , user : $user , idsCommodite : $idsCommodite }';
+      'SearchEtablissementByFilter { categorie: $categorie , user : $user , idsCommodite : $idsCommodite , distance:$distance , avis:$avis , pertinance: $pertinance }';
 }
 
 class CloseExpanded extends MapEvent {}

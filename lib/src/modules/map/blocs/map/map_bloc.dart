@@ -325,8 +325,23 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 iconSize: 3,
                 iconAllowOverlap: true,
                 symbolSortKey: 10.0));
-        emit(EtablissementsLoaded(
-            etablissementsResults.success!.data!.etablissements));
+
+        if (event.distance!) {
+          etablissementsResults.success!.data!.etablissements!
+              .sort((a, b) => a.distance!.compareTo(b.distance!));
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
+        } else if (event.avis!) {
+          etablissementsResults.success!.data!.etablissements!
+              .sort((a, b) => a.avis!.compareTo(b.avis!));
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
+        } else if (event.pertinance!) {
+          etablissementsResults.success!.data!.etablissements!
+              .sort((a, b) => a.vues!.compareTo(b.vues!));
+          emit(EtablissementsLoaded(
+              etablissementsResults.success!.data!.etablissements));
+        }
       } else {
         emit(EtablissementsError());
       }

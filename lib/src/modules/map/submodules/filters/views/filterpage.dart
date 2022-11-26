@@ -246,7 +246,12 @@ class _FiltersPageState extends State<FiltersPage> {
                         String idsCommodite = idsCommoditeInt.join(",");
 
                         widget.mapbloc!.add(SearchEtablissementByFilter(
-                            widget.category, widget.user, idsCommodite));
+                            widget.category,
+                            widget.user,
+                            idsCommodite,
+                            distanceSelected,
+                            avisSelected,
+                            pertinanceSelected));
 
                         Navigator.pushReplacement(
                           context,
@@ -345,7 +350,12 @@ class _FiltersPageState extends State<FiltersPage> {
                       String idsCommodite = idsCommoditeInt.join(",");
 
                       widget.mapbloc!.add(SearchEtablissementByFilter(
-                          widget.category, widget.user, idsCommodite));
+                          widget.category,
+                          widget.user,
+                          idsCommodite,
+                          distanceSelected,
+                          avisSelected,
+                          pertinanceSelected));
 
                       Navigator.pushReplacement(
                         context,

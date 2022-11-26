@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
@@ -103,7 +105,61 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                                     itemCount: etablissements!.length,
                                     itemBuilder: (context, index) {
                                       return etablissementCard(
-                                          context, etablissements![index]);
+                                          context, etablissements![index],
+                                          () async {
+                                        var searchModel = SearchModel(
+                                            name: etablissements![index].nom,
+                                            details: etablissements![index]
+                                                .sousCategories![0]
+                                                .nom,
+                                            type: "etablissement",
+                                            id: etablissements![index]
+                                                .id
+                                                .toString(),
+                                            longitude: etablissements![index]
+                                                .batiment!
+                                                .longitude,
+                                            latitude: etablissements![index]
+                                                .batiment!
+                                                .latitude,
+                                            logo: etablissements![index].logo ??
+                                                etablissements![index]
+                                                    .sousCategories![0]
+                                                    .logourl ??
+                                                etablissements![index]
+                                                    .sousCategories![0]
+                                                    .category!
+                                                    .logourl,
+                                            logomap: etablissements![index]
+                                                    .logoMap ??
+                                                etablissements![index]
+                                                    .sousCategories![0]
+                                                    .logourlmap ??
+                                                etablissements![index]
+                                                    .sousCategories![0]
+                                                    .category!
+                                                    .logourlmap,
+                                            etablissement:
+                                                etablissements![index],
+                                            isOpenNow:
+                                                etablissements![index].isopen,
+                                            plageDay:
+                                                checkIfEtablissementIsOpen(
+                                                    etablissements![index]),
+                                            distance: await calculateDistance(
+                                                etablissements![index]
+                                                    .batiment!
+                                                    .longitude!,
+                                                etablissements![index]
+                                                    .batiment!
+                                                    .latitude!));
+
+                                        widget.mapBloc!.add(ShowSearchInMap(
+                                            searchModel, widget.user));
+
+                                        // ignore: use_build_context_synchronously
+                                        Navigator.pop(context);
+                                      });
                                     })
                               ],
                             ),
