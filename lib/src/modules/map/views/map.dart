@@ -110,9 +110,11 @@ class _MapPageState extends State<MapPage> {
 
           if (state is ExpandedClose) {
             isMarkerAdded = false;
-            showList = true;
+            if (etablissements!.isNotEmpty) {
+              showList = true;
+            }
             expandedClose = true;
-            expandablesheet.currentState!.contract();
+            //  expandablesheet.currentState!.contract();
           }
 
           if (state is SymboledAdded) {
@@ -129,7 +131,9 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is SymboleClicked) {
             if (searchModel!.type == "etablissement") {
-              expandablesheet.currentState!.expand();
+              isMarkerAdded = true;
+              expandedClose = false;
+              //  expandablesheet.currentState!.expand();
               _mapBloc!
                   .add(UpdateViewEtablissement(searchModel!.etablissement!.id));
             }
@@ -165,11 +169,13 @@ class _MapPageState extends State<MapPage> {
               animationDurationContract: const Duration(milliseconds: 500),
               animationDurationExtend: const Duration(milliseconds: 500),
               key: expandablesheet,
-              expandableContent:
-                  isMarkerAdded && searchModel!.type == "etablissement"
-                      ? etablissementPage(
-                          context, searchModel!, _mapBloc!, expandablesheet)
-                      : const SizedBox(),
+              enableToggle: true,
+              expandableContent: isMarkerAdded &&
+                      !expandedClose &&
+                      searchModel!.type == "etablissement"
+                  ? etablissementPage(
+                      context, searchModel!, _mapBloc!, expandablesheet)
+                  : const SizedBox(),
               persistentHeader: isMarkerAdded && !expandedClose
                   ? placeBottomSheet(context, searchModel!, _mapBloc!)
                   : const SizedBox(),
