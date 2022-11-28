@@ -9,6 +9,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 Widget etablissementCard(
     BuildContext context, Etablissement etablissement, void Function()? onTap) {
   return InkWell(
+    highlightColor: transparent,
     onTap: onTap,
     child: Card(
       shape: RoundedRectangleBorder(

@@ -127,6 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 80,
             ),
             InkWell(
+              highlightColor: transparent,
               onTap: () {
                 getIt<AuthBloc>().add(AuthLoggedOut());
 

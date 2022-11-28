@@ -257,6 +257,7 @@ class _MapPageState extends State<MapPage> {
                                             ),
                                           ),
                                           InkWell(
+                                            highlightColor: transparent,
                                             onTap: () {
                                               setState(() {
                                                 isExpanded = !isExpanded;

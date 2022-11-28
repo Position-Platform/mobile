@@ -309,6 +309,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         height: 40,
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: _onResetPasswordSubmitted,
                         child: Container(
                             alignment: Alignment.center,

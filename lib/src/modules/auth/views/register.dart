@@ -496,6 +496,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: 20,
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: isRegisterButtonEnabled(state)
                             ? _onFormSubmitted
                             : null,

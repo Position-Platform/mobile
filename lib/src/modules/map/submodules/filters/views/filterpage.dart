@@ -77,6 +77,7 @@ class _FiltersPageState extends State<FiltersPage> {
                             fontFamily: "OpenSans-Bold", fontSize: 16),
                       ),
                       InkWell(
+                          highlightColor: transparent,
                           onTap: () {
                             Navigator.pop(context);
                           },
@@ -112,6 +113,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
+                        highlightColor: transparent,
                         onTap: () {
                           widget.mapbloc?.add(DistanceSelect());
                         },
@@ -138,6 +140,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         ),
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: () {
                           widget.mapbloc?.add(AvisSelect());
                         },
@@ -159,6 +162,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         ),
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: () {
                           widget.mapbloc?.add(PertinenceSelect());
                         },
@@ -221,6 +225,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
+                      highlightColor: transparent,
                       onTap: () {
                         widget.mapbloc
                             ?.add(CategorieClick(false, widget.category));
@@ -236,6 +241,7 @@ class _FiltersPageState extends State<FiltersPage> {
                           )),
                     ),
                     InkWell(
+                      highlightColor: transparent,
                       onTap: () {
                         List<int> idsCommoditeInt = [];
                         for (var i = 0;
@@ -325,6 +331,7 @@ class _FiltersPageState extends State<FiltersPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
+                    highlightColor: transparent,
                     onTap: () {
                       widget.mapbloc
                           ?.add(CategorieClick(false, widget.category));
@@ -340,6 +347,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         )),
                   ),
                   InkWell(
+                    highlightColor: transparent,
                     onTap: () {
                       List<int> idsCommoditeInt = [];
                       for (var i = 0;
