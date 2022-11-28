@@ -232,7 +232,6 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       emit(SymboledAdded(event.searchModel));
     } else {
-      emit(EtablissementsLoading());
       try {
         var etablissementsResults = await etablissementRepository!
             .searchetablissementsbyfilters(
@@ -283,7 +282,6 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       var response = await http.get(Uri.parse(event.categorie!.logourlmap!));
       _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
     }
-    emit(EtablissementsLoading());
     try {
       var etablissementsResults = await etablissementRepository!
           .searchetablissementsbyfilters(

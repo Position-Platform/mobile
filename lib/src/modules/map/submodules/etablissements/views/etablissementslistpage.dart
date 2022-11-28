@@ -46,7 +46,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
     super.initState();
   }
 
-  bool isLoading = false;
+  bool isLoading = true;
   List<Etablissement>? etablissements = [];
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -60,9 +60,6 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
       body: BlocListener(
         bloc: widget.mapBloc,
         listener: (context, state) {
-          if (state is EtablissementsLoading) {
-            isLoading = true;
-          }
           if (state is EtablissementsLoaded) {
             isLoading = false;
             etablissements = state.etablissements!;
@@ -78,15 +75,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                     searchBar(context, widget.user!, widget.category!.nom!,
                         "OpenSans-Bold", () {
                       scaffoldKey.currentState!.openDrawer();
-                    }, () {
-                      /* showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(
-                        hintText: S.of(context).hintSearch,
-                        searchBloc: BlocProvider.of<SearchBloc>(context),
-                        user: widget.user,
-                        initialLink: widget.initialLink));*/
-                    }, widget.initialLink),
+                    }, () {}, widget.initialLink),
                     filterContainer(context, widget.typescommodites!,
                         widget.mapBloc!, widget.category!, widget.user!),
                     const SizedBox(
