@@ -193,16 +193,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _selectCategorie(CategorieClick event, Emitter<MapState> emit) async {
     try {
-      if (event.isClick! == false) {
-        emit(CategoriesClicked(const [], event.isClick, event.category));
-      } else {
-        var commoditeResult = await etablissementRepository!.getallcommodites();
-
-        if (commoditeResult.success!.success!) {
-          emit(CategoriesClicked(commoditeResult.success!.data!.commodites,
-              event.isClick, event.category));
-        }
-      }
+      emit(CategoriesClicked(const [], event.isClick, event.category));
     } catch (e) {
       emit(CategoriesError());
     }

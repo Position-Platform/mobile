@@ -18,7 +18,6 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
@@ -45,7 +44,6 @@ class _MapPageState extends State<MapPage> {
   MapBloc? _mapBloc;
 
   List<Category>? categories = [];
-  List<Commodite>? commodites = [];
   List<TypesCommodite>? typescommodites = [];
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -108,11 +106,6 @@ class _MapPageState extends State<MapPage> {
           if (state is CategoriesClicked) {
             categorieSelected = state.isClicked!;
             category = state.category;
-            if (state.isClicked! == false) {
-              commodites = [];
-            } else {
-              commodites = state.commodites;
-            }
           }
 
           if (state is ExpandedClose) {
