@@ -78,96 +78,86 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                     searchBar(context, widget.user!, widget.category!.nom!,
                         "OpenSans-Bold", () {
                       scaffoldKey.currentState!.openDrawer();
-                    }, () {
-                      /* showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(
-                        hintText: S.of(context).hintSearch,
-                        searchBloc: BlocProvider.of<SearchBloc>(context),
-                        user: widget.user,
-                        initialLink: widget.initialLink));*/
-                    }, widget.initialLink),
+                    }, () {}, widget.initialLink),
                     filterContainer(context, widget.typescommodites!,
                         widget.mapBloc!, widget.category!, widget.user!),
                     const SizedBox(
                       height: 10,
                     ),
                     isLoading
-                        ? loading()
-                        : SingleChildScrollView(
-                            physics: const ScrollPhysics(),
-                            child: Column(
-                              children: <Widget>[
-                                ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: etablissements!.length,
-                                    itemBuilder: (context, index) {
-                                      return etablissementCard(
-                                          context, etablissements![index],
-                                          () async {
-                                        widget.mapBloc!.add(
-                                            UpdateViewEtablissement(
-                                                etablissements![index].id));
+                        ? Container(child: loading())
+                        : etablissements!.isEmpty
+                            ? Center(
+                                child: Text(S.of(context).searchnotfound),
+                              )
+                            : SingleChildScrollView(
+                                physics: const ScrollPhysics(),
+                                child: Column(
+                                  children: <Widget>[
+                                    ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: etablissements!.length,
+                                        itemBuilder: (context, index) {
+                                          return etablissementCard(
+                                              context, etablissements![index],
+                                              () async {
+                                            widget.mapBloc!.add(
+                                                UpdateViewEtablissement(
+                                                    etablissements![index].id));
 
-                                        var searchModel = SearchModel(
-                                            name: etablissements![index].nom,
-                                            details: etablissements![index]
-                                                .sousCategories![0]
-                                                .nom,
-                                            type: "etablissement",
-                                            id: etablissements![index]
-                                                .id
-                                                .toString(),
-                                            longitude: etablissements![index]
-                                                .batiment!
-                                                .longitude,
-                                            latitude: etablissements![index]
-                                                .batiment!
-                                                .latitude,
-                                            logo: etablissements![index].logo ??
-                                                etablissements![index]
+                                            var searchModel = SearchModel(
+                                                name:
+                                                    etablissements![index].nom,
+                                                details: etablissements![index]
                                                     .sousCategories![0]
-                                                    .logourl ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .category!
-                                                    .logourl,
-                                            logomap: etablissements![index]
-                                                    .logoMap ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .logourlmap ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .category!
-                                                    .logourlmap,
-                                            etablissement:
-                                                etablissements![index],
-                                            isOpenNow:
-                                                etablissements![index].isopen,
-                                            plageDay:
-                                                checkIfEtablissementIsOpen(
+                                                    .nom,
+                                                type: "etablissement",
+                                                id: etablissements![index]
+                                                    .id
+                                                    .toString(),
+                                                longitude: etablissements![index]
+                                                    .batiment!
+                                                    .longitude,
+                                                latitude: etablissements![index]
+                                                    .batiment!
+                                                    .latitude,
+                                                logo: etablissements![index].logo ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .logourl ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .category!
+                                                        .logourl,
+                                                logomap: etablissements![index].logoMap ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .logourlmap ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .category!
+                                                        .logourlmap,
+                                                etablissement:
+                                                    etablissements![index],
+                                                isOpenNow: etablissements![index]
+                                                    .isopen,
+                                                plageDay: checkIfEtablissementIsOpen(
                                                     etablissements![index]),
-                                            distance: await calculateDistance(
-                                                etablissements![index]
-                                                    .batiment!
-                                                    .longitude!,
-                                                etablissements![index]
-                                                    .batiment!
-                                                    .latitude!));
+                                                distance: await calculateDistance(
+                                                    etablissements![index].batiment!.longitude!, etablissements![index].batiment!.latitude!));
 
-                                        widget.mapBloc!.add(ShowSearchInMap(
-                                            searchModel, widget.user));
+                                            widget.mapBloc!.add(ShowSearchInMap(
+                                                searchModel, widget.user));
 
-                                        // ignore: use_build_context_synchronously
-                                        Navigator.pop(context);
-                                      });
-                                    })
-                              ],
-                            ),
-                          ),
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.pop(context);
+                                          });
+                                        })
+                                  ],
+                                ),
+                              ),
                   ],
                 ),
               ),
