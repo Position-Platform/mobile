@@ -210,3 +210,18 @@ class LoadMoreEtablissement extends MapEvent {
   String toString() =>
       'LoadMoreEtablissement {  hasNextPage : $hasNextPage , isLoadMoreRunning : $isLoadMoreRunning , page  categorie: $categorie , user : $user , idsCommodite : $idsCommodite , distance:$distance , avis:$avis , pertinance: $pertinance, etablisement: $etablisement }';
 }
+
+class AddReview extends MapEvent {
+  final int? idEtablissement;
+  final String? commentaire;
+  final int? rating;
+
+  const AddReview(this.idEtablissement, this.commentaire, this.rating);
+
+  @override
+  List<Object> get props => [idEtablissement!, commentaire!, rating!];
+
+  @override
+  String toString() =>
+      'AddReview { idEtablissement: $idEtablissement , review: $commentaire , note: $rating }';
+}

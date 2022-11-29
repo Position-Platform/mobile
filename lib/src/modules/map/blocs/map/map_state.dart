@@ -184,3 +184,19 @@ class EtablissementsMoreLoaded extends MapState {
   String toString() =>
       'EtablissementsLoaded { Etablissements: $etablissements , Page: $page , IdsCommodite: $idsCommodite , Distance: $distance , Avis: $avis , Pertinance: $pertinance }';
 }
+
+class ReviewAdded extends MapState {
+  final Commentaire? commentaire;
+
+  const ReviewAdded(this.commentaire);
+
+  @override
+  List<Object> get props => [commentaire!];
+
+  @override
+  String toString() => 'ReviewAdded { Commentaire: $commentaire }';
+}
+
+class ReviewError extends MapState {}
+
+class ReviewLoading extends MapState {}

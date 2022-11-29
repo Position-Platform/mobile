@@ -156,4 +156,22 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
     }
     return response;
   }
+
+  @override
+  Future<Response> addReview(
+      String token, int etablissementId, String commentaire, int rating) async {
+    Response response;
+
+    try {
+      response = await apiService!.addreview(token, {
+        "etablissement_id": etablissementId,
+        "commentaire": commentaire,
+        "rating": rating
+      });
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
 }

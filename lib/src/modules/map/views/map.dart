@@ -176,6 +176,20 @@ class _MapPageState extends State<MapPage> {
             avis = state.avis;
             pertinance = state.pertinance;
           }
+          if (state is ReviewAdded) {
+            Fluttertoast.showToast(
+                msg: S.of(context).reviewadded,
+                backgroundColor: primaryColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
+          if (state is ReviewError) {
+            Fluttertoast.showToast(
+                msg: S.of(context).reviewerror,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
         },
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
@@ -187,8 +201,8 @@ class _MapPageState extends State<MapPage> {
               expandableContent: isMarkerAdded &&
                       !expandedClose &&
                       searchModel!.type == "etablissement"
-                  ? etablissementPage(
-                      context, searchModel!, _mapBloc!, expandablesheet)
+                  ? etablissementPage(widget.user!, context, searchModel!,
+                      _mapBloc!, expandablesheet)
                   : const SizedBox(),
               persistentHeader: isMarkerAdded && !expandedClose
                   ? placeBottomSheet(context, searchModel!, _mapBloc!)

@@ -1249,6 +1249,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Your opinion is important to us`
+  String get commentdesc {
+    return Intl.message(
+      'Your opinion is important to us',
+      name: 'commentdesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write your comment`
+  String get commenthint {
+    return Intl.message(
+      'Write your comment',
+      name: 'commenthint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review added`
+  String get reviewadded {
+    return Intl.message(
+      'Review added',
+      name: 'reviewadded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error adding review`
+  String get reviewerror {
+    return Intl.message(
+      'Error adding review',
+      name: 'reviewerror',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

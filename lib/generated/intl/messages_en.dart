@@ -38,6 +38,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
+        "commentdesc": MessageLookupByLibrary.simpleMessage(
+            "Your opinion is important to us"),
+        "commenthint":
+            MessageLookupByLibrary.simpleMessage("Write your comment"),
         "commodite": MessageLookupByLibrary.simpleMessage("Amenities"),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
@@ -133,6 +137,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "registering":
             MessageLookupByLibrary.simpleMessage("Account creation..."),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "reviewadded": MessageLookupByLibrary.simpleMessage("Review added"),
+        "reviewerror":
+            MessageLookupByLibrary.simpleMessage("Error adding review"),
         "routing": MessageLookupByLibrary.simpleMessage("Routing"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saved": MessageLookupByLibrary.simpleMessage("Registered"),

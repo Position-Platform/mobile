@@ -119,5 +119,9 @@
   "etablissementLoadComplete": "Chargement des Etablissements Terminé",
   "filtre": "filtre",
   "showmap": "Voir la Carte",
-  "showlist": "Voir la Liste"
+  "showlist": "Voir la Liste",
+  "commentdesc": "Votre avis est important pour nous",
+  "commenthint": "Votre avis",
+  "reviewadded": "Votre avis a été ajouté",
+  "reviewerror": "Une erreur est survenue"
 }
