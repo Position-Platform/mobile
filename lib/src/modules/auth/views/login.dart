@@ -286,6 +286,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 35,
                         ),
                         InkWell(
+                          highlightColor: transparent,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -317,6 +318,7 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           children: [
                             InkWell(
+                              highlightColor: transparent,
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -371,6 +373,7 @@ class _LoginPageState extends State<LoginPage> {
                                   )),
                             ),
                             InkWell(
+                              highlightColor: transparent,
                               onTap: isLoginButtonEnabled(state)
                                   ? _onFormSubmitted
                                   : null,

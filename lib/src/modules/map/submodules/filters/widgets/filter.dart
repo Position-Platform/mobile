@@ -30,6 +30,7 @@ Widget filterContainer(
             child: Row(
               children: [
                 InkWell(
+                  highlightColor: transparent,
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
@@ -113,6 +114,7 @@ Widget filterContainer(
           child: Row(
             children: [
               InkWell(
+                highlightColor: transparent,
                 onTap: () {
                   Navigator.push(
                     context,

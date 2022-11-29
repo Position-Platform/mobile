@@ -2,9 +2,9 @@
 
 import 'dart:convert';
 
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 
-Map<String, Object> createGeoJsonEtablissements(List<Etablissement>? data) {
+Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
   var responses = [];
 
   for (var i = 0; i < data!.length; i++) {

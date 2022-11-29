@@ -45,6 +45,7 @@ class CustomSearchDelegate extends SearchDelegate {
         color: grey3,
       ),
       InkWell(
+        highlightColor: transparent,
         onTap: () {
           Navigator.push(
             context,
@@ -109,6 +110,7 @@ class CustomSearchDelegate extends SearchDelegate {
             itemCount: state.searchresult!.length,
             itemBuilder: (context, index) {
               return InkWell(
+                  highlightColor: transparent,
                   onTap: () {
                     close(context, state.searchresult![index]);
                   },

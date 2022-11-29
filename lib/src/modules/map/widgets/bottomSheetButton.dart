@@ -7,6 +7,7 @@ import 'package:position/src/core/utils/colors.dart';
 Widget buttonBottomSheet(String label, String asset, Color backgroundColor,
     Color textColor, void Function()? onTap) {
   return InkWell(
+    highlightColor: transparent,
     onTap: onTap,
     child: Container(
         width: 100,

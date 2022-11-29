@@ -18,8 +18,7 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
@@ -45,7 +44,6 @@ class _MapPageState extends State<MapPage> {
   MapBloc? _mapBloc;
 
   List<Category>? categories = [];
-  List<Commodite>? commodites = [];
   List<TypesCommodite>? typescommodites = [];
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -77,8 +75,14 @@ class _MapPageState extends State<MapPage> {
   bool categorieSelected = false;
   Category? category;
   bool showList = false;
-  List<Etablissement>? etablissements = [];
+  Etablissements? etablissements = Etablissements(data: []);
   bool expandedClose = false;
+
+  int? page;
+  String? idsCommodite;
+  bool? distance;
+  bool? avis;
+  bool? pertinance;
 
   @override
   Widget build(BuildContext context) {
@@ -108,18 +112,15 @@ class _MapPageState extends State<MapPage> {
           if (state is CategoriesClicked) {
             categorieSelected = state.isClicked!;
             category = state.category;
-            if (state.isClicked! == false) {
-              commodites = [];
-            } else {
-              commodites = state.commodites;
-            }
           }
 
           if (state is ExpandedClose) {
             isMarkerAdded = false;
-            showList = true;
+            if (etablissements!.data!.isNotEmpty) {
+              showList = true;
+            }
             expandedClose = true;
-            expandablesheet.currentState!.contract();
+            //  expandablesheet.currentState!.contract();
           }
 
           if (state is SymboledAdded) {
@@ -136,7 +137,9 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is SymboleClicked) {
             if (searchModel!.type == "etablissement") {
-              expandablesheet.currentState!.expand();
+              isMarkerAdded = true;
+              expandedClose = false;
+              //  expandablesheet.currentState!.expand();
               _mapBloc!
                   .add(UpdateViewEtablissement(searchModel!.etablissement!.id));
             }
@@ -148,7 +151,7 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is EtablissementsLoaded) {
             showList = true;
-            etablissements = state.etablissements;
+            etablissements = state.etablissements!;
             Fluttertoast.showToast(
                 msg: S.of(context).etablissementLoaded,
                 backgroundColor: primaryColor,
@@ -165,6 +168,14 @@ class _MapPageState extends State<MapPage> {
           if (state is TypeCommoditesLoaded) {
             typescommodites = state.typesCommodites;
           }
+          if (state is EtablissementsMoreLoaded) {
+            etablissements = state.etablissements!;
+            page = state.page;
+            idsCommodite = state.idsCommodite;
+            distance = state.distance;
+            avis = state.avis;
+            pertinance = state.pertinance;
+          }
         },
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
@@ -172,11 +183,13 @@ class _MapPageState extends State<MapPage> {
               animationDurationContract: const Duration(milliseconds: 500),
               animationDurationExtend: const Duration(milliseconds: 500),
               key: expandablesheet,
-              expandableContent:
-                  isMarkerAdded && searchModel!.type == "etablissement"
-                      ? etablissementPage(
-                          context, searchModel!, _mapBloc!, expandablesheet)
-                      : const SizedBox(),
+              enableToggle: true,
+              expandableContent: isMarkerAdded &&
+                      !expandedClose &&
+                      searchModel!.type == "etablissement"
+                  ? etablissementPage(
+                      context, searchModel!, _mapBloc!, expandablesheet)
+                  : const SizedBox(),
               persistentHeader: isMarkerAdded && !expandedClose
                   ? placeBottomSheet(context, searchModel!, _mapBloc!)
                   : const SizedBox(),
@@ -258,6 +271,7 @@ class _MapPageState extends State<MapPage> {
                                             ),
                                           ),
                                           InkWell(
+                                            highlightColor: transparent,
                                             onTap: () {
                                               setState(() {
                                                 isExpanded = !isExpanded;
@@ -372,6 +386,11 @@ class _MapPageState extends State<MapPage> {
                                     category: category,
                                     user: widget.user,
                                     etablissements: etablissements,
+                                    avis: avis,
+                                    distance: distance,
+                                    idsCommodite: idsCommodite,
+                                    page: page,
+                                    pertinance: pertinance,
                                   );
                                 },
                               ),

@@ -6,6 +6,7 @@ import 'package:position/src/core/utils/configs.dart';
 Widget buildChip(String label, String icon, VoidCallback callback) {
   return InkWell(
     onTap: callback,
+    highlightColor: transparent,
     child: Chip(
       labelPadding: const EdgeInsets.all(1.0),
       shape: const StadiumBorder(

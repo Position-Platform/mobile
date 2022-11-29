@@ -80,36 +80,41 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Future<List<SearchModel>> _getEtablissementFromResponse(
       EtablissementsModel etablissementsModel) async {
     return [
-      for (var i = 0; i < etablissementsModel.data!.etablissements!.length; i++)
+      for (var i = 0;
+          i < etablissementsModel.data!.etablissements!.data!.length;
+          i++)
         SearchModel(
-            name: etablissementsModel.data!.etablissements![i].nom,
+            name: etablissementsModel.data!.etablissements!.data![i].nom,
             details: etablissementsModel
-                .data!.etablissements![i].sousCategories![0].nom,
+                .data!.etablissements!.data![i].sousCategories![0].nom,
             type: "etablissement",
-            id: etablissementsModel.data!.etablissements![i].id.toString(),
+            id: etablissementsModel.data!.etablissements!.data![i].id
+                .toString(),
             longitude: etablissementsModel
-                .data!.etablissements![i].batiment!.longitude,
-            latitude:
-                etablissementsModel.data!.etablissements![i].batiment!.latitude,
-            logo: etablissementsModel.data!.etablissements![i].logo ??
-                etablissementsModel
-                    .data!.etablissements![i].sousCategories![0].logourl ??
-                etablissementsModel.data!.etablissements![i].sousCategories![0]
-                    .category!.logourl,
-            logomap: etablissementsModel.data!.etablissements![i].logoMap ??
-                etablissementsModel
-                    .data!.etablissements![i].sousCategories![0].logourlmap ??
-                etablissementsModel.data!.etablissements![i].sousCategories![0]
-                    .category!.logourlmap,
-            etablissement: etablissementsModel.data!.etablissements![i],
-            isOpenNow: etablissementsModel.data!.etablissements![i].isopen,
+                .data!.etablissements!.data![i].batiment!.longitude,
+            latitude: etablissementsModel
+                .data!.etablissements!.data![i].batiment!.latitude,
+            logo: etablissementsModel.data!.etablissements!.data![i].logo ??
+                etablissementsModel.data!.etablissements!.data![i]
+                    .sousCategories![0].logourl ??
+                etablissementsModel.data!.etablissements!.data![i]
+                    .sousCategories![0].category!.logourl,
+            logomap: etablissementsModel
+                    .data!.etablissements!.data![i].logoMap ??
+                etablissementsModel.data!.etablissements!.data![i]
+                    .sousCategories![0].logourlmap ??
+                etablissementsModel.data!.etablissements!.data![i]
+                    .sousCategories![0].category!.logourlmap,
+            etablissement: etablissementsModel.data!.etablissements!.data![i],
+            isOpenNow:
+                etablissementsModel.data!.etablissements!.data![i].isopen,
             plageDay: checkIfEtablissementIsOpen(
-                etablissementsModel.data!.etablissements![i]),
+                etablissementsModel.data!.etablissements!.data![i]),
             distance: await calculateDistance(
                 etablissementsModel
-                    .data!.etablissements![i].batiment!.longitude!,
+                    .data!.etablissements!.data![i].batiment!.longitude!,
                 etablissementsModel
-                    .data!.etablissements![i].batiment!.latitude!))
+                    .data!.etablissements!.data![i].batiment!.latitude!))
     ];
   }
 

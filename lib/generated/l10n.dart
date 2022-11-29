@@ -1190,11 +1190,31 @@ class S {
     );
   }
 
+  /// `Etablissements Added`
+  String get etablissementAdded {
+    return Intl.message(
+      'Etablissements Added',
+      name: 'etablissementAdded',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Loading Error`
   String get etablissementError {
     return Intl.message(
       'Loading Error',
       name: 'etablissementError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading of Establishments Completed`
+  String get etablissementLoadComplete {
+    return Intl.message(
+      'Loading of Establishments Completed',
+      name: 'etablissementLoadComplete',
       desc: '',
       args: [],
     );

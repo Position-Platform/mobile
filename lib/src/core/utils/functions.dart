@@ -1,5 +1,5 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:turf/turf.dart' as turf;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,7 +25,7 @@ Future<void> makePhoneCall(String phoneNumber) async {
   await launchUrl(launchUri);
 }
 
-String checkIfEtablissementIsOpen(Etablissement etablissement) {
+String checkIfEtablissementIsOpen(Datum etablissement) {
   var now = DateTime.now().weekday;
   String plage = "";
 

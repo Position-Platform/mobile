@@ -107,7 +107,8 @@ abstract class ApiService extends ChopperService {
   Future<Response> searchetablissementsbyfilters(
       @Query('id_categorie') int idCategorie,
       @Query('idCommodites') String? idCommodites,
-      @Query('user_id') int idUser);
+      @Query('user_id') int idUser,
+      @Query('page') int? page);
 
   @Put(
       path: '/api/etablissements/vues/{etablissement_id}',

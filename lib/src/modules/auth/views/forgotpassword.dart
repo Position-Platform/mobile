@@ -161,6 +161,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         height: 60,
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: _onForgotPasswordSubmitted,
                         child: Container(
                             alignment: Alignment.center,

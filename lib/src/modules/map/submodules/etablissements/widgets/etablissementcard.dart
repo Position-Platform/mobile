@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 
 Widget etablissementCard(
-    BuildContext context, Etablissement etablissement, void Function()? onTap) {
+    BuildContext context, Datum etablissement, void Function()? onTap) {
   return InkWell(
+    highlightColor: transparent,
     onTap: onTap,
     child: Card(
       shape: RoundedRectangleBorder(
@@ -31,7 +32,7 @@ Widget etablissementCard(
                     width: 130,
                     height: 100,
                     child: Image.network(
-                      apiUrl + etablissement.cover,
+                      apiUrl + etablissement.cover!,
                       fit: BoxFit.fill,
                     ),
                   ),

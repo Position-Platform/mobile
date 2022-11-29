@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
@@ -31,6 +32,7 @@ Widget headerBottomSheet(SearchModel searchModel, MapBloc mapBloc) {
           top: 15,
           right: 10,
           child: InkWell(
+            highlightColor: transparent,
             onTap: () {
               mapBloc.add(CloseExpanded());
             },
