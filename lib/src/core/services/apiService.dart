@@ -122,4 +122,9 @@ abstract class ApiService extends ChopperService {
 
   @Get(path: '/api/typecommodites', headers: {'Accept': 'application/json'})
   Future<Response> gettypecommodites();
+
+  //Commentaires
+  @Post(path: '/api/commentaires', headers: {'Accept': 'application/json'})
+  Future<Response> addreview(
+      @Header('Authorization') String token, @Body() Map<String, dynamic> body);
 }

@@ -45,7 +45,7 @@ Widget etablissementComment(Commentaire commentaire) {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(commentaire.createdAt!.toLocal().toString(),
+                    Text(commentaire.updatedAt!.toLocal().toString(),
                         style: const TextStyle(
                             color: greyColor,
                             fontSize: 11,

@@ -19,6 +19,7 @@ import 'package:position/src/modules/map/submodules/categories/models/categories
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
@@ -82,6 +83,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<CloseExpanded>(_closeExpanded);
     on<UpdateViewEtablissement>(_updateViewEtablissement);
     on<LoadMoreEtablissement>(_loadMoreEtablissement);
+    on<AddReview>(_addReview);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -648,6 +650,21 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       } catch (e) {
         emit(EtablissementsError());
       }
+    }
+  }
+
+  _addReview(AddReview event, Emitter<MapState> emit) async {
+    emit(ReviewLoading());
+    try {
+      var review = await etablissementRepository!
+          .addreview(event.idEtablissement!, event.commentaire!, event.rating!);
+      if (review.success!.success!) {
+        emit(ReviewAdded(review.success!.data!.commentaire));
+      } else {
+        emit(ReviewError());
+      }
+    } catch (e) {
+      emit(ReviewError());
     }
   }
 
