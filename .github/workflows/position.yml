@@ -5,6 +5,8 @@ name: "Position"
 on:
   push:
     branches: ["main", "dev"]
+  pull_request:
+    branches: ["main", "dev"]
 
 # on: push    # Default will running for every branch.
 
