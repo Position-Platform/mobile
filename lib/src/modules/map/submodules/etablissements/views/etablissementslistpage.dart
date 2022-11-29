@@ -266,16 +266,6 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                                     child: CircularProgressIndicator(),
                                   ),
                                 ),
-                              if (_hasNextPage == false)
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 30, bottom: 40),
-                                  color: Colors.amber,
-                                  child: const Center(
-                                    child: Text(
-                                        'You have fetched all of the content'),
-                                  ),
-                                ),
                             ],
                           ),
                   ],
