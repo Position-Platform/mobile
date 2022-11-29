@@ -114,7 +114,9 @@
   "saved": "Enregistré",
   "nowebsite": "Pas de Site Internet",
   "etablissementLoaded": "Etablissements Chargés",
+  "etablissementAdded": "Etablissements Ajoutés",
   "etablissementError": "Erreur Lors du Chargement",
+  "etablissementLoadComplete": "Chargement des Etablissements Terminé",
   "filtre": "filtre",
   "showmap": "Voir la Carte",
   "showlist": "Voir la Liste"

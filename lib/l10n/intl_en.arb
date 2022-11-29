@@ -114,7 +114,9 @@
   "saved": "Registered",
   "nowebsite": "No Website",
   "etablissementLoaded": "Establishments Charged",
+  "etablissementAdded": "Etablissements Added",
   "etablissementError": "Loading Error",
+  "etablissementLoadComplete": "Loading of Establishments Completed",
   "filtre": "filter",
   "showmap": "View Map",
   "showlist": "View List"

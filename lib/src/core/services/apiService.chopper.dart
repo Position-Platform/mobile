@@ -284,13 +284,14 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> searchetablissementsbyfilters(
-      int idCategorie, String? idCommodites, int idUser) {
+      int idCategorie, String? idCommodites, int idUser, int? page) {
     final $url =
         'https://services.position.cm/api/search/etablissements/filter';
     final $params = <String, dynamic>{
       'id_categorie': idCategorie,
       'idCommodites': idCommodites,
-      'user_id': idUser
+      'user_id': idUser,
+      'page': page
     };
     final $headers = {
       'Accept': 'application/json',

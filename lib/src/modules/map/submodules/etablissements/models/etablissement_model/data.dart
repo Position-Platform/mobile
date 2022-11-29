@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 
 part 'data.g.dart';
 
 @JsonSerializable()
 class Data {
-  Etablissement? etablissement;
+  Datum? etablissement;
 
   Data({this.etablissement});
 
@@ -17,7 +17,7 @@ class Data {
   Map<String, dynamic> toJson() => _$DataToJson(this);
 
   Data copyWith({
-    Etablissement? etablissement,
+    Datum? etablissement,
   }) {
     return Data(
       etablissement: etablissement ?? this.etablissement,

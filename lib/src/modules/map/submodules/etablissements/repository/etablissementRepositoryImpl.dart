@@ -5,9 +5,9 @@ import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodites_model.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/favorite_model/favorite_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissement_model/etablissement_model.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/core/app/models/api_model/api_model.dart';
@@ -145,15 +145,13 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
 
   @override
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-    int idCategorie,
-    int idUser,
-    String? idCommodites,
-  ) async {
+      int idCategorie, int idUser, String? idCommodites, int? page) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     if (isConnected) {
       try {
         final Response response = await etablissementApiService!
-            .searchEtablissementByFilter(idCategorie, idUser, idCommodites);
+            .searchEtablissementByFilter(
+                idCategorie, idUser, idCommodites, page);
 
         var model = EtablissementsModel.fromJson(response.body);
 
@@ -168,7 +166,7 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
 
   @override
   Future<Result<EtablissementModel>> updateetablissementbyid(
-      int id, Etablissement etablissement) async {
+      int id, Datum etablissement) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     String? token = await sharedPreferencesHelper!.getToken();
     if (isConnected) {

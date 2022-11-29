@@ -9,6 +9,7 @@ import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
@@ -269,7 +270,12 @@ class _FiltersPageState extends State<FiltersPage> {
                                 typescommodites: widget.typesCommodites,
                                 category: widget.category,
                                 user: widget.user,
-                                etablissements: const [],
+                                etablissements: Etablissements(data: []),
+                                avis: avisSelected,
+                                distance: distanceSelected,
+                                idsCommodite: idsCommodite,
+                                pertinance: pertinanceSelected,
+                                page: null,
                               );
                             },
                           ),
@@ -375,7 +381,12 @@ class _FiltersPageState extends State<FiltersPage> {
                               typescommodites: widget.typesCommodites,
                               category: widget.category,
                               user: widget.user,
-                              etablissements: const [],
+                              etablissements: Etablissements(data: []),
+                              avis: avisSelected,
+                              distance: distanceSelected,
+                              idsCommodite: idsCommodite,
+                              pertinance: pertinanceSelected,
+                              page: null,
                             );
                           },
                         ),

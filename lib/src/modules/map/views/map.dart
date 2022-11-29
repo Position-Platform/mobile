@@ -18,7 +18,7 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
@@ -75,8 +75,14 @@ class _MapPageState extends State<MapPage> {
   bool categorieSelected = false;
   Category? category;
   bool showList = false;
-  List<Etablissement>? etablissements = [];
+  Etablissements? etablissements = Etablissements(data: []);
   bool expandedClose = false;
+
+  int? page;
+  String? idsCommodite;
+  bool? distance;
+  bool? avis;
+  bool? pertinance;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +116,7 @@ class _MapPageState extends State<MapPage> {
 
           if (state is ExpandedClose) {
             isMarkerAdded = false;
-            if (etablissements!.isNotEmpty) {
+            if (etablissements!.data!.isNotEmpty) {
               showList = true;
             }
             expandedClose = true;
@@ -145,7 +151,7 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is EtablissementsLoaded) {
             showList = true;
-            etablissements = state.etablissements;
+            etablissements = state.etablissements!;
             Fluttertoast.showToast(
                 msg: S.of(context).etablissementLoaded,
                 backgroundColor: primaryColor,
@@ -161,6 +167,14 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is TypeCommoditesLoaded) {
             typescommodites = state.typesCommodites;
+          }
+          if (state is EtablissementsMoreLoaded) {
+            etablissements = state.etablissements!;
+            page = state.page;
+            idsCommodite = state.idsCommodite;
+            distance = state.distance;
+            avis = state.avis;
+            pertinance = state.pertinance;
           }
         },
         child: BlocBuilder<MapBloc, MapState>(
@@ -372,6 +386,11 @@ class _MapPageState extends State<MapPage> {
                                     category: category,
                                     user: widget.user,
                                     etablissements: etablissements,
+                                    avis: avis,
+                                    distance: distance,
+                                    idsCommodite: idsCommodite,
+                                    page: page,
+                                    pertinance: pertinance,
                                   );
                                 },
                               ),

@@ -85,7 +85,7 @@ class PlaceShared extends MapState {
 class SharedError extends MapState {}
 
 class EtablissementsLoaded extends MapState {
-  final List<Etablissement>? etablissements;
+  final Etablissements? etablissements;
 
   const EtablissementsLoaded(this.etablissements);
 
@@ -159,3 +159,28 @@ class AvisSelected extends MapState {}
 class PertinenceSelected extends MapState {}
 
 class ExpandedClose extends MapState {}
+
+class LoadMoreRunning extends MapState {}
+
+class HasNextPage extends MapState {}
+
+class EtablissementsMoreLoaded extends MapState {
+  final Etablissements? etablissements;
+  final int? page;
+
+  final String idsCommodite;
+  final bool? distance;
+  final bool? avis;
+  final bool? pertinance;
+
+  const EtablissementsMoreLoaded(this.etablissements, this.page,
+      this.idsCommodite, this.distance, this.avis, this.pertinance);
+
+  @override
+  List<Object> get props =>
+      [etablissements!, page!, idsCommodite, distance!, avis!, pertinance!];
+
+  @override
+  String toString() =>
+      'EtablissementsLoaded { Etablissements: $etablissements , Page: $page , IdsCommodite: $idsCommodite , Distance: $distance , Avis: $avis , Pertinance: $pertinance }';
+}

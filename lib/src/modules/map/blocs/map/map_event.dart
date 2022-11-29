@@ -165,3 +165,48 @@ class SearchEtablissementByFilter extends MapEvent {
 }
 
 class CloseExpanded extends MapEvent {}
+
+class LoadMoreEtablissement extends MapEvent {
+  final bool? hasNextPage;
+  final bool? isLoadMoreRunning;
+  final int? page;
+
+  final Category? categorie;
+  final User? user;
+  final String idsCommodite;
+  final bool? distance;
+  final bool? avis;
+  final bool? pertinance;
+
+  final Etablissements? etablisement;
+
+  const LoadMoreEtablissement(
+      this.hasNextPage,
+      this.isLoadMoreRunning,
+      this.page,
+      this.categorie,
+      this.user,
+      this.idsCommodite,
+      this.distance,
+      this.avis,
+      this.pertinance,
+      this.etablisement);
+
+  @override
+  List<Object> get props => [
+        hasNextPage!,
+        isLoadMoreRunning!,
+        page!,
+        categorie!,
+        idsCommodite,
+        user!,
+        distance!,
+        avis!,
+        pertinance!,
+        etablisement!
+      ];
+
+  @override
+  String toString() =>
+      'LoadMoreEtablissement {  hasNextPage : $hasNextPage , isLoadMoreRunning : $isLoadMoreRunning , page  categorie: $categorie , user : $user , idsCommodite : $idsCommodite , distance:$distance , avis:$avis , pertinance: $pertinance, etablisement: $etablisement }';
+}

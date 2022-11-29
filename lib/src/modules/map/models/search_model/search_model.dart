@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/nominatim/models/nominatim.dart';
 
 part 'search_model.g.dart';
@@ -16,7 +16,7 @@ class SearchModel {
   String? longitude;
   String? latitude;
   Features? features;
-  Etablissement? etablissement;
+  Datum? etablissement;
   Category? category;
   bool? isOpenNow;
   double? distance;
@@ -59,7 +59,7 @@ class SearchModel {
       String? longitude,
       String? latitude,
       Features? features,
-      Etablissement? etablissement,
+      Datum? etablissement,
       Category? category,
       bool? isOpenNow,
       double? distance,
