@@ -9,8 +9,7 @@ part of 'data.dart';
 Data _$DataFromJson(Map<String, dynamic> json) => Data(
       etablissement: json['etablissement'] == null
           ? null
-          : Etablissement.fromJson(
-              json['etablissement'] as Map<String, dynamic>),
+          : Datum.fromJson(json['etablissement'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{

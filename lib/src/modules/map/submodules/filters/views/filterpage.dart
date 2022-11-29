@@ -9,6 +9,7 @@ import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
@@ -77,6 +78,7 @@ class _FiltersPageState extends State<FiltersPage> {
                             fontFamily: "OpenSans-Bold", fontSize: 16),
                       ),
                       InkWell(
+                          highlightColor: transparent,
                           onTap: () {
                             Navigator.pop(context);
                           },
@@ -112,6 +114,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
+                        highlightColor: transparent,
                         onTap: () {
                           widget.mapbloc?.add(DistanceSelect());
                         },
@@ -138,6 +141,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         ),
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: () {
                           widget.mapbloc?.add(AvisSelect());
                         },
@@ -159,6 +163,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         ),
                       ),
                       InkWell(
+                        highlightColor: transparent,
                         onTap: () {
                           widget.mapbloc?.add(PertinenceSelect());
                         },
@@ -221,6 +226,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
+                      highlightColor: transparent,
                       onTap: () {
                         widget.mapbloc
                             ?.add(CategorieClick(false, widget.category));
@@ -236,6 +242,7 @@ class _FiltersPageState extends State<FiltersPage> {
                           )),
                     ),
                     InkWell(
+                      highlightColor: transparent,
                       onTap: () {
                         List<int> idsCommoditeInt = [];
                         for (var i = 0;
@@ -263,7 +270,12 @@ class _FiltersPageState extends State<FiltersPage> {
                                 typescommodites: widget.typesCommodites,
                                 category: widget.category,
                                 user: widget.user,
-                                etablissements: const [],
+                                etablissements: Etablissements(data: []),
+                                avis: avisSelected,
+                                distance: distanceSelected,
+                                idsCommodite: idsCommodite,
+                                pertinance: pertinanceSelected,
+                                page: null,
                               );
                             },
                           ),
@@ -325,6 +337,7 @@ class _FiltersPageState extends State<FiltersPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
+                    highlightColor: transparent,
                     onTap: () {
                       widget.mapbloc
                           ?.add(CategorieClick(false, widget.category));
@@ -340,6 +353,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         )),
                   ),
                   InkWell(
+                    highlightColor: transparent,
                     onTap: () {
                       List<int> idsCommoditeInt = [];
                       for (var i = 0;
@@ -367,7 +381,12 @@ class _FiltersPageState extends State<FiltersPage> {
                               typescommodites: widget.typesCommodites,
                               category: widget.category,
                               user: widget.user,
-                              etablissements: const [],
+                              etablissements: Etablissements(data: []),
+                              avis: avisSelected,
+                              distance: distanceSelected,
+                              idsCommodite: idsCommodite,
+                              pertinance: pertinanceSelected,
+                              page: null,
                             );
                           },
                         ),

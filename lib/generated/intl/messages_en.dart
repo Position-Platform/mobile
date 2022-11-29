@@ -63,8 +63,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Please make sure you enable GPS"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "etablissementAdded":
+            MessageLookupByLibrary.simpleMessage("Etablissements Added"),
         "etablissementError":
             MessageLookupByLibrary.simpleMessage("Loading Error"),
+        "etablissementLoadComplete": MessageLookupByLibrary.simpleMessage(
+            "Loading of Establishments Completed"),
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Establishments Charged"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),

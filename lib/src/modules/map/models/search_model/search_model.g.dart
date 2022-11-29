@@ -20,8 +20,7 @@ SearchModel _$SearchModelFromJson(Map<String, dynamic> json) => SearchModel(
           : Features.fromJson(json['features'] as Map<String, dynamic>),
       etablissement: json['etablissement'] == null
           ? null
-          : Etablissement.fromJson(
-              json['etablissement'] as Map<String, dynamic>),
+          : Datum.fromJson(json['etablissement'] as Map<String, dynamic>),
       category: json['category'] == null
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),

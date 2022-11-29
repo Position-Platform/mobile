@@ -14,7 +14,7 @@ Batiment _$BatimentFromJson(Map<String, dynamic> json) => Batiment(
       code: json['code'] as String?,
       longitude: json['longitude'] as String?,
       latitude: json['latitude'] as String?,
-      image: json['image'],
+      image: json['image'] as String?,
       indication: json['indication'] as String?,
       rue: json['rue'] as String?,
       ville: json['ville'] as String?,

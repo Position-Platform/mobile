@@ -19,7 +19,8 @@ import 'package:position/src/modules/map/submodules/categories/models/categories
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissement.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
@@ -80,6 +81,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<SearchEtablissementByFilter>(_searchEtablissementByFilters);
     on<CloseExpanded>(_closeExpanded);
     on<UpdateViewEtablissement>(_updateViewEtablissement);
+    on<LoadMoreEtablissement>(_loadMoreEtablissement);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -131,7 +133,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         json.decode(data["properties"]["commentaires"].toString());
     data["properties"]["user"] =
         json.decode(data["properties"]["user"].toString());
-    var etabissement = Etablissement.fromJson(data['properties']);
+    var etabissement = Datum.fromJson(data['properties']);
 
     var searchModel = SearchModel(
         name: etabissement.nom,
@@ -193,16 +195,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _selectCategorie(CategorieClick event, Emitter<MapState> emit) async {
     try {
-      if (event.isClick! == false) {
-        emit(CategoriesClicked(const [], event.isClick, event.category));
-      } else {
-        var commoditeResult = await etablissementRepository!.getallcommodites();
-
-        if (commoditeResult.success!.success!) {
-          emit(CategoriesClicked(commoditeResult.success!.data!.commodites,
-              event.isClick, event.category));
-        }
-      }
+      emit(CategoriesClicked(const [], event.isClick, event.category));
     } catch (e) {
       emit(CategoriesError());
     }
@@ -241,15 +234,14 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       emit(SymboledAdded(event.searchModel));
     } else {
-      emit(EtablissementsLoading());
       try {
         var etablissementsResults = await etablissementRepository!
             .searchetablissementsbyfilters(
-                int.parse(event.searchModel!.id!), event.user!.id!, null);
+                int.parse(event.searchModel!.id!), event.user!.id!, null, 1);
 
         if (etablissementsResults.success!.success!) {
           var geojson = createGeoJsonEtablissements(
-              etablissementsResults.success!.data!.etablissements);
+              etablissementsResults.success!.data!.etablissements!.data);
 
           await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
               GeojsonSourceProperties(data: geojson));
@@ -263,7 +255,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   iconAllowOverlap: true,
                   symbolSortKey: 10.0));
           emit(EtablissementsLoaded(
-              etablissementsResults.success!.data!.etablissements));
+              etablissementsResults.success!.data!.etablissements!));
         } else {
           emit(EtablissementsError());
         }
@@ -292,26 +284,29 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       var response = await http.get(Uri.parse(event.categorie!.logourlmap!));
       _mapController?.addImage(event.categorie!.shortname!, response.bodyBytes);
     }
-    emit(EtablissementsLoading());
     try {
+      emit(EtablissementsLoading());
       var etablissementsResults = await etablissementRepository!
           .searchetablissementsbyfilters(
-              event.categorie!.id!, event.user!.id!, event.idsCommodite);
+              event.categorie!.id!, event.user!.id!, event.idsCommodite, 1);
 
       if (etablissementsResults.success!.success!) {
         var geojson = createGeoJsonEtablissements(
-            etablissementsResults.success!.data!.etablissements);
+            etablissementsResults.success!.data!.etablissements!.data);
 
         for (var i = 0;
-            i < etablissementsResults.success!.data!.etablissements!.length;
+            i <
+                etablissementsResults
+                    .success!.data!.etablissements!.data!.length;
             i++) {
-          etablissementsResults.success!.data!.etablissements![i].distance =
+          etablissementsResults
+                  .success!.data!.etablissements!.data![i].distance =
               await calculateDistance(
-                  etablissementsResults
-                      .success!.data!.etablissements![i].batiment!.longitude
+                  etablissementsResults.success!.data!.etablissements!.data![i]
+                      .batiment!.longitude
                       .toString(),
-                  etablissementsResults
-                      .success!.data!.etablissements![i].batiment!.latitude
+                  etablissementsResults.success!.data!.etablissements!.data![i]
+                      .batiment!.latitude
                       .toString());
         }
 
@@ -328,20 +323,20 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 symbolSortKey: 10.0));
 
         if (event.distance!) {
-          etablissementsResults.success!.data!.etablissements!
+          etablissementsResults.success!.data!.etablissements!.data!
               .sort((a, b) => a.distance!.compareTo(b.distance!));
           emit(EtablissementsLoaded(
-              etablissementsResults.success!.data!.etablissements));
+              etablissementsResults.success!.data!.etablissements!));
         } else if (event.avis!) {
-          etablissementsResults.success!.data!.etablissements!
+          etablissementsResults.success!.data!.etablissements!.data!
               .sort((a, b) => b.avis!.compareTo(a.avis!));
           emit(EtablissementsLoaded(
-              etablissementsResults.success!.data!.etablissements));
+              etablissementsResults.success!.data!.etablissements!));
         } else if (event.pertinance!) {
-          etablissementsResults.success!.data!.etablissements!
+          etablissementsResults.success!.data!.etablissements!.data!
               .sort((a, b) => b.vues!.compareTo(a.vues!));
           emit(EtablissementsLoaded(
-              etablissementsResults.success!.data!.etablissements));
+              etablissementsResults.success!.data!.etablissements!));
         }
       } else {
         emit(EtablissementsError());
@@ -529,7 +524,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           title: event.searchModel!.name,
           description: event.searchModel!.details,
           imageUrl: event.searchModel!.type == "etablissement"
-              ? Uri.parse(apiUrl + event.searchModel!.etablissement!.cover)
+              ? Uri.parse(apiUrl + event.searchModel!.etablissement!.cover!)
               : null,
         ),
       );
@@ -564,6 +559,96 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _pertinenceSelect(PertinenceSelect event, Emitter<MapState> emit) {
     emit(PertinenceSelected());
+  }
+
+  _loadMoreEtablissement(
+      LoadMoreEtablissement event, Emitter<MapState> emit) async {
+    _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+    _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
+    if (event.hasNextPage! == true && event.isLoadMoreRunning! == false) {
+      emit(LoadMoreRunning());
+      try {
+        var etablissementsResults = await etablissementRepository!
+            .searchetablissementsbyfilters(event.categorie!.id!,
+                event.user!.id!, event.idsCommodite, event.page);
+
+        if (etablissementsResults.success!.success!) {
+          if (etablissementsResults
+              .success!.data!.etablissements!.data!.isNotEmpty) {
+            event.etablisement!.data!.addAll(
+                etablissementsResults.success!.data!.etablissements!.data!);
+            var geojson =
+                createGeoJsonEtablissements(event.etablisement!.data!);
+
+            for (var i = 0;
+                i <
+                    etablissementsResults
+                        .success!.data!.etablissements!.data!.length;
+                i++) {
+              etablissementsResults
+                      .success!.data!.etablissements!.data![i].distance =
+                  await calculateDistance(
+                      etablissementsResults.success!.data!.etablissements!
+                          .data![i].batiment!.longitude
+                          .toString(),
+                      etablissementsResults.success!.data!.etablissements!
+                          .data![i].batiment!.latitude
+                          .toString());
+            }
+
+            await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
+                GeojsonSourceProperties(data: geojson));
+
+            await _mapController?.addLayer(
+                GEOJSON_ETABLISSEMENT_SOURCE_ID,
+                ETABLISSEMENTS_POINTS,
+                SymbolLayerProperties(
+                    iconImage: event.categorie!.shortname!,
+                    iconSize: 3,
+                    iconAllowOverlap: true,
+                    symbolSortKey: 10.0));
+
+            if (event.distance!) {
+              etablissementsResults.success!.data!.etablissements!.data!
+                  .sort((a, b) => a.distance!.compareTo(b.distance!));
+              emit(EtablissementsMoreLoaded(
+                  etablissementsResults.success!.data!.etablissements!,
+                  event.page,
+                  event.idsCommodite,
+                  event.distance,
+                  event.avis,
+                  event.pertinance));
+            } else if (event.avis!) {
+              etablissementsResults.success!.data!.etablissements!.data!
+                  .sort((a, b) => b.avis!.compareTo(a.avis!));
+              emit(EtablissementsMoreLoaded(
+                  etablissementsResults.success!.data!.etablissements!,
+                  event.page,
+                  event.idsCommodite,
+                  event.distance,
+                  event.avis,
+                  event.pertinance));
+            } else if (event.pertinance!) {
+              etablissementsResults.success!.data!.etablissements!.data!
+                  .sort((a, b) => b.vues!.compareTo(a.vues!));
+              emit(EtablissementsMoreLoaded(
+                  etablissementsResults.success!.data!.etablissements!,
+                  event.page,
+                  event.idsCommodite,
+                  event.distance,
+                  event.avis,
+                  event.pertinance));
+            }
+          } else {
+            emit(HasNextPage());
+          }
+        } else {
+          emit(EtablissementsError());
+        }
+      } catch (e) {
+        emit(EtablissementsError());
+      }
+    }
   }
 
   @override

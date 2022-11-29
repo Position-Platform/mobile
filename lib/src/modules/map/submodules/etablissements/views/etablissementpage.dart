@@ -55,6 +55,7 @@ Widget etablissementPage(BuildContext context, SearchModel searchModel,
                   top: 35,
                   right: 20,
                   child: InkWell(
+                    highlightColor: transparent,
                     onTap: () {
                       expandablesheet.currentState!.contract();
                     },

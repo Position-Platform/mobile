@@ -64,6 +64,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 const Spacer(),
                 InkWell(
+                  highlightColor: transparent,
                   onTap: () {
                     Navigator.pop(context);
                   },

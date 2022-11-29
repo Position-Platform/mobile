@@ -1,31 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'etablissement.dart';
+part of 'datum.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Etablissement _$EtablissementFromJson(Map<String, dynamic> json) =>
-    Etablissement(
+Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       id: json['id'] as int?,
       nom: json['nom'] as String?,
       batimentId: json['batiment_id'] as int?,
-      indicationAdresse: json['indication_adresse'] as String?,
+      indicationAdresse: json['indication_adresse'],
       codePostal: json['code_postal'] as String?,
       siteInternet: json['site_internet'] as String?,
-      nomManager: json['nom_manager'] as String?,
-      contactManager: json['contact_manager'] as String?,
+      nomManager: json['nom_manager'],
+      contactManager: json['contact_manager'],
       userId: json['user_id'] as int?,
       etage: json['etage'] as int?,
-      cover: json['cover'],
+      cover: json['cover'] as String?,
       phone: json['phone'] as String?,
       whatsapp1: json['whatsapp1'] as String?,
-      whatsapp2: json['whatsapp2'] as String?,
+      whatsapp2: json['whatsapp2'],
       description: json['description'] as String?,
-      osmId: json['osm_id'],
+      osmId: json['osm_id'] as String?,
       services: json['services'] as String?,
-      ameliorations: json['ameliorations'] as String?,
+      ameliorations: json['ameliorations'],
       vues: json['vues'] as int?,
       logo: json['logo'],
       logoMap: json['logo_map'],
@@ -67,8 +66,7 @@ Etablissement _$EtablissementFromJson(Map<String, dynamic> json) =>
       distance: (json['distance'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$EtablissementToJson(Etablissement instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'id': instance.id,
       'nom': instance.nom,
       'batiment_id': instance.batimentId,

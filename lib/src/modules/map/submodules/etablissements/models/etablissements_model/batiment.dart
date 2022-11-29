@@ -13,7 +13,7 @@ class Batiment {
   String? code;
   String? longitude;
   String? latitude;
-  dynamic image;
+  String? image;
   String? indication;
   String? rue;
   String? ville;
@@ -64,8 +64,8 @@ class Batiment {
     String? code,
     String? longitude,
     String? latitude,
-    dynamic image,
-    String? indication,
+    String? image,
+    dynamic indication,
     String? rue,
     String? ville,
     String? commune,

@@ -23,6 +23,7 @@ Widget searchBar(
       child: Row(
         children: [
           InkWell(
+            highlightColor: transparent,
             onTap: callback,
             child: Container(
               margin: const EdgeInsets.only(left: 10),
@@ -35,6 +36,7 @@ Widget searchBar(
             width: 10,
           ),
           InkWell(
+            highlightColor: transparent,
             onTap: callbackSearch,
             child: Text(
               labelSearch,
@@ -46,6 +48,7 @@ Widget searchBar(
             color: grey3,
           ),
           InkWell(
+            highlightColor: transparent,
             onTap: () {
               Navigator.push(
                 context,

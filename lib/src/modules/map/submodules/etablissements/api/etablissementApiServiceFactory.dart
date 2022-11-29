@@ -91,15 +91,12 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
 
   @override
   Future<Response> searchEtablissementByFilter(
-      int idCategorie, int idUser, String? idCommodites) async {
+      int idCategorie, int idUser, String? idCommodites, int? page) async {
     Response response;
 
     try {
       response = await apiService!.searchetablissementsbyfilters(
-        idCategorie,
-        idCommodites,
-        idUser,
-      );
+          idCategorie, idCommodites, idUser, page);
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;
