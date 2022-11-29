@@ -51,7 +51,7 @@ dependencies:
   flutter_statusbarcolor_ns: ^0.5.0
   flutter_svg: ^1.1.4
   fluttertoast: ^8.0.9
-  geolocator: ^9.0.1
+  geolocator: ^9.0.2
   get_it: ^7.2.0
   google_sign_in: ^5.4.1
   hydrated_bloc: ^8.1.0
