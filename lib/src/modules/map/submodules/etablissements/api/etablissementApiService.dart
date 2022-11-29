@@ -26,4 +26,7 @@ abstract class EtablissementApiService {
   Future<Response> getAllCommodites();
 
   Future<Response> getAllTypeCommodites();
+
+  Future<Response> addReview(
+      String token, int etablissementId, String commentaire, int rating);
 }

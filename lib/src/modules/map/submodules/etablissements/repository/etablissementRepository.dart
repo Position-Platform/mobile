@@ -2,6 +2,7 @@
 
 import 'package:position/src/core/app/models/api_model/api_model.dart';
 import 'package:position/src/core/utils/result.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commentaires_model/commentaires_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissement_model/etablissement_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
@@ -34,4 +35,7 @@ abstract class EtablissementRepository {
   Future<Result<CommoditesModel>> getallcommodites();
 
   Future<Result<TypeCommoditesModel>> getalltypescommodites();
+
+  Future<Result<CommentairesModel>> addreview(
+      int etablissementId, String commentaire, int rating);
 }

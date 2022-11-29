@@ -4,6 +4,7 @@ import 'package:chopper/chopper.dart';
 import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/commentaires_model/commentaires_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/favorite_model/favorite_model.dart';
@@ -237,6 +238,27 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
         );
 
         var model = EtablissementModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
+
+  @override
+  Future<Result<CommentairesModel>> addreview(
+      int etablissementId, String commentaire, int rating) async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    String? token = await sharedPreferencesHelper!.getToken();
+    if (isConnected) {
+      try {
+        final Response response = await etablissementApiService!
+            .addReview(token!, etablissementId, commentaire, rating);
+
+        var model = CommentairesModel.fromJson(response.body);
 
         return Result(success: model);
       } catch (e) {

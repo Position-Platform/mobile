@@ -119,5 +119,9 @@
   "etablissementLoadComplete": "Loading of Establishments Completed",
   "filtre": "filter",
   "showmap": "View Map",
-  "showlist": "View List"
+  "showlist": "View List",
+  "commentdesc": "Your opinion is important to us",
+  "commenthint": "Write your comment",
+  "reviewadded": "Review added",
+  "reviewerror": "Error adding review"
 }
