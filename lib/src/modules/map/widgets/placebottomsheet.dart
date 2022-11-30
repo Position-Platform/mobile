@@ -165,15 +165,15 @@ Widget placeBottomSheet(
                                   primaryColor,
                                   whiteColor, () {
                                   mapBloc.add(RemoveFavorite(
-                                      searchModel.etablissement!.id));
+                                      searchModel.etablissement!));
                                 })
                               : buttonBottomSheet(
                                   S.of(context).save,
                                   "assets/images/svg/icon-action-vignette-enregistrer.svg",
                                   whiteColor,
                                   primaryColor, () {
-                                  mapBloc.add(AddFavorite(
-                                      searchModel.etablissement!.id));
+                                  mapBloc.add(
+                                      AddFavorite(searchModel.etablissement!));
                                 }),
                       const SizedBox(
                         width: 10,

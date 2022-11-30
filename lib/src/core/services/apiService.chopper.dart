@@ -283,6 +283,18 @@ class _$ApiService extends ApiService {
   }
 
   @override
+  Future<Response<dynamic>> getfavoris(String token) {
+    final $url = 'https://services.position.cm/api/favoris';
+    final $headers = {
+      'Authorization': token,
+      'Accept': 'application/json',
+    };
+
+    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<dynamic>> searchetablissementsbyfilters(
       int idCategorie, String? idCommodites, int idUser, int? page) {
     final $url =

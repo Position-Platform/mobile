@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Loading of Establishments Completed"),
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Establishments Charged"),
+        "favoris": MessageLookupByLibrary.simpleMessage("Favorites"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "filtre": MessageLookupByLibrary.simpleMessage("filter"),
         "findPosition":
@@ -120,6 +121,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No internet connection"),
         "noLocation":
             MessageLookupByLibrary.simpleMessage("Cannot get current location"),
+        "nofavoris": MessageLookupByLibrary.simpleMessage(
+            "You have not yet registered a location"),
         "nowebsite": MessageLookupByLibrary.simpleMessage("No Website"),
         "opennow": MessageLookupByLibrary.simpleMessage("Open Now : "),
         "or": MessageLookupByLibrary.simpleMessage("- OR -"),

@@ -29,4 +29,6 @@ abstract class EtablissementApiService {
 
   Future<Response> addReview(
       String token, int etablissementId, String commentaire, int rating);
+
+  Future<Response> getFavorites(String token);
 }
