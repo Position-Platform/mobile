@@ -84,6 +84,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<UpdateViewEtablissement>(_updateViewEtablissement);
     on<LoadMoreEtablissement>(_loadMoreEtablissement);
     on<AddReview>(_addReview);
+    on<GetFavorite>(_getFavorite);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
@@ -484,10 +485,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   _addFavorite(AddFavorite event, Emitter<MapState> emit) async {
     try {
       var favoriteResult =
-          await etablissementRepository!.addfavorite(event.idEtablissement!);
+          await etablissementRepository!.addfavorite(event.etablissement!.id!);
 
       if (favoriteResult.success!.success!) {
-        emit(FavoriteAdded());
+        emit(FavoriteAdded(event.etablissement));
       }
     } catch (e) {
       emit(FavoriteError());
@@ -496,11 +497,11 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _removeFavorite(RemoveFavorite event, Emitter<MapState> emit) async {
     try {
-      var favoriteResult =
-          await etablissementRepository!.removefavorite(event.idEtablissement!);
+      var favoriteResult = await etablissementRepository!
+          .removefavorite(event.etablissement!.id!);
 
       if (favoriteResult.success!.success!) {
-        emit(FavoriteRemoved());
+        emit(FavoriteRemoved(event.etablissement));
       }
     } catch (e) {
       emit(FavoriteError());
@@ -665,6 +666,25 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       }
     } catch (e) {
       emit(ReviewError());
+    }
+  }
+
+  _getFavorite(GetFavorite event, Emitter<MapState> emit) async {
+    emit(FavoriteLoading());
+    try {
+      var favorite = await etablissementRepository!.getallfavoris();
+      if (favorite.success!.success!) {
+        for (var i = 0; i < favorite.success!.data!.length; i++) {
+          favorite.success!.data![i].distance = await calculateDistance(
+              favorite.success!.data![i].batiment!.longitude.toString(),
+              favorite.success!.data![i].batiment!.latitude.toString());
+        }
+        emit(FavoriteLoaded(favorite.success!.data));
+      } else {
+        emit(FavoriteError());
+      }
+    } catch (e) {
+      emit(FavoriteError());
     }
   }
 

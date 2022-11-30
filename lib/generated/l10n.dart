@@ -1289,6 +1289,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Favorites`
+  String get favoris {
+    return Intl.message(
+      'Favorites',
+      name: 'favoris',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have not yet registered a location`
+  String get nofavoris {
+    return Intl.message(
+      'You have not yet registered a location',
+      name: 'nofavoris',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

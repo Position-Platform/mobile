@@ -123,5 +123,7 @@
   "commentdesc": "Your opinion is important to us",
   "commenthint": "Write your comment",
   "reviewadded": "Review added",
-  "reviewerror": "Error adding review"
+  "reviewerror": "Error adding review",
+  "favoris": "Favorites",
+  "nofavoris": "You have not yet registered a location"
 }

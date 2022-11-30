@@ -174,4 +174,17 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
     }
     return response;
   }
+
+  @override
+  Future<Response> getFavorites(String token) async {
+    Response response;
+
+    try {
+      response = await apiService!.getfavoris(token);
+    } catch (e) {
+      print('Caught ${e.toString()}');
+      rethrow;
+    }
+    return response;
+  }
 }

@@ -4,10 +4,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/app/bloc/app_bloc.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
+import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
+import 'package:position/src/modules/map/submodules/etablissements/views/etablissementfavorispage.dart';
 import 'package:position/src/widgets/footer.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({super.key});
+  const AppDrawer(
+      {super.key,
+      @required this.mapBloc,
+      @required this.user,
+      @required this.favoris});
+  final List<Datum>? favoris;
+  final MapBloc? mapBloc;
+  final User? user;
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
@@ -79,15 +90,32 @@ class _AppDrawerState extends State<AppDrawer> {
           const SizedBox(
             height: 10,
           ),
-          ListTile(
-            leading: SvgPicture.asset(
-                "assets/images/svg/icon-icon-action-vignette-enregistrer.svg"),
-            title: Text(
-              S.of(context).savedplaces,
-              style: const TextStyle(
-                  fontSize: 12, fontFamily: "OpenSans", color: greyColor),
+          InkWell(
+            highlightColor: transparent,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return EtablissementFavorisPage(
+                      mapBloc: widget.mapBloc,
+                      user: widget.user,
+                      favoris: widget.favoris,
+                    );
+                  },
+                ),
+              );
+            },
+            child: ListTile(
+              leading: SvgPicture.asset(
+                  "assets/images/svg/icon-icon-action-vignette-enregistrer.svg"),
+              title: Text(
+                S.of(context).savedplaces,
+                style: const TextStyle(
+                    fontSize: 12, fontFamily: "OpenSans", color: greyColor),
+              ),
+              horizontalTitleGap: 1,
             ),
-            horizontalTitleGap: 1,
           ),
           ListTile(
             leading: SvgPicture.asset(

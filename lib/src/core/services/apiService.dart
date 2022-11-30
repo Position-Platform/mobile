@@ -101,6 +101,9 @@ abstract class ApiService extends ChopperService {
   Future<Response> removefavoris(
       @Header('Authorization') String token, @Body() Map<String, dynamic> body);
 
+  @Get(path: '/api/favoris', headers: {'Accept': 'application/json'})
+  Future<Response> getfavoris(@Header('Authorization') String token);
+
   @Get(
       path: '/api/search/etablissements/filter',
       headers: {'Accept': 'application/json'})

@@ -18,6 +18,7 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
@@ -54,6 +55,8 @@ class _MapPageState extends State<MapPage> {
 
   SearchModel? searchModel;
 
+  List<Datum>? favoris = [];
+
   @override
   void initState() {
     super.initState();
@@ -68,6 +71,7 @@ class _MapPageState extends State<MapPage> {
 
     _mapBloc?.add(GetCategories());
     _mapBloc?.add(GetTypeCommodites());
+    _mapBloc?.add(GetFavorite());
   }
 
   bool isExpanded = false;
@@ -189,6 +193,15 @@ class _MapPageState extends State<MapPage> {
                 backgroundColor: redColor,
                 textColor: whiteColor,
                 toastLength: Toast.LENGTH_SHORT);
+          }
+          if (state is FavoriteLoaded) {
+            favoris = state.favoris;
+          }
+          if (state is FavoriteAdded) {
+            favoris!.add(state.favoris!);
+          }
+          if (state is FavoriteRemoved) {
+            favoris!.remove(state.favoris!);
           }
         },
         child: BlocBuilder<MapBloc, MapState>(
@@ -418,7 +431,10 @@ class _MapPageState extends State<MapPage> {
           ),
         ]);
       }),
-      drawer: const AppDrawer(),
+      drawer: BlocBuilder<MapBloc, MapState>(builder: (context, state) {
+        return AppDrawer(
+            mapBloc: _mapBloc!, user: widget.user, favoris: favoris);
+      }),
     );
   }
 }

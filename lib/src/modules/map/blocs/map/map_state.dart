@@ -64,9 +64,29 @@ class RoutingAdded extends MapState {}
 
 class RoutingError extends MapState {}
 
-class FavoriteAdded extends MapState {}
+class FavoriteAdded extends MapState {
+  final Datum? favoris;
 
-class FavoriteRemoved extends MapState {}
+  const FavoriteAdded(this.favoris);
+
+  @override
+  List<Object> get props => [favoris!];
+
+  @override
+  String toString() => 'FavoriteAdded { Favoris: $favoris }';
+}
+
+class FavoriteRemoved extends MapState {
+  final Datum? favoris;
+
+  const FavoriteRemoved(this.favoris);
+
+  @override
+  List<Object> get props => [favoris!];
+
+  @override
+  String toString() => 'FavoriteRemoved { Favoris: $favoris }';
+}
 
 class FavoriteError extends MapState {}
 
@@ -200,3 +220,17 @@ class ReviewAdded extends MapState {
 class ReviewError extends MapState {}
 
 class ReviewLoading extends MapState {}
+
+class FavoriteLoading extends MapState {}
+
+class FavoriteLoaded extends MapState {
+  final List<Datum>? favoris;
+
+  const FavoriteLoaded(this.favoris);
+
+  @override
+  List<Object> get props => [favoris!];
+
+  @override
+  String toString() => 'FavoriteLoaded { Favoris: $favoris }';
+}

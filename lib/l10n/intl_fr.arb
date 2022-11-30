@@ -123,5 +123,7 @@
   "commentdesc": "Votre avis est important pour nous",
   "commenthint": "Votre avis",
   "reviewadded": "Votre avis a été ajouté",
-  "reviewerror": "Une erreur est survenue"
+  "reviewerror": "Une erreur est survenue",
+  "favoris": "Favoris",
+  "nofavoris": "Vous n'avez pas encore enregistré de lieu"
 }
