@@ -12,6 +12,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissement_model/etablissement_model.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/core/app/models/api_model/api_model.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/favorites_model/favorites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/type_commodites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 
@@ -259,6 +260,26 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
             .addReview(token!, etablissementId, commentaire, rating);
 
         var model = CommentairesModel.fromJson(response.body);
+
+        return Result(success: model);
+      } catch (e) {
+        return Result(error: ServerError());
+      }
+    } else {
+      return Result(error: NoInternetError());
+    }
+  }
+
+  @override
+  Future<Result<FavoritesModel>> getallfavoris() async {
+    bool isConnected = await networkInfoHelper!.isConnected();
+    String? token = await sharedPreferencesHelper!.getToken();
+    if (isConnected) {
+      try {
+        final Response response =
+            await etablissementApiService!.getFavorites(token!);
+
+        var model = FavoritesModel.fromJson(response.body);
 
         return Result(success: model);
       } catch (e) {

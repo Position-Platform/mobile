@@ -190,15 +190,15 @@ Widget etablissementPage(
                               S.of(context).saved,
                               "assets/images/svg/icon-action-vignette-remove.svg",
                               primaryColor, () {
-                              mapBloc.add(RemoveFavorite(
-                                  searchModel.etablissement!.id));
+                              mapBloc.add(
+                                  RemoveFavorite(searchModel.etablissement!));
                             })
                           : buttonBottomSheetNoLabel(
                               S.of(context).save,
                               "assets/images/svg/icon-action-vignette-enregistrer.svg",
                               whiteColor, () {
-                              mapBloc.add(
-                                  AddFavorite(searchModel.etablissement!.id));
+                              mapBloc
+                                  .add(AddFavorite(searchModel.etablissement!));
                             }),
                 ],
               ),

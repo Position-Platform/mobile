@@ -76,27 +76,27 @@ class AddRoutingInMap extends MapEvent {
 }
 
 class AddFavorite extends MapEvent {
-  final int? idEtablissement;
+  final Datum? etablissement;
 
-  const AddFavorite(this.idEtablissement);
-
-  @override
-  List<Object> get props => [idEtablissement!];
+  const AddFavorite(this.etablissement);
 
   @override
-  String toString() => 'AddFavorite { idEtablissement: $idEtablissement }';
+  List<Object> get props => [etablissement!];
+
+  @override
+  String toString() => 'AddFavorite { Etablissement: $etablissement }';
 }
 
 class RemoveFavorite extends MapEvent {
-  final int? idEtablissement;
+  final Datum? etablissement;
 
-  const RemoveFavorite(this.idEtablissement);
-
-  @override
-  List<Object> get props => [idEtablissement!];
+  const RemoveFavorite(this.etablissement);
 
   @override
-  String toString() => 'RemoveFavorite { idEtablissement: $idEtablissement }';
+  List<Object> get props => [etablissement!];
+
+  @override
+  String toString() => 'RemoveFavorite { Etablissement: $etablissement }';
 }
 
 class UpdateViewEtablissement extends MapEvent {
@@ -225,3 +225,5 @@ class AddReview extends MapEvent {
   String toString() =>
       'AddReview { idEtablissement: $idEtablissement , review: $commentaire , note: $rating }';
 }
+
+class GetFavorite extends MapEvent {}

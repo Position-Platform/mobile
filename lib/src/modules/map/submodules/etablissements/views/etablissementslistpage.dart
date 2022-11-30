@@ -15,7 +15,6 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcard.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
-import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 import 'package:position/src/widgets/loading.dart';
 
@@ -275,7 +274,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
           },
         ),
       ),
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(),
       floatingActionButton: BlocBuilder(
           bloc: widget.mapBloc,
           builder: (context, state) {

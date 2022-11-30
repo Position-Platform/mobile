@@ -8,6 +8,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/favorite_model/favorite_model.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/favorites_model/favorites_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/type_commodites_model.dart';
 
 abstract class EtablissementRepository {
@@ -38,4 +39,6 @@ abstract class EtablissementRepository {
 
   Future<Result<CommentairesModel>> addreview(
       int etablissementId, String commentaire, int rating);
+
+  Future<Result<FavoritesModel>> getallfavoris();
 }
