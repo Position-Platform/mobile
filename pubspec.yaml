@@ -57,7 +57,7 @@ dependencies:
   hydrated_bloc: ^8.1.0
   intl: ^0.17.0
   intl_utils: ^2.7.0
-  json_annotation: ^4.6.0
+  json_annotation: ^4.7.0
   mapbox_gl: ^0.16.0
   meta: ^1.8.0
   path: ^1.8.2
