@@ -4,14 +4,16 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 
-Widget etablissementComment(Commentaire commentaire) {
+Widget etablissementComment(BuildContext context, Commentaire commentaire) {
   return Container(
     margin: const EdgeInsets.only(left: 20, right: 30),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -80,13 +82,13 @@ Widget etablissementComment(Commentaire commentaire) {
           height: 10,
         ),
         Container(
+          width: MediaQuery.of(context).size.width - 20,
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.only(right: 10),
-          child: Flexible(
-              child: Text(
+          child: Text(
             commentaire.commentaire!,
             style: const TextStyle(fontFamily: "OpenSans", color: greyColor),
-          )),
+          ),
         ),
         const SizedBox(
           height: 15,
