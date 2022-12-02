@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
+        "closed": MessageLookupByLibrary.simpleMessage("Fermé"),
         "commentdesc": MessageLookupByLibrary.simpleMessage(
             "Votre avis est important pour nous"),
         "commenthint": MessageLookupByLibrary.simpleMessage("Votre avis"),
@@ -135,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vous n\'avez pas encore enregistré de lieu"),
         "nowebsite":
             MessageLookupByLibrary.simpleMessage("Pas de Site Internet"),
+        "open": MessageLookupByLibrary.simpleMessage("Ouvert"),
         "opennow": MessageLookupByLibrary.simpleMessage("Ouvert Maintenant : "),
         "or": MessageLookupByLibrary.simpleMessage("- OU -"),
         "passError":

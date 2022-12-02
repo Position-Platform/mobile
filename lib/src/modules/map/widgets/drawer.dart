@@ -93,6 +93,7 @@ class _AppDrawerState extends State<AppDrawer> {
           InkWell(
             highlightColor: transparent,
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(

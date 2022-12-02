@@ -137,6 +137,7 @@ class _MapPageState extends State<MapPage> {
             isMarkerAdded = false;
             showList = false;
             expandedClose = false;
+            etablissements = Etablissements(data: []);
             _mapBloc!.add(CategorieClick(false, category));
           }
           if (state is SymboleClicked) {
@@ -198,9 +199,11 @@ class _MapPageState extends State<MapPage> {
             favoris = state.favoris;
           }
           if (state is FavoriteAdded) {
+            state.favoris!.isFavoris = true;
             favoris!.add(state.favoris!);
           }
           if (state is FavoriteRemoved) {
+            state.favoris!.isFavoris = false;
             favoris!.remove(state.favoris!);
           }
         },

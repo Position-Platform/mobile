@@ -18,33 +18,33 @@ class Datum {
   @JsonKey(name: 'batiment_id')
   int? batimentId;
   @JsonKey(name: 'indication_adresse')
-  dynamic indicationAdresse;
+  String? indicationAdresse;
   @JsonKey(name: 'code_postal')
   String? codePostal;
   @JsonKey(name: 'site_internet')
   String? siteInternet;
   @JsonKey(name: 'nom_manager')
-  dynamic nomManager;
+  String? nomManager;
   @JsonKey(name: 'contact_manager')
-  dynamic contactManager;
+  String? contactManager;
   @JsonKey(name: 'user_id')
   int? userId;
   int? etage;
   String? cover;
   String? phone;
   String? whatsapp1;
-  dynamic whatsapp2;
+  String? whatsapp2;
   String? description;
   @JsonKey(name: 'osm_id')
   String? osmId;
   String? services;
-  dynamic ameliorations;
+  String? ameliorations;
   int? vues;
-  dynamic logo;
+  String? logo;
   @JsonKey(name: 'logo_map')
-  dynamic logoMap;
+  String? logoMap;
   @JsonKey(name: 'deleted_at')
-  dynamic deletedAt;
+  DateTime? deletedAt;
   @JsonKey(name: 'created_at')
   DateTime? createdAt;
   @JsonKey(name: 'updated_at')
@@ -117,25 +117,25 @@ class Datum {
     int? id,
     String? nom,
     int? batimentId,
-    dynamic indicationAdresse,
+    String? indicationAdresse,
     String? codePostal,
     String? siteInternet,
-    dynamic nomManager,
-    dynamic contactManager,
+    String? nomManager,
+    String? contactManager,
     int? userId,
     int? etage,
     String? cover,
     String? phone,
     String? whatsapp1,
-    dynamic whatsapp2,
+    String? whatsapp2,
     String? description,
     String? osmId,
     String? services,
-    dynamic ameliorations,
+    String? ameliorations,
     int? vues,
-    dynamic logo,
-    dynamic logoMap,
-    dynamic deletedAt,
+    String? logo,
+    String? logoMap,
+    DateTime? deletedAt,
     DateTime? createdAt,
     DateTime? updatedAt,
     bool? isFavoris,

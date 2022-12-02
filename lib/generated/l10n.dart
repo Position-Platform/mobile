@@ -1309,6 +1309,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Open`
+  String get open {
+    return Intl.message(
+      'Open',
+      name: 'open',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Closed`
+  String get closed {
+    return Intl.message(
+      'Closed',
+      name: 'closed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

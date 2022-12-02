@@ -32,8 +32,10 @@ class Features {
   Properties? properties;
   List<double>? bbox;
   Geometry? geometry;
+  double? distance;
 
-  Features({this.type, this.properties, this.bbox, this.geometry});
+  Features(
+      {this.type, this.properties, this.bbox, this.geometry, this.distance});
 
   Features.fromJson(Map<String, dynamic> json) {
     type = json['type'];
@@ -43,6 +45,7 @@ class Features {
     bbox = json['bbox'].cast<double>();
     geometry =
         json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null;
+    distance = json['distance'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +58,7 @@ class Features {
     if (geometry != null) {
       data['geometry'] = geometry!.toJson();
     }
+    data['distance'] = distance;
     return data;
   }
 }

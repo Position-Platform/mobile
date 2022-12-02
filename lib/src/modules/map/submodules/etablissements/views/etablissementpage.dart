@@ -452,8 +452,8 @@ Widget etablissementPage(
                 height: 10,
               ),
               Column(
-                children:
-                    buildCommentaires(searchModel.etablissement!.commentaires!),
+                children: buildCommentaires(
+                    context, searchModel.etablissement!.commentaires!),
               ),
               Text(
                 S.of(context).showmorereviews,
@@ -473,10 +473,11 @@ Widget etablissementPage(
   );
 }
 
-List<Widget> buildCommentaires(List<Commentaire> comentaires) {
+List<Widget> buildCommentaires(
+    BuildContext context, List<Commentaire> comentaires) {
   List<Widget> items = [];
   for (var i = 0; i < comentaires.length; i++) {
-    Widget item = etablissementComment(comentaires[i]);
+    Widget item = etablissementComment(context, comentaires[i]);
     items.add(item);
   }
   return items;

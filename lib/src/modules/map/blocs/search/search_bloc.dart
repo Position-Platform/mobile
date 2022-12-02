@@ -5,7 +5,6 @@ import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
-import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
@@ -36,13 +35,41 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     try {
       var nominatimResult =
           await nominatimRepository!.searchplace(event.query!);
+
+      for (var i = 0; i < nominatimResult.success!.features!.length; i++) {
+        nominatimResult.success!.features![i].distance =
+            await calculateDistance(
+          nominatimResult.success!.features![i].geometry!.coordinates![0]
+              .toString(),
+          nominatimResult.success!.features![i].geometry!.coordinates![1]
+              .toString(),
+        );
+      }
+
+      nominatimResult.success!.features!
+          .sort((a, b) => a.distance!.compareTo(b.distance!));
+
       var etablissementsResult = await etablissementRepository!
           .searchetablissements(event.query!, event.user!.id!);
-      var categoriesResult =
-          await categoriesRepository!.searchcategories(event.query!);
+      for (var j = 0;
+          j < etablissementsResult.success!.data!.etablissements!.data!.length;
+          j++) {
+        etablissementsResult.success!.data!.etablissements!.data![j].distance =
+            await calculateDistance(
+                etablissementsResult
+                    .success!.data!.etablissements!.data![j].batiment!.longitude
+                    .toString(),
+                etablissementsResult
+                    .success!.data!.etablissements!.data![j].batiment!.latitude
+                    .toString());
+      }
+      etablissementsResult.success!.data!.etablissements!.data!
+          .sort((a, b) => a.distance!.compareTo(b.distance!));
+      /*  var categoriesResult =
+          await categoriesRepository!.searchcategories(event.query!);*/
       List<SearchModel> searchResults = [
         ...await _getEtablissementFromResponse(etablissementsResult.success!),
-        ..._getCategorieFromResponse(categoriesResult.success!),
+        // ..._getCategorieFromResponse(categoriesResult.success!),
         ...await _getNominatimFromResponse(nominatimResult.success!)
       ];
 
@@ -85,8 +112,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           i++)
         SearchModel(
             name: etablissementsModel.data!.etablissements!.data![i].nom,
-            details: etablissementsModel
-                .data!.etablissements!.data![i].sousCategories![0].nom,
+            details:
+                "${etablissementsModel.data!.etablissements!.data![i].sousCategories![0].nom!} , ${etablissementsModel.data!.etablissements!.data![i].batiment!.ville!}",
             type: "etablissement",
             id: etablissementsModel.data!.etablissements!.data![i].id
                 .toString(),
@@ -118,7 +145,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     ];
   }
 
-  List<SearchModel> _getCategorieFromResponse(CategoriesModel categoriesModel) {
+  /* List<SearchModel> _getCategorieFromResponse(CategoriesModel categoriesModel) {
     return [
       for (var i = 0; i < categoriesModel.data!.categories!.length; i++)
         SearchModel(
@@ -130,5 +157,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             logomap: apiUrl + categoriesModel.data!.categories![i].logourlmap!,
             category: categoriesModel.data!.categories![i])
     ];
-  }
+  }*/
 }
