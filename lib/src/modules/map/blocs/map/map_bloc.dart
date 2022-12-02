@@ -136,6 +136,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         json.decode(data["properties"]["commentaires"].toString());
     data["properties"]["user"] =
         json.decode(data["properties"]["user"].toString());
+    data["properties"]["count"] =
+        json.decode(data["properties"]["count"].toString());
+
     var etabissement = Datum.fromJson(data['properties']);
 
     var searchModel = SearchModel(
@@ -488,6 +491,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           await etablissementRepository!.addfavorite(event.etablissement!.id!);
 
       if (favoriteResult.success!.success!) {
+        event.etablissement!.distance = await calculateDistance(
+            event.etablissement!.batiment!.longitude!,
+            event.etablissement!.batiment!.latitude!);
         emit(FavoriteAdded(event.etablissement));
       }
     } catch (e) {

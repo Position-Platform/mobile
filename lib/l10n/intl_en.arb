@@ -125,5 +125,7 @@
   "reviewadded": "Review added",
   "reviewerror": "Error adding review",
   "favoris": "Favorites",
-  "nofavoris": "You have not yet registered a location"
+  "nofavoris": "You have not yet registered a location",
+  "open": "Open",
+  "closed": "Closed"
 }

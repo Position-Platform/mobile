@@ -114,7 +114,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   onTap: () {
                     close(context, state.searchresult![index]);
                   },
-                  child: searchItem(state.searchresult![index]));
+                  child: searchItem(context, state.searchresult![index]));
             },
           );
         }

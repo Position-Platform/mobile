@@ -125,5 +125,7 @@
   "reviewadded": "Votre avis a été ajouté",
   "reviewerror": "Une erreur est survenue",
   "favoris": "Favoris",
-  "nofavoris": "Vous n'avez pas encore enregistré de lieu"
+  "nofavoris": "Vous n'avez pas encore enregistré de lieu",
+  "open": "Ouvert",
+  "closed": "Fermé"
 }
