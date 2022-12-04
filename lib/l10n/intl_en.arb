@@ -127,5 +127,8 @@
   "favoris": "Favorites",
   "nofavoris": "You have not yet registered a location",
   "open": "Open",
-  "closed": "Closed"
+  "closed": "Closed",
+  "thisweek": "This week",
+  "oneweek": "One week",
+  "week": "Week"
 }

@@ -136,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vous n\'avez pas encore enregistré de lieu"),
         "nowebsite":
             MessageLookupByLibrary.simpleMessage("Pas de Site Internet"),
+        "oneweek": MessageLookupByLibrary.simpleMessage("Une semaine"),
         "open": MessageLookupByLibrary.simpleMessage("Ouvert"),
         "opennow": MessageLookupByLibrary.simpleMessage("Ouvert Maintenant : "),
         "or": MessageLookupByLibrary.simpleMessage("- OU -"),
@@ -202,6 +203,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Une boutique virtuelle et un marché digital pour les activités formelles et informelles ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces"),
+        "thisweek": MessageLookupByLibrary.simpleMessage("Cette semaine"),
         "title1": MessageLookupByLibrary.simpleMessage(
             "Rechercher les points d\'intérêt et accéder aux services essentiels de la ville"),
         "title2": MessageLookupByLibrary.simpleMessage(
@@ -212,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tryAgain": MessageLookupByLibrary.simpleMessage("Reessayez"),
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
         "valider": MessageLookupByLibrary.simpleMessage("Appliquer"),
+        "week": MessageLookupByLibrary.simpleMessage("Semaine(s)"),
         "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
       };
 }

@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 
 Widget etablissementComment(BuildContext context, Commentaire commentaire) {
+  int week;
+  Duration diff = commentaire.updatedAt!.difference(DateTime.now());
+  int daysDifference = diff.inDays;
+  if (daysDifference < 7) {
+    week = 0;
+  } else {
+    week = daysDifference ~/ 7;
+  }
   return Container(
     margin: const EdgeInsets.only(left: 20, right: 30),
     child: Column(
@@ -47,7 +56,12 @@ Widget etablissementComment(BuildContext context, Commentaire commentaire) {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(commentaire.updatedAt!.toLocal().toString(),
+                    Text(
+                        week == 0
+                            ? S.of(context).thisweek
+                            : week == 1
+                                ? S.of(context).oneweek
+                                : "$week ${S.of(context).week}",
                         style: const TextStyle(
                             color: greyColor,
                             fontSize: 11,
