@@ -125,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "nofavoris": MessageLookupByLibrary.simpleMessage(
             "You have not yet registered a location"),
         "nowebsite": MessageLookupByLibrary.simpleMessage("No Website"),
+        "oneweek": MessageLookupByLibrary.simpleMessage("One week"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "opennow": MessageLookupByLibrary.simpleMessage("Open Now : "),
         "or": MessageLookupByLibrary.simpleMessage("- OR -"),
@@ -185,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "A virtual store and digital marketplace for formal and informal activities ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Declarations of Work, follow the local news via notices and announcements"),
+        "thisweek": MessageLookupByLibrary.simpleMessage("This week"),
         "title1": MessageLookupByLibrary.simpleMessage(
             "Search for points of interest and access essential city services"),
         "title2": MessageLookupByLibrary.simpleMessage(
@@ -195,6 +197,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
         "valider": MessageLookupByLibrary.simpleMessage("Apply"),
+        "week": MessageLookupByLibrary.simpleMessage("Week"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };
 }

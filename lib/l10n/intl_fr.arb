@@ -127,5 +127,8 @@
   "favoris": "Favoris",
   "nofavoris": "Vous n'avez pas encore enregistré de lieu",
   "open": "Ouvert",
-  "closed": "Fermé"
+  "closed": "Fermé",
+  "thisweek": "Cette semaine",
+  "oneweek": "Une semaine",
+  "week": "Semaine(s)"
 }

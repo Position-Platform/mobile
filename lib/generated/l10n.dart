@@ -1329,6 +1329,36 @@ class S {
       args: [],
     );
   }
+
+  /// `This week`
+  String get thisweek {
+    return Intl.message(
+      'This week',
+      name: 'thisweek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One week`
+  String get oneweek {
+    return Intl.message(
+      'One week',
+      name: 'oneweek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week`
+  String get week {
+    return Intl.message(
+      'Week',
+      name: 'week',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
