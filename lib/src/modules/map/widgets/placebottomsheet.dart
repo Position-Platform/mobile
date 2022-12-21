@@ -21,7 +21,7 @@ Widget placeBottomSheet(
               ? headerBottomSheet(searchModel, mapBloc)
               : const SizedBox(),
           Container(
-            height: 160,
+            height: 175,
             color: whiteColor,
             child: Column(
               children: [
@@ -108,11 +108,21 @@ Widget placeBottomSheet(
                               color: greyColor,
                               fontSize: 12,
                               fontFamily: "OpenSans")),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Text(
+                          "${searchModel.distance!}"
+                          " km",
+                          style: const TextStyle(
+                              color: greyColor,
+                              fontSize: 12,
+                              fontFamily: "OpenSans")),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 searchModel.type! == "etablissement"
                     ? Container(

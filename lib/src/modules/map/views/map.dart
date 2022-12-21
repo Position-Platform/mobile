@@ -175,6 +175,8 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is EtablissementsMoreLoaded) {
             etablissements = state.etablissements!;
+            etablissements!.data!
+                .sort((a, b) => a.distance!.compareTo(b.distance!));
             page = state.page;
             idsCommodite = state.idsCommodite;
             distance = state.distance;

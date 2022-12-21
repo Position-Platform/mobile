@@ -152,6 +152,16 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
             _isLoadMoreRunning = false;
             _page += 1;
             etablissements!.addAll(state.etablissements!.data!);
+            if (state.distance!) {
+              etablissements!
+                  .sort((a, b) => a.distance!.compareTo(b.distance!));
+            }
+            if (state.avis!) {
+              etablissements!.sort((a, b) => b.avis!.compareTo(a.avis!));
+            }
+            if (state.pertinance!) {
+              etablissements!.sort((a, b) => b.vues!.compareTo(a.vues!));
+            }
             idsCommodite = state.idsCommodite;
             distance = state.distance;
             avis = state.avis;
