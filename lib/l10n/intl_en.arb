@@ -130,5 +130,11 @@
   "closed": "Closed",
   "thisweek": "This week",
   "oneweek": "One week",
-  "week": "Week"
+  "week": "Week",
+  "etablissement_name": "Establishment Name",
+  "category": "category",
+  "subcategory": "Sub-catégory",
+  "choose_category": "Choose Category",
+  "choose_sub_category": "Choose Sub-Category",
+  "terms": "By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date."
 }

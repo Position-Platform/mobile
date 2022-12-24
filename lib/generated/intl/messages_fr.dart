@@ -37,7 +37,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
+        "category": MessageLookupByLibrary.simpleMessage("catégorie"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
+        "choose_category":
+            MessageLookupByLibrary.simpleMessage("Choisir une catégorie"),
+        "choose_sub_category":
+            MessageLookupByLibrary.simpleMessage("Choisir une sous-catégorie"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
         "closed": MessageLookupByLibrary.simpleMessage("Fermé"),
         "commentdesc": MessageLookupByLibrary.simpleMessage(
@@ -78,6 +83,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Chargement des Etablissements Terminé"),
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Etablissements Chargés"),
+        "etablissement_name":
+            MessageLookupByLibrary.simpleMessage("Nom de l\'Etablissement"),
         "favoris": MessageLookupByLibrary.simpleMessage("Favoris"),
         "filters": MessageLookupByLibrary.simpleMessage("Filtres"),
         "filtre": MessageLookupByLibrary.simpleMessage("filtre"),
@@ -197,12 +204,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "signwith": MessageLookupByLibrary.simpleMessage("Se Connecter avec"),
         "skip": MessageLookupByLibrary.simpleMessage("Passer"),
         "step": MessageLookupByLibrary.simpleMessage("Etape"),
+        "subcategory": MessageLookupByLibrary.simpleMessage("Sous-catégorie"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(
             "Impression de plan officiel de localisation, partage, enregistrement dans ses favoris ou naviguation d\'un endroit vers un autre Pharmacie de garde, banque, centre de santé, écoles, infrastructures sociales et services publics"),
         "subtitle2": MessageLookupByLibrary.simpleMessage(
             "Une boutique virtuelle et un marché digital pour les activités formelles et informelles ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces"),
+        "terms": MessageLookupByLibrary.simpleMessage(
+            "En continuant, vous acceptez les Conditions d\'utilisation et les Règles de confidentialité. Tous les renseignements pourront être modifiés plus tard."),
         "thisweek": MessageLookupByLibrary.simpleMessage("Cette semaine"),
         "title1": MessageLookupByLibrary.simpleMessage(
             "Rechercher les points d\'intérêt et accéder aux services essentiels de la ville"),

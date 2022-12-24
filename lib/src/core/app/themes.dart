@@ -7,7 +7,7 @@ class AppThemes {
       scaffoldBackgroundColor: whiteColor,
       primaryColor: primaryColor,
       backgroundColor: whiteColor,
-      canvasColor: transparent,
+      canvasColor: whiteColor,
       primaryIconTheme: const IconThemeData(color: blackColor),
       textTheme: const TextTheme(
         bodyText1: TextStyle(
@@ -28,7 +28,7 @@ class AppThemes {
       scaffoldBackgroundColor: blackColor,
       primaryColor: primaryDarkColor,
       backgroundColor: blackColor,
-      canvasColor: transparent,
+      canvasColor: blackColor,
       primaryIconTheme: const IconThemeData(color: whiteColor),
       textTheme: const TextTheme(
         bodyText1: TextStyle(

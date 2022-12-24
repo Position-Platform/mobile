@@ -36,7 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "category": MessageLookupByLibrary.simpleMessage("category"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
+        "choose_category":
+            MessageLookupByLibrary.simpleMessage("Choose Category"),
+        "choose_sub_category":
+            MessageLookupByLibrary.simpleMessage("Choose Sub-Category"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
         "commentdesc": MessageLookupByLibrary.simpleMessage(
@@ -76,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Loading of Establishments Completed"),
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Establishments Charged"),
+        "etablissement_name":
+            MessageLookupByLibrary.simpleMessage("Establishment Name"),
         "favoris": MessageLookupByLibrary.simpleMessage("Favorites"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "filtre": MessageLookupByLibrary.simpleMessage("filter"),
@@ -180,12 +187,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "signwith": MessageLookupByLibrary.simpleMessage("Sign in with"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),
+        "subcategory": MessageLookupByLibrary.simpleMessage("Sub-catégory"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(
             "Print official location map, share, save to favorites or navigate from one place to another On-call pharmacy, bank, health center, schools, social infrastructure and public services"),
         "subtitle2": MessageLookupByLibrary.simpleMessage(
             "A virtual store and digital marketplace for formal and informal activities ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Declarations of Work, follow the local news via notices and announcements"),
+        "terms": MessageLookupByLibrary.simpleMessage(
+            "By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date."),
         "thisweek": MessageLookupByLibrary.simpleMessage("This week"),
         "title1": MessageLookupByLibrary.simpleMessage(
             "Search for points of interest and access essential city services"),

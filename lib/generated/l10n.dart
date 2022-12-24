@@ -1359,6 +1359,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Establishment Name`
+  String get etablissement_name {
+    return Intl.message(
+      'Establishment Name',
+      name: 'etablissement_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `category`
+  String get category {
+    return Intl.message(
+      'category',
+      name: 'category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub-catégory`
+  String get subcategory {
+    return Intl.message(
+      'Sub-catégory',
+      name: 'subcategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Category`
+  String get choose_category {
+    return Intl.message(
+      'Choose Category',
+      name: 'choose_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Sub-Category`
+  String get choose_sub_category {
+    return Intl.message(
+      'Choose Sub-Category',
+      name: 'choose_sub_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date.`
+  String get terms {
+    return Intl.message(
+      'By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date.',
+      name: 'terms',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
