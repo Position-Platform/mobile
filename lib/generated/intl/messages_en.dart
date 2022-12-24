@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dark": MessageLookupByLibrary.simpleMessage("Dark Theme"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Home"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disabledAccount": MessageLookupByLibrary.simpleMessage(
             "Your account has been deactivated"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),

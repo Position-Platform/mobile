@@ -13,6 +13,7 @@ import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 import 'package:position/src/modules/newetablishment/blocs/new_etablishment/new_etablishment_bloc.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step1.dart';
+import 'package:position/src/modules/newetablishment/widgets/steps/step2.dart';
 
 class NewEtablishment extends StatefulWidget {
   const NewEtablishment(
@@ -73,7 +74,7 @@ class _NewEtablishmentState extends State<NewEtablishment> {
                     state: step == 0 ? StepState.editing : StepState.indexed),
                 Step(
                   title: const SizedBox(),
-                  content: const Text("World!"),
+                  content: step2(context),
                   state: step == 1 ? StepState.editing : StepState.indexed,
                   isActive: step == 1 ? true : false,
                 ),

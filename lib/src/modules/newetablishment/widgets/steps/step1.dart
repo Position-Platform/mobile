@@ -21,7 +21,6 @@ Widget step1(BuildContext context, List<Category> categories,
         categorieSelect = true;
       }
       if (state is StepCancelled) {
-        etablissementNameController.text = "";
         sousCategorySelect = null;
         souscategories = [];
         categorieSelect = false;
