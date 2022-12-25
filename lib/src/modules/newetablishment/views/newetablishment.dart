@@ -9,12 +9,15 @@ import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 import 'package:position/src/modules/newetablishment/blocs/new_etablishment/new_etablishment_bloc.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step1.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step2.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step3.dart';
+import 'package:position/src/modules/newetablishment/widgets/steps/step4.dart';
+import 'package:position/src/modules/newetablishment/widgets/steps/step5.dart';
 
 class NewEtablishment extends StatefulWidget {
   const NewEtablishment(
@@ -23,12 +26,14 @@ class NewEtablishment extends StatefulWidget {
       @required this.user,
       @required this.initialLink,
       @required this.favoris,
-      @required this.mapBloc});
+      @required this.mapBloc,
+      @required this.typesCommodites});
   final List<Category>? categories;
   final User? user;
   final PendingDynamicLinkData? initialLink;
   final List<Datum>? favoris;
   final MapBloc? mapBloc;
+  final List<TypesCommodite>? typesCommodites;
 
   @override
   State<NewEtablishment> createState() => _NewEtablishmentState();
@@ -87,13 +92,13 @@ class _NewEtablishmentState extends State<NewEtablishment> {
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: const Text("Hello World!"),
+                  content: step4(context),
                   isActive: step == 3 ? true : false,
                   state: step == 3 ? StepState.editing : StepState.indexed,
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: const Text("Hello World!"),
+                  content: step5(context, widget.typesCommodites),
                   isActive: step == 4 ? true : false,
                   state: step == 4 ? StepState.editing : StepState.indexed,
                 ),

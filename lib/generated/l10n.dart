@@ -1459,6 +1459,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Website`
+  String get website {
+    return Intl.message(
+      'Website',
+      name: 'website',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whatsapp`
+  String get whatsapp {
+    return Intl.message(
+      'Whatsapp',
+      name: 'whatsapp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

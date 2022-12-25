@@ -140,5 +140,7 @@
   "description": "Description",
   "code_postal": "Code Postal",
   "ville": "Ville",
-  "indication": "Indications"
+  "indication": "Indications",
+  "website": "Site Internet",
+  "whatsapp": "Whatsapp"
 }

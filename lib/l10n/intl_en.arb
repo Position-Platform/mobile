@@ -140,5 +140,7 @@
   "description": "Description",
   "code_postal": "PO BOX",
   "ville": "City",
-  "indication": "Indications"
+  "indication": "Indications",
+  "website": "Website",
+  "whatsapp": "Whatsapp"
 }

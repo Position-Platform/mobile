@@ -13,6 +13,7 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/widgets/bottomSheetButton.dart';
 import 'package:position/src/modules/map/widgets/headerbottomSheet.dart';
 import 'package:position/src/modules/newetablishment/blocs/new_etablishment/new_etablishment_bloc.dart';
@@ -25,7 +26,8 @@ Widget placeBottomSheet(
     List<Category>? categories,
     User? user,
     PendingDynamicLinkData? initialLink,
-    List<Datum>? favoris) {
+    List<Datum>? favoris,
+    List<TypesCommodite>? typesCommodites) {
   return BlocBuilder<MapBloc, MapState>(
     builder: (context, state) {
       return Column(
@@ -218,6 +220,7 @@ Widget placeBottomSheet(
                                           initialLink: initialLink,
                                           mapBloc: mapBloc,
                                           favoris: favoris,
+                                          typesCommodites: typesCommodites,
                                         ),
                                       );
                                     },

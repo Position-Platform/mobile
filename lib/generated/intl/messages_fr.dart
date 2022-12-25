@@ -228,7 +228,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Nom d\'utilisateur"),
         "valider": MessageLookupByLibrary.simpleMessage("Appliquer"),
         "ville": MessageLookupByLibrary.simpleMessage("Ville"),
+        "website": MessageLookupByLibrary.simpleMessage("Site Internet"),
         "week": MessageLookupByLibrary.simpleMessage("Semaine(s)"),
-        "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue")
+        "welcome": MessageLookupByLibrary.simpleMessage("Bienvenue"),
+        "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp")
       };
 }
