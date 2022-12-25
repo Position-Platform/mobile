@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose Sub-Category"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
+        "code_postal": MessageLookupByLibrary.simpleMessage("PO BOX"),
         "commentdesc": MessageLookupByLibrary.simpleMessage(
             "Your opinion is important to us"),
         "commenthint":
@@ -103,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
         "hintSearch": MessageLookupByLibrary.simpleMessage("Search"),
         "identifiant": MessageLookupByLibrary.simpleMessage("Login"),
+        "indication": MessageLookupByLibrary.simpleMessage("Indications"),
         "infos": MessageLookupByLibrary.simpleMessage("My information"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidId":
@@ -208,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
         "valider": MessageLookupByLibrary.simpleMessage("Apply"),
+        "ville": MessageLookupByLibrary.simpleMessage("City"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
         "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
       };

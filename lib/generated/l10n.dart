@@ -1429,6 +1429,36 @@ class S {
       args: [],
     );
   }
+
+  /// `PO BOX`
+  String get code_postal {
+    return Intl.message(
+      'PO BOX',
+      name: 'code_postal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get ville {
+    return Intl.message(
+      'City',
+      name: 'ville',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Indications`
+  String get indication {
+    return Intl.message(
+      'Indications',
+      name: 'indication',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

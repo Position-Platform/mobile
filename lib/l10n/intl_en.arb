@@ -137,5 +137,8 @@
   "choose_category": "Choose Category",
   "choose_sub_category": "Choose Sub-Category",
   "terms": "By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date.",
-  "description": "Description"
+  "description": "Description",
+  "code_postal": "PO BOX",
+  "ville": "City",
+  "indication": "Indications"
 }

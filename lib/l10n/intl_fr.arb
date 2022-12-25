@@ -137,5 +137,8 @@
   "choose_category": "Choisir une catégorie",
   "choose_sub_category": "Choisir une sous-catégorie",
   "terms": "En continuant, vous acceptez les Conditions d'utilisation et les Règles de confidentialité. Tous les renseignements pourront être modifiés plus tard.",
-  "description": "Description"
+  "description": "Description",
+  "code_postal": "Code Postal",
+  "ville": "Ville",
+  "indication": "Indications"
 }
