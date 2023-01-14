@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choisir un Thème"),
         "choose_category":
             MessageLookupByLibrary.simpleMessage("Choisir une catégorie"),
+        "choose_hours":
+            MessageLookupByLibrary.simpleMessage("Choisir Une Heure"),
         "choose_sub_category":
             MessageLookupByLibrary.simpleMessage("Choisir une sous-catégorie"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),

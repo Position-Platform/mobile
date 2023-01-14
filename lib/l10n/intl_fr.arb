@@ -142,5 +142,6 @@
   "ville": "Ville",
   "indication": "Indications",
   "website": "Site Internet",
-  "whatsapp": "Whatsapp"
+  "whatsapp": "Whatsapp",
+  "choose_hours": "Choisir Une Heure"
 }

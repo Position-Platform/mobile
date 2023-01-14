@@ -1479,6 +1479,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Choose Hour`
+  String get choose_hours {
+    return Intl.message(
+      'Choose Hour',
+      name: 'choose_hours',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
