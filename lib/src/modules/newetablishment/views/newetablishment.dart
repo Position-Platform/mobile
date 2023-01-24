@@ -105,7 +105,7 @@ class _NewEtablishmentState extends State<NewEtablishment> {
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: step6(context),
+                  content: step6(),
                   isActive: step == 5 ? true : false,
                   state: step == 5 ? StepState.editing : StepState.indexed,
                 ),

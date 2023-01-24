@@ -1,158 +1,166 @@
 import 'package:flutter/material.dart';
-import 'package:position/generated/l10n.dart';
+import 'package:intl/intl.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/modules/newetablishment/models/opentime.dart';
-import 'package:position/src/modules/newetablishment/models/schedule.dart';
-import 'package:position/src/modules/newetablishment/widgets/apppickeritem.dart';
+import 'package:time_interval_picker/time_interval_picker.dart';
+import 'package:weekday_selector/weekday_selector.dart';
 
-Widget step6(BuildContext context) {
-  const defaultStartTime = TimeOfDay(hour: 8, minute: 0);
-  const defaultEndTime = TimeOfDay(hour: 18, minute: 0);
-  List<OpenTimeModel> time = [
-    OpenTimeModel(dayOfWeek: 1, key: 'Lundi', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-    OpenTimeModel(dayOfWeek: 2, key: 'Mardi', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-    OpenTimeModel(dayOfWeek: 3, key: 'Mercredi', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-    OpenTimeModel(dayOfWeek: 4, key: 'Jeudi', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-    OpenTimeModel(dayOfWeek: 5, key: 'Vendredi', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-    OpenTimeModel(dayOfWeek: 6, key: 'Samedi', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-    OpenTimeModel(dayOfWeek: 7, key: 'Dimanche', schedule: [
-      ScheduleModel(
-        start: defaultStartTime,
-        end: defaultEndTime,
-      ),
-    ]),
-  ];
+Widget step6() {
+  final values = <bool?>[null, false, false, false, false, false, null];
+  bool selectedSamedi = false;
+  bool selectedDimanche = false;
 
-  ///Show Time Time
-  onTimePicker(TimeOfDay time, Function(TimeOfDay) callback) async {
-    final picked = await showTimePicker(
-      initialTime: time,
-      context: context,
-    );
+  String weekDayTime;
+  String samediDayTime;
+  String dimancheDayTime;
+  List<String> daySelect = [];
 
-    if (picked != null) {
-      callback(picked);
-    }
-  }
-
+  final f = DateFormat('HH:mm');
   return Container(
-    color: whiteColor,
-    child: ListView.separated(
-      physics: const ScrollPhysics(),
-      shrinkWrap: true,
-      padding: const EdgeInsets.all(16),
-      itemBuilder: (context, index) {
-        final item = time[index];
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              item.key,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle1!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final addAction = index == 0;
-                final element = item.schedule[index];
-                return Row(
-                  children: [
-                    Expanded(
-                      child: AppPickerItem(
-                        value: '${element.start.hour}:${element.start.minute}',
-                        title: S.of(context).choose_hours,
-                        onPressed: () {
-                          onTimePicker(element.start, (time) {});
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: AppPickerItem(
-                        value: "${element.end.hour}:${element.end.minute}",
-                        title: S.of(context).choose_hours,
-                        onPressed: () {
-                          onTimePicker(element.end, (time) {});
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    InkWell(
-                      onTap: () {
-                        if (addAction) {
-                          item.schedule.add(
-                            ScheduleModel(
-                              start: defaultStartTime,
-                              end: defaultEndTime,
-                            ),
-                          );
-                        } else {
-                          item.schedule.remove(element);
-                        }
+    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+    child: Column(
+      children: [
+        SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("Jours de la semaine"),
+              WeekdaySelector(
+                displayedDays: const {
+                  DateTime.sunday,
+                  DateTime.monday,
+                  DateTime.tuesday,
+                  DateTime.wednesday,
+                  DateTime.thursday,
+                },
+                shortWeekdays: const [
+                  "Di",
+                  "Lu",
+                  "Ma",
+                  "Me",
+                  "Je",
+                  "Ve",
+                  "Sa",
+                ],
+                selectedFillColor: accentColor,
+                onChanged: (v) {
+                  printIntAsDay(v, daySelect);
+                  /*  setState(() {
+                    values[v % 7] = !values[v % 7]!;
+                  });*/
+                },
+                selectedElevation: 15,
+                elevation: 5,
+                disabledElevation: 0,
+                values: values,
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              daySelect.isNotEmpty
+                  ? TimeIntervalPicker(
+                      endLimit: null,
+                      startLimit: null,
+                      onChanged: (DateTime? startTime, DateTime? endTime,
+                          bool isAllDay) {
+                        weekDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";
                       },
-                      child: Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        child: Icon(
-                          addAction ? Icons.add : Icons.remove,
-                          color: Colors.white,
-                        ),
-                      ),
                     )
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 8);
-              },
-              itemCount: item.schedule.length,
-            )
-          ],
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const SizedBox(height: 16);
-      },
-      itemCount: time.length,
+                  : const SizedBox(),
+              const SizedBox(
+                height: 25,
+              ),
+              Card(
+                elevation: 5,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: CheckboxListTile(
+                  title: const Text("Samedi",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  value: selectedSamedi,
+                  onChanged: (bool? value) {
+                    /*   setState(() {
+                      selectedSamedi = value!;
+                    });*/
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              selectedSamedi == true
+                  ? TimeIntervalPicker(
+                      endLimit: null,
+                      startLimit: null,
+                      onChanged: (DateTime? startTime, DateTime? endTime,
+                          bool isAllDay) {
+                        samediDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                      },
+                    )
+                  : const SizedBox(),
+              const SizedBox(
+                height: 10,
+              ),
+              Card(
+                elevation: 5,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: CheckboxListTile(
+                  title: const Text("Dimanche",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  value: selectedDimanche,
+                  onChanged: (bool? value) {
+                    /*  setState(() {
+                      selectedDimanche = value!;
+                    });*/
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              selectedDimanche == true
+                  ? TimeIntervalPicker(
+                      endLimit: null,
+                      startLimit: null,
+                      onChanged: (DateTime? startTime, DateTime? endTime,
+                          bool isAllDay) {
+                        dimancheDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                      },
+                    )
+                  : const SizedBox(),
+              const SizedBox(
+                height: 25,
+              ),
+            ],
+          ),
+        )
+      ],
     ),
   );
+}
+
+printIntAsDay(int day, List<String> daySelect) {
+  if (daySelect.contains(intDayToFrench(day))) {
+    daySelect.remove(intDayToFrench(day));
+  } else {
+    daySelect.add(intDayToFrench(day));
+  }
+}
+
+String intDayToFrench(int day) {
+  if (day % 7 == DateTime.monday % 7) return 'Lundi';
+  if (day % 7 == DateTime.tuesday % 7) return 'Mardi';
+  if (day % 7 == DateTime.wednesday % 7) return 'Mercredi';
+  if (day % 7 == DateTime.thursday % 7) return 'Jeudi';
+  if (day % 7 == DateTime.friday % 7) return 'Vendredi';
+  throw '🐞 This should never have happened: $day';
+}
+
+class Days {
+  String jour;
+  bool selected;
+  Days(this.jour, this.selected);
 }
