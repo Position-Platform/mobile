@@ -223,7 +223,15 @@ class _MapPageState extends State<MapPage> {
                       _mapBloc!, expandablesheet)
                   : const SizedBox(),
               persistentHeader: isMarkerAdded && !expandedClose
-                  ? placeBottomSheet(context, searchModel!, _mapBloc!)
+                  ? placeBottomSheet(
+                      context,
+                      searchModel!,
+                      _mapBloc!,
+                      categories!,
+                      widget.user!,
+                      widget.initialLink,
+                      favoris,
+                      typescommodites)
                   : const SizedBox(),
               background: Stack(children: [
                 MapboxMap(

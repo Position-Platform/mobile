@@ -130,5 +130,22 @@
   "closed": "Fermé",
   "thisweek": "Cette semaine",
   "oneweek": "Une semaine",
-  "week": "Semaine(s)"
+  "week": "Semaine(s)",
+  "etablissement_name": "Nom de l'Etablissement",
+  "category": "catégorie",
+  "subcategory": "Sous-catégorie",
+  "choose_category": "Choisir une catégorie",
+  "choose_sub_category": "Choisir une sous-catégorie",
+  "terms": "En continuant, vous acceptez les Conditions d'utilisation et les Règles de confidentialité. Tous les renseignements pourront être modifiés plus tard.",
+  "description": "Description",
+  "code_postal": "Code Postal",
+  "ville": "Ville",
+  "indication": "Indications",
+  "website": "Site Internet",
+  "whatsapp": "Whatsapp",
+  "choose_hours": "Choisir Une Heure",
+  "add_picture" : "Ajouter une photo",
+  "complete_add" : "Vous avez fini de configurer l’établissement !",
+  "complete_add_desc" : "L’établissement sera mis en ligne après le paiement. Vous pourrez toujours modifier les informations depuis votre compte.",
+  "add": "Ajouter"
 }

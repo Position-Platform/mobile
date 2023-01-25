@@ -37,9 +37,9 @@ dependencies:
   dropdown_button2: ^1.7.2
   equatable: ^2.0.5
   expandable_bottom_sheet: ^1.1.1+1
-  firebase_core: ^1.24.0
-  firebase_crashlytics: ^2.9.0
-  firebase_dynamic_links: ^4.3.11
+  firebase_core: ^2.3.0
+  firebase_crashlytics: ^3.0.6
+  firebase_dynamic_links: ^5.0.6
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -48,13 +48,14 @@ dependencies:
   flutter_login_facebook: ^1.6.2
   flutter_rating_bar: ^4.0.1
   flutter_spinkit: ^5.1.0
-  flutter_statusbarcolor_ns: ^0.4.0
+  flutter_statusbarcolor_ns: ^0.5.0
   flutter_svg: ^1.1.4
-  fluttertoast: ^8.0.9
-  geolocator: ^9.0.1
+  fluttertoast: ^8.1.1
+  geolocator: ^9.0.2
   get_it: ^7.2.0
   google_sign_in: ^5.4.1
   hydrated_bloc: ^8.1.0
+  image_picker: ^0.8.6+1
   intl: ^0.17.0
   intl_utils: ^2.7.0
   json_annotation: ^4.6.0
@@ -68,8 +69,10 @@ dependencies:
   share_plus: ^5.0.0
   shared_preferences: ^2.0.15
   sqlite3_flutter_libs: ^0.5.9
+  time_interval_picker: ^0.0.2
   turf: ^0.0.7
   url_launcher: ^6.1.6
+  weekday_selector: ^1.1.0
 
 dev_dependencies:
   build_runner: ^2.2.0
