@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:time_interval_picker/time_interval_picker.dart';
 import 'package:weekday_selector/weekday_selector.dart';
@@ -9,12 +9,12 @@ Widget step7() {
   bool selectedSamedi = false;
   bool selectedDimanche = false;
 
-  String weekDayTime;
+  /* String weekDayTime;
   String samediDayTime;
-  String dimancheDayTime;
+  String dimancheDayTime;*/
   List<String> daySelect = [];
 
-  final f = DateFormat('HH:mm');
+  // final f = DateFormat('HH:mm');
   return Container(
     margin: const EdgeInsets.only(left: 20.0, right: 20.0),
     child: Column(
@@ -64,8 +64,8 @@ Widget step7() {
                       startLimit: null,
                       onChanged: (DateTime? startTime, DateTime? endTime,
                           bool isAllDay) {
-                        weekDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                        /*   weekDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";*/
                       },
                     )
                   : const SizedBox(),
@@ -95,8 +95,8 @@ Widget step7() {
                       startLimit: null,
                       onChanged: (DateTime? startTime, DateTime? endTime,
                           bool isAllDay) {
-                        samediDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                        /*  samediDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";*/
                       },
                     )
                   : const SizedBox(),
@@ -126,8 +126,8 @@ Widget step7() {
                       startLimit: null,
                       onChanged: (DateTime? startTime, DateTime? endTime,
                           bool isAllDay) {
-                        dimancheDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                        /*  dimancheDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";*/
                       },
                     )
                   : const SizedBox(),

@@ -12,7 +12,7 @@ Widget step1(BuildContext context, List<Category> categories,
     NewEtablishmentBloc newEtablishmentBloc) {
   List<SousCategory> souscategories = [];
   TextEditingController etablissementNameController = TextEditingController();
-  SousCategory? sousCategorySelect;
+//  SousCategory? sousCategorySelect;
   bool categorieSelect = false;
   return BlocListener<NewEtablishmentBloc, NewEtablishmentState>(
     listener: (context, state) {
@@ -21,7 +21,7 @@ Widget step1(BuildContext context, List<Category> categories,
         categorieSelect = true;
       }
       if (state is StepCancelled) {
-        sousCategorySelect = null;
+        //  sousCategorySelect = null;
         souscategories = [];
         categorieSelect = false;
       }
@@ -217,7 +217,7 @@ Widget step1(BuildContext context, List<Category> categories,
                           return null;
                         },
                         onChanged: (value) {
-                          sousCategorySelect = value!;
+                          //  sousCategorySelect = value!;
                         },
                         onSaved: (value) {
                           // selectedValue = value.toString();

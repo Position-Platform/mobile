@@ -113,13 +113,8 @@ openImages(ImagePicker imgpicker, List<XFile>? imagefiles) async {
   try {
     var pickedfiles = await imgpicker.pickMultiImage();
     //you can use ImageCourse.camera for Camera capture
-    if (pickedfiles != null) {
-      print("yes image is selected.");
-      imagefiles = pickedfiles;
-    } else {
-      print("No image is selected.");
-    }
+    imagefiles = pickedfiles;
   } catch (e) {
-    print("error while picking file.");
+    // print("error while picking file.");
   }
 }
