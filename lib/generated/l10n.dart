@@ -1489,6 +1489,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Add Picture`
+  String get add_picture {
+    return Intl.message(
+      'Add Picture',
+      name: 'add_picture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have finished configuring the facility!`
+  String get complete_add {
+    return Intl.message(
+      'You have finished configuring the facility!',
+      name: 'complete_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The establishment will be put online after the payment. You will still be able to modify the information from your account.`
+  String get complete_add_desc {
+    return Intl.message(
+      'The establishment will be put online after the payment. You will still be able to modify the information from your account.',
+      name: 'complete_add_desc',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -132,5 +132,5 @@ Future<void> init() async {
       nominatimRepository: getIt()));
 
   getIt.registerFactory<NewEtablishmentBloc>(
-      () => NewEtablishmentBloc(maxSteps: 7));
+      () => NewEtablishmentBloc(maxSteps: 8));
 }

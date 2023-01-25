@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 
-Widget step7() {
+Widget step7(BuildContext context) {
   final ImagePicker imgpicker = ImagePicker();
   List<XFile>? imagefiles = [];
   return Container(
@@ -47,8 +48,8 @@ Widget step7() {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SvgPicture.asset('assets/images/svg/icon-medias.svg'),
-                const Text('ajouter une photo',
-                    style: TextStyle(
+                Text(S.of(context).add_picture,
+                    style: const TextStyle(
                       fontFamily: 'OpenSans',
                       color: grey2,
                       fontSize: 12,

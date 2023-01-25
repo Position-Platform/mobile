@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "addEmail":
             MessageLookupByLibrary.simpleMessage("Fill in the email address"),
         "addEtablissement": MessageLookupByLibrary.simpleMessage("New Company"),
+        "add_picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
         "adress": MessageLookupByLibrary.simpleMessage("Adress"),
         "aide": MessageLookupByLibrary.simpleMessage("Help"),
         "alreadyAccount":
@@ -51,6 +52,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "commenthint":
             MessageLookupByLibrary.simpleMessage("Write your comment"),
         "commodite": MessageLookupByLibrary.simpleMessage("Amenities"),
+        "complete_add": MessageLookupByLibrary.simpleMessage(
+            "You have finished configuring the facility!"),
+        "complete_add_desc": MessageLookupByLibrary.simpleMessage(
+            "The establishment will be put online after the payment. You will still be able to modify the information from your account."),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
         "confidentialite": MessageLookupByLibrary.simpleMessage("Privacy"),
