@@ -19,6 +19,7 @@ import 'package:position/src/modules/newetablishment/widgets/steps/step3.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step4.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step5.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step6.dart';
+import 'package:position/src/modules/newetablishment/widgets/steps/step7.dart';
 
 class NewEtablishment extends StatefulWidget {
   const NewEtablishment(
@@ -111,7 +112,7 @@ class _NewEtablishmentState extends State<NewEtablishment> {
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: const Text("Hello World!"),
+                  content: step7(),
                   state: StepState.complete,
                   isActive: step == 6 ? true : false,
                 ),
