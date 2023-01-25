@@ -146,5 +146,6 @@
   "choose_hours": "Choisir Une Heure",
   "add_picture" : "Ajouter une photo",
   "complete_add" : "Vous avez fini de configurer l’établissement !",
-  "complete_add_desc" : "L’établissement sera mis en ligne après le paiement. Vous pourrez toujours modifier les informations depuis votre compte."
+  "complete_add_desc" : "L’établissement sera mis en ligne après le paiement. Vous pourrez toujours modifier les informations depuis votre compte.",
+  "add": "Ajouter"
 }

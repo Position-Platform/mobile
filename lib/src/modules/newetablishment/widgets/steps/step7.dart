@@ -1,125 +1,166 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:position/generated/l10n.dart';
+import 'package:intl/intl.dart';
 import 'package:position/src/core/utils/colors.dart';
+import 'package:time_interval_picker/time_interval_picker.dart';
+import 'package:weekday_selector/weekday_selector.dart';
 
-Widget step7(BuildContext context) {
-  final ImagePicker imgpicker = ImagePicker();
-  List<XFile>? imagefiles = [];
+Widget step7() {
+  final values = <bool?>[null, false, false, false, false, false, null];
+  bool selectedSamedi = false;
+  bool selectedDimanche = false;
+
+  String weekDayTime;
+  String samediDayTime;
+  String dimancheDayTime;
+  List<String> daySelect = [];
+
+  final f = DateFormat('HH:mm');
   return Container(
     margin: const EdgeInsets.only(left: 20.0, right: 20.0),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InkWell(
-          onTap: () {
-            openImages(imgpicker, imagefiles);
-          },
-          child: Container(
-            width: 160,
-            height: 120,
-            decoration: BoxDecoration(
-              color: whiteColor,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: const [
-                BoxShadow(
-                    color: shadow1,
-                    offset: Offset(0, 1),
-                    blurRadius: 8,
-                    spreadRadius: 0),
-                BoxShadow(
-                    color: shadow2,
-                    offset: Offset(0, 3),
-                    blurRadius: 3,
-                    spreadRadius: -2),
-                BoxShadow(
-                    color: shadow3,
-                    offset: Offset(0, 3),
-                    blurRadius: 4,
-                    spreadRadius: 0)
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SvgPicture.asset('assets/images/svg/icon-medias.svg'),
-                Text(S.of(context).add_picture,
-                    style: const TextStyle(
-                      fontFamily: 'OpenSans',
-                      color: grey2,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                    ))
-              ],
-            ),
+        SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("Jours de la semaine"),
+              WeekdaySelector(
+                displayedDays: const {
+                  DateTime.sunday,
+                  DateTime.monday,
+                  DateTime.tuesday,
+                  DateTime.wednesday,
+                  DateTime.thursday,
+                },
+                shortWeekdays: const [
+                  "Di",
+                  "Lu",
+                  "Ma",
+                  "Me",
+                  "Je",
+                  "Ve",
+                  "Sa",
+                ],
+                selectedFillColor: accentColor,
+                onChanged: (v) {
+                  printIntAsDay(v, daySelect);
+                  /*  setState(() {
+                    values[v % 7] = !values[v % 7]!;
+                  });*/
+                },
+                selectedElevation: 15,
+                elevation: 5,
+                disabledElevation: 0,
+                values: values,
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              daySelect.isNotEmpty
+                  ? TimeIntervalPicker(
+                      endLimit: null,
+                      startLimit: null,
+                      onChanged: (DateTime? startTime, DateTime? endTime,
+                          bool isAllDay) {
+                        weekDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                      },
+                    )
+                  : const SizedBox(),
+              const SizedBox(
+                height: 25,
+              ),
+              Card(
+                elevation: 5,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: CheckboxListTile(
+                  title: const Text("Samedi",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  value: selectedSamedi,
+                  onChanged: (bool? value) {
+                    /*   setState(() {
+                      selectedSamedi = value!;
+                    });*/
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              selectedSamedi == true
+                  ? TimeIntervalPicker(
+                      endLimit: null,
+                      startLimit: null,
+                      onChanged: (DateTime? startTime, DateTime? endTime,
+                          bool isAllDay) {
+                        samediDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                      },
+                    )
+                  : const SizedBox(),
+              const SizedBox(
+                height: 10,
+              ),
+              Card(
+                elevation: 5,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                child: CheckboxListTile(
+                  title: const Text("Dimanche",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  value: selectedDimanche,
+                  onChanged: (bool? value) {
+                    /*  setState(() {
+                      selectedDimanche = value!;
+                    });*/
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              selectedDimanche == true
+                  ? TimeIntervalPicker(
+                      endLimit: null,
+                      startLimit: null,
+                      onChanged: (DateTime? startTime, DateTime? endTime,
+                          bool isAllDay) {
+                        dimancheDayTime =
+                            "${f.format(startTime!)}-${f.format(endTime!)}";
+                      },
+                    )
+                  : const SizedBox(),
+              const SizedBox(
+                height: 25,
+              ),
+            ],
           ),
-        ),
-        buildGridView(imagefiles)
+        )
       ],
     ),
   );
 }
 
-Widget buildGridView(List<XFile>? imagefiles) {
-  return Column(
-    children: [
-      SizedBox(
-        child: GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          children: List.generate(imagefiles!.length, (index) {
-            var file = imagefiles[index];
-            return Container(
-              color: transparent,
-              width: 160,
-              height: 120,
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
-                  BoxShadow(
-                      color: shadow1,
-                      offset: Offset(0, 1),
-                      blurRadius: 8,
-                      spreadRadius: 0),
-                  BoxShadow(
-                      color: shadow2,
-                      offset: Offset(0, 3),
-                      blurRadius: 3,
-                      spreadRadius: -2),
-                  BoxShadow(
-                      color: shadow3,
-                      offset: Offset(0, 3),
-                      blurRadius: 4,
-                      spreadRadius: 0)
-                ],
-              ),
-              child: Image.file(File(file.path)),
-            );
-          }),
-        ),
-      ),
-    ],
-  );
+printIntAsDay(int day, List<String> daySelect) {
+  if (daySelect.contains(intDayToFrench(day))) {
+    daySelect.remove(intDayToFrench(day));
+  } else {
+    daySelect.add(intDayToFrench(day));
+  }
 }
 
-openImages(ImagePicker imgpicker, List<XFile>? imagefiles) async {
-  try {
-    var pickedfiles = await imgpicker.pickMultiImage();
-    //you can use ImageCourse.camera for Camera capture
-    if (pickedfiles != null) {
-      print("yes image is selected.");
-      imagefiles = pickedfiles;
-    } else {
-      print("No image is selected.");
-    }
-  } catch (e) {
-    print("error while picking file.");
-  }
+String intDayToFrench(int day) {
+  if (day % 7 == DateTime.monday % 7) return 'Lundi';
+  if (day % 7 == DateTime.tuesday % 7) return 'Mardi';
+  if (day % 7 == DateTime.wednesday % 7) return 'Mercredi';
+  if (day % 7 == DateTime.thursday % 7) return 'Jeudi';
+  if (day % 7 == DateTime.friday % 7) return 'Vendredi';
+  throw '🐞 This should never have happened: $day';
+}
+
+class Days {
+  String jour;
+  bool selected;
+  Days(this.jour, this.selected);
 }

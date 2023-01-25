@@ -21,6 +21,7 @@ import 'package:position/src/modules/newetablishment/widgets/steps/step5.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step6.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step7.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step8.dart';
+import 'package:position/src/modules/newetablishment/widgets/steps/step9.dart';
 
 class NewEtablishment extends StatefulWidget {
   const NewEtablishment(
@@ -107,21 +108,27 @@ class _NewEtablishmentState extends State<NewEtablishment> {
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: step6(),
+                  content: step6(context),
                   isActive: step == 5 ? true : false,
                   state: step == 5 ? StepState.editing : StepState.indexed,
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: step7(context),
+                  content: step7(),
                   isActive: step == 6 ? true : false,
                   state: step == 6 ? StepState.editing : StepState.indexed,
                 ),
                 Step(
                   title: const SizedBox(),
                   content: step8(context),
-                  state: StepState.complete,
                   isActive: step == 7 ? true : false,
+                  state: step == 7 ? StepState.editing : StepState.indexed,
+                ),
+                Step(
+                  title: const SizedBox(),
+                  content: step9(context),
+                  state: StepState.complete,
+                  isActive: step == 8 ? true : false,
                 ),
               ];
               return Column(

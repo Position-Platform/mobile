@@ -1,166 +1,108 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:time_interval_picker/time_interval_picker.dart';
-import 'package:weekday_selector/weekday_selector.dart';
+import 'package:position/src/core/utils/sizes.dart';
+import 'package:position/src/modules/newetablishment/models/chipsmodel.dart';
 
-Widget step6() {
-  final values = <bool?>[null, false, false, false, false, false, null];
-  bool selectedSamedi = false;
-  bool selectedDimanche = false;
-
-  String weekDayTime;
-  String samediDayTime;
-  String dimancheDayTime;
-  List<String> daySelect = [];
-
-  final f = DateFormat('HH:mm');
-  return Container(
-    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-    child: Column(
-      children: [
-        SizedBox(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Text("Jours de la semaine"),
-              WeekdaySelector(
-                displayedDays: const {
-                  DateTime.sunday,
-                  DateTime.monday,
-                  DateTime.tuesday,
-                  DateTime.wednesday,
-                  DateTime.thursday,
-                },
-                shortWeekdays: const [
-                  "Di",
-                  "Lu",
-                  "Ma",
-                  "Me",
-                  "Je",
-                  "Ve",
-                  "Sa",
-                ],
-                selectedFillColor: accentColor,
-                onChanged: (v) {
-                  printIntAsDay(v, daySelect);
-                  /*  setState(() {
-                    values[v % 7] = !values[v % 7]!;
-                  });*/
-                },
-                selectedElevation: 15,
-                elevation: 5,
-                disabledElevation: 0,
-                values: values,
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              daySelect.isNotEmpty
-                  ? TimeIntervalPicker(
-                      endLimit: null,
-                      startLimit: null,
-                      onChanged: (DateTime? startTime, DateTime? endTime,
-                          bool isAllDay) {
-                        weekDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";
-                      },
-                    )
-                  : const SizedBox(),
-              const SizedBox(
-                height: 25,
-              ),
-              Card(
-                elevation: 5,
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: CheckboxListTile(
-                  title: const Text("Samedi",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  value: selectedSamedi,
-                  onChanged: (bool? value) {
-                    /*   setState(() {
-                      selectedSamedi = value!;
-                    });*/
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              selectedSamedi == true
-                  ? TimeIntervalPicker(
-                      endLimit: null,
-                      startLimit: null,
-                      onChanged: (DateTime? startTime, DateTime? endTime,
-                          bool isAllDay) {
-                        samediDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";
-                      },
-                    )
-                  : const SizedBox(),
-              const SizedBox(
-                height: 10,
-              ),
-              Card(
-                elevation: 5,
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: CheckboxListTile(
-                  title: const Text("Dimanche",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  value: selectedDimanche,
-                  onChanged: (bool? value) {
-                    /*  setState(() {
-                      selectedDimanche = value!;
-                    });*/
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              selectedDimanche == true
-                  ? TimeIntervalPicker(
-                      endLimit: null,
-                      startLimit: null,
-                      onChanged: (DateTime? startTime, DateTime? endTime,
-                          bool isAllDay) {
-                        dimancheDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";
-                      },
-                    )
-                  : const SizedBox(),
-              const SizedBox(
-                height: 25,
-              ),
-            ],
+Widget step6(BuildContext context) {
+  TextEditingController serviceController = TextEditingController();
+  final List<ChipsModel> services = [];
+  return Column(
+    children: [
+      Container(
+        height: 40,
+        margin: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: grey97,
+            width: 1,
           ),
-        )
-      ],
-    ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: TextFormField(
+          controller: serviceController,
+          autovalidateMode: AutovalidateMode.always,
+          keyboardType: TextInputType.text,
+          autocorrect: false,
+          cursorColor: primaryColor,
+          cursorHeight: 20,
+          style: TextStyle(fontFamily: "OpenSans", fontSize: textSize),
+          decoration: InputDecoration(
+            focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: transparent)),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: transparent),
+            ),
+            suffixIcon: InkWell(
+              highlightColor: transparent,
+              onTap: () {
+                services.add(ChipsModel(
+                    id: DateTime.now().toString(),
+                    name: serviceController.text));
+                serviceController.clear();
+              },
+              child: Container(
+                  width: 70,
+                  height: 5,
+                  margin: const EdgeInsets.only(right: 5, top: 5, bottom: 5),
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: shadow1,
+                          offset: Offset(0, 1),
+                          blurRadius: 8,
+                          spreadRadius: 0),
+                      BoxShadow(
+                          color: shadow2,
+                          offset: Offset(0, 3),
+                          blurRadius: 3,
+                          spreadRadius: -2),
+                      BoxShadow(
+                          color: shadow3,
+                          offset: Offset(0, 3),
+                          blurRadius: 4,
+                          spreadRadius: 0)
+                    ],
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(S.of(context).add,
+                        style: TextStyle(
+                          fontFamily: 'OpenSans-Bold',
+                          color: whiteColor,
+                          fontSize: textSize,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
+                        )),
+                  )),
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 30,
+      ),
+      Wrap(
+        spacing: 10,
+        children: services
+            .map((e) => Chip(
+                  backgroundColor: primaryColor,
+                  labelStyle: const TextStyle(
+                    color: whiteColor,
+                    fontFamily: 'OpenSans',
+                  ),
+                  label: Text(e.name),
+                  onDeleted: () {
+                    services.remove(e);
+                  },
+                ))
+            .toList(),
+      ),
+    ],
   );
-}
-
-printIntAsDay(int day, List<String> daySelect) {
-  if (daySelect.contains(intDayToFrench(day))) {
-    daySelect.remove(intDayToFrench(day));
-  } else {
-    daySelect.add(intDayToFrench(day));
-  }
-}
-
-String intDayToFrench(int day) {
-  if (day % 7 == DateTime.monday % 7) return 'Lundi';
-  if (day % 7 == DateTime.tuesday % 7) return 'Mardi';
-  if (day % 7 == DateTime.wednesday % 7) return 'Mercredi';
-  if (day % 7 == DateTime.thursday % 7) return 'Jeudi';
-  if (day % 7 == DateTime.friday % 7) return 'Vendredi';
-  throw '🐞 This should never have happened: $day';
-}
-
-class Days {
-  String jour;
-  bool selected;
-  Days(this.jour, this.selected);
 }
