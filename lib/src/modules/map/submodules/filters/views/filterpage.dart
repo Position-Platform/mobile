@@ -8,24 +8,15 @@ import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
-import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
-import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
 
 class FiltersPage extends StatefulWidget {
   const FiltersPage(
       {super.key,
-      @required this.typesCommodites,
       @required this.mapbloc,
-      @required this.commoditeSelected,
       @required this.category,
       @required this.user});
-  final List<TypesCommodite>? typesCommodites;
   final MapBloc? mapbloc;
 
-  final List<Commodite>? commoditeSelected;
   final Category? category;
   final User? user;
 
@@ -202,9 +193,8 @@ class _FiltersPageState extends State<FiltersPage> {
                     height: 20,
                   ),
                   Column(
-                    children: buildTypesCommodites(
-                        widget.typesCommodites!, widget.mapbloc!),
-                  )
+                      // Build List Commodites
+                      )
                 ],
               ),
             );
@@ -243,44 +233,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     ),
                     InkWell(
                       highlightColor: transparent,
-                      onTap: () {
-                        List<int> idsCommoditeInt = [];
-                        for (var i = 0;
-                            i < state.commoditesSelected!.length;
-                            i++) {
-                          idsCommoditeInt.add(state.commoditesSelected![i].id!);
-                        }
-                        String idsCommodite = idsCommoditeInt.join(",");
-
-                        widget.mapbloc!.add(SearchEtablissementByFilter(
-                            widget.category,
-                            widget.user,
-                            idsCommodite,
-                            distanceSelected,
-                            avisSelected,
-                            pertinanceSelected));
-
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return EtablissementListPage(
-                                initialLink: null,
-                                mapBloc: widget.mapbloc,
-                                typescommodites: widget.typesCommodites,
-                                category: widget.category,
-                                user: widget.user,
-                                etablissements: Etablissements(data: []),
-                                avis: avisSelected,
-                                distance: distanceSelected,
-                                idsCommodite: idsCommodite,
-                                pertinance: pertinanceSelected,
-                                page: null,
-                              );
-                            },
-                          ),
-                        );
-                      },
+                      onTap: () {},
                       child: Container(
                           width: 130,
                           height: 35,
@@ -354,44 +307,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   InkWell(
                     highlightColor: transparent,
-                    onTap: () {
-                      List<int> idsCommoditeInt = [];
-                      for (var i = 0;
-                          i < widget.commoditeSelected!.length;
-                          i++) {
-                        idsCommoditeInt.add(widget.commoditeSelected![i].id!);
-                      }
-                      String idsCommodite = idsCommoditeInt.join(",");
-
-                      widget.mapbloc!.add(SearchEtablissementByFilter(
-                          widget.category,
-                          widget.user,
-                          idsCommodite,
-                          distanceSelected,
-                          avisSelected,
-                          pertinanceSelected));
-
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return EtablissementListPage(
-                              initialLink: null,
-                              mapBloc: widget.mapbloc,
-                              typescommodites: widget.typesCommodites,
-                              category: widget.category,
-                              user: widget.user,
-                              etablissements: Etablissements(data: []),
-                              avis: avisSelected,
-                              distance: distanceSelected,
-                              idsCommodite: idsCommodite,
-                              pertinance: pertinanceSelected,
-                              page: null,
-                            );
-                          },
-                        ),
-                      );
-                    },
+                    onTap: () {},
                     child: Container(
                         width: 130,
                         height: 35,
@@ -436,55 +352,5 @@ class _FiltersPageState extends State<FiltersPage> {
         );
       }),
     );
-  }
-
-  List<Widget> buildTypesCommodites(
-      List<TypesCommodite> typesCommodites, MapBloc mapbloc) {
-    List<Widget> items = [];
-    for (var i = 0; i < typesCommodites.length; i++) {
-      Widget item = Column(
-        children: [
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(left: 20),
-            child: Text(typesCommodites[i].nom!,
-                style: const TextStyle(
-                  fontFamily: 'OpenSans',
-                  color: greyColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.normal,
-                )),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(left: 20),
-            child: Wrap(
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children:
-                  buildCommodites(typesCommodites[i].commodites!, mapbloc),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      );
-      items.add(item);
-    }
-    return items;
-  }
-
-  List<Widget> buildCommodites(List<Commodite> commodites, MapBloc mapBloc) {
-    List<Widget> items = [];
-    for (var i = 0; i < commodites.length; i++) {
-      Widget item = filterChip(commodites[i], mapBloc);
-      items.add(item);
-    }
-    return items;
   }
 }

@@ -113,9 +113,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     return emit(AuthRegisterState());
   }
-
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

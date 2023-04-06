@@ -20,7 +20,6 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
@@ -45,7 +44,6 @@ class _MapPageState extends State<MapPage> {
   MapBloc? _mapBloc;
 
   List<Category>? categories = [];
-  List<TypesCommodite>? typescommodites = [];
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -70,7 +68,6 @@ class _MapPageState extends State<MapPage> {
     }).onError((error) {});
 
     _mapBloc?.add(GetCategories());
-    _mapBloc?.add(GetTypeCommodites());
     _mapBloc?.add(GetFavorite());
   }
 
@@ -170,15 +167,11 @@ class _MapPageState extends State<MapPage> {
                 textColor: whiteColor,
                 toastLength: Toast.LENGTH_SHORT);
           }
-          if (state is TypeCommoditesLoaded) {
-            typescommodites = state.typesCommodites;
-          }
           if (state is EtablissementsMoreLoaded) {
             etablissements = state.etablissements!;
             etablissements!.data!
                 .sort((a, b) => a.distance!.compareTo(b.distance!));
             page = state.page;
-            idsCommodite = state.idsCommodite;
             distance = state.distance;
             avis = state.avis;
             pertinance = state.pertinance;
@@ -231,7 +224,7 @@ class _MapPageState extends State<MapPage> {
                       widget.user!,
                       widget.initialLink,
                       favoris,
-                      typescommodites)
+                    )
                   : const SizedBox(),
               background: Stack(children: [
                 MapboxMap(
@@ -281,8 +274,8 @@ class _MapPageState extends State<MapPage> {
                               height: 5,
                             ),
                       categorieSelected
-                          ? filterContainer(context, typescommodites!,
-                              _mapBloc!, category!, widget.user!)
+                          ? filterContainer(
+                              context, _mapBloc!, category!, widget.user!)
                           : Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius:
@@ -385,7 +378,8 @@ class _MapPageState extends State<MapPage> {
                         child: FloatingActionButton(
                           heroTag: "location",
                           tooltip: "Location",
-                          backgroundColor: Theme.of(context).backgroundColor,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background,
                           onPressed: () {
                             _mapBloc?.add(GetUserLocationEvent());
                           },
@@ -422,7 +416,6 @@ class _MapPageState extends State<MapPage> {
                                   return EtablissementListPage(
                                     initialLink: widget.initialLink,
                                     mapBloc: _mapBloc,
-                                    typescommodites: typescommodites,
                                     category: category,
                                     user: widget.user,
                                     etablissements: etablissements,

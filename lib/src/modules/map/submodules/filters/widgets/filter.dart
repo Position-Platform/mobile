@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/filters/views/filterpage.dart';
-import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
 
 Widget filterContainer(
-    BuildContext context,
-    List<TypesCommodite> typeCommodites,
-    MapBloc mapbloc,
-    Category category,
-    User user) {
-  List<Commodite> commodites = [];
+    BuildContext context, MapBloc mapbloc, Category category, User user) {
   return BlocBuilder<MapBloc, MapState>(builder: (context, state) {
     if (state is SelectedChips) {
       return SizedBox(
@@ -37,9 +28,7 @@ Widget filterContainer(
                       MaterialPageRoute(
                         builder: (context) {
                           return FiltersPage(
-                            typesCommodites: typeCommodites,
                             mapbloc: mapbloc,
-                            commoditeSelected: state.commoditesSelected,
                             category: category,
                             user: user,
                           );
@@ -61,29 +50,7 @@ Widget filterContainer(
                         width: 15,
                       ),
                     ),
-                    label: state.commoditesSelected!.isNotEmpty
-                        ? state.commoditesSelected!.length > 1
-                            ? Text(
-                                "${state.commoditesSelected!.length} ${S.of(context).filters}",
-                                style: const TextStyle(
-                                    color: blackColor,
-                                    fontFamily: "OpenSans-Bold",
-                                    fontSize: 11),
-                              )
-                            : Text(
-                                "${state.commoditesSelected!.length} ${S.of(context).filtre}",
-                                style: const TextStyle(
-                                    color: blackColor,
-                                    fontFamily: "OpenSans-Bold",
-                                    fontSize: 11),
-                              )
-                        : Text(
-                            S.of(context).filters,
-                            style: const TextStyle(
-                                color: blackColor,
-                                fontFamily: "OpenSans-Bold",
-                                fontSize: 11),
-                          ),
+                    label: const Text("Label"),
                     backgroundColor: whiteColor,
                     elevation: 0.0,
                     shadowColor: transparent,
@@ -96,7 +63,7 @@ Widget filterContainer(
                 Wrap(
                   spacing: 6.0,
                   runSpacing: 6.0,
-                  children: buildCommodites(state.commoditesSelected!, mapbloc),
+                  children: const [],
                 ),
               ],
             ),
@@ -121,9 +88,7 @@ Widget filterContainer(
                     MaterialPageRoute(
                       builder: (context) {
                         return FiltersPage(
-                          typesCommodites: typeCommodites,
                           mapbloc: mapbloc,
-                          commoditeSelected: const [],
                           category: category,
                           user: user,
                         );
@@ -145,34 +110,7 @@ Widget filterContainer(
                       width: 15,
                     ),
                   ),
-                  label: commodites
-                          .where((element) => element.isSelected)
-                          .isNotEmpty
-                      ? commodites
-                                  .where((element) => element.isSelected)
-                                  .length >
-                              1
-                          ? Text(
-                              "${commodites.where((element) => element.isSelected).length} ${S.of(context).filters}",
-                              style: const TextStyle(
-                                  color: blackColor,
-                                  fontFamily: "OpenSans-Bold",
-                                  fontSize: 11),
-                            )
-                          : Text(
-                              "${commodites.where((element) => element.isSelected).length} ${S.of(context).filtre}",
-                              style: const TextStyle(
-                                  color: blackColor,
-                                  fontFamily: "OpenSans-Bold",
-                                  fontSize: 11),
-                            )
-                      : Text(
-                          S.of(context).filters,
-                          style: const TextStyle(
-                              color: blackColor,
-                              fontFamily: "OpenSans-Bold",
-                              fontSize: 11),
-                        ),
+                  label: const Text("Label"),
                   backgroundColor: whiteColor,
                   elevation: 0.0,
                   shadowColor: transparent,
@@ -185,7 +123,7 @@ Widget filterContainer(
               Wrap(
                 spacing: 6.0,
                 runSpacing: 6.0,
-                children: buildCommodites(commodites, mapbloc),
+                children: const [],
               ),
             ],
           ),
@@ -193,13 +131,4 @@ Widget filterContainer(
       ),
     );
   });
-}
-
-List<Widget> buildCommodites(List<Commodite> commodites, MapBloc mapBloc) {
-  List<Widget> items = [];
-  for (var i = 0; i < commodites.length; i++) {
-    Widget item = filterChip(commodites[i], mapBloc);
-    items.add(item);
-  }
-  return items;
 }

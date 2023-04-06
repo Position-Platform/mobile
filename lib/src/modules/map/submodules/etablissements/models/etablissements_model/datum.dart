@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/sous_category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/count.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/horaire.dart';
@@ -57,7 +56,7 @@ class Datum {
   Batiment? batiment;
   @JsonKey(name: 'sous_categories')
   List<SousCategory>? sousCategories;
-  List<Commodite>? commodites;
+  String? commodites;
   List<Image>? images;
   List<Horaire>? horaires;
   List<Commentaire>? commentaires;
@@ -145,7 +144,7 @@ class Datum {
     List<Count>? count,
     Batiment? batiment,
     List<SousCategory>? sousCategories,
-    List<Commodite>? commodites,
+    String? commodites,
     List<Image>? images,
     List<Horaire>? horaires,
     List<Commentaire>? commentaires,

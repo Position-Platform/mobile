@@ -6,44 +6,44 @@ class AppThemes {
     AppTheme.lightTheme: ThemeData(
       scaffoldBackgroundColor: whiteColor,
       primaryColor: primaryColor,
-      backgroundColor: whiteColor,
       canvasColor: whiteColor,
       primaryIconTheme: const IconThemeData(color: blackColor),
       textTheme: const TextTheme(
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           fontFamily: "OpenSans-Bold",
           color: blackColor,
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           fontFamily: "OpenSans",
           color: blackColor,
         ),
       ),
-      colorScheme: const ColorScheme.light(
-          primary: primaryColor, secondary: accentColor),
       textSelectionTheme:
           const TextSelectionThemeData(cursorColor: accentColor),
+      colorScheme:
+          const ColorScheme.light(primary: primaryColor, secondary: accentColor)
+              .copyWith(background: whiteColor),
     ),
     AppTheme.darkTheme: ThemeData(
       scaffoldBackgroundColor: blackColor,
       primaryColor: primaryDarkColor,
-      backgroundColor: blackColor,
       canvasColor: blackColor,
       primaryIconTheme: const IconThemeData(color: whiteColor),
       textTheme: const TextTheme(
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           fontFamily: "OpenSans-Bold",
           color: whiteColor,
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           fontFamily: "OpenSans",
           color: whiteColor,
         ),
       ),
-      colorScheme: const ColorScheme.light(
-          primary: primaryDarkColor, secondary: accentColor),
       textSelectionTheme:
           const TextSelectionThemeData(cursorColor: accentColor),
+      colorScheme: const ColorScheme.light(
+              primary: primaryDarkColor, secondary: accentColor)
+          .copyWith(background: blackColor),
     )
   };
 }

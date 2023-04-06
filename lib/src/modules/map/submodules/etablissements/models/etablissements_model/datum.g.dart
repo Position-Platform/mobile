@@ -50,9 +50,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       sousCategories: (json['sous_categories'] as List<dynamic>?)
           ?.map((e) => SousCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
-      commodites: (json['commodites'] as List<dynamic>?)
-          ?.map((e) => Commodite.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      commodites: json['commodites'] as String?,
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
           .toList(),

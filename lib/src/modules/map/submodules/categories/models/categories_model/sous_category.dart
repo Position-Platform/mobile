@@ -9,8 +9,9 @@ class SousCategory {
   String? nom;
   @JsonKey(name: 'categorie_id')
   int? categorieId;
-  dynamic logourl;
-  dynamic logourlmap;
+  String? logourl;
+  String? logourlmap;
+  String? color;
   @JsonKey(name: 'deleted_at')
   dynamic deletedAt;
   @JsonKey(name: 'created_at')
@@ -26,6 +27,7 @@ class SousCategory {
     this.categorieId,
     this.logourl,
     this.logourlmap,
+    this.color,
     this.deletedAt,
     this.createdAt,
     this.updatedAt,
@@ -34,7 +36,7 @@ class SousCategory {
 
   @override
   String toString() {
-    return 'SousCategory(id: $id, nom: $nom, categorieId: $categorieId, logourl: $logourl, logourlmap: $logourlmap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt,category:$category)';
+    return 'SousCategory(id: $id, nom: $nom, categorieId: $categorieId, logourl: $logourl, logourlmap: $logourlmap, color:$color, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt,category:$category)';
   }
 
   factory SousCategory.fromJson(Map<String, dynamic> json) {
@@ -47,8 +49,9 @@ class SousCategory {
       {int? id,
       String? nom,
       int? categorieId,
-      dynamic logourl,
-      dynamic logourlmap,
+      String? logourl,
+      String? logourlmap,
+      String? color,
       dynamic deletedAt,
       DateTime? createdAt,
       DateTime? updatedAt,
@@ -59,6 +62,7 @@ class SousCategory {
         categorieId: categorieId ?? this.categorieId,
         logourl: logourl ?? this.logourl,
         logourlmap: logourlmap ?? this.logourlmap,
+        color: color ?? this.color,
         deletedAt: deletedAt ?? this.deletedAt,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,

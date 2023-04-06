@@ -43,7 +43,7 @@ Future<void> init() async {
     NominatimService.create(),
     RoutingService.create()
   ], interceptors: [
-    const HeadersInterceptor({'X-Authorization': apiKey})
+    HeadersInterceptor({'X-Authorization': apiKey!})
   ], converter: const JsonConverter(), errorConverter: const JsonConverter());
 
   final apiService = ApiService.create(chopper);

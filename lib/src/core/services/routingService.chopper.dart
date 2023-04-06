@@ -18,20 +18,29 @@ class _$RoutingService extends RoutingService {
 
   @override
   Future<Response<dynamic>> getroute(
-      String coordinates, String overview, String geometries, String steps) {
+    String coordinates,
+    String overview,
+    String geometries,
+    String steps,
+  ) {
     final $url =
         'https://router.project-osrm.org/route/v1/driving/${coordinates}';
     final $params = <String, dynamic>{
       'overview': overview,
       'geometries': geometries,
-      'steps': steps
+      'steps': steps,
     };
     final $headers = {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 }

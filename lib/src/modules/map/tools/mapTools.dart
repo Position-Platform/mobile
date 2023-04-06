@@ -43,7 +43,7 @@ Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
       "batiment": json.encode(element.batiment),
       "sous_categories":
           element.sousCategories?.map((i) => json.encode(i)).toList(),
-      "commodites": element.commodites?.map((i) => json.encode(i)).toList(),
+      "commodites": element.commodites,
       "images": element.images?.map((i) => json.encode(i)).toList(),
       "horaires": element.horaires?.map((i) => json.encode(i)).toList(),
       "commentaires": element.commentaires?.map((i) => json.encode(i)).toList(),

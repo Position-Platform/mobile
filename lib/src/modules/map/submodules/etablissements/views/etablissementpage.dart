@@ -233,8 +233,8 @@ Widget etablissementPage(
                 margin: const EdgeInsets.only(left: 20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                      buildCommodites(searchModel.etablissement!.commodites!),
+                  children: buildCommodites(
+                      searchModel.etablissement!.commodites!.split(";")),
                 ),
               ),
               const SizedBox(

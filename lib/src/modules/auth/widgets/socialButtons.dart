@@ -8,20 +8,20 @@ Widget buildSocialButtons(LoginBloc? loginBloc) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       _buildLogoButton(
-        image: 'assets/images/png/google_logo.png',
-        onPressed: () {
-          loginBloc?.add(LoginWithGooglePressed());
-        },
-      ),
+          image: 'assets/images/png/google_logo.png',
+          onPressed: () {
+            loginBloc?.add(LoginWithGooglePressed());
+          },
+          tag: "google"),
       const SizedBox(
         width: 50,
       ),
       _buildLogoButton(
-        image: 'assets/images/png/facebook_logo.png',
-        onPressed: () {
-          loginBloc?.add(LoginWithFacebookPressed());
-        },
-      )
+          image: 'assets/images/png/facebook_logo.png',
+          onPressed: () {
+            loginBloc?.add(LoginWithFacebookPressed());
+          },
+          tag: "facebook")
     ],
   );
 }
@@ -29,8 +29,10 @@ Widget buildSocialButtons(LoginBloc? loginBloc) {
 Widget _buildLogoButton({
   required String image,
   required VoidCallback onPressed,
+  required String tag,
 }) {
   return FloatingActionButton(
+    heroTag: tag,
     backgroundColor: Colors.white,
     onPressed: onPressed,
     child: SizedBox(

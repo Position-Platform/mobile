@@ -12,7 +12,6 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcard.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
@@ -23,7 +22,6 @@ class EtablissementListPage extends StatefulWidget {
       {super.key,
       @required this.user,
       @required this.initialLink,
-      @required this.typescommodites,
       @required this.mapBloc,
       @required this.category,
       @required this.etablissements,
@@ -34,7 +32,6 @@ class EtablissementListPage extends StatefulWidget {
       @required this.page});
   final User? user;
   final PendingDynamicLinkData? initialLink;
-  final List<TypesCommodite>? typescommodites;
   final MapBloc? mapBloc;
   final Category? category;
   final Etablissements? etablissements;
@@ -101,7 +98,6 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
           _page,
           widget.category!,
           widget.user!,
-          idsCommodite!,
           distance!,
           avis!,
           pertinance!,
@@ -162,7 +158,6 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
             if (state.pertinance!) {
               etablissements!.sort((a, b) => b.vues!.compareTo(a.vues!));
             }
-            idsCommodite = state.idsCommodite;
             distance = state.distance;
             avis = state.avis;
             pertinance = state.pertinance;
@@ -188,8 +183,8 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                         "OpenSans-Bold", () {
                       scaffoldKey.currentState!.openDrawer();
                     }, () {}, widget.initialLink),
-                    filterContainer(context, widget.typescommodites!,
-                        widget.mapBloc!, widget.category!, widget.user!),
+                    filterContainer(context, widget.mapBloc!, widget.category!,
+                        widget.user!),
                     const SizedBox(
                       height: 10,
                     ),
@@ -291,6 +286,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
             return _isLoadMoreRunning
                 ? const SizedBox()
                 : FloatingActionButton.extended(
+                    heroTag: "showmap",
                     onPressed: () {
                       Navigator.pop(context);
                     },
