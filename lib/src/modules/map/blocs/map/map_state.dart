@@ -30,17 +30,15 @@ class CategoriesLoaded extends MapState {
 }
 
 class CategoriesClicked extends MapState {
-  final bool? isClicked;
   final Category? category;
 
-  const CategoriesClicked(this.isClicked, this.category);
+  const CategoriesClicked(this.category);
 
   @override
-  List<Object> get props => [isClicked!, category!];
+  List<Object> get props => [category!];
 
   @override
-  String toString() =>
-      'CategoriesClicked { isClicked: $isClicked , Category: $category}';
+  String toString() => 'CategoriesClicked {  Category: $category}';
 }
 
 class SymboledAdded extends MapState {
@@ -145,17 +143,18 @@ class EtablissementsMoreLoaded extends MapState {
   final bool? distance;
   final bool? avis;
   final bool? pertinance;
+  final String? commodites;
 
   const EtablissementsMoreLoaded(this.etablissements, this.page, this.distance,
-      this.avis, this.pertinance);
+      this.avis, this.pertinance, this.commodites);
 
   @override
   List<Object> get props =>
-      [etablissements!, page!, distance!, avis!, pertinance!];
+      [etablissements!, page!, distance!, avis!, pertinance!, commodites!];
 
   @override
   String toString() =>
-      'EtablissementsLoaded { Etablissements: $etablissements , Page: $page , Distance: $distance , Avis: $avis , Pertinance: $pertinance }';
+      'EtablissementsLoaded { Etablissements: $etablissements , Page: $page , Distance: $distance , Avis: $avis , Pertinance: $pertinance, commodites: $commodites }';
 }
 
 class ReviewAdded extends MapState {

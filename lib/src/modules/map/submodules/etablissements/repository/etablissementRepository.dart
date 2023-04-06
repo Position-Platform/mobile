@@ -29,7 +29,7 @@ abstract class EtablissementRepository {
   Future<Result<FavoriteModel>> removefavorite(int idEtablissement);
 
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-      int idCategorie, int idUser, int? page);
+      int idCategorie, int idUser, String commodites, int? page);
 
   Future<Result<CommentairesModel>> addreview(
       int etablissementId, String commentaire, int rating);

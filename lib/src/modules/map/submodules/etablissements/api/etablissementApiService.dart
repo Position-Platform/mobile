@@ -21,7 +21,7 @@ abstract class EtablissementApiService {
   Future<Response> removeFavoris(String token, int idEtablissement);
 
   Future<Response> searchEtablissementByFilter(
-      int idCategorie, int idUser, int? page);
+      int idCategorie, int idUser, String? commodites, int? page);
 
   Future<Response> addReview(
       String token, int etablissementId, String commentaire, int rating);

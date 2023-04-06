@@ -28,7 +28,7 @@ class EtablissementListPage extends StatefulWidget {
       @required this.distance,
       @required this.avis,
       @required this.pertinance,
-      @required this.idsCommodite,
+      @required this.commodites,
       @required this.page});
   final User? user;
   final PendingDynamicLinkData? initialLink;
@@ -38,7 +38,7 @@ class EtablissementListPage extends StatefulWidget {
   final bool? distance;
   final bool? avis;
   final bool? pertinance;
-  final String? idsCommodite;
+  final String? commodites;
   final int? page;
 
   @override
@@ -64,8 +64,8 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
       _page = widget.page!;
     }
 
-    if (widget.idsCommodite != null) {
-      idsCommodite = widget.idsCommodite!;
+    if (widget.commodites != null) {
+      commodites = widget.commodites!;
     }
 
     if (widget.distance != null) {
@@ -101,6 +101,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
           distance!,
           avis!,
           pertinance!,
+          commodites!,
           widget.etablissements));
     }
   }
@@ -108,7 +109,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
   bool isLoading = false;
   List<Datum>? etablissements = [];
 
-  String? idsCommodite = "1";
+  String? commodites = "";
   bool? distance = true;
   bool? avis = false;
   bool? pertinance = false;
@@ -184,7 +185,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                       scaffoldKey.currentState!.openDrawer();
                     }, () {}, widget.initialLink),
                     filterContainer(context, widget.mapBloc!, widget.category!,
-                        widget.user!),
+                        widget.user!, widget.commodites!),
                     const SizedBox(
                       height: 10,
                     ),
@@ -259,7 +260,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
 
                                         // ignore: use_build_context_synchronously
                                         Navigator.pop(context,
-                                            "${widget.distance},${widget.avis},${widget.pertinance},${widget.idsCommodite}");
+                                            "${widget.distance},${widget.avis},${widget.pertinance},${widget.commodites}");
                                       });
                                     }),
                               ),

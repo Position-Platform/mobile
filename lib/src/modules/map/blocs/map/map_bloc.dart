@@ -182,7 +182,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   _selectCategorie(CategorieClick event, Emitter<MapState> emit) async {
     try {
-      emit(CategoriesClicked(event.isClick, event.category));
+      emit(CategoriesClicked(event.category));
     } catch (e) {
       emit(CategoriesError());
     }
@@ -224,7 +224,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       try {
         var etablissementsResults = await etablissementRepository!
             .searchetablissementsbyfilters(
-                int.parse(event.searchModel!.id!), event.user!.id!, 1);
+                int.parse(event.searchModel!.id!), event.user!.id!, "", 1);
 
         if (etablissementsResults.success!.success!) {
           var geojson = createGeoJsonEtablissements(
@@ -275,7 +275,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       emit(EtablissementsLoading());
       var etablissementsResults = await etablissementRepository!
           .searchetablissementsbyfilters(
-              event.categorie!.id!, event.user!.id!, 1);
+              event.categorie!.id!, event.user!.id!, event.commodites!, 1);
 
       if (etablissementsResults.success!.success!) {
         var geojson = createGeoJsonEtablissements(
@@ -551,8 +551,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       emit(LoadMoreRunning());
       try {
         var etablissementsResults = await etablissementRepository!
-            .searchetablissementsbyfilters(
-                event.categorie!.id!, event.user!.id!, event.page);
+            .searchetablissementsbyfilters(event.categorie!.id!,
+                event.user!.id!, event.commodites!, event.page);
 
         if (etablissementsResults.success!.success!) {
           if (etablissementsResults
@@ -598,7 +598,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   event.page,
                   event.distance,
                   event.avis,
-                  event.pertinance));
+                  event.pertinance,
+                  event.commodites));
             } else if (event.avis!) {
               etablissementsResults.success!.data!.etablissements!.data!
                   .sort((a, b) => b.avis!.compareTo(a.avis!));
@@ -607,7 +608,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   event.page,
                   event.distance,
                   event.avis,
-                  event.pertinance));
+                  event.pertinance,
+                  event.commodites));
             } else if (event.pertinance!) {
               etablissementsResults.success!.data!.etablissements!.data!
                   .sort((a, b) => b.vues!.compareTo(a.vues!));
@@ -616,7 +618,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   event.page,
                   event.distance,
                   event.avis,
-                  event.pertinance));
+                  event.pertinance,
+                  event.commodites));
             }
           } else {
             emit(HasNextPage());

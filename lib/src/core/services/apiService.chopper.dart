@@ -425,6 +425,7 @@ class _$ApiService extends ApiService {
   Future<Response<dynamic>> searchetablissementsbyfilters(
     int idCategorie,
     int idUser,
+    String? commodites,
     int? page,
   ) {
     final $url =
@@ -432,6 +433,7 @@ class _$ApiService extends ApiService {
     final $params = <String, dynamic>{
       'id_categorie': idCategorie,
       'user_id': idUser,
+      'commodites': commodites,
       'page': page,
     };
     final $headers = {

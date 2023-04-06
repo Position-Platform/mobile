@@ -8,6 +8,8 @@ import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
+import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 
 class FiltersPage extends StatefulWidget {
   const FiltersPage(
@@ -28,6 +30,8 @@ class _FiltersPageState extends State<FiltersPage> {
   bool distanceSelected = true;
   bool avisSelected = false;
   bool pertinanceSelected = false;
+
+  List<String>? commoditesSelected = [];
 
   @override
   Widget build(BuildContext context) {
@@ -218,8 +222,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     InkWell(
                       highlightColor: transparent,
                       onTap: () {
-                        widget.mapbloc
-                            ?.add(CategorieClick(false, widget.category));
+                        widget.mapbloc?.add(CategorieClick(widget.category));
                         Navigator.pop(context);
                       },
                       child: Text(S.of(context).cancel,
@@ -292,8 +295,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   InkWell(
                     highlightColor: transparent,
                     onTap: () {
-                      widget.mapbloc
-                          ?.add(CategorieClick(false, widget.category));
+                      widget.mapbloc?.add(CategorieClick(widget.category));
                       Navigator.pop(context);
                     },
                     child: Text(S.of(context).cancel,
@@ -307,7 +309,41 @@ class _FiltersPageState extends State<FiltersPage> {
                   ),
                   InkWell(
                     highlightColor: transparent,
-                    onTap: () {},
+                    onTap: () {
+                      List<String> commodites = [];
+                      for (var i = 0; i < commoditesSelected!.length; i++) {
+                        commodites.add(commoditesSelected![i]);
+                      }
+                      String commoditeSend = commodites.join(",");
+
+                      widget.mapbloc!.add(SearchEtablissementByFilter(
+                          widget.category,
+                          widget.user,
+                          commoditeSend,
+                          distanceSelected,
+                          avisSelected,
+                          pertinanceSelected));
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return EtablissementListPage(
+                              initialLink: null,
+                              mapBloc: widget.mapbloc,
+                              category: widget.category,
+                              user: widget.user,
+                              etablissements: Etablissements(data: []),
+                              avis: avisSelected,
+                              distance: distanceSelected,
+                              commodites: commoditeSend,
+                              pertinance: pertinanceSelected,
+                              page: null,
+                            );
+                          },
+                        ),
+                      );
+                    },
                     child: Container(
                         width: 130,
                         height: 35,

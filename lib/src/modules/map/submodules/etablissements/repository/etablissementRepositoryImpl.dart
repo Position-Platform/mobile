@@ -145,12 +145,12 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
 
   @override
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-      int idCategorie, int idUser, int? page) async {
+      int idCategorie, int idUser, String? commodites, int? page) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     if (isConnected) {
       try {
         final Response response = await etablissementApiService!
-            .searchEtablissementByFilter(idCategorie, idUser, page);
+            .searchEtablissementByFilter(idCategorie, idUser, commodites, page);
 
         var model = EtablissementsModel.fromJson(response.body);
 

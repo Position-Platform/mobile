@@ -20,8 +20,7 @@ List<Widget> generateCategoryWidget(
           children: [
             buildChip(categories[i].shortname!, categories[i].logourl!, () {
               Category category = categories[i];
-              category.vues = categories[i].vues! + 1;
-              mapBloc?.add(CategorieClick(true, category));
+              mapBloc?.add(CategorieClick(category));
             })
           ],
         ),
@@ -30,8 +29,7 @@ List<Widget> generateCategoryWidget(
       items2
           .add(buildChip(categories[i].shortname!, categories[i].logourl!, () {
         Category category = categories[i];
-        category.vues = categories[i].vues! + 1;
-        mapBloc?.add(CategorieClick(true, category));
+        mapBloc?.add(CategorieClick(category));
       }));
     }
   }

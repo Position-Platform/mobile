@@ -22,7 +22,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
-import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
+import 'package:position/src/modules/map/submodules/filters/views/filterpage.dart';
 import 'package:position/src/modules/map/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
@@ -73,17 +73,16 @@ class _MapPageState extends State<MapPage> {
 
   bool isExpanded = false;
   bool isCategoriesLoading = false;
-  bool categorieSelected = false;
   Category? category;
   bool showList = false;
   Etablissements? etablissements = Etablissements(data: []);
   bool expandedClose = false;
 
   int? page;
-  String? idsCommodite;
   bool? distance;
   bool? avis;
   bool? pertinance;
+  String? commodites;
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +110,16 @@ class _MapPageState extends State<MapPage> {
             categories = state.categories!.data!.categories;
           }
           if (state is CategoriesClicked) {
-            categorieSelected = state.isClicked!;
             category = state.category;
+            Navigator.push(context, MaterialPageRoute(
+              builder: ((context) {
+                return FiltersPage(
+                  category: state.category,
+                  mapbloc: _mapBloc,
+                  user: widget.user,
+                );
+              }),
+            ));
           }
 
           if (state is ExpandedClose) {
@@ -135,7 +142,7 @@ class _MapPageState extends State<MapPage> {
             showList = false;
             expandedClose = false;
             etablissements = Etablissements(data: []);
-            _mapBloc!.add(CategorieClick(false, category));
+            //  _mapBloc!.add(CategorieClick(category));
           }
           if (state is SymboleClicked) {
             if (searchModel!.type == "etablissement") {
@@ -175,6 +182,7 @@ class _MapPageState extends State<MapPage> {
             distance = state.distance;
             avis = state.avis;
             pertinance = state.pertinance;
+            commodites = state.commodites;
           }
           if (state is ReviewAdded) {
             Fluttertoast.showToast(
@@ -268,95 +276,77 @@ class _MapPageState extends State<MapPage> {
                           _mapBloc?.add(ShowSearchInMap(result, widget.user));
                         });
                       }, widget.initialLink),
-                      categorieSelected
-                          ? const SizedBox()
-                          : const SizedBox(
-                              height: 5,
-                            ),
-                      categorieSelected
-                          ? filterContainer(
-                              context, _mapBloc!, category!, widget.user!)
-                          : Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(20.0), //<-- SEE HERE
-                              ),
-                              elevation: 10,
-                              child: isCategoriesLoading
-                                  ? Container(
-                                      child: loading(),
-                                    )
-                                  : Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 4, top: 10),
-                                      child: Column(
-                                        children: [
-                                          Theme(
-                                            data: Theme.of(context).copyWith(
-                                                dividerColor: transparent),
-                                            child: Wrap(
-                                              spacing: 12.0,
-                                              runSpacing: 1.0,
-                                              children: generateCategoryWidget(
-                                                  categories!,
-                                                  _mapBloc,
-                                                  isExpanded),
-                                            ),
-                                          ),
-                                          InkWell(
-                                            highlightColor: transparent,
-                                            onTap: () {
-                                              setState(() {
-                                                isExpanded = !isExpanded;
-                                              });
-                                            },
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                isExpanded
-                                                    ? Text(
-                                                        S
-                                                            .of(context)
-                                                            .hideCategorie,
-                                                        style: const TextStyle(
-                                                          fontFamily:
-                                                              'OpenSans',
-                                                          color: grey3,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                        ))
-                                                    : Text(
-                                                        S
-                                                            .of(context)
-                                                            .showCategorie,
-                                                        style: const TextStyle(
-                                                          fontFamily:
-                                                              'OpenSans',
-                                                          color: grey3,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          fontStyle:
-                                                              FontStyle.normal,
-                                                        )),
-                                                isExpanded
-                                                    ? SvgPicture.asset(
-                                                        "assets/images/svg/icon-icon-see-less.svg")
-                                                    : SvgPicture.asset(
-                                                        "assets/images/svg/icon-icon-see-more.svg")
-                                              ],
-                                            ),
-                                          )
-                                        ],
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(20.0), //<-- SEE HERE
+                        ),
+                        elevation: 10,
+                        child: isCategoriesLoading
+                            ? Container(
+                                child: loading(),
+                              )
+                            : Container(
+                                margin: const EdgeInsets.only(left: 4, top: 10),
+                                child: Column(
+                                  children: [
+                                    Theme(
+                                      data: Theme.of(context)
+                                          .copyWith(dividerColor: transparent),
+                                      child: Wrap(
+                                        spacing: 12.0,
+                                        runSpacing: 1.0,
+                                        children: generateCategoryWidget(
+                                            categories!, _mapBloc, isExpanded),
                                       ),
                                     ),
-                            )
+                                    InkWell(
+                                      highlightColor: transparent,
+                                      onTap: () {
+                                        setState(() {
+                                          isExpanded = !isExpanded;
+                                        });
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          isExpanded
+                                              ? Text(
+                                                  S.of(context).hideCategorie,
+                                                  style: const TextStyle(
+                                                    fontFamily: 'OpenSans',
+                                                    color: grey3,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                  ))
+                                              : Text(
+                                                  S.of(context).showCategorie,
+                                                  style: const TextStyle(
+                                                    fontFamily: 'OpenSans',
+                                                    color: grey3,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontStyle: FontStyle.normal,
+                                                  )),
+                                          isExpanded
+                                              ? SvgPicture.asset(
+                                                  "assets/images/svg/icon-icon-see-less.svg")
+                                              : SvgPicture.asset(
+                                                  "assets/images/svg/icon-icon-see-more.svg")
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                      )
                     ],
                   ),
                 ),
@@ -421,9 +411,9 @@ class _MapPageState extends State<MapPage> {
                                     etablissements: etablissements,
                                     avis: avis,
                                     distance: distance,
-                                    idsCommodite: idsCommodite,
                                     page: page,
                                     pertinance: pertinance,
+                                    commodites: commodites,
                                   );
                                 },
                               ),

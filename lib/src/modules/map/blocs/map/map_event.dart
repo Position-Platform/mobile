@@ -19,17 +19,15 @@ class GetUserLocationEvent extends MapEvent {}
 class GetCategories extends MapEvent {}
 
 class CategorieClick extends MapEvent {
-  final bool? isClick;
   final Category? category;
 
-  const CategorieClick(this.isClick, this.category);
+  const CategorieClick(this.category);
 
   @override
-  List<Object> get props => [isClick!, category!];
+  List<Object> get props => [category!];
 
   @override
-  String toString() =>
-      'CategorieClick { isClick:$isClick, Category: $category }';
+  String toString() => 'CategorieClick { Category: $category }';
 }
 
 class ShowSearchInMap extends MapEvent {
@@ -135,21 +133,21 @@ class PertinenceSelect extends MapEvent {}
 class SearchEtablissementByFilter extends MapEvent {
   final Category? categorie;
   final User? user;
-  final String idsCommodite;
+  final String? commodites;
   final bool? distance;
   final bool? avis;
   final bool? pertinance;
 
-  const SearchEtablissementByFilter(this.categorie, this.user,
-      this.idsCommodite, this.distance, this.avis, this.pertinance);
+  const SearchEtablissementByFilter(this.categorie, this.user, this.commodites,
+      this.distance, this.avis, this.pertinance);
 
   @override
   List<Object> get props =>
-      [categorie!, idsCommodite, user!, distance!, avis!, pertinance!];
+      [categorie!, commodites!, user!, distance!, avis!, pertinance!];
 
   @override
   String toString() =>
-      'SearchEtablissementByFilter { categorie: $categorie , user : $user , idsCommodite : $idsCommodite , distance:$distance , avis:$avis , pertinance: $pertinance }';
+      'SearchEtablissementByFilter { categorie: $categorie , user : $user , commodites : $commodites , distance:$distance , avis:$avis , pertinance: $pertinance }';
 }
 
 class CloseExpanded extends MapEvent {}
@@ -164,6 +162,7 @@ class LoadMoreEtablissement extends MapEvent {
   final bool? distance;
   final bool? avis;
   final bool? pertinance;
+  final String? commodites;
 
   final Etablissements? etablisement;
 
@@ -176,6 +175,7 @@ class LoadMoreEtablissement extends MapEvent {
       this.distance,
       this.avis,
       this.pertinance,
+      this.commodites,
       this.etablisement);
 
   @override
@@ -188,12 +188,13 @@ class LoadMoreEtablissement extends MapEvent {
         distance!,
         avis!,
         pertinance!,
+        commodites!,
         etablisement!
       ];
 
   @override
   String toString() =>
-      'LoadMoreEtablissement {  hasNextPage : $hasNextPage , isLoadMoreRunning : $isLoadMoreRunning , page  categorie: $categorie , user : $user ,  distance:$distance , avis:$avis , pertinance: $pertinance, etablisement: $etablisement }';
+      'LoadMoreEtablissement {  hasNextPage : $hasNextPage , isLoadMoreRunning : $isLoadMoreRunning , page  categorie: $categorie , user : $user ,  distance:$distance , avis:$avis , pertinance: $pertinance, commodites:$commodites, etablisement: $etablisement }';
 }
 
 class AddReview extends MapEvent {

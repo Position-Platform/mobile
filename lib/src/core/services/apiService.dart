@@ -110,6 +110,7 @@ abstract class ApiService extends ChopperService {
   Future<Response> searchetablissementsbyfilters(
       @Query('id_categorie') int idCategorie,
       @Query('user_id') int idUser,
+      @Query('commodites') String? commodites,
       @Query('page') int? page);
 
   @Put(
