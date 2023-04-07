@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 
-Widget filterChip(MapBloc mapBloc) {
+Widget filterChip(String commodite, MapBloc mapBloc) {
   return ChoiceChip(
     selected: false,
     selectedColor: primaryColor,
@@ -13,8 +13,8 @@ Widget filterChip(MapBloc mapBloc) {
       color: grey2,
     )),
     labelStyle: const TextStyle(color: whiteColor, fontFamily: "OpenSans-Bold"),
-    label: const Text(
-      "Label",
+    label: Text(
+      commodite,
     ),
     backgroundColor: whiteColor,
     elevation: 0.0,
