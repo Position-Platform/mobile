@@ -13,18 +13,21 @@
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
-final messages = new MessageLookup();
+final messages = MessageLookup();
 
-typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
+typedef MessageIfAbsent = String Function(
+    String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "add": MessageLookupByLibrary.simpleMessage("Add"),
         "addEmail":
             MessageLookupByLibrary.simpleMessage("Fill in the email address"),
         "addEtablissement": MessageLookupByLibrary.simpleMessage("New Company"),
+        "add_picture": MessageLookupByLibrary.simpleMessage("Add Picture"),
         "adress": MessageLookupByLibrary.simpleMessage("Adress"),
         "aide": MessageLookupByLibrary.simpleMessage("Help"),
         "alreadyAccount":
@@ -36,14 +39,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "category": MessageLookupByLibrary.simpleMessage("category"),
         "chooseTheme": MessageLookupByLibrary.simpleMessage("Choose a Theme"),
+        "choose_category":
+            MessageLookupByLibrary.simpleMessage("Choose Category"),
+        "choose_hours": MessageLookupByLibrary.simpleMessage("Choose Hour"),
+        "choose_sub_category":
+            MessageLookupByLibrary.simpleMessage("Choose Sub-Category"),
         "close": MessageLookupByLibrary.simpleMessage("Fermé : "),
         "closed": MessageLookupByLibrary.simpleMessage("Closed"),
+        "code_postal": MessageLookupByLibrary.simpleMessage("PO BOX"),
         "commentdesc": MessageLookupByLibrary.simpleMessage(
             "Your opinion is important to us"),
         "commenthint":
             MessageLookupByLibrary.simpleMessage("Write your comment"),
         "commodite": MessageLookupByLibrary.simpleMessage("Amenities"),
+        "complete_add": MessageLookupByLibrary.simpleMessage(
+            "You have finished configuring the facility!"),
+        "complete_add_desc": MessageLookupByLibrary.simpleMessage(
+            "The establishment will be put online after the payment. You will still be able to modify the information from your account."),
         "conditions":
             MessageLookupByLibrary.simpleMessage("Terms and conditions of use"),
         "confidentialite": MessageLookupByLibrary.simpleMessage("Privacy"),
@@ -55,6 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dark": MessageLookupByLibrary.simpleMessage("Dark Theme"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Home"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "description": MessageLookupByLibrary.simpleMessage("Description"),
         "disabledAccount": MessageLookupByLibrary.simpleMessage(
             "Your account has been deactivated"),
         "distance": MessageLookupByLibrary.simpleMessage("Distance"),
@@ -76,6 +91,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Loading of Establishments Completed"),
         "etablissementLoaded":
             MessageLookupByLibrary.simpleMessage("Establishments Charged"),
+        "etablissement_name":
+            MessageLookupByLibrary.simpleMessage("Establishment Name"),
         "favoris": MessageLookupByLibrary.simpleMessage("Favorites"),
         "filters": MessageLookupByLibrary.simpleMessage("Filters"),
         "filtre": MessageLookupByLibrary.simpleMessage("filter"),
@@ -95,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintPhone": MessageLookupByLibrary.simpleMessage("Phone number"),
         "hintSearch": MessageLookupByLibrary.simpleMessage("Search"),
         "identifiant": MessageLookupByLibrary.simpleMessage("Login"),
+        "indication": MessageLookupByLibrary.simpleMessage("Indications"),
         "infos": MessageLookupByLibrary.simpleMessage("My information"),
         "invalidEmail": MessageLookupByLibrary.simpleMessage("Invalid Email"),
         "invalidId":
@@ -180,12 +198,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "signwith": MessageLookupByLibrary.simpleMessage("Sign in with"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "step": MessageLookupByLibrary.simpleMessage("Step"),
+        "subcategory": MessageLookupByLibrary.simpleMessage("Sub-catégory"),
         "subtitle1": MessageLookupByLibrary.simpleMessage(
             "Print official location map, share, save to favorites or navigate from one place to another On-call pharmacy, bank, health center, schools, social infrastructure and public services"),
         "subtitle2": MessageLookupByLibrary.simpleMessage(
             "A virtual store and digital marketplace for formal and informal activities ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Declarations of Work, follow the local news via notices and announcements"),
+        "terms": MessageLookupByLibrary.simpleMessage(
+            "By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date."),
         "thisweek": MessageLookupByLibrary.simpleMessage("This week"),
         "title1": MessageLookupByLibrary.simpleMessage(
             "Search for points of interest and access essential city services"),
@@ -197,7 +218,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "username": MessageLookupByLibrary.simpleMessage("User name"),
         "valider": MessageLookupByLibrary.simpleMessage("Apply"),
+        "ville": MessageLookupByLibrary.simpleMessage("City"),
+        "website": MessageLookupByLibrary.simpleMessage("Website"),
         "week": MessageLookupByLibrary.simpleMessage("Week"),
-        "welcome": MessageLookupByLibrary.simpleMessage("Welcome")
+        "welcome": MessageLookupByLibrary.simpleMessage("Welcome"),
+        "whatsapp": MessageLookupByLibrary.simpleMessage("Whatsapp")
       };
 }

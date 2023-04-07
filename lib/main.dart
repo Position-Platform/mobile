@@ -14,10 +14,15 @@ import 'package:position/src/app.dart';
 import 'package:position/src/core/di/di.dart' as di;
 import 'package:path_provider/path_provider.dart';
 import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   runZonedGuarded(() async {
+    // Initialisation de tous les widgets
     WidgetsFlutterBinding.ensureInitialized();
+    // Initialisation des variables d'environement
+    await dotenv.load(fileName: ".env");
+    // Initialisation des dependences via getIt
     await di.init();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

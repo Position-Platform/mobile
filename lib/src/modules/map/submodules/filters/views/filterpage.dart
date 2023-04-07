@@ -8,24 +8,17 @@ import 'package:position/src/core/utils/tools.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
-import 'package:position/src/modules/map/submodules/filters/widgets/filterchips.dart';
 
 class FiltersPage extends StatefulWidget {
   const FiltersPage(
       {super.key,
-      @required this.typesCommodites,
       @required this.mapbloc,
-      @required this.commoditeSelected,
       @required this.category,
       @required this.user});
-  final List<TypesCommodite>? typesCommodites;
   final MapBloc? mapbloc;
 
-  final List<Commodite>? commoditeSelected;
   final Category? category;
   final User? user;
 
@@ -38,32 +31,55 @@ class _FiltersPageState extends State<FiltersPage> {
   bool avisSelected = false;
   bool pertinanceSelected = false;
 
+  List<String>? commoditesSelected = [];
+
+  List<String>? commoditesGroupe1 = [
+    "Accessible aux PMR",
+    "Parking",
+    "Parking Gratuit"
+  ];
+  List<String>? commoditesGroupe2 = [
+    "Paiement Mobile",
+    "Carte Bancaire",
+    "Espèces",
+    "Commande et Retrait",
+    "Livraison"
+  ];
+  List<String>? commoditesGroupe3 = ["Climatisation", "Wifi"];
+  List<String>? commoditesGroupe4 = [
+    "Agence de Tourisme",
+    "Agence de voyage",
+    "Centre d'information",
+    "Hotels",
+    "Auberges"
+  ];
+
   @override
   Widget build(BuildContext context) {
     changeStatusColor(whiteColor);
     return Scaffold(
-      body: BlocListener<MapBloc, MapState>(
-        listener: (context, state) {
-          if (state is DistanceSelected) {
-            distanceSelected = true;
-            avisSelected = false;
-            pertinanceSelected = false;
-          }
-          if (state is AvisSelected) {
-            distanceSelected = false;
-            avisSelected = true;
-            pertinanceSelected = false;
-          }
-          if (state is PertinenceSelected) {
-            distanceSelected = false;
-            avisSelected = false;
-            pertinanceSelected = true;
-          }
-        },
-        child: BlocBuilder<MapBloc, MapState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              child: Column(
+      body: SingleChildScrollView(
+        child: BlocListener<MapBloc, MapState>(
+          listener: (context, state) {
+            if (state is DistanceSelected) {
+              distanceSelected = true;
+              avisSelected = false;
+              pertinanceSelected = false;
+            }
+            if (state is AvisSelected) {
+              distanceSelected = false;
+              avisSelected = true;
+              pertinanceSelected = false;
+            }
+            if (state is PertinenceSelected) {
+              distanceSelected = false;
+              avisSelected = false;
+              pertinanceSelected = true;
+            }
+          },
+          child: BlocBuilder<MapBloc, MapState>(
+            builder: (context, state) {
+              return Column(
                 children: [
                   const SizedBox(
                     height: 50,
@@ -202,13 +218,125 @@ class _FiltersPageState extends State<FiltersPage> {
                     height: 20,
                   ),
                   Column(
-                    children: buildTypesCommodites(
-                        widget.typesCommodites!, widget.mapbloc!),
+                    children: [
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: const Text("Accessibilité",
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: greyColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 6.0,
+                          children: buildCommodites(
+                              commoditesGroupe1!, widget.mapbloc!),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: const Text("Paiement & facilités d'achat",
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: greyColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 6.0,
+                          children: buildCommodites(
+                              commoditesGroupe2!, widget.mapbloc!),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: const Text("Equipements",
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: greyColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 6.0,
+                          children: buildCommodites(
+                              commoditesGroupe3!, widget.mapbloc!),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: const Text("Type d'établissement",
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: greyColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 6.0,
+                          children: buildCommodites(
+                              commoditesGroupe4!, widget.mapbloc!),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
                   )
                 ],
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       bottomSheet: BlocBuilder<MapBloc, MapState>(builder: (context, state) {
@@ -228,8 +356,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     InkWell(
                       highlightColor: transparent,
                       onTap: () {
-                        widget.mapbloc
-                            ?.add(CategorieClick(false, widget.category));
+                        widget.mapbloc?.add(CategorieClick(widget.category));
                         Navigator.pop(context);
                       },
                       child: Text(S.of(context).cancel,
@@ -243,44 +370,7 @@ class _FiltersPageState extends State<FiltersPage> {
                     ),
                     InkWell(
                       highlightColor: transparent,
-                      onTap: () {
-                        List<int> idsCommoditeInt = [];
-                        for (var i = 0;
-                            i < state.commoditesSelected!.length;
-                            i++) {
-                          idsCommoditeInt.add(state.commoditesSelected![i].id!);
-                        }
-                        String idsCommodite = idsCommoditeInt.join(",");
-
-                        widget.mapbloc!.add(SearchEtablissementByFilter(
-                            widget.category,
-                            widget.user,
-                            idsCommodite,
-                            distanceSelected,
-                            avisSelected,
-                            pertinanceSelected));
-
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return EtablissementListPage(
-                                initialLink: null,
-                                mapBloc: widget.mapbloc,
-                                typescommodites: widget.typesCommodites,
-                                category: widget.category,
-                                user: widget.user,
-                                etablissements: Etablissements(data: []),
-                                avis: avisSelected,
-                                distance: distanceSelected,
-                                idsCommodite: idsCommodite,
-                                pertinance: pertinanceSelected,
-                                page: null,
-                              );
-                            },
-                          ),
-                        );
-                      },
+                      onTap: () {},
                       child: Container(
                           width: 130,
                           height: 35,
@@ -339,8 +429,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   InkWell(
                     highlightColor: transparent,
                     onTap: () {
-                      widget.mapbloc
-                          ?.add(CategorieClick(false, widget.category));
+                      widget.mapbloc?.add(CategorieClick(widget.category));
                       Navigator.pop(context);
                     },
                     child: Text(S.of(context).cancel,
@@ -355,18 +444,16 @@ class _FiltersPageState extends State<FiltersPage> {
                   InkWell(
                     highlightColor: transparent,
                     onTap: () {
-                      List<int> idsCommoditeInt = [];
-                      for (var i = 0;
-                          i < widget.commoditeSelected!.length;
-                          i++) {
-                        idsCommoditeInt.add(widget.commoditeSelected![i].id!);
+                      List<String> commodites = [];
+                      for (var i = 0; i < commoditesSelected!.length; i++) {
+                        commodites.add(commoditesSelected![i]);
                       }
-                      String idsCommodite = idsCommoditeInt.join(",");
+                      String commoditeSend = commodites.join(";");
 
                       widget.mapbloc!.add(SearchEtablissementByFilter(
                           widget.category,
                           widget.user,
-                          idsCommodite,
+                          commoditeSend,
                           distanceSelected,
                           avisSelected,
                           pertinanceSelected));
@@ -378,13 +465,12 @@ class _FiltersPageState extends State<FiltersPage> {
                             return EtablissementListPage(
                               initialLink: null,
                               mapBloc: widget.mapbloc,
-                              typescommodites: widget.typesCommodites,
                               category: widget.category,
                               user: widget.user,
                               etablissements: Etablissements(data: []),
                               avis: avisSelected,
                               distance: distanceSelected,
-                              idsCommodite: idsCommodite,
+                              commodites: commoditeSend,
                               pertinance: pertinanceSelected,
                               page: null,
                             );
@@ -438,51 +524,41 @@ class _FiltersPageState extends State<FiltersPage> {
     );
   }
 
-  List<Widget> buildTypesCommodites(
-      List<TypesCommodite> typesCommodites, MapBloc mapbloc) {
-    List<Widget> items = [];
-    for (var i = 0; i < typesCommodites.length; i++) {
-      Widget item = Column(
-        children: [
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(left: 20),
-            child: Text(typesCommodites[i].nom!,
-                style: const TextStyle(
-                  fontFamily: 'OpenSans',
-                  color: greyColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.normal,
-                )),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(left: 20),
-            child: Wrap(
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children:
-                  buildCommodites(typesCommodites[i].commodites!, mapbloc),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
-      );
-      items.add(item);
-    }
-    return items;
-  }
-
-  List<Widget> buildCommodites(List<Commodite> commodites, MapBloc mapBloc) {
+  List<Widget> buildCommodites(List<String> commodites, MapBloc mapBloc) {
     List<Widget> items = [];
     for (var i = 0; i < commodites.length; i++) {
-      Widget item = filterChip(commodites[i], mapBloc);
+      Widget item = ChoiceChip(
+        selected: commoditesSelected!.contains(commodites[i]),
+        selectedColor: primaryColor,
+        disabledColor: transparent,
+        labelPadding: const EdgeInsets.all(1.0),
+        shape: const StadiumBorder(
+            side: BorderSide(
+          color: grey2,
+        )),
+        labelStyle: TextStyle(
+            color: commoditesSelected!.contains(commodites[i])
+                ? whiteColor
+                : blackColor,
+            fontSize: 12,
+            fontFamily: "OpenSans-Bold"),
+        label: Text(
+          commodites[i],
+        ),
+        backgroundColor: whiteColor,
+        elevation: 0.0,
+        shadowColor: transparent,
+        padding: const EdgeInsets.all(6.0),
+        onSelected: (value) {
+          setState(() {
+            if (commoditesSelected!.contains(commodites[i])) {
+              commoditesSelected!.remove(commodites[i]);
+            } else {
+              commoditesSelected!.add(commodites[i]);
+            }
+          });
+        },
+      );
       items.add(item);
     }
     return items;

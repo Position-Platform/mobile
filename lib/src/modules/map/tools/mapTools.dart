@@ -17,13 +17,11 @@ Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
     var properties = {
       "id": element.id,
       "nom": element.nom,
-      "batiment_id": element.batimentId,
       "indication_adresse": element.indicationAdresse,
       "code_postal": element.codePostal,
       "site_internet": element.siteInternet,
       "nom_manager": element.nomManager,
       "contact_manager": element.contactManager,
-      "user_id": element.userId,
       "etage": element.etage,
       "cover": element.cover,
       "phone": element.phone,
@@ -43,7 +41,7 @@ Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
       "batiment": json.encode(element.batiment),
       "sous_categories":
           element.sousCategories?.map((i) => json.encode(i)).toList(),
-      "commodites": element.commodites?.map((i) => json.encode(i)).toList(),
+      "commodites": element.commodites,
       "images": element.images?.map((i) => json.encode(i)).toList(),
       "horaires": element.horaires?.map((i) => json.encode(i)).toList(),
       "commentaires": element.commentaires?.map((i) => json.encode(i)).toList(),

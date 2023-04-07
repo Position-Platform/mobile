@@ -33,6 +33,7 @@ import 'package:position/src/modules/map/submodules/tracking/api/trackingApiServ
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepositoryImpl.dart';
+import 'package:position/src/modules/newetablishment/blocs/new_etablishment/new_etablishment_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -42,7 +43,7 @@ Future<void> init() async {
     NominatimService.create(),
     RoutingService.create()
   ], interceptors: [
-    const HeadersInterceptor({'X-Authorization': apiKey})
+    HeadersInterceptor({'X-Authorization': apiKey!})
   ], converter: const JsonConverter(), errorConverter: const JsonConverter());
 
   final apiService = ApiService.create(chopper);
@@ -129,4 +130,7 @@ Future<void> init() async {
       categoriesRepository: getIt(),
       etablissementRepository: getIt(),
       nominatimRepository: getIt()));
+
+  getIt.registerFactory<NewEtablishmentBloc>(
+      () => NewEtablishmentBloc(maxSteps: 9));
 }

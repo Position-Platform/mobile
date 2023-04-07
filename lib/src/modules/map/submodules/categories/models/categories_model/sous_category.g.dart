@@ -10,8 +10,9 @@ SousCategory _$SousCategoryFromJson(Map<String, dynamic> json) => SousCategory(
       id: json['id'] as int?,
       nom: json['nom'] as String?,
       categorieId: json['categorie_id'] as int?,
-      logourl: json['logourl'],
-      logourlmap: json['logourlmap'],
+      logourl: json['logourl'] as String?,
+      logourlmap: json['logourlmap'] as String?,
+      color: json['color'] as String?,
       deletedAt: json['deleted_at'],
       createdAt: json['created_at'] == null
           ? null
@@ -31,6 +32,7 @@ Map<String, dynamic> _$SousCategoryToJson(SousCategory instance) =>
       'categorie_id': instance.categorieId,
       'logourl': instance.logourl,
       'logourlmap': instance.logourlmap,
+      'color': instance.color,
       'deleted_at': instance.deletedAt,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),

@@ -8,8 +8,6 @@ class Commentaire {
   int? id;
   @JsonKey(name: 'user_id')
   int? userId;
-  @JsonKey(name: 'etablissement_id')
-  int? etablissementId;
   String? commentaire;
   int? rating;
   @JsonKey(name: 'deleted_at')
@@ -23,7 +21,6 @@ class Commentaire {
   Commentaire({
     this.id,
     this.userId,
-    this.etablissementId,
     this.commentaire,
     this.rating,
     this.deletedAt,
@@ -34,7 +31,7 @@ class Commentaire {
 
   @override
   String toString() {
-    return 'Commentaire(id: $id, userId: $userId, etablissementId: $etablissementId, commentaire: $commentaire, rating: $rating, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, user: $user)';
+    return 'Commentaire(id: $id, userId: $userId, commentaire: $commentaire, rating: $rating, deletedAt: $deletedAt, createdAt: $createdAt,updatedAt:$updatedAt, user: $user)';
   }
 
   factory Commentaire.fromJson(Map<String, dynamic> json) {
@@ -46,7 +43,6 @@ class Commentaire {
   Commentaire copyWith({
     int? id,
     int? userId,
-    int? etablissementId,
     String? commentaire,
     int? rating,
     dynamic deletedAt,
@@ -57,7 +53,6 @@ class Commentaire {
     return Commentaire(
       id: id ?? this.id,
       userId: userId ?? this.userId,
-      etablissementId: etablissementId ?? this.etablissementId,
       commentaire: commentaire ?? this.commentaire,
       rating: rating ?? this.rating,
       deletedAt: deletedAt ?? this.deletedAt,

@@ -1359,6 +1359,176 @@ class S {
       args: [],
     );
   }
+
+  /// `Establishment Name`
+  String get etablissement_name {
+    return Intl.message(
+      'Establishment Name',
+      name: 'etablissement_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `category`
+  String get category {
+    return Intl.message(
+      'category',
+      name: 'category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub-catégory`
+  String get subcategory {
+    return Intl.message(
+      'Sub-catégory',
+      name: 'subcategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Category`
+  String get choose_category {
+    return Intl.message(
+      'Choose Category',
+      name: 'choose_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Sub-Category`
+  String get choose_sub_category {
+    return Intl.message(
+      'Choose Sub-Category',
+      name: 'choose_sub_category',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date.`
+  String get terms {
+    return Intl.message(
+      'By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date.',
+      name: 'terms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PO BOX`
+  String get code_postal {
+    return Intl.message(
+      'PO BOX',
+      name: 'code_postal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get ville {
+    return Intl.message(
+      'City',
+      name: 'ville',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Indications`
+  String get indication {
+    return Intl.message(
+      'Indications',
+      name: 'indication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Website`
+  String get website {
+    return Intl.message(
+      'Website',
+      name: 'website',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whatsapp`
+  String get whatsapp {
+    return Intl.message(
+      'Whatsapp',
+      name: 'whatsapp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Hour`
+  String get choose_hours {
+    return Intl.message(
+      'Choose Hour',
+      name: 'choose_hours',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Picture`
+  String get add_picture {
+    return Intl.message(
+      'Add Picture',
+      name: 'add_picture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have finished configuring the facility!`
+  String get complete_add {
+    return Intl.message(
+      'You have finished configuring the facility!',
+      name: 'complete_add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The establishment will be put online after the payment. You will still be able to modify the information from your account.`
+  String get complete_add_desc {
+    return Intl.message(
+      'The establishment will be put online after the payment. You will still be able to modify the information from your account.',
+      name: 'complete_add_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message(
+      'Add',
+      name: 'add',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

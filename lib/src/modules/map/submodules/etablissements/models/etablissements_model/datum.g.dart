@@ -9,13 +9,11 @@ part of 'datum.dart';
 Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       id: json['id'] as int?,
       nom: json['nom'] as String?,
-      batimentId: json['batiment_id'] as int?,
       indicationAdresse: json['indication_adresse'] as String?,
       codePostal: json['code_postal'] as String?,
       siteInternet: json['site_internet'] as String?,
       nomManager: json['nom_manager'] as String?,
       contactManager: json['contact_manager'] as String?,
-      userId: json['user_id'] as int?,
       etage: json['etage'] as int?,
       cover: json['cover'] as String?,
       phone: json['phone'] as String?,
@@ -24,6 +22,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       description: json['description'] as String?,
       osmId: json['osm_id'] as String?,
       services: json['services'] as String?,
+      commodites: json['commodites'] as String?,
       ameliorations: json['ameliorations'] as String?,
       vues: json['vues'] as int?,
       logo: json['logo'] as String?,
@@ -50,9 +49,6 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       sousCategories: (json['sous_categories'] as List<dynamic>?)
           ?.map((e) => SousCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
-      commodites: (json['commodites'] as List<dynamic>?)
-          ?.map((e) => Commodite.fromJson(e as Map<String, dynamic>))
-          .toList(),
       images: (json['images'] as List<dynamic>?)
           ?.map((e) => Image.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -71,13 +67,11 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
 Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'id': instance.id,
       'nom': instance.nom,
-      'batiment_id': instance.batimentId,
       'indication_adresse': instance.indicationAdresse,
       'code_postal': instance.codePostal,
       'site_internet': instance.siteInternet,
       'nom_manager': instance.nomManager,
       'contact_manager': instance.contactManager,
-      'user_id': instance.userId,
       'etage': instance.etage,
       'cover': instance.cover,
       'phone': instance.phone,
@@ -86,6 +80,7 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'description': instance.description,
       'osm_id': instance.osmId,
       'services': instance.services,
+      'commodites': instance.commodites,
       'ameliorations': instance.ameliorations,
       'vues': instance.vues,
       'logo': instance.logo,
@@ -100,7 +95,6 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'count': instance.count,
       'batiment': instance.batiment,
       'sous_categories': instance.sousCategories,
-      'commodites': instance.commodites,
       'images': instance.images,
       'horaires': instance.horaires,
       'commentaires': instance.commentaires,
