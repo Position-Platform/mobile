@@ -12,6 +12,7 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       shortname: json['shortname'] as String?,
       logourl: json['logourl'] as String?,
       logourlmap: json['logourlmap'] as String?,
+      color: json['color'] as String?,
       vues: json['vues'] as int?,
       deletedAt: json['deleted_at'],
       createdAt: json['created_at'] == null
@@ -31,6 +32,7 @@ Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'shortname': instance.shortname,
       'logourl': instance.logourl,
       'logourlmap': instance.logourlmap,
+      'color': instance.color,
       'vues': instance.vues,
       'deleted_at': instance.deletedAt,
       'created_at': instance.createdAt?.toIso8601String(),

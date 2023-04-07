@@ -91,12 +91,12 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
 
   @override
   Future<Response> searchEtablissementByFilter(
-      int idCategorie, int idUser, String? idCommodites, int? page) async {
+      int idCategorie, int idUser, String? commodites, int? page) async {
     Response response;
 
     try {
-      response = await apiService!.searchetablissementsbyfilters(
-          idCategorie, idCommodites, idUser, page);
+      response = await apiService!
+          .searchetablissementsbyfilters(idCategorie, idUser, commodites, page);
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;
@@ -111,32 +111,6 @@ class EtablissementApiServiceFactory implements EtablissementApiService {
 
     try {
       response = await apiService!.updateetablissementbyid(token, id, body);
-    } catch (e) {
-      print('Caught ${e.toString()}');
-      rethrow;
-    }
-    return response;
-  }
-
-  @override
-  Future<Response> getAllCommodites() async {
-    Response response;
-
-    try {
-      response = await apiService!.getcommodites();
-    } catch (e) {
-      print('Caught ${e.toString()}');
-      rethrow;
-    }
-    return response;
-  }
-
-  @override
-  Future<Response> getAllTypeCommodites() async {
-    Response response;
-
-    try {
-      response = await apiService!.gettypecommodites();
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;

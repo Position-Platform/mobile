@@ -1,13 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/sous_category.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/commodites_model/commodite.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/count.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/horaire.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/image.dart';
 
 import 'batiment.dart';
+import 'commentaire.dart';
+import 'count.dart';
+import 'horaire.dart';
+import 'image.dart';
 
 part 'datum.g.dart';
 
@@ -15,8 +14,6 @@ part 'datum.g.dart';
 class Datum {
   int? id;
   String? nom;
-  @JsonKey(name: 'batiment_id')
-  int? batimentId;
   @JsonKey(name: 'indication_adresse')
   String? indicationAdresse;
   @JsonKey(name: 'code_postal')
@@ -27,8 +24,6 @@ class Datum {
   String? nomManager;
   @JsonKey(name: 'contact_manager')
   String? contactManager;
-  @JsonKey(name: 'user_id')
-  int? userId;
   int? etage;
   String? cover;
   String? phone;
@@ -38,6 +33,7 @@ class Datum {
   @JsonKey(name: 'osm_id')
   String? osmId;
   String? services;
+  String? commodites;
   String? ameliorations;
   int? vues;
   String? logo;
@@ -57,7 +53,6 @@ class Datum {
   Batiment? batiment;
   @JsonKey(name: 'sous_categories')
   List<SousCategory>? sousCategories;
-  List<Commodite>? commodites;
   List<Image>? images;
   List<Horaire>? horaires;
   List<Commentaire>? commentaires;
@@ -67,13 +62,11 @@ class Datum {
   Datum({
     this.id,
     this.nom,
-    this.batimentId,
     this.indicationAdresse,
     this.codePostal,
     this.siteInternet,
     this.nomManager,
     this.contactManager,
-    this.userId,
     this.etage,
     this.cover,
     this.phone,
@@ -82,6 +75,7 @@ class Datum {
     this.description,
     this.osmId,
     this.services,
+    this.commodites,
     this.ameliorations,
     this.vues,
     this.logo,
@@ -96,7 +90,6 @@ class Datum {
     this.count,
     this.batiment,
     this.sousCategories,
-    this.commodites,
     this.images,
     this.horaires,
     this.commentaires,
@@ -106,7 +99,7 @@ class Datum {
 
   @override
   String toString() {
-    return 'Datum(id: $id, nom: $nom, batimentId: $batimentId, indicationAdresse: $indicationAdresse, codePostal: $codePostal, siteInternet: $siteInternet, nomManager: $nomManager, contactManager: $contactManager, userId: $userId, etage: $etage, cover: $cover, phone: $phone, whatsapp1: $whatsapp1, whatsapp2: $whatsapp2, description: $description, osmId: $osmId, services: $services, ameliorations: $ameliorations, vues: $vues, logo: $logo, logoMap: $logoMap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, isFavoris: $isFavoris, isopen: $isopen, moyenne: $moyenne, avis: $avis, count: $count, batiment: $batiment, sousCategories: $sousCategories, commodites: $commodites, images: $images, horaires: $horaires, commentaires: $commentaires, user: $user, distance: $distance)';
+    return 'Datum(id: $id, nom: $nom, indicationAdresse: $indicationAdresse, codePostal: $codePostal, siteInternet: $siteInternet, nomManager: $nomManager, contactManager: $contactManager, etage: $etage, cover: $cover, phone: $phone, whatsapp1: $whatsapp1, whatsapp2: $whatsapp2, description: $description, osmId: $osmId, services: $services, commodites: $commodites, ameliorations: $ameliorations, vues: $vues, logo: $logo, logoMap: $logoMap, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, isFavoris: $isFavoris, isopen: $isopen, moyenne: $moyenne, avis: $avis, count: $count, batiment: $batiment, sousCategories: $sousCategories, images: $images, horaires: $horaires, commentaires: $commentaires, user: $user, distance : $distance)';
   }
 
   factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
@@ -116,13 +109,11 @@ class Datum {
   Datum copyWith({
     int? id,
     String? nom,
-    int? batimentId,
     String? indicationAdresse,
     String? codePostal,
     String? siteInternet,
     String? nomManager,
     String? contactManager,
-    int? userId,
     int? etage,
     String? cover,
     String? phone,
@@ -131,6 +122,7 @@ class Datum {
     String? description,
     String? osmId,
     String? services,
+    String? commodites,
     String? ameliorations,
     int? vues,
     String? logo,
@@ -145,7 +137,6 @@ class Datum {
     List<Count>? count,
     Batiment? batiment,
     List<SousCategory>? sousCategories,
-    List<Commodite>? commodites,
     List<Image>? images,
     List<Horaire>? horaires,
     List<Commentaire>? commentaires,
@@ -153,43 +144,40 @@ class Datum {
     double? distance,
   }) {
     return Datum(
-      id: id ?? this.id,
-      nom: nom ?? this.nom,
-      batimentId: batimentId ?? this.batimentId,
-      indicationAdresse: indicationAdresse ?? this.indicationAdresse,
-      codePostal: codePostal ?? this.codePostal,
-      siteInternet: siteInternet ?? this.siteInternet,
-      nomManager: nomManager ?? this.nomManager,
-      contactManager: contactManager ?? this.contactManager,
-      userId: userId ?? this.userId,
-      etage: etage ?? this.etage,
-      cover: cover ?? this.cover,
-      phone: phone ?? this.phone,
-      whatsapp1: whatsapp1 ?? this.whatsapp1,
-      whatsapp2: whatsapp2 ?? this.whatsapp2,
-      description: description ?? this.description,
-      osmId: osmId ?? this.osmId,
-      services: services ?? this.services,
-      ameliorations: ameliorations ?? this.ameliorations,
-      vues: vues ?? this.vues,
-      logo: logo ?? this.logo,
-      logoMap: logoMap ?? this.logoMap,
-      deletedAt: deletedAt ?? this.deletedAt,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-      isFavoris: isFavoris ?? this.isFavoris,
-      isopen: isopen ?? this.isopen,
-      moyenne: moyenne ?? this.moyenne,
-      avis: avis ?? this.avis,
-      count: count ?? this.count,
-      batiment: batiment ?? this.batiment,
-      sousCategories: sousCategories ?? this.sousCategories,
-      commodites: commodites ?? this.commodites,
-      images: images ?? this.images,
-      horaires: horaires ?? this.horaires,
-      commentaires: commentaires ?? this.commentaires,
-      user: user ?? this.user,
-      distance: distance ?? this.distance,
-    );
+        id: id ?? this.id,
+        nom: nom ?? this.nom,
+        indicationAdresse: indicationAdresse ?? this.indicationAdresse,
+        codePostal: codePostal ?? this.codePostal,
+        siteInternet: siteInternet ?? this.siteInternet,
+        nomManager: nomManager ?? this.nomManager,
+        contactManager: contactManager ?? this.contactManager,
+        etage: etage ?? this.etage,
+        cover: cover ?? this.cover,
+        phone: phone ?? this.phone,
+        whatsapp1: whatsapp1 ?? this.whatsapp1,
+        whatsapp2: whatsapp2 ?? this.whatsapp2,
+        description: description ?? this.description,
+        osmId: osmId ?? this.osmId,
+        services: services ?? this.services,
+        commodites: commodites ?? this.commodites,
+        ameliorations: ameliorations ?? this.ameliorations,
+        vues: vues ?? this.vues,
+        logo: logo ?? this.logo,
+        logoMap: logoMap ?? this.logoMap,
+        deletedAt: deletedAt ?? this.deletedAt,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        isFavoris: isFavoris ?? this.isFavoris,
+        isopen: isopen ?? this.isopen,
+        moyenne: moyenne ?? this.moyenne,
+        avis: avis ?? this.avis,
+        count: count ?? this.count,
+        batiment: batiment ?? this.batiment,
+        sousCategories: sousCategories ?? this.sousCategories,
+        images: images ?? this.images,
+        horaires: horaires ?? this.horaires,
+        commentaires: commentaires ?? this.commentaires,
+        user: user ?? this.user,
+        distance: distance ?? this.distance);
   }
 }

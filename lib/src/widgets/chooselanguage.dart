@@ -10,7 +10,7 @@ Widget chooseLanguage(Locale appLocale, AppBloc? appBloc) {
     'English',
   ];
   return SizedBox(
-    width: 130,
+    width: 150,
     child: DropdownButtonFormField2(
       decoration: InputDecoration(
         isDense: true,

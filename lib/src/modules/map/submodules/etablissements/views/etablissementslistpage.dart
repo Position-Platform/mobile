@@ -12,7 +12,6 @@ import 'package:position/src/modules/map/models/search_model/search_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/submodules/etablissements/widgets/etablissementcard.dart';
 import 'package:position/src/modules/map/submodules/filters/widgets/filter.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
@@ -23,25 +22,23 @@ class EtablissementListPage extends StatefulWidget {
       {super.key,
       @required this.user,
       @required this.initialLink,
-      @required this.typescommodites,
       @required this.mapBloc,
       @required this.category,
       @required this.etablissements,
       @required this.distance,
       @required this.avis,
       @required this.pertinance,
-      @required this.idsCommodite,
+      @required this.commodites,
       @required this.page});
   final User? user;
   final PendingDynamicLinkData? initialLink;
-  final List<TypesCommodite>? typescommodites;
   final MapBloc? mapBloc;
   final Category? category;
   final Etablissements? etablissements;
   final bool? distance;
   final bool? avis;
   final bool? pertinance;
-  final String? idsCommodite;
+  final String? commodites;
   final int? page;
 
   @override
@@ -67,8 +64,8 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
       _page = widget.page!;
     }
 
-    if (widget.idsCommodite != null) {
-      idsCommodite = widget.idsCommodite!;
+    if (widget.commodites != null) {
+      commodites = widget.commodites!;
     }
 
     if (widget.distance != null) {
@@ -101,10 +98,10 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
           _page,
           widget.category!,
           widget.user!,
-          idsCommodite!,
           distance!,
           avis!,
           pertinance!,
+          commodites!,
           widget.etablissements));
     }
   }
@@ -112,7 +109,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
   bool isLoading = false;
   List<Datum>? etablissements = [];
 
-  String? idsCommodite = "1";
+  String? commodites = "";
   bool? distance = true;
   bool? avis = false;
   bool? pertinance = false;
@@ -162,7 +159,6 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
             if (state.pertinance!) {
               etablissements!.sort((a, b) => b.vues!.compareTo(a.vues!));
             }
-            idsCommodite = state.idsCommodite;
             distance = state.distance;
             avis = state.avis;
             pertinance = state.pertinance;
@@ -188,8 +184,8 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                         "OpenSans-Bold", () {
                       scaffoldKey.currentState!.openDrawer();
                     }, () {}, widget.initialLink),
-                    filterContainer(context, widget.typescommodites!,
-                        widget.mapBloc!, widget.category!, widget.user!),
+                    filterContainer(context, widget.mapBloc!, widget.category!,
+                        widget.user!, widget.commodites!),
                     const SizedBox(
                       height: 10,
                     ),
@@ -264,7 +260,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
 
                                         // ignore: use_build_context_synchronously
                                         Navigator.pop(context,
-                                            "${widget.distance},${widget.avis},${widget.pertinance},${widget.idsCommodite}");
+                                            "${widget.distance},${widget.avis},${widget.pertinance},${widget.commodites}");
                                       });
                                     }),
                               ),
@@ -291,6 +287,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
             return _isLoadMoreRunning
                 ? const SizedBox()
                 : FloatingActionButton.extended(
+                    heroTag: "showmap",
                     onPressed: () {
                       Navigator.pop(context);
                     },

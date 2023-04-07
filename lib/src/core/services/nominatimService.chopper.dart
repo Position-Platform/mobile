@@ -18,33 +18,55 @@ class _$NominatimService extends NominatimService {
 
   @override
   Future<Response<dynamic>> searchplace(
-      String query, String format, String polygon, String adressdetails) {
+    String query,
+    String format,
+    String polygon,
+    String adressdetails,
+  ) {
     final $url = 'https://nominatim.openstreetmap.org/search';
     final $params = <String, dynamic>{
       'q': query,
       'format': format,
       'polygon': polygon,
-      'addressdetails': adressdetails
+      'addressdetails': adressdetails,
     };
     final $headers = {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> reverse(String format, String lon, String lat) {
+  Future<Response<dynamic>> reverse(
+    String format,
+    String lon,
+    String lat,
+  ) {
     final $url = 'https://nominatim.openstreetmap.org/reverse';
-    final $params = <String, dynamic>{'format': format, 'lon': lon, 'lat': lat};
+    final $params = <String, dynamic>{
+      'format': format,
+      'lon': lon,
+      'lat': lat,
+    };
     final $headers = {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 }

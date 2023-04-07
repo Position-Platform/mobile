@@ -109,8 +109,8 @@ abstract class ApiService extends ChopperService {
       headers: {'Accept': 'application/json'})
   Future<Response> searchetablissementsbyfilters(
       @Query('id_categorie') int idCategorie,
-      @Query('idCommodites') String? idCommodites,
       @Query('user_id') int idUser,
+      @Query('commodites') String? commodites,
       @Query('page') int? page);
 
   @Put(
@@ -118,13 +118,6 @@ abstract class ApiService extends ChopperService {
       headers: {'Accept': 'application/json'})
   Future<Response> updateetablissementview(
       @Path('etablissement_id') int idEtablissement);
-
-  //Commodites
-  @Get(path: '/api/commodites', headers: {'Accept': 'application/json'})
-  Future<Response> getcommodites();
-
-  @Get(path: '/api/typecommodites', headers: {'Accept': 'application/json'})
-  Future<Response> gettypecommodites();
 
   //Commentaires
   @Post(path: '/api/commentaires', headers: {'Accept': 'application/json'})

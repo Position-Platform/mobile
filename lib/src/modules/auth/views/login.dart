@@ -92,64 +92,49 @@ class _LoginPageState extends State<LoginPage> {
     changeStatusColor(transparent);
     return Scaffold(
       backgroundColor: whiteColor,
-      body: BlocListener<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.isFailure!) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).loginFailed),
-                      const Icon(Icons.error)
-                    ],
+      body: SingleChildScrollView(
+        child: BlocListener<LoginBloc, LoginState>(
+          listener: (context, state) {
+            if (state.isFailure!) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(S.of(context).loginFailed),
+                        const Icon(Icons.error)
+                      ],
+                    ),
+                    backgroundColor: redColor,
+                    duration: const Duration(seconds: 5),
                   ),
-                  backgroundColor: redColor,
-                  duration: const Duration(seconds: 5),
-                ),
-              );
-          }
-          if (state.isSubmitting!) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).loggin),
-                      const CircularProgressIndicator(),
-                    ],
+                );
+            }
+            if (state.isSubmitting!) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(S.of(context).loggin),
+                        const CircularProgressIndicator(),
+                      ],
+                    ),
                   ),
-                ),
-              );
-          }
+                );
+            }
 
-          if (state.isSuccess!) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(S.of(context).loginSuccess),
-                      const Icon(Icons.check_circle)
-                    ],
-                  ),
-                  backgroundColor: primaryColor,
-                  duration: const Duration(seconds: 5),
-                ),
-              );
-            context.read<AuthBloc>().add(AuthLoggedIn());
-          }
-        },
-        child: BlocBuilder<LoginBloc, LoginState>(
-          builder: (context, state) {
-            return SingleChildScrollView(
-              child: Stack(
+            if (state.isSuccess!) {
+              context.read<AuthBloc>().add(AuthLoggedIn());
+            }
+          },
+          child: BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return Stack(
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -445,13 +430,16 @@ class _LoginPageState extends State<LoginPage> {
                           height: 20,
                         ),
                         buildSocialButtons(_loginBloc),
+                        const SizedBox(
+                          height: 80,
+                        ),
                       ],
                     ),
                   )
                 ],
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       bottomSheet: const AppBottomSheet(),

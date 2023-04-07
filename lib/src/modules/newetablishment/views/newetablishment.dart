@@ -9,7 +9,6 @@ import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
-import 'package:position/src/modules/map/submodules/etablissements/models/type_commodites_model/types_commodite.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/searchbar.dart';
 import 'package:position/src/modules/newetablishment/blocs/new_etablishment/new_etablishment_bloc.dart';
@@ -24,20 +23,19 @@ import 'package:position/src/modules/newetablishment/widgets/steps/step8.dart';
 import 'package:position/src/modules/newetablishment/widgets/steps/step9.dart';
 
 class NewEtablishment extends StatefulWidget {
-  const NewEtablishment(
-      {super.key,
-      @required this.categories,
-      @required this.user,
-      @required this.initialLink,
-      @required this.favoris,
-      @required this.mapBloc,
-      @required this.typesCommodites});
+  const NewEtablishment({
+    super.key,
+    @required this.categories,
+    @required this.user,
+    @required this.initialLink,
+    @required this.favoris,
+    @required this.mapBloc,
+  });
   final List<Category>? categories;
   final User? user;
   final PendingDynamicLinkData? initialLink;
   final List<Datum>? favoris;
   final MapBloc? mapBloc;
-  final List<TypesCommodite>? typesCommodites;
 
   @override
   State<NewEtablishment> createState() => _NewEtablishmentState();
@@ -102,7 +100,7 @@ class _NewEtablishmentState extends State<NewEtablishment> {
                 ),
                 Step(
                   title: const SizedBox(),
-                  content: step5(context, widget.typesCommodites),
+                  content: step5(context),
                   isActive: step == 4 ? true : false,
                   state: step == 4 ? StepState.editing : StepState.indexed,
                 ),

@@ -11,6 +11,7 @@ class Category {
   String? shortname;
   String? logourl;
   String? logourlmap;
+  String? color;
   int? vues;
   @JsonKey(name: 'deleted_at')
   dynamic deletedAt;
@@ -27,6 +28,7 @@ class Category {
     this.shortname,
     this.logourl,
     this.logourlmap,
+    this.color,
     this.vues,
     this.deletedAt,
     this.createdAt,
@@ -36,7 +38,7 @@ class Category {
 
   @override
   String toString() {
-    return 'Category(id: $id, nom: $nom, shortname: $shortname, logourl: $logourl, logourlmap: $logourlmap, vues: $vues, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, sousCategories: $sousCategories)';
+    return 'Category(id: $id, nom: $nom, shortname: $shortname, logourl: $logourl, logourlmap: $logourlmap, color: $color, vues: $vues, deletedAt: $deletedAt, createdAt: $createdAt, updatedAt: $updatedAt, sousCategories: $sousCategories)';
   }
 
   factory Category.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class Category {
     String? shortname,
     String? logourl,
     String? logourlmap,
+    String? color,
     int? vues,
     dynamic deletedAt,
     DateTime? createdAt,
@@ -63,6 +66,7 @@ class Category {
       shortname: shortname ?? this.shortname,
       logourl: logourl ?? this.logourl,
       logourlmap: logourlmap ?? this.logourlmap,
+      color: color ?? this.color,
       vues: vues ?? this.vues,
       deletedAt: deletedAt ?? this.deletedAt,
       createdAt: createdAt ?? this.createdAt,

@@ -30,18 +30,15 @@ class CategoriesLoaded extends MapState {
 }
 
 class CategoriesClicked extends MapState {
-  final List<Commodite>? commodites;
-  final bool? isClicked;
   final Category? category;
 
-  const CategoriesClicked(this.commodites, this.isClicked, this.category);
+  const CategoriesClicked(this.category);
 
   @override
-  List<Object> get props => [commodites!, isClicked!, category!];
+  List<Object> get props => [category!];
 
   @override
-  String toString() =>
-      'CategoriesClicked { Commodites: $commodites , isClicked: $isClicked , Category: $category}';
+  String toString() => 'CategoriesClicked {  Category: $category}';
 }
 
 class SymboledAdded extends MapState {
@@ -121,56 +118,11 @@ class EtablissementsLoading extends MapState {}
 
 class EtablissementsError extends MapState {}
 
-class CommoditeSelected extends MapState {
-  final List<Commodite>? commodites;
+class CommoditeSelected extends MapState {}
 
-  const CommoditeSelected(this.commodites);
+class SelectedChips extends MapState {}
 
-  @override
-  List<Object> get props => [commodites!];
-
-  @override
-  String toString() => 'CommoditeSelected { Commodites: $commodites }';
-}
-
-class TypeCommoditesLoaded extends MapState {
-  final List<TypesCommodite>? typesCommodites;
-
-  const TypeCommoditesLoaded(this.typesCommodites);
-
-  @override
-  List<Object> get props => [typesCommodites!];
-
-  @override
-  String toString() =>
-      'TypeCommoditesLoaded { TypesCommodites: $typesCommodites }';
-}
-
-class SelectedChips extends MapState {
-  final Commodite? commodite;
-  final List<Commodite>? commoditesSelected;
-
-  const SelectedChips(this.commodite, this.commoditesSelected);
-
-  @override
-  List<Object> get props => [commodite!, commoditesSelected!];
-
-  @override
-  String toString() =>
-      'SelectedChips { Commodite: $commodite,CommoditesSelected: $commoditesSelected }';
-}
-
-class UnSelectedChips extends MapState {
-  final Commodite? commodite;
-
-  const UnSelectedChips(this.commodite);
-
-  @override
-  List<Object> get props => [commodite!];
-
-  @override
-  String toString() => 'UnSelectedChips { Commodite: $commodite }';
-}
+class UnSelectedChips extends MapState {}
 
 class DistanceSelected extends MapState {}
 
@@ -188,21 +140,21 @@ class EtablissementsMoreLoaded extends MapState {
   final Etablissements? etablissements;
   final int? page;
 
-  final String idsCommodite;
   final bool? distance;
   final bool? avis;
   final bool? pertinance;
+  final String? commodites;
 
-  const EtablissementsMoreLoaded(this.etablissements, this.page,
-      this.idsCommodite, this.distance, this.avis, this.pertinance);
+  const EtablissementsMoreLoaded(this.etablissements, this.page, this.distance,
+      this.avis, this.pertinance, this.commodites);
 
   @override
   List<Object> get props =>
-      [etablissements!, page!, idsCommodite, distance!, avis!, pertinance!];
+      [etablissements!, page!, distance!, avis!, pertinance!, commodites!];
 
   @override
   String toString() =>
-      'EtablissementsLoaded { Etablissements: $etablissements , Page: $page , IdsCommodite: $idsCommodite , Distance: $distance , Avis: $avis , Pertinance: $pertinance }';
+      'EtablissementsLoaded { Etablissements: $etablissements , Page: $page , Distance: $distance , Avis: $avis , Pertinance: $pertinance, commodites: $commodites }';
 }
 
 class ReviewAdded extends MapState {

@@ -24,8 +24,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -37,8 +42,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -50,8 +60,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -63,8 +78,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -76,7 +96,12 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -88,8 +113,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -101,8 +131,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -114,7 +149,12 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -125,7 +165,12 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -136,7 +181,12 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -148,14 +198,22 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> updatecategoriebyid(
-      String token, int idCategorie, Map<String, dynamic> body) {
+    String token,
+    int idCategorie,
+    Map<String, dynamic> body,
+  ) {
     final $url = 'https://services.position.cm/api/categories/${idCategorie}';
     final $headers = {
       'Authorization': token,
@@ -163,14 +221,21 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('PUT', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> addtracking(
-      String token, Map<String, dynamic> body) {
+    String token,
+    Map<String, dynamic> body,
+  ) {
     final $url = 'https://services.position.cm/api/tracking';
     final $headers = {
       'Authorization': token,
@@ -178,8 +243,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -190,13 +260,20 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> getetablissementbyid(
-      int idEtablissement, int idUser) {
+    int idEtablissement,
+    int idUser,
+  ) {
     final $url =
         'https://services.position.cm/api/etablissements/${idEtablissement}';
     final $params = <String, dynamic>{'user_id': idUser};
@@ -204,27 +281,46 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> searchetablissements(String query, int idUser) {
+  Future<Response<dynamic>> searchetablissements(
+    String query,
+    int idUser,
+  ) {
     final $url = 'https://services.position.cm/api/search/etablissements';
-    final $params = <String, dynamic>{'q': query, 'user_id': idUser};
+    final $params = <String, dynamic>{
+      'q': query,
+      'user_id': idUser,
+    };
     final $headers = {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> updateetablissementbyid(
-      String token, int idEtablissement, Map<String, dynamic> body) {
+    String token,
+    int idEtablissement,
+    Map<String, dynamic> body,
+  ) {
     final $url =
         'https://services.position.cm/api/etablissements/${idEtablissement}';
     final $headers = {
@@ -233,14 +329,21 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('PUT', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> deleteetablissementbyid(
-      String token, int idEtablissement) {
+    String token,
+    int idEtablissement,
+  ) {
     final $url =
         'https://services.position.cm/api/etablissements/${idEtablissement}';
     final $headers = {
@@ -248,13 +351,20 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('DELETE', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'DELETE',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> addfavoris(
-      String token, Map<String, dynamic> body) {
+    String token,
+    Map<String, dynamic> body,
+  ) {
     final $url = 'https://services.position.cm/api/favoris/add';
     final $headers = {
       'Authorization': token,
@@ -262,14 +372,21 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> removefavoris(
-      String token, Map<String, dynamic> body) {
+    String token,
+    Map<String, dynamic> body,
+  ) {
     final $url = 'https://services.position.cm/api/favoris/remove';
     final $headers = {
       'Authorization': token,
@@ -277,8 +394,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -290,27 +412,41 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
   Future<Response<dynamic>> searchetablissementsbyfilters(
-      int idCategorie, String? idCommodites, int idUser, int? page) {
+    int idCategorie,
+    int idUser,
+    String? commodites,
+    int? page,
+  ) {
     final $url =
         'https://services.position.cm/api/search/etablissements/filter';
     final $params = <String, dynamic>{
       'id_categorie': idCategorie,
-      'idCommodites': idCommodites,
       'user_id': idUser,
-      'page': page
+      'commodites': commodites,
+      'page': page,
     };
     final $headers = {
       'Accept': 'application/json',
     };
 
-    final $request = Request('GET', $url, client.baseUrl,
-        parameters: $params, headers: $headers);
+    final $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
@@ -322,34 +458,20 @@ class _$ApiService extends ApiService {
       'Accept': 'application/json',
     };
 
-    final $request = Request('PUT', $url, client.baseUrl, headers: $headers);
+    final $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 
   @override
-  Future<Response<dynamic>> getcommodites() {
-    final $url = 'https://services.position.cm/api/commodites';
-    final $headers = {
-      'Accept': 'application/json',
-    };
-
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
-    return client.send<dynamic, dynamic>($request);
-  }
-
-  @override
-  Future<Response<dynamic>> gettypecommodites() {
-    final $url = 'https://services.position.cm/api/typecommodites';
-    final $headers = {
-      'Accept': 'application/json',
-    };
-
-    final $request = Request('GET', $url, client.baseUrl, headers: $headers);
-    return client.send<dynamic, dynamic>($request);
-  }
-
-  @override
-  Future<Response<dynamic>> addreview(String token, Map<String, dynamic> body) {
+  Future<Response<dynamic>> addreview(
+    String token,
+    Map<String, dynamic> body,
+  ) {
     final $url = 'https://services.position.cm/api/commentaires';
     final $headers = {
       'Authorization': token,
@@ -357,8 +479,13 @@ class _$ApiService extends ApiService {
     };
 
     final $body = body;
-    final $request =
-        Request('POST', $url, client.baseUrl, body: $body, headers: $headers);
+    final $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
     return client.send<dynamic, dynamic>($request);
   }
 }
