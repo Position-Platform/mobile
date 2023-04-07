@@ -19,7 +19,7 @@ Etablissements _$EtablissementsFromJson(Map<String, dynamic> json) =>
       links: (json['links'] as List<dynamic>?)
           ?.map((e) => Link.fromJson(e as Map<String, dynamic>))
           .toList(),
-      nextPageUrl: json['next_page_url'] as String?,
+      nextPageUrl: json['next_page_url'],
       path: json['path'] as String?,
       perPage: json['per_page'] as int?,
       prevPageUrl: json['prev_page_url'],

@@ -17,13 +17,11 @@ Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
     var properties = {
       "id": element.id,
       "nom": element.nom,
-      "batiment_id": element.batimentId,
       "indication_adresse": element.indicationAdresse,
       "code_postal": element.codePostal,
       "site_internet": element.siteInternet,
       "nom_manager": element.nomManager,
       "contact_manager": element.contactManager,
-      "user_id": element.userId,
       "etage": element.etage,
       "cover": element.cover,
       "phone": element.phone,

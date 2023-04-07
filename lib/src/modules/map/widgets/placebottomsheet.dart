@@ -141,7 +141,9 @@ Widget placeBottomSheet(
                         margin: const EdgeInsets.only(left: 20),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [],
+                          children: buildCommodites(searchModel
+                              .etablissement!.commodites!
+                              .split(";")),
                         ),
                       )
                     : const SizedBox(),

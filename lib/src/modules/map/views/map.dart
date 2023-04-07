@@ -82,7 +82,7 @@ class _MapPageState extends State<MapPage> {
   bool? distance;
   bool? avis;
   bool? pertinance;
-  String? commodites;
+  String? commodites = "";
 
   @override
   Widget build(BuildContext context) {
