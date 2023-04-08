@@ -15,7 +15,8 @@ abstract class NominatimService extends ChopperService {
       @Query('q') String query,
       @Query('format') String format,
       @Query('polygon') String polygon,
-      @Query('addressdetails') String adressdetails);
+      @Query('addressdetails') String adressdetails,
+      @Query('countrycodes') String countrycodes);
 
   @Get(path: '/reverse', headers: {'Accept': 'application/json'})
   Future<Response> reverse(@Query('format') String format,
