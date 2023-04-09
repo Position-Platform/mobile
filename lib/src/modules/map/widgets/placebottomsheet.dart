@@ -275,6 +275,7 @@ Widget placeBottomSheet(
 }
 
 List<Widget> buildCommodites(List<String> commodites) {
+  commodites.removeLast();
   List<Widget> items = [];
   for (var i = 0; i < commodites.length; i++) {
     Widget item = Row(

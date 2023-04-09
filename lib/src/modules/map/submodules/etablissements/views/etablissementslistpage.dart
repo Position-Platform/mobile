@@ -122,62 +122,62 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       key: scaffoldKey,
       backgroundColor: whiteColor,
-      body: BlocListener(
-        bloc: widget.mapBloc,
-        listener: (context, state) {
-          if (state is LoadMoreRunning) {
-            _isLoadMoreRunning = true;
-          }
-          if (state is HasNextPage) {
-            _isLoadMoreRunning = false;
-            _hasNextPage = false;
-            Fluttertoast.showToast(
-                msg: S.of(context).etablissementLoadComplete,
-                backgroundColor: accentColor,
-                textColor: whiteColor,
-                toastLength: Toast.LENGTH_SHORT);
-          }
-          if (state is EtablissementsLoading) {
-            isLoading = true;
-          }
-
-          if (state is EtablissementsLoaded) {
-            isLoading = false;
-            etablissements = state.etablissements!.data;
-          }
-          if (state is EtablissementsMoreLoaded) {
-            _isLoadMoreRunning = false;
-            _page += 1;
-            etablissements!.addAll(state.etablissements!.data!);
-            if (state.distance!) {
-              etablissements!
-                  .sort((a, b) => a.distance!.compareTo(b.distance!));
-            }
-            if (state.avis!) {
-              etablissements!.sort((a, b) => b.avis!.compareTo(a.avis!));
-            }
-            if (state.pertinance!) {
-              etablissements!.sort((a, b) => b.vues!.compareTo(a.vues!));
-            }
-            distance = state.distance;
-            avis = state.avis;
-            pertinance = state.pertinance;
-
-            Fluttertoast.showToast(
-                msg: S.of(context).etablissementAdded,
-                backgroundColor: primaryColor,
-                textColor: whiteColor,
-                toastLength: Toast.LENGTH_SHORT);
-          }
-          if (state is EtablissementsError) {
-            _isLoadMoreRunning = false;
-          }
-        },
-        child: BlocBuilder(
+      body: SingleChildScrollView(
+        child: BlocListener(
           bloc: widget.mapBloc,
-          builder: (context, state) {
-            return SafeArea(
-              child: SingleChildScrollView(
+          listener: (context, state) {
+            if (state is LoadMoreRunning) {
+              _isLoadMoreRunning = true;
+            }
+            if (state is HasNextPage) {
+              _isLoadMoreRunning = false;
+              _hasNextPage = false;
+              Fluttertoast.showToast(
+                  msg: S.of(context).etablissementLoadComplete,
+                  backgroundColor: accentColor,
+                  textColor: whiteColor,
+                  toastLength: Toast.LENGTH_SHORT);
+            }
+            if (state is EtablissementsLoading) {
+              isLoading = true;
+            }
+
+            if (state is EtablissementsLoaded) {
+              isLoading = false;
+              etablissements = state.etablissements!.data;
+            }
+            if (state is EtablissementsMoreLoaded) {
+              _isLoadMoreRunning = false;
+              _page += 1;
+              etablissements!.addAll(state.etablissements!.data!);
+              if (state.distance!) {
+                etablissements!
+                    .sort((a, b) => a.distance!.compareTo(b.distance!));
+              }
+              if (state.avis!) {
+                etablissements!.sort((a, b) => b.avis!.compareTo(a.avis!));
+              }
+              if (state.pertinance!) {
+                etablissements!.sort((a, b) => b.vues!.compareTo(a.vues!));
+              }
+              distance = state.distance;
+              avis = state.avis;
+              pertinance = state.pertinance;
+
+              Fluttertoast.showToast(
+                  msg: S.of(context).etablissementAdded,
+                  backgroundColor: primaryColor,
+                  textColor: whiteColor,
+                  toastLength: Toast.LENGTH_SHORT);
+            }
+            if (state is EtablissementsError) {
+              _isLoadMoreRunning = false;
+            }
+          },
+          child: BlocBuilder(
+            bloc: widget.mapBloc,
+            builder: (context, state) {
+              return SafeArea(
                 child: Column(
                   children: [
                     searchBar(context, widget.user!, widget.category!.nom!,
@@ -186,98 +186,100 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                     }, () {}, widget.initialLink),
                     filterContainer(context, widget.mapBloc!, widget.category!,
                         widget.user!, widget.commodites!),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     isLoading
-                        ? loading()
-                        : Column(
-                            children: <Widget>[
+                        ? Column(
+                            children: [
                               SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height - 200,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: etablissements!.length,
-                                    controller: _scrollController,
-                                    itemBuilder: (context, index) {
-                                      return etablissementCard(
-                                          context, etablissements![index],
-                                          () async {
-                                        widget.mapBloc!.add(
-                                            UpdateViewEtablissement(
-                                                etablissements![index].id));
-
-                                        var searchModel = SearchModel(
-                                            name: etablissements![index].nom,
-                                            details: etablissements![index]
-                                                .sousCategories![0]
-                                                .nom,
-                                            type: "etablissement",
-                                            id: etablissements![index]
-                                                .id
-                                                .toString(),
-                                            longitude: etablissements![index]
-                                                .batiment!
-                                                .longitude,
-                                            latitude: etablissements![index]
-                                                .batiment!
-                                                .latitude,
-                                            logo: etablissements![index].logo ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .logourl ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .category!
-                                                    .logourl,
-                                            logomap: etablissements![index]
-                                                    .logoMap ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .logourlmap ??
-                                                etablissements![index]
-                                                    .sousCategories![0]
-                                                    .category!
-                                                    .logourlmap,
-                                            etablissement:
-                                                etablissements![index],
-                                            isOpenNow:
-                                                etablissements![index].isopen,
-                                            plageDay:
-                                                checkIfEtablissementIsOpen(
-                                                    etablissements![index]),
-                                            distance: await calculateDistance(
-                                                etablissements![index]
-                                                    .batiment!
-                                                    .longitude!,
-                                                etablissements![index]
-                                                    .batiment!
-                                                    .latitude!));
-
-                                        widget.mapBloc!.add(ShowSearchInMap(
-                                            searchModel, widget.user));
-
-                                        // ignore: use_build_context_synchronously
-                                        Navigator.pop(context,
-                                            "${widget.distance},${widget.avis},${widget.pertinance},${widget.commodites}");
-                                      });
-                                    }),
-                              ),
-                              if (_isLoadMoreRunning == true)
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 40),
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
+                                  height:
+                                      MediaQuery.of(context).size.height - 200,
+                                  child: loading()),
                             ],
-                          ),
+                          )
+                        : etablissements!.isEmpty
+                            ? Column(
+                                children: [
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height -
+                                              200,
+                                      child: Center(
+                                        child: Text(S.of(context).noData),
+                                      )),
+                                ],
+                              )
+                            : Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height,
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: etablissements!.length,
+                                        controller: _scrollController,
+                                        itemBuilder: (context, index) {
+                                          return etablissementCard(
+                                              context, etablissements![index],
+                                              () async {
+                                            widget.mapBloc!.add(
+                                                UpdateViewEtablissement(
+                                                    etablissements![index].id));
+
+                                            var searchModel = SearchModel(
+                                                name:
+                                                    etablissements![index].nom,
+                                                details: etablissements![index]
+                                                    .sousCategories![0]
+                                                    .nom,
+                                                type: "etablissement",
+                                                id: etablissements![index]
+                                                    .id
+                                                    .toString(),
+                                                longitude: etablissements![index]
+                                                    .batiment!
+                                                    .longitude,
+                                                latitude: etablissements![index]
+                                                    .batiment!
+                                                    .latitude,
+                                                logo: etablissements![index].logo ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .logourl ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .category!
+                                                        .logourl,
+                                                logomap: etablissements![index].logoMap ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .logourlmap ??
+                                                    etablissements![index]
+                                                        .sousCategories![0]
+                                                        .category!
+                                                        .logourlmap,
+                                                etablissement:
+                                                    etablissements![index],
+                                                isOpenNow: etablissements![index]
+                                                    .isopen,
+                                                plageDay: checkIfEtablissementIsOpen(
+                                                    etablissements![index]),
+                                                distance: await calculateDistance(
+                                                    etablissements![index].batiment!.longitude!, etablissements![index].batiment!.latitude!));
+
+                                            widget.mapBloc!.add(ShowSearchInMap(
+                                                searchModel, widget.user));
+
+                                            // ignore: use_build_context_synchronously
+                                            Navigator.pop(context,
+                                                "${widget.distance},${widget.avis},${widget.pertinance},${widget.commodites}");
+                                          });
+                                        }),
+                                  ),
+                                ],
+                              ),
                   ],
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
       // drawer: const AppDrawer(),
@@ -285,7 +287,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
           bloc: widget.mapBloc,
           builder: (context, state) {
             return _isLoadMoreRunning
-                ? const SizedBox()
+                ? const CircularProgressIndicator()
                 : FloatingActionButton.extended(
                     heroTag: "showmap",
                     onPressed: () {
