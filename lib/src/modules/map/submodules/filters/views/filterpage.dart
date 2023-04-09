@@ -36,16 +36,17 @@ class _FiltersPageState extends State<FiltersPage> {
   List<String>? commoditesGroupe1 = [
     "Accessible aux PMR",
     "Parking",
-    "Parking Gratuit"
+    "Parking Gratuit",
+    "Sièges Extérieurs"
   ];
   List<String>? commoditesGroupe2 = [
-    "Paiement Mobile",
-    "Carte Bancaire",
+    "Paiement mobile",
+    "Carte bancaire",
     "Espèces",
     "Commande et Retrait",
     "Livraison"
   ];
-  List<String>? commoditesGroupe3 = ["Climatisation", "Wifi"];
+  List<String>? commoditesGroupe3 = ["Air Conditionné", "Wifi"];
   List<String>? commoditesGroupe4 = [
     "Agence de Tourisme",
     "Agence de voyage",
@@ -53,6 +54,7 @@ class _FiltersPageState extends State<FiltersPage> {
     "Hotels",
     "Auberges"
   ];
+  List<String>? commoditesGroupe5 = ["Ouvert 24h"];
 
   @override
   Widget build(BuildContext context) {
@@ -250,6 +252,34 @@ class _FiltersPageState extends State<FiltersPage> {
                       Container(
                         alignment: Alignment.topLeft,
                         margin: const EdgeInsets.only(left: 20),
+                        child: const Text("Horaires",
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: greyColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
+                        child: Wrap(
+                          spacing: 6.0,
+                          runSpacing: 6.0,
+                          children: buildCommodites(
+                              commoditesGroupe5!, widget.mapbloc!),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        margin: const EdgeInsets.only(left: 20),
                         child: const Text("Paiement & facilités d'achat",
                             style: TextStyle(
                               fontFamily: 'OpenSans',
@@ -329,7 +359,7 @@ class _FiltersPageState extends State<FiltersPage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 100,
                       ),
                     ],
                   )

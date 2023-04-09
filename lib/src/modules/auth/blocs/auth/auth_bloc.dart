@@ -93,7 +93,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final token = await sharedPreferencesHelper!.getToken();
-    authRepository!.logout(token!);
+    await authRepository!.logout(token!);
     await sharedPreferencesHelper!.deleteToken();
     return emit(AuthFailure());
   }
