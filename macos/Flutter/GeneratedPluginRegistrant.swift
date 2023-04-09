@@ -9,7 +9,7 @@ import firebase_core
 import firebase_crashlytics
 import geolocator_apple
 import path_provider_foundation
-import share_plus_macos
+import share_plus
 import shared_preferences_foundation
 import sqlite3_flutter_libs
 import url_launcher_macos
