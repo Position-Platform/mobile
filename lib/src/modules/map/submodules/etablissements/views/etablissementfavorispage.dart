@@ -63,10 +63,13 @@ class _EtablissementFavorisPageState extends State<EtablissementFavorisPage> {
               Container(
                 color: whiteColor,
                 child: widget.favoris!.isEmpty
-                    ? Center(
-                        child: Text(
-                          S.of(context).nofavoris,
-                          textAlign: TextAlign.center,
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height - 50,
+                        child: Center(
+                          child: Text(
+                            S.of(context).nofavoris,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       )
                     : ListView.builder(

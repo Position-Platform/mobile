@@ -119,7 +119,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     data["properties"]["sous_categories"] =
         json.decode(data["properties"]["sous_categories"].toString());
     data["properties"]["commodites"] =
-        json.decode(data["properties"]["commodites"].toString());
+        data["properties"]["commodites"].toString();
     data["properties"]["images"] =
         json.decode(data["properties"]["images"].toString());
     data["properties"]["horaires"] =
