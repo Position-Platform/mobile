@@ -27,20 +27,19 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    final storage = await HydratedStorage.build(
-      storageDirectory: await getApplicationSupportDirectory(),
-    );
     final PendingDynamicLinkData? initialLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
 
-    HydratedBlocOverrides.runZoned(() async {
-      runApp(BlocProvider(
-        create: (_) => di.getIt<GpsBloc>(),
-        child: MyApp(
-          initialLink: initialLink,
-        ),
-      ));
-    }, storage: storage, blocObserver: SimpleBlocObserver());
+    HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getTemporaryDirectory(),
+    );
+    Bloc.observer = SimpleBlocObserver();
+    runApp(BlocProvider(
+      create: (_) => di.getIt<GpsBloc>(),
+      child: MyApp(
+        initialLink: initialLink,
+      ),
+    ));
   }, (error, stackTrace) {
     print('runZonedGuarded: Caught error in my root zone.');
     print(stackTrace);
