@@ -22,6 +22,7 @@ class _$NominatimService extends NominatimService {
     String format,
     String polygon,
     String adressdetails,
+    String countrycodes,
   ) {
     final $url = 'https://nominatim.openstreetmap.org/search';
     final $params = <String, dynamic>{
@@ -29,6 +30,7 @@ class _$NominatimService extends NominatimService {
       'format': format,
       'polygon': polygon,
       'addressdetails': adressdetails,
+      'countrycodes': countrycodes,
     };
     final $headers = {
       'Accept': 'application/json',

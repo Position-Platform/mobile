@@ -161,11 +161,6 @@ class _MapPageState extends State<MapPage> {
           if (state is EtablissementsLoaded) {
             showList = true;
             etablissements = state.etablissements!;
-            Fluttertoast.showToast(
-                msg: S.of(context).etablissementLoaded,
-                backgroundColor: primaryColor,
-                textColor: whiteColor,
-                toastLength: Toast.LENGTH_SHORT);
           }
           if (state is EtablissementsError) {
             Fluttertoast.showToast(

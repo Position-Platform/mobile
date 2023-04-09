@@ -17,7 +17,7 @@ class NominatimApiServiceFactory implements NominatimApiService {
 
     try {
       response =
-          await nominatimService!.searchplace(query, "geojson", "0", "1");
+          await nominatimService!.searchplace(query, "geojson", "0", "1", "cm");
     } catch (e) {
       print('Caught ${e.toString()}');
       rethrow;
