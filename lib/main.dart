@@ -31,6 +31,8 @@ void main() async {
     final PendingDynamicLinkData? initialLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
 
+    FirebasePerformance.instance;
+
     HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory(),
     );
