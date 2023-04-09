@@ -111,9 +111,6 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   Future<SearchModel> onFeatureClick(dynamic data, Offset point) async {
     data["properties"]["id"] = data["properties"]["id"].toInt();
-    data["properties"]["batiment_id"] =
-        data["properties"]["batiment_id"].toInt();
-    data["properties"]["user_id"] = data["properties"]["user_id"].toInt();
     data["properties"]["etage"] = data["properties"]["etage"].toInt();
     data["properties"]["vues"] = data["properties"]["vues"].toInt();
     data["properties"]["avis"] = data["properties"]["avis"].toInt();
