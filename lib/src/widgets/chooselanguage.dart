@@ -28,16 +28,22 @@ Widget chooseLanguage(Locale appLocale, AppBloc? appBloc) {
         style: TextStyle(
             fontSize: textSize, color: whiteColor, fontFamily: "OpenSans"),
       ),
-      icon: const Icon(
-        Icons.arrow_drop_down,
-        color: whiteColor,
+      iconStyleData: const IconStyleData(
+        icon: Icon(
+          Icons.arrow_drop_down,
+          color: whiteColor,
+        ),
+        iconSize: 30,
       ),
-      iconSize: 30,
-      buttonHeight: 40,
-      buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-      dropdownDecoration: BoxDecoration(
-        color: accentColor,
-        borderRadius: BorderRadius.circular(15),
+      buttonStyleData: const ButtonStyleData(
+        height: 40,
+        padding: EdgeInsets.only(left: 20, right: 10),
+      ),
+      dropdownStyleData: DropdownStyleData(
+        decoration: BoxDecoration(
+          color: accentColor,
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
       items: languagesItems
           .map((item) => DropdownMenuItem<String>(

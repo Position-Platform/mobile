@@ -113,16 +113,22 @@ Widget step1(BuildContext context, List<Category> categories,
                         color: blackColor,
                         fontFamily: "OpenSans"),
                   ),
-                  icon: const Icon(
-                    Icons.arrow_drop_down,
-                    color: greyColor,
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: greyColor,
+                    ),
+                    iconSize: 20,
                   ),
-                  iconSize: 20,
-                  buttonHeight: 40,
-                  buttonPadding: const EdgeInsets.only(left: 20, right: 10),
-                  dropdownDecoration: BoxDecoration(
-                    color: whiteColor,
-                    borderRadius: BorderRadius.circular(15),
+                  buttonStyleData: const ButtonStyleData(
+                    height: 40,
+                    padding: EdgeInsets.only(left: 20, right: 10),
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    decoration: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                   ),
                   items: categories
                       .map((item) => DropdownMenuItem<Category>(
@@ -189,17 +195,22 @@ Widget step1(BuildContext context, List<Category> categories,
                               color: blackColor,
                               fontFamily: "OpenSans"),
                         ),
-                        icon: const Icon(
-                          Icons.arrow_drop_down,
-                          color: greyColor,
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: greyColor,
+                          ),
+                          iconSize: 20,
                         ),
-                        iconSize: 20,
-                        buttonHeight: 40,
-                        buttonPadding:
-                            const EdgeInsets.only(left: 20, right: 10),
-                        dropdownDecoration: BoxDecoration(
-                          color: whiteColor,
-                          borderRadius: BorderRadius.circular(15),
+                        buttonStyleData: const ButtonStyleData(
+                          height: 40,
+                          padding: EdgeInsets.only(left: 20, right: 10),
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            color: whiteColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                         items: souscategories
                             .map((item) => DropdownMenuItem<SousCategory>(
