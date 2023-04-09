@@ -621,14 +621,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  google_identity_services_web:
+    dependency: transitive
+    description:
+      name: google_identity_services_web
+      sha256: "7940fdc3b1035db4d65d387c1bdd6f9574deaa6777411569c05ecc25672efacd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   google_sign_in:
     dependency: "direct main"
     description:
       name: google_sign_in
-      sha256: "821f354c053d51a2d417b02d42532a19a6ea8057d2f9ebb8863c07d81c98aaf9"
+      sha256: "776a4c988dc179c3b8e9201de0ad61bf350a4e75d378ff9d94c76880378c7bca"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.4"
+    version: "6.1.0"
   google_sign_in_android:
     dependency: transitive
     description:
@@ -657,10 +665,10 @@ packages:
     dependency: transitive
     description:
       name: google_sign_in_web
-      sha256: "75cc41ebc53b1756320ee14d9c3018ad3e6cea298147dbcd86e9d0c8d6720b40"
+      sha256: "7e0ec507f4752383a6daa67d0cc775253cfc3b1d87907e7004e2c1b99c0a723f"
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.2+1"
+    version: "0.12.0"
   graphs:
     dependency: transitive
     description:
