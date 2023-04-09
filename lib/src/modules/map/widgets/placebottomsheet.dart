@@ -41,6 +41,7 @@ Widget placeBottomSheet(
                     ? SvgPicture.asset(
                         "assets/images/svg/horizontal-bar.svg",
                         height: 30,
+                        // ignore: deprecated_member_use
                         color: grey5,
                       )
                     : const SizedBox(
