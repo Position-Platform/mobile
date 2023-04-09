@@ -68,7 +68,7 @@ dependencies:
   permission_handler: ^10.0.0
   rating_dialog: ^2.0.4
   rxdart: ^0.27.7
-  share_plus: ^5.0.0
+  share_plus: ^6.3.1
   shared_preferences: ^2.0.15
   sqlite3_flutter_libs: ^0.5.13
   time_interval_picker: ^0.0.2
