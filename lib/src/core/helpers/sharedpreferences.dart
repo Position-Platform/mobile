@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferencesHelper {
   final String _isFirstOpen = "firstOpen";
   final String _token = "token";
+  final String _downloadMap = "downloadmap";
 
   Future<bool> setIsFirstOpen(bool first) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,6 +39,20 @@ class SharedPreferencesHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? res = prefs.getString(_token);
     print('Token $res');
+    return res;
+  }
+
+  Future<bool> setIsDownloadMap(bool download) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool res = await prefs.setBool(_downloadMap, download);
+    print('Download Map $res');
+    return res;
+  }
+
+  Future<bool> getIsDownloadMap() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool res = prefs.getBool(_downloadMap) ?? false;
+    print('Download Map $res');
     return res;
   }
 }

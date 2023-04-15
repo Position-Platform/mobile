@@ -13,10 +13,9 @@
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
-final messages = MessageLookup();
+final messages = new MessageLookup();
 
-typedef MessageIfAbsent = String Function(
-    String messageStr, List<dynamic> args);
+typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'fr';
@@ -38,6 +37,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "askAccess": MessageLookupByLibrary.simpleMessage("Demandez l\'access"),
         "avis": MessageLookupByLibrary.simpleMessage("Avis"),
         "back": MessageLookupByLibrary.simpleMessage("Retour"),
+        "backgroundDownload": MessageLookupByLibrary.simpleMessage(
+            "Télechargement des cartes en arriere plan"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Chargement des Batiments..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
@@ -87,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Assurez-vous d\'activer le GPS."),
         "english": MessageLookupByLibrary.simpleMessage("Anglais"),
+        "errorDownload":
+            MessageLookupByLibrary.simpleMessage("Erreur de téléchargement"),
         "etablissementAdded":
             MessageLookupByLibrary.simpleMessage("Etablissements Ajoutés"),
         "etablissementError":
@@ -173,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Création du compte reussie verifiez vos mails..."),
         "registering":
             MessageLookupByLibrary.simpleMessage("Création du compte..."),
+        "removeMap": MessageLookupByLibrary.simpleMessage("Cartes supprimées"),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Reinitialiser le Mot de Passe"),
         "reviewadded":
@@ -224,6 +228,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Une boutique virtuelle et un marché digital pour les activités formelles et informelles ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Déclarations de Travaux, suivre l’actualité locale via les avis et annonces"),
+        "successDownload": MessageLookupByLibrary.simpleMessage(
+            "Carte téléchargée avec succès"),
         "terms": MessageLookupByLibrary.simpleMessage(
             "En continuant, vous acceptez les Conditions d\'utilisation et les Règles de confidentialité. Tous les renseignements pourront être modifiés plus tard."),
         "thisweek": MessageLookupByLibrary.simpleMessage("Cette semaine"),

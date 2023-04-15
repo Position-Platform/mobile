@@ -1529,6 +1529,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Removed maps`
+  String get removeMap {
+    return Intl.message(
+      'Removed maps',
+      name: 'removeMap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Map downloaded successfully`
+  String get successDownload {
+    return Intl.message(
+      'Map downloaded successfully',
+      name: 'successDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Downloaded maps in background`
+  String get backgroundDownload {
+    return Intl.message(
+      'Downloaded maps in background',
+      name: 'backgroundDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download error`
+  String get errorDownload {
+    return Intl.message(
+      'Download error',
+      name: 'errorDownload',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

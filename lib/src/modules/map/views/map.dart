@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/mapbox_gl.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
@@ -204,6 +205,34 @@ class _MapPageState extends State<MapPage> {
             state.favoris!.isFavoris = false;
             favoris!.remove(state.favoris!);
           }
+          if (state is DownloadComplete) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).successDownload),
+              backgroundColor: primaryColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is MapDownDownloading) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).backgroundDownload),
+              backgroundColor: accentColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is MapDownloadedError) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).errorDownload),
+              backgroundColor: redColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is DownloadMapRemoved) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).removeMap),
+              backgroundColor: redColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
         },
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
@@ -230,18 +259,21 @@ class _MapPageState extends State<MapPage> {
                     )
                   : const SizedBox(),
               background: Stack(children: [
-                MapboxMap(
+                MaplibreMap(
+                  attributionButtonPosition:
+                      AttributionButtonPosition.BottomLeft,
+                  attributionButtonMargins: const Point(-100, -100),
                   rotateGesturesEnabled: false,
                   annotationOrder: const [AnnotationType.symbol],
                   compassViewPosition: CompassViewPosition.TopRight,
                   zoomGesturesEnabled: true,
-                  myLocationEnabled: true,
+                  myLocationEnabled: false,
                   myLocationTrackingMode: MyLocationTrackingMode.Tracking,
                   compassEnabled: true,
                   onMapClick: (point, coordinates) =>
                       _mapBloc?.add(RemoveSymboleInMap()),
-                  styleString: MapboxStyles.MAPBOX_STREETS,
-                  accessToken: mapboxApiKey,
+                  styleString:
+                      'https://api.maptiler.com/maps/streets-v2/style.json?key=GZun6glaQh7PwnoBZoOm',
                   onMapLongClick: (point, latLng) =>
                       _mapBloc?.add(AddSymboleOnMap(latLng)),
                   onMapCreated: (controller) => _mapBloc

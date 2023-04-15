@@ -147,5 +147,10 @@
   "add_picture" : "Ajouter une photo",
   "complete_add" : "Vous avez fini de configurer l’établissement !",
   "complete_add_desc" : "L’établissement sera mis en ligne après le paiement. Vous pourrez toujours modifier les informations depuis votre compte.",
-  "add": "Ajouter"
+  "add": "Ajouter",
+  "removeMap" : "Supprimer les cartes enregistrées",
+  "successDownload" : "Carte téléchargée avec succès",
+  "backgroundDownload" : "Télechargement des cartes en arriere plan",
+  "errorDownload" : "Erreur de téléchargement",
+  "removeMap" : "Cartes supprimées"
 }

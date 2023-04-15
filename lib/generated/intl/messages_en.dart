@@ -13,10 +13,9 @@
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
-final messages = MessageLookup();
+final messages = new MessageLookup();
 
-typedef MessageIfAbsent = String Function(
-    String messageStr, List<dynamic> args);
+typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
@@ -36,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "askAccess": MessageLookupByLibrary.simpleMessage("Request access"),
         "avis": MessageLookupByLibrary.simpleMessage("Reviews"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "backgroundDownload": MessageLookupByLibrary.simpleMessage(
+            "Downloaded maps in background"),
         "batimentDownload":
             MessageLookupByLibrary.simpleMessage("Loading of Buildings..."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -83,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Please make sure you enable GPS"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "errorDownload": MessageLookupByLibrary.simpleMessage("Download error"),
         "etablissementAdded":
             MessageLookupByLibrary.simpleMessage("Etablissements Added"),
         "etablissementError":
@@ -160,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Successful account creation check your emails..."),
         "registering":
             MessageLookupByLibrary.simpleMessage("Account creation..."),
+        "removeMap": MessageLookupByLibrary.simpleMessage("Removed maps"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviewadded": MessageLookupByLibrary.simpleMessage("Review added"),
         "reviewerror":
@@ -205,6 +208,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "A virtual store and digital marketplace for formal and informal activities ..."),
         "subtitle3": MessageLookupByLibrary.simpleMessage(
             "Declarations of Work, follow the local news via notices and announcements"),
+        "successDownload":
+            MessageLookupByLibrary.simpleMessage("Map downloaded successfully"),
         "terms": MessageLookupByLibrary.simpleMessage(
             "By continuing, you agree to the Terms of Use and Privacy Policy. All information is subject to change at a later date."),
         "thisweek": MessageLookupByLibrary.simpleMessage("This week"),

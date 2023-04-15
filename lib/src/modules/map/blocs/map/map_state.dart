@@ -186,3 +186,23 @@ class FavoriteLoaded extends MapState {
   @override
   String toString() => 'FavoriteLoaded { Favoris: $favoris }';
 }
+
+class MapDownDownloading extends MapState {}
+
+class MapDownloadedError extends MapState {}
+
+class UpdateDownloadProgress extends MapState {
+  final double? progress;
+
+  const UpdateDownloadProgress(this.progress);
+
+  @override
+  List<Object> get props => [progress!];
+
+  @override
+  String toString() => 'UpdateDownloadProgress { Progress: $progress }';
+}
+
+class DownloadComplete extends MapState {}
+
+class DownloadMapRemoved extends MapState {}

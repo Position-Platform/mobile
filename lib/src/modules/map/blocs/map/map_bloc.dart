@@ -9,7 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/mapbox_gl.dart' as maplibre_gl;
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
@@ -29,8 +30,8 @@ import 'package:position/src/modules/map/tools/mapTools.dart';
 part 'map_event.dart';
 part 'map_state.dart';
 
-class MapBloc extends HydratedBloc<MapEvent, MapState> {
-  MapboxMapController? _mapController;
+class MapBloc extends Bloc<MapEvent, MapState> {
+  MaplibreMapController? _mapController;
   CategoriesRepository? categoriesRepository;
   TrackingRepository? trackingRepository;
   NominatimRepository? nominatimRepository;
@@ -80,9 +81,15 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<LoadMoreEtablissement>(_loadMoreEtablissement);
     on<AddReview>(_addReview);
     on<GetFavorite>(_getFavorite);
+    on<DownloadMapOffline>(_downloadMap);
+    on<DownloadProgress>(_downloadProgress);
+    on<DownloadError>(_downloadError);
+    on<CompleteDownload>(_downloadComplete);
+    on<RemoveDownloadMap>(_downloadMapRemove);
   }
 
   _onInitMap(OnMapInitializedEvent event, Emitter<MapState> emit) async {
+    final mapDownloaded = await sharedPreferencesHelper!.getIsDownloadMap();
     _mapController = event.controller;
     positionStream =
         Geolocator.getPositionStream(locationSettings: locationSettings)
@@ -106,6 +113,11 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         add(OnSymboleClick());
       }
     });
+    if (!mapDownloaded) {
+      add(DownloadMapOffline());
+      emit(MapInitialized());
+    }
+    add(GetUserLocationEvent());
     emit(MapInitialized());
   }
 
@@ -664,23 +676,71 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
   }
 
-  @override
-  MapState? fromJson(Map<String, dynamic> json) {
+  Future<OfflineRegion?> _downloadOfflineRegion() async {
     try {
-      final categories = CategoriesModel.fromJson(json['categories']);
-      return CategoriesLoaded(categories);
+      final bounds = LatLngBounds(
+        northeast: const LatLng(4.1295, 9.6079),
+        southwest: const LatLng(3.9415, 9.8631),
+      );
+      final regionDefinition = OfflineRegionDefinition(
+          bounds: bounds,
+          mapStyleUrl:
+              "https://api.maptiler.com/maps/streets-v2/style.json?key=GZun6glaQh7PwnoBZoOm",
+          minZoom: 6,
+          maxZoom: 16);
+
+      final region = await downloadOfflineRegion(regionDefinition,
+          metadata: {
+            'name': 'Douala',
+          },
+          onEvent: _onDownloadEvent);
+
+      return region;
     } catch (e) {
       return null;
     }
   }
 
-  @override
-  Map<String, dynamic>? toJson(MapState state) {
-    if (state is CategoriesLoaded) {
-      return state.categories!.toJson();
+  _downloadMap(DownloadMapOffline event, Emitter<MapState> emit) async {
+    emit(MapDownDownloading());
+    await _downloadOfflineRegion();
+  }
+
+  void _onDownloadEvent(DownloadRegionStatus status) async {
+    if (status is maplibre_gl.Success) {
+      await sharedPreferencesHelper!.setIsDownloadMap(true);
+      add(CompleteDownload());
+    } else if (status is maplibre_gl.Error) {
+      add(DownloadError(status.cause.toString()));
+    } else if (status is maplibre_gl.InProgress) {
+      add(DownloadProgress(status.progress / 100));
+    }
+  }
+
+  _downloadProgress(DownloadProgress event, Emitter<MapState> emit) {
+    emit(UpdateDownloadProgress(event.progress));
+  }
+
+  _downloadError(DownloadError event, Emitter<MapState> emit) {
+    emit(MapDownloadedError());
+  }
+
+  _downloadComplete(CompleteDownload event, Emitter<MapState> emit) {
+    emit(DownloadComplete());
+  }
+
+  _downloadMapRemove(RemoveDownloadMap event, Emitter<MapState> emit) async {
+    final regions = await getListOfRegions();
+
+    for (final region in regions) {
+      await deleteOfflineRegion(
+        region.id,
+      );
     }
 
-    return null;
+    await sharedPreferencesHelper!.setIsDownloadMap(false);
+
+    emit(DownloadMapRemoved());
   }
 
   @override
