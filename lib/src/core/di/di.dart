@@ -1,6 +1,7 @@
 import 'package:chopper/chopper.dart';
 import 'package:get_it/get_it.dart';
 import 'package:position/src/core/app/bloc/app_bloc.dart';
+import 'package:position/src/core/database/db.dart';
 import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/services/apiService.dart';
@@ -12,6 +13,7 @@ import 'package:position/src/modules/auth/api/authApiServiceFactory.dart';
 import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
 import 'package:position/src/modules/auth/blocs/login/login_bloc.dart';
 import 'package:position/src/modules/auth/blocs/register/register_bloc.dart';
+import 'package:position/src/modules/auth/db/user.dao.dart';
 import 'package:position/src/modules/auth/repositories/authRepository.dart';
 import 'package:position/src/modules/auth/repositories/authRepositoryImpl.dart';
 import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
@@ -71,13 +73,17 @@ Future<void> init() async {
   getIt.registerLazySingleton<NominatimApiService>(
       () => NominatimApiServiceFactory(nominatimService, routingService));
 
+  // Database
+  getIt.registerLazySingleton<MyDatabase>(() => MyDatabase());
+  getIt.registerLazySingleton<UserDao>(() => UserDao(getIt()));
+
   //Repository
   getIt.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
-      authApiService: getIt(),
-      networkInfoHelper: getIt(),
-      sharedPreferencesHelper: getIt(),
-    ),
+        authApiService: getIt(),
+        networkInfoHelper: getIt(),
+        sharedPreferencesHelper: getIt(),
+        userDao: getIt()),
   );
 
   getIt.registerFactory<CategoriesRepository>(

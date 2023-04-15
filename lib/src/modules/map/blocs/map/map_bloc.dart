@@ -30,7 +30,7 @@ import 'package:position/src/modules/map/tools/mapTools.dart';
 part 'map_event.dart';
 part 'map_state.dart';
 
-class MapBloc extends Bloc<MapEvent, MapState> {
+class MapBloc extends HydratedBloc<MapEvent, MapState> {
   MaplibreMapController? _mapController;
   CategoriesRepository? categoriesRepository;
   TrackingRepository? trackingRepository;
@@ -741,6 +741,25 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     await sharedPreferencesHelper!.setIsDownloadMap(false);
 
     emit(DownloadMapRemoved());
+  }
+
+  @override
+  MapState? fromJson(Map<String, dynamic> json) {
+    try {
+      final categories = CategoriesModel.fromJson(json['categories']);
+      return CategoriesLoaded(categories);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(MapState state) {
+    if (state is CategoriesLoaded) {
+      return {"categories": state.categories!.toJson()};
+    }
+
+    return null;
   }
 
   @override

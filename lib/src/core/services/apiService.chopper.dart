@@ -18,13 +18,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> login(Map<String, dynamic> body) {
-    final $url = 'https://services.position.cm/api/auth/login';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/auth/login');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -36,13 +35,13 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> register(Map<String, dynamic> body) {
-    final $url = 'https://services.position.cm/api/auth/register';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/auth/register');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -54,13 +53,13 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> registerfacebook(Map<String, dynamic> body) {
-    final $url = 'https://services.position.cm/api/auth/register/facebook';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/auth/register/facebook');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -72,13 +71,13 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> registergoogle(Map<String, dynamic> body) {
-    final $url = 'https://services.position.cm/api/auth/register/google';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/auth/register/google');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -90,13 +89,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getuser(String token) {
-    final $url = 'https://services.position.cm/api/user/me';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/user/me');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -107,13 +105,13 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> forgetPassword(Map<String, dynamic> body) {
-    final $url = 'https://services.position.cm/api/auth/password/forgot';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/auth/password/forgot');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -125,13 +123,13 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> resetPassword(Map<String, dynamic> body) {
-    final $url = 'https://services.position.cm/api/auth/password/reset';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/auth/password/reset');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -143,13 +141,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> logout(String token) {
-    final $url = 'https://services.position.cm/api/auth/logout';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/auth/logout');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -160,12 +157,11 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getcategories() {
-    final $url = 'https://services.position.cm/api/categories';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/categories');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -176,12 +172,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getcategoriesbyid(int idCategorie) {
-    final $url = 'https://services.position.cm/api/categories/${idCategorie}';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/categories/${idCategorie}');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -192,13 +188,13 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> searchcategories(String query) {
-    final $url = 'https://services.position.cm/api/search/categories';
-    final $params = <String, dynamic>{'q': query};
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/search/categories');
+    final Map<String, dynamic> $params = <String, dynamic>{'q': query};
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -214,14 +210,14 @@ class _$ApiService extends ApiService {
     int idCategorie,
     Map<String, dynamic> body,
   ) {
-    final $url = 'https://services.position.cm/api/categories/${idCategorie}';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/categories/${idCategorie}');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'PUT',
       $url,
       client.baseUrl,
@@ -236,14 +232,13 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final $url = 'https://services.position.cm/api/tracking';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/tracking');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -255,12 +250,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getetablissements() {
-    final $url = 'https://services.position.cm/api/etablissements';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/etablissements');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -274,14 +269,13 @@ class _$ApiService extends ApiService {
     int idEtablissement,
     int idUser,
   ) {
-    final $url =
-        'https://services.position.cm/api/etablissements/${idEtablissement}';
-    final $params = <String, dynamic>{'user_id': idUser};
-    final $headers = {
+    final Uri $url = Uri.parse(
+        'https://services.position.cm/api/etablissements/${idEtablissement}');
+    final Map<String, dynamic> $params = <String, dynamic>{'user_id': idUser};
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -296,16 +290,16 @@ class _$ApiService extends ApiService {
     String query,
     int idUser,
   ) {
-    final $url = 'https://services.position.cm/api/search/etablissements';
-    final $params = <String, dynamic>{
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/search/etablissements');
+    final Map<String, dynamic> $params = <String, dynamic>{
       'q': query,
       'user_id': idUser,
     };
-    final $headers = {
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -321,15 +315,14 @@ class _$ApiService extends ApiService {
     int idEtablissement,
     Map<String, dynamic> body,
   ) {
-    final $url =
-        'https://services.position.cm/api/etablissements/${idEtablissement}';
-    final $headers = {
+    final Uri $url = Uri.parse(
+        'https://services.position.cm/api/etablissements/${idEtablissement}');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'PUT',
       $url,
       client.baseUrl,
@@ -344,14 +337,13 @@ class _$ApiService extends ApiService {
     String token,
     int idEtablissement,
   ) {
-    final $url =
-        'https://services.position.cm/api/etablissements/${idEtablissement}';
-    final $headers = {
+    final Uri $url = Uri.parse(
+        'https://services.position.cm/api/etablissements/${idEtablissement}');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'DELETE',
       $url,
       client.baseUrl,
@@ -365,14 +357,13 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final $url = 'https://services.position.cm/api/favoris/add';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/favoris/add');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -387,14 +378,14 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final $url = 'https://services.position.cm/api/favoris/remove';
-    final $headers = {
+    final Uri $url =
+        Uri.parse('https://services.position.cm/api/favoris/remove');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
@@ -406,13 +397,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getfavoris(String token) {
-    final $url = 'https://services.position.cm/api/favoris';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/favoris');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -428,19 +418,18 @@ class _$ApiService extends ApiService {
     String? commodites,
     int? page,
   ) {
-    final $url =
-        'https://services.position.cm/api/search/etablissements/filter';
-    final $params = <String, dynamic>{
+    final Uri $url = Uri.parse(
+        'https://services.position.cm/api/search/etablissements/filter');
+    final Map<String, dynamic> $params = <String, dynamic>{
       'id_categorie': idCategorie,
       'user_id': idUser,
       'commodites': commodites,
       'page': page,
     };
-    final $headers = {
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -452,13 +441,12 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> updateetablissementview(int idEtablissement) {
-    final $url =
-        'https://services.position.cm/api/etablissements/vues/${idEtablissement}';
-    final $headers = {
+    final Uri $url = Uri.parse(
+        'https://services.position.cm/api/etablissements/vues/${idEtablissement}');
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'PUT',
       $url,
       client.baseUrl,
@@ -472,14 +460,13 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final $url = 'https://services.position.cm/api/commentaires';
-    final $headers = {
+    final Uri $url = Uri.parse('https://services.position.cm/api/commentaires');
+    final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
     };
-
     final $body = body;
-    final $request = Request(
+    final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,

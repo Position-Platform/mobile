@@ -1,14 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
-import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/auth/repositories/authRepository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
   final AuthRepository? authRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
@@ -37,13 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (isSignedIn) {
         try {
           final userResult = await authRepository!.getuser(token!);
-          if (userResult.error is NoInternetError) {
-            return emit(AuthNoInternet());
-          } else if (userResult.error is ServerError) {
-            return emit(AuthFailure());
-          } else {
-            return emit(AuthSuccess(userResult.success!.data!.user!));
-          }
+          return emit(AuthSuccess(userResult.success!));
         } catch (e) {
           return emit(AuthServerError());
         }
@@ -65,13 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       try {
         final userResult = await authRepository!.getuser(token!);
-        if (userResult.error is NoInternetError) {
-          return emit(AuthNoInternet());
-        } else if (userResult.error is ServerError) {
-          return emit(AuthServerError());
-        } else {
-          return emit(AuthSuccess(userResult.success!.data!.user!));
-        }
+        return emit(AuthSuccess(userResult.success!));
       } catch (e) {
         return emit(AuthServerError());
       }
@@ -112,5 +99,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     return emit(AuthRegisterState());
+  }
+
+  @override
+  AuthState? fromJson(Map<String, dynamic> json) {
+    try {
+      final user = User.fromJson(json['user']);
+      return AuthSuccess(user);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Map<String, dynamic>? toJson(AuthState state) {
+    if (state is AuthSuccess) {
+      return {"user": state.user.toJson()};
+    }
+    return null;
   }
 }
