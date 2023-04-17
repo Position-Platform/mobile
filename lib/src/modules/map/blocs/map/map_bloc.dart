@@ -71,7 +71,6 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     on<AddFavorite>(_addFavorite);
     on<RemoveFavorite>(_removeFavorite);
     on<SharePlace>(_sharePlace);
-    on<SelectChips>(_selectChip);
     on<DistanceSelect>(_distanceSelect);
     on<AvisSelect>(_avisSelect);
     on<PertinenceSelect>(_pertinenceSelect);
@@ -115,7 +114,6 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     });
     if (!mapDownloaded) {
       add(DownloadMapOffline());
-      emit(MapInitialized());
     }
     add(GetUserLocationEvent());
     emit(MapInitialized());
@@ -476,6 +474,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   }
 
   _addFavorite(AddFavorite event, Emitter<MapState> emit) async {
+    emit(FavoriteAddProcess());
     try {
       var favoriteResult =
           await etablissementRepository!.addfavorite(event.etablissement!.id!);
@@ -492,6 +491,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   }
 
   _removeFavorite(RemoveFavorite event, Emitter<MapState> emit) async {
+    emit(FavoriteRemoveProcess());
     try {
       var favoriteResult = await etablissementRepository!
           .removefavorite(event.etablissement!.id!);
@@ -537,8 +537,6 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       emit(SharedError());
     }
   }
-
-  _selectChip(SelectChips event, Emitter<MapState> emit) {}
 
   _distanceSelect(DistanceSelect event, Emitter<MapState> emit) {
     emit(DistanceSelected());

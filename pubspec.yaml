@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bloc_test: ^9.1.0
+  cached_network_image: ^3.2.3
   carousel_slider: ^4.1.1
   chopper: ^6.1.1
   cupertino_icons: ^1.0.2
@@ -108,6 +109,8 @@ flutter:
     - .env
     - assets/images/png/
     - assets/images/svg/
+    - assets/images/categories/logo/
+    - assets/images/categories/logo/map/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

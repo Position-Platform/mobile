@@ -31,6 +31,7 @@ import 'package:position/src/modules/map/submodules/nominatim/api/nominatimApiSe
 import 'package:position/src/modules/map/submodules/nominatim/api/nominatimApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepositoryImpl.dart';
+import 'package:position/src/modules/map/submodules/search/db/search.dao.dart';
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiService.dart';
 import 'package:position/src/modules/map/submodules/tracking/api/trackingApiServiceFactory.dart';
 import 'package:position/src/modules/map/submodules/tracking/repository/trackingRepository.dart';
@@ -45,6 +46,8 @@ Future<void> init() async {
     NominatimService.create(),
     RoutingService.create()
   ], interceptors: [
+    HttpLoggingInterceptor(level: Level.body),
+    CurlInterceptor(),
     HeadersInterceptor({'X-Authorization': apiKey!})
   ], converter: const JsonConverter(), errorConverter: const JsonConverter());
 
@@ -76,6 +79,7 @@ Future<void> init() async {
   // Database
   getIt.registerLazySingleton<MyDatabase>(() => MyDatabase());
   getIt.registerLazySingleton<UserDao>(() => UserDao(getIt()));
+  getIt.registerLazySingleton<SearchDao>(() => SearchDao(getIt()));
 
   //Repository
   getIt.registerFactory<AuthRepository>(
@@ -133,6 +137,7 @@ Future<void> init() async {
       nominatimRepository: getIt(),
       etablissementRepository: getIt()));
   getIt.registerFactory<SearchBloc>(() => SearchBloc(
+      searchDao: getIt(),
       categoriesRepository: getIt(),
       etablissementRepository: getIt(),
       nominatimRepository: getIt()));

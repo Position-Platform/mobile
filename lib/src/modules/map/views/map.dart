@@ -24,7 +24,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/views/filterpage.dart';
-import 'package:position/src/modules/map/tools/searchdelegate.dart';
+import 'package:position/src/modules/map/submodules/search/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/placebottomsheet.dart';

@@ -122,8 +122,6 @@ class SharePlace extends MapEvent {
   String toString() => 'SharePlace { SearchModel: $searchModel }';
 }
 
-class SelectChips extends MapEvent {}
-
 class DistanceSelect extends MapEvent {}
 
 class AvisSelect extends MapEvent {}

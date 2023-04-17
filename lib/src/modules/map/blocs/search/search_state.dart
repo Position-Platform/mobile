@@ -24,3 +24,27 @@ class SearchLoaded extends SearchState {
 }
 
 class SearchError extends SearchState {}
+
+class SuggestionAdded extends SearchState {
+  final String? matchQuery;
+
+  const SuggestionAdded(this.matchQuery);
+
+  @override
+  List<Object> get props => [matchQuery!];
+
+  @override
+  String toString() => 'SuggestionAdded { MatchQuery: $matchQuery }';
+}
+
+class ListSuggestions extends SearchState {
+  final List<String>? suggestions;
+
+  const ListSuggestions(this.suggestions);
+
+  @override
+  List<Object> get props => [suggestions!];
+
+  @override
+  String toString() => 'ListSuggestions { Suggestions: $suggestions }';
+}

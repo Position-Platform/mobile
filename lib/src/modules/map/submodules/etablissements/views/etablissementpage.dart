@@ -185,7 +185,8 @@ Widget etablissementPage(
                   searchModel.type! == "nominatim"
                       ? const SizedBox()
                       : searchModel.etablissement!.isFavoris! ||
-                              state is FavoriteAdded
+                              state is FavoriteAdded ||
+                              state is FavoriteAddProcess
                           ? buttonBottomSheetNoLabel(
                               S.of(context).saved,
                               "assets/images/svg/icon-action-vignette-remove.svg",
@@ -231,10 +232,13 @@ Widget etablissementPage(
               ),
               Container(
                 margin: const EdgeInsets.only(left: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: buildCommodites(
-                      searchModel.etablissement!.commodites!.split(";")),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: buildCommodites(
+                        searchModel.etablissement!.commodites!.split(";")),
+                  ),
                 ),
               ),
               const SizedBox(

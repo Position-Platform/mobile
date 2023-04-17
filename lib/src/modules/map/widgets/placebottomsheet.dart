@@ -140,11 +140,14 @@ Widget placeBottomSheet(
                 searchModel.type! == "etablissement"
                     ? Container(
                         margin: const EdgeInsets.only(left: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: buildCommodites(searchModel
-                              .etablissement!.commodites!
-                              .split(";")),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: buildCommodites(searchModel
+                                .etablissement!.commodites!
+                                .split(";")),
+                          ),
                         ),
                       )
                     : const SizedBox(),

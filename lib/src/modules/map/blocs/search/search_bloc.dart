@@ -1,6 +1,8 @@
+import 'package:drift/drift.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:position/src/core/database/db.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
@@ -10,6 +12,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/nominatim/models/nominatim.dart';
 import 'package:position/src/modules/map/submodules/nominatim/repository/nominatimRepository.dart';
+import 'package:position/src/modules/map/submodules/search/db/search.dao.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -18,12 +21,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   NominatimRepository? nominatimRepository;
   EtablissementRepository? etablissementRepository;
   CategoriesRepository? categoriesRepository;
+  SearchDao? searchDao;
   SearchBloc(
       {this.nominatimRepository,
       this.etablissementRepository,
-      this.categoriesRepository})
+      this.categoriesRepository,
+      this.searchDao})
       : super(SearchInitial()) {
     on<MakeSearch>(_search);
+    on<AddSuggestion>(_addSuggestion);
+    on<GetSuggestions>(_getSuggestions);
   }
 
   void _search(
@@ -158,4 +165,36 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             category: categoriesModel.data!.categories![i])
     ];
   }*/
+
+  _addSuggestion(
+    AddSuggestion event,
+    Emitter<SearchState> emit,
+  ) async {
+    List<SearchTableData> searchTable = await searchDao!.allSuggestions;
+    List<String> suggestions = [];
+
+    for (var i = 0; i < searchTable.length; i++) {
+      suggestions.add(searchTable[i].suggestion);
+    }
+
+    if (!suggestions.contains(event.matchQuery) &&
+        event.matchQuery!.isNotEmpty) {
+      await searchDao!.addSuggestion(
+          SearchTableCompanion(suggestion: Value(event.matchQuery!)));
+    }
+  }
+
+  _getSuggestions(
+    GetSuggestions event,
+    Emitter<SearchState> emit,
+  ) async {
+    List<SearchTableData> searchTable = await searchDao!.allSuggestions;
+    List<String> suggestions = [];
+
+    for (var i = 0; i < searchTable.length; i++) {
+      suggestions.add(searchTable[i].suggestion);
+    }
+
+    emit(ListSuggestions(suggestions));
+  }
 }

@@ -61,6 +61,10 @@ class RoutingAdded extends MapState {}
 
 class RoutingError extends MapState {}
 
+class FavoriteAddProcess extends MapState {}
+
+class FavoriteRemoveProcess extends MapState {}
+
 class FavoriteAdded extends MapState {
   final Datum? favoris;
 

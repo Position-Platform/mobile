@@ -7,7 +7,7 @@ import 'package:position/src/modules/auth/repositories/authRepository.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository? authRepository;
   final SharedPreferencesHelper? sharedPreferencesHelper;
 
@@ -99,23 +99,5 @@ class AuthBloc extends HydratedBloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     return emit(AuthRegisterState());
-  }
-
-  @override
-  AuthState? fromJson(Map<String, dynamic> json) {
-    try {
-      final user = User.fromJson(json['user']);
-      return AuthSuccess(user);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  @override
-  Map<String, dynamic>? toJson(AuthState state) {
-    if (state is AuthSuccess) {
-      return {"user": state.user.toJson()};
-    }
-    return null;
   }
 }
