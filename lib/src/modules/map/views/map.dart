@@ -108,7 +108,7 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is CategoriesLoaded) {
             isCategoriesLoading = false;
-            categories = state.categories!.data!.categories;
+            categories = state.categories!;
           }
           if (state is CategoriesClicked) {
             category = state.category;
@@ -263,12 +263,13 @@ class _MapPageState extends State<MapPage> {
                   attributionButtonPosition:
                       AttributionButtonPosition.BottomLeft,
                   attributionButtonMargins: const Point(-100, -100),
-                  rotateGesturesEnabled: false,
+                  rotateGesturesEnabled: true,
                   annotationOrder: const [AnnotationType.symbol],
-                  compassViewPosition: CompassViewPosition.TopRight,
+                  compassViewPosition: CompassViewPosition.BottomLeft,
                   zoomGesturesEnabled: true,
-                  myLocationEnabled: false,
+                  myLocationEnabled: true,
                   myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+                  myLocationRenderMode: MyLocationRenderMode.GPS,
                   compassEnabled: true,
                   onMapClick: (point, coordinates) =>
                       _mapBloc?.add(RemoveSymboleInMap()),

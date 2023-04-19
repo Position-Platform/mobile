@@ -8,12 +8,18 @@ import 'package:position/src/modules/auth/db/user.converter.dart';
 import 'package:position/src/modules/auth/db/user.dao.dart';
 import 'package:position/src/modules/auth/db/user.table.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
+import 'package:position/src/modules/map/submodules/categories/db/category.converter.dart';
+import 'package:position/src/modules/map/submodules/categories/db/category.dao.dart';
+import 'package:position/src/modules/map/submodules/categories/db/category.table.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/search/db/search.dao.dart';
 import 'package:position/src/modules/map/submodules/search/db/search.table.dart';
 
 part 'db.g.dart';
 
-@DriftDatabase(tables: [UserTable, SearchTable], daos: [UserDao, SearchDao])
+@DriftDatabase(
+    tables: [UserTable, SearchTable, CategoryTable],
+    daos: [UserDao, SearchDao, CategoryDao])
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor
   MyDatabase() : super(_openConnection());

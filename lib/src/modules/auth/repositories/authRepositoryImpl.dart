@@ -51,26 +51,33 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Result<User>> getuser(String token) async {
-    bool isConnected = await networkInfoHelper!.isConnected();
-    if (isConnected) {
+    DateTime expireToken = await sharedPreferencesHelper!.getExpireToken();
+    if (DateTime.now().compareTo(expireToken) < 0) {
       try {
-        final Response response = await authApiService!.getuser(token);
-
-        var model = UserModel.fromJson(response.body);
-
-        await userDao!.updateUser(UserTableCompanion(
-            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
-
-        return Result(success: model.data!.user);
-      } catch (e) {
         var user = await userDao!.getUser();
 
         return Result(success: user.user);
+      } catch (e) {
+        return Result(error: DbGetDataError());
       }
     } else {
-      var user = await userDao!.getUser();
+      bool isConnected = await networkInfoHelper!.isConnected();
+      if (isConnected) {
+        try {
+          final Response response = await authApiService!.getuser(token);
 
-      return Result(success: user.user);
+          var model = UserModel.fromJson(response.body);
+
+          await userDao!.updateUser(UserTableCompanion(
+              id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+
+          return Result(success: model.data!.user);
+        } catch (e) {
+          return Result(error: ServerError());
+        }
+      } else {
+        return Result(error: NoInternetError());
+      }
     }
   }
 

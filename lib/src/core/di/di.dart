@@ -21,6 +21,7 @@ import 'package:position/src/modules/map/blocs/map/map_bloc.dart';
 import 'package:position/src/modules/map/blocs/search/search_bloc.dart';
 import 'package:position/src/modules/map/submodules/categories/api/categoriesApiService.dart';
 import 'package:position/src/modules/map/submodules/categories/api/categoriesApiServiceFactory.dart';
+import 'package:position/src/modules/map/submodules/categories/db/category.dao.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepositoryImpl.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
@@ -80,6 +81,7 @@ Future<void> init() async {
   getIt.registerLazySingleton<MyDatabase>(() => MyDatabase());
   getIt.registerLazySingleton<UserDao>(() => UserDao(getIt()));
   getIt.registerLazySingleton<SearchDao>(() => SearchDao(getIt()));
+  getIt.registerLazySingleton<CategoryDao>(() => CategoryDao(getIt()));
 
   //Repository
   getIt.registerFactory<AuthRepository>(
@@ -92,10 +94,10 @@ Future<void> init() async {
 
   getIt.registerFactory<CategoriesRepository>(
     () => CategoriesRepositoryImpl(
-      categoriesApiService: getIt(),
-      networkInfoHelper: getIt(),
-      sharedPreferencesHelper: getIt(),
-    ),
+        categoriesApiService: getIt(),
+        networkInfoHelper: getIt(),
+        sharedPreferencesHelper: getIt(),
+        categoryDao: getIt()),
   );
 
   getIt.registerFactory<TrackingRepository>(

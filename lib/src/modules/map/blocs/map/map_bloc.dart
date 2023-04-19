@@ -16,7 +16,6 @@ import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
-import 'package:position/src/modules/map/submodules/categories/models/categories_model/categories_model.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/commentaire.dart';
@@ -112,11 +111,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         add(OnSymboleClick());
       }
     });
+    emit(MapInitialized());
     if (!mapDownloaded) {
       add(DownloadMapOffline());
     }
-    add(GetUserLocationEvent());
-    emit(MapInitialized());
   }
 
   Future<SearchModel> onFeatureClick(dynamic data, Offset point) async {
@@ -179,8 +177,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     try {
       var categoriesResult = await categoriesRepository?.getallcategories();
 
-      if (categoriesResult!.success!.success!) {
-        emit(CategoriesLoaded(categoriesResult.success));
+      if (categoriesResult!.success!.isNotEmpty) {
+        categoriesResult.success!.sort((a, b) => b.vues!.compareTo(a.vues!));
+        emit(CategoriesLoaded(categoriesResult.success!));
       }
     } catch (e) {
       emit(CategoriesError());
@@ -743,20 +742,11 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
   @override
   MapState? fromJson(Map<String, dynamic> json) {
-    try {
-      final categories = CategoriesModel.fromJson(json['categories']);
-      return CategoriesLoaded(categories);
-    } catch (e) {
-      return null;
-    }
+    return null;
   }
 
   @override
   Map<String, dynamic>? toJson(MapState state) {
-    if (state is CategoriesLoaded) {
-      return {"categories": state.categories!.toJson()};
-    }
-
     return null;
   }
 
