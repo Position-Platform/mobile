@@ -20,13 +20,13 @@ class TrackingRepositoryImpl implements TrackingRepository {
 
   @override
   Future<Result<TrackingModel>> addtracking(
-      double longitude, double latitude) async {
+      double longitude, double latitude, double speed, String timestamp) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     String? token = await sharedPreferencesHelper!.getToken();
     if (isConnected) {
       try {
-        final Response response =
-            await trackingApiService!.addtracking(token!, longitude, latitude);
+        final Response response = await trackingApiService!
+            .addtracking(token!, longitude, latitude, speed, timestamp);
 
         var model = TrackingModel.fromJson(response.body);
 

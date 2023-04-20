@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
 
 Widget searchItem(BuildContext context, SearchModel searchModel) {
   return ListTile(
     leading: searchModel.type == "etablissement"
-        ? SvgPicture.network(apiUrl + searchModel.logo!, height: 30, width: 30)
+        ? SvgPicture.asset("assets${searchModel.logo!}", height: 30, width: 30)
         : searchModel.type == "nominatim"
             ? Image.network(
                 searchModel.logo!,

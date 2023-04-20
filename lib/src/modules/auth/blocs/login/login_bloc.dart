@@ -73,6 +73,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       if (user.success!.success!) {
         await sharedPreferencesHelper!.setToken(user.success!.data!.token!);
+        await sharedPreferencesHelper!.setExpireToken();
         return emit(LoginState.success());
       } else {
         return emit(LoginState.failure());
@@ -127,6 +128,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               await authRepository!.registerfacebook(result.accessToken!.token);
           if (auth.success!.success!) {
             await sharedPreferencesHelper!.setToken(auth.success!.data!.token!);
+            await sharedPreferencesHelper!.setExpireToken();
             emit(LoginState.success());
           } else {
             emit(LoginState.failure());
@@ -163,6 +165,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             await authRepository!.registergoogle(authentication.accessToken!);
         if (auth.success!.success!) {
           await sharedPreferencesHelper!.setToken(auth.success!.data!.token!);
+          await sharedPreferencesHelper!.setExpireToken();
           emit(LoginState.success());
         } else {
           emit(LoginState.failure());

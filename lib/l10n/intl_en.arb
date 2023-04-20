@@ -147,5 +147,13 @@
   "add_picture" : "Add Picture",
   "complete_add" : "You have finished configuring the facility!",
   "complete_add_desc" : "The establishment will be put online after the payment. You will still be able to modify the information from your account.",
-  "add": "Add"
+  "add": "Add",
+  "removeMap": "Remove registered maps",
+  "successDownload" : "Map downloaded successfully",
+  "backgroundDownload" : "Downloaded maps in background",
+  "errorDownload": "Download error",
+  "removeMap" : "Removed maps",
+   "routingError" : "Route recovery error",
+  "sharedError": "Sharing error",
+  "error" : "An error has occurred"
 }

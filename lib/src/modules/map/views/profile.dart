@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,8 +69,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: CircleAvatar(
                 radius: 30,
                 backgroundImage: widget.user!.imageProfil!.contains("http")
-                    ? NetworkImage(widget.user!.imageProfil!)
-                    : NetworkImage(apiUrl + widget.user!.imageProfil!),
+                    ? CachedNetworkImageProvider(widget.user!.imageProfil!)
+                    : CachedNetworkImageProvider(
+                        apiUrl + widget.user!.imageProfil!),
               ),
             ),
             const SizedBox(

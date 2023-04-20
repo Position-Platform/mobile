@@ -128,6 +128,22 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             horizontalTitleGap: 1,
           ),
+          InkWell(
+            highlightColor: transparent,
+            onTap: () {
+              Navigator.pop(context);
+              widget.mapBloc!.add(RemoveDownloadMap());
+            },
+            child: ListTile(
+              leading: SvgPicture.asset("assets/images/svg/icon-clear.svg"),
+              title: const Text(
+                "Supprimer les cartes enregistrées",
+                style: TextStyle(
+                    fontSize: 12, fontFamily: "OpenSans", color: greyColor),
+              ),
+              horizontalTitleGap: 1,
+            ),
+          ),
           const Spacer(),
           appFooter(context, appLocale, _appBloc)
         ],
