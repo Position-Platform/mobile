@@ -6,6 +6,8 @@ part 'tracking.g.dart';
 class Tracking {
   String? longitude;
   String? latitude;
+  String? speed;
+  String? timestamp;
   @JsonKey(name: 'user_id')
   int? userId;
   @JsonKey(name: 'updated_at')
@@ -17,6 +19,8 @@ class Tracking {
   Tracking({
     this.longitude,
     this.latitude,
+    this.speed,
+    this.timestamp,
     this.userId,
     this.updatedAt,
     this.createdAt,
@@ -25,7 +29,7 @@ class Tracking {
 
   @override
   String toString() {
-    return 'Tracking(longitude: $longitude, latitude: $latitude, userId: $userId, updatedAt: $updatedAt, createdAt: $createdAt, id: $id)';
+    return 'Tracking(longitude: $longitude, latitude: $latitude, speed: $speed,timestamp:$timestamp, userId: $userId, updatedAt: $updatedAt, createdAt: $createdAt, id: $id)';
   }
 
   factory Tracking.fromJson(Map<String, dynamic> json) {
@@ -37,6 +41,8 @@ class Tracking {
   Tracking copyWith({
     String? longitude,
     String? latitude,
+    String? speed,
+    String? timestamp,
     int? userId,
     DateTime? updatedAt,
     DateTime? createdAt,
@@ -45,6 +51,8 @@ class Tracking {
     return Tracking(
       longitude: longitude ?? this.longitude,
       latitude: latitude ?? this.latitude,
+      speed: speed ?? this.speed,
+      timestamp: timestamp ?? this.timestamp,
       userId: userId ?? this.userId,
       updatedAt: updatedAt ?? this.updatedAt,
       createdAt: createdAt ?? this.createdAt,

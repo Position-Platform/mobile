@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:maplibre_gl/mapbox_gl.dart';
 import 'package:maplibre_gl/mapbox_gl.dart' as maplibre_gl;
 import 'package:position/src/core/helpers/sharedpreferences.dart';
@@ -93,7 +94,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         Geolocator.getPositionStream(locationSettings: locationSettings)
             .listen((Position position) async {
       await trackingRepository?.addtracking(
-          position.longitude, position.latitude);
+          position.longitude,
+          position.latitude,
+          position.speed,
+          DateFormat('yyyy-MM-dd').format(position.timestamp!));
     });
     _mapController?.onFeatureTapped.add((id, point, coordinates) async {
       if (id == "") {
@@ -168,8 +172,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(position.latitude, position.longitude),
         zoom: initMapZoom)));
-    await trackingRepository?.addtracking(
-        position.longitude, position.latitude);
+    await trackingRepository?.addtracking(position.longitude, position.latitude,
+        position.speed, DateFormat('yyyy-MM-dd').format(position.timestamp!));
   }
 
   _getCategories(GetCategories event, Emitter<MapState> emit) async {
