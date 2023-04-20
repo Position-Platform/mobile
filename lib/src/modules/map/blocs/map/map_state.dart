@@ -57,6 +57,8 @@ class SymboleClicked extends MapState {}
 
 class SymboleRemoved extends MapState {}
 
+class RoutingLoading extends MapState {}
+
 class RoutingAdded extends MapState {}
 
 class RoutingError extends MapState {}
@@ -102,6 +104,8 @@ class PlaceShared extends MapState {
   @override
   String toString() => 'PlaceShared { ShareUrl: $url }';
 }
+
+class SharedLoading extends MapState {}
 
 class SharedError extends MapState {}
 

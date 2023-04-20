@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 
 Widget etablissementCard(
@@ -31,9 +32,12 @@ Widget etablissementCard(
                     color: transparent,
                     width: 130,
                     height: 100,
-                    child: Image.network(
-                      apiUrl + etablissement.cover!,
-                      fit: BoxFit.fill,
+                    child: CachedNetworkImage(
+                      imageUrl: apiUrl + etablissement.cover!,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) {
+                        return Image.asset("assets/images/png/notfound.png");
+                      },
                     ),
                   ),
                   Container(

@@ -185,8 +185,7 @@ Widget etablissementPage(
                   searchModel.type! == "nominatim"
                       ? const SizedBox()
                       : searchModel.etablissement!.isFavoris! ||
-                              state is FavoriteAdded ||
-                              state is FavoriteAddProcess
+                              state is FavoriteAdded
                           ? buttonBottomSheetNoLabel(
                               S.of(context).saved,
                               "assets/images/svg/icon-action-vignette-remove.svg",

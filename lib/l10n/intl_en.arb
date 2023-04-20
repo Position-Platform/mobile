@@ -152,5 +152,8 @@
   "successDownload" : "Map downloaded successfully",
   "backgroundDownload" : "Downloaded maps in background",
   "errorDownload": "Download error",
-  "removeMap" : "Removed maps"
+  "removeMap" : "Removed maps",
+   "routingError" : "Route recovery error",
+  "sharedError": "Sharing error",
+  "error" : "An error has occurred"
 }

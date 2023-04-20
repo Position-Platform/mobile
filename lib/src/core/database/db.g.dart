@@ -537,18 +537,211 @@ class CategoryTableCompanion extends UpdateCompanion<CategoryTableData> {
   }
 }
 
+class $EtablissementTableTable extends EtablissementTable
+    with TableInfo<$EtablissementTableTable, EtablissementTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $EtablissementTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _etablissementMeta =
+      const VerificationMeta('etablissement');
+  @override
+  late final GeneratedColumnWithTypeConverter<Datum?, String> etablissement =
+      GeneratedColumn<String>('etablissement', aliasedName, true,
+              type: DriftSqlType.string, requiredDuringInsert: false)
+          .withConverter<Datum?>(
+              $EtablissementTableTable.$converteretablissementn);
+  @override
+  List<GeneratedColumn> get $columns => [id, etablissement];
+  @override
+  String get aliasedName => _alias ?? 'etablissement_table';
+  @override
+  String get actualTableName => 'etablissement_table';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<EtablissementTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    context.handle(_etablissementMeta, const VerificationResult.success());
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  EtablissementTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return EtablissementTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      etablissement: $EtablissementTableTable.$converteretablissementn.fromSql(
+          attachedDatabase.typeMapping.read(
+              DriftSqlType.string, data['${effectivePrefix}etablissement'])),
+    );
+  }
+
+  @override
+  $EtablissementTableTable createAlias(String alias) {
+    return $EtablissementTableTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<Datum, String> $converteretablissement =
+      const EtablissementConverter();
+  static TypeConverter<Datum?, String?> $converteretablissementn =
+      NullAwareTypeConverter.wrap($converteretablissement);
+}
+
+class EtablissementTableData extends DataClass
+    implements Insertable<EtablissementTableData> {
+  final int id;
+  final Datum? etablissement;
+  const EtablissementTableData({required this.id, this.etablissement});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || etablissement != null) {
+      final converter = $EtablissementTableTable.$converteretablissementn;
+      map['etablissement'] = Variable<String>(converter.toSql(etablissement));
+    }
+    return map;
+  }
+
+  EtablissementTableCompanion toCompanion(bool nullToAbsent) {
+    return EtablissementTableCompanion(
+      id: Value(id),
+      etablissement: etablissement == null && nullToAbsent
+          ? const Value.absent()
+          : Value(etablissement),
+    );
+  }
+
+  factory EtablissementTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return EtablissementTableData(
+      id: serializer.fromJson<int>(json['id']),
+      etablissement: serializer.fromJson<Datum?>(json['etablissement']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'etablissement': serializer.toJson<Datum?>(etablissement),
+    };
+  }
+
+  EtablissementTableData copyWith(
+          {int? id, Value<Datum?> etablissement = const Value.absent()}) =>
+      EtablissementTableData(
+        id: id ?? this.id,
+        etablissement:
+            etablissement.present ? etablissement.value : this.etablissement,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('EtablissementTableData(')
+          ..write('id: $id, ')
+          ..write('etablissement: $etablissement')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, etablissement);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is EtablissementTableData &&
+          other.id == this.id &&
+          other.etablissement == this.etablissement);
+}
+
+class EtablissementTableCompanion
+    extends UpdateCompanion<EtablissementTableData> {
+  final Value<int> id;
+  final Value<Datum?> etablissement;
+  const EtablissementTableCompanion({
+    this.id = const Value.absent(),
+    this.etablissement = const Value.absent(),
+  });
+  EtablissementTableCompanion.insert({
+    this.id = const Value.absent(),
+    this.etablissement = const Value.absent(),
+  });
+  static Insertable<EtablissementTableData> custom({
+    Expression<int>? id,
+    Expression<String>? etablissement,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (etablissement != null) 'etablissement': etablissement,
+    });
+  }
+
+  EtablissementTableCompanion copyWith(
+      {Value<int>? id, Value<Datum?>? etablissement}) {
+    return EtablissementTableCompanion(
+      id: id ?? this.id,
+      etablissement: etablissement ?? this.etablissement,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (etablissement.present) {
+      final converter = $EtablissementTableTable.$converteretablissementn;
+      map['etablissement'] =
+          Variable<String>(converter.toSql(etablissement.value));
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('EtablissementTableCompanion(')
+          ..write('id: $id, ')
+          ..write('etablissement: $etablissement')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$MyDatabase extends GeneratedDatabase {
   _$MyDatabase(QueryExecutor e) : super(e);
   late final $UserTableTable userTable = $UserTableTable(this);
   late final $SearchTableTable searchTable = $SearchTableTable(this);
   late final $CategoryTableTable categoryTable = $CategoryTableTable(this);
+  late final $EtablissementTableTable etablissementTable =
+      $EtablissementTableTable(this);
   late final UserDao userDao = UserDao(this as MyDatabase);
   late final SearchDao searchDao = SearchDao(this as MyDatabase);
   late final CategoryDao categoryDao = CategoryDao(this as MyDatabase);
+  late final EtablissementDao etablissementDao =
+      EtablissementDao(this as MyDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [userTable, searchTable, categoryTable];
+      [userTable, searchTable, categoryTable, etablissementTable];
 }

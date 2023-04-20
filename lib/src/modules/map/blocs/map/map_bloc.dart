@@ -427,6 +427,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         "${position.longitude},${position.latitude};${event.lon!},${event.lat!}";
 
     try {
+      emit(RoutingLoading());
       var routeResult = await nominatimRepository!.getroute(coordonnees);
       var responses = [];
 
@@ -464,6 +465,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
             ));
 
         _mapController!.animateCamera(CameraUpdate.zoomTo(14));
+        emit(RoutingAdded());
       } else {
         emit(RoutingError());
       }
@@ -507,6 +509,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     String searchmodel = json.encode(event.searchModel!.toJson());
 
     try {
+      emit(SharedLoading());
       final DynamicLinkParameters parameters = DynamicLinkParameters(
         uriPrefix: 'https://app.position.cm/',
         link: Uri.parse('https://app.position.cm?searchmodel=$searchmodel'),

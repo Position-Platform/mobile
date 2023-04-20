@@ -152,5 +152,8 @@
   "successDownload" : "Carte téléchargée avec succès",
   "backgroundDownload" : "Télechargement des cartes en arriere plan",
   "errorDownload" : "Erreur de téléchargement",
-  "removeMap" : "Cartes supprimées"
+  "removeMap" : "Cartes supprimées",
+  "routingError" : "Erreur de récupération d'itinéraire",
+  "sharedError" : "Erreur de partage",
+  "error": "Une erreur est survenue"
 }

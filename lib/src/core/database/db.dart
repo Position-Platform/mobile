@@ -12,14 +12,18 @@ import 'package:position/src/modules/map/submodules/categories/db/category.conve
 import 'package:position/src/modules/map/submodules/categories/db/category.dao.dart';
 import 'package:position/src/modules/map/submodules/categories/db/category.table.dart';
 import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
+import 'package:position/src/modules/map/submodules/etablissements/db/etablissement.converter.dart';
+import 'package:position/src/modules/map/submodules/etablissements/db/etablissement.dao.dart';
+import 'package:position/src/modules/map/submodules/etablissements/db/etablissement.table.dart';
+import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/search/db/search.dao.dart';
 import 'package:position/src/modules/map/submodules/search/db/search.table.dart';
 
 part 'db.g.dart';
 
 @DriftDatabase(
-    tables: [UserTable, SearchTable, CategoryTable],
-    daos: [UserDao, SearchDao, CategoryDao])
+    tables: [UserTable, SearchTable, CategoryTable, EtablissementTable],
+    daos: [UserDao, SearchDao, CategoryDao, EtablissementDao])
 class MyDatabase extends _$MyDatabase {
   // we tell the database where to store the data with this constructor
   MyDatabase() : super(_openConnection());

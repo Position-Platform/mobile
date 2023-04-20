@@ -84,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enableGps": MessageLookupByLibrary.simpleMessage(
             "Please make sure you enable GPS"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
+        "error": MessageLookupByLibrary.simpleMessage("An error has occurred"),
         "errorDownload": MessageLookupByLibrary.simpleMessage("Download error"),
         "etablissementAdded":
             MessageLookupByLibrary.simpleMessage("Etablissements Added"),
@@ -168,6 +169,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reviewerror":
             MessageLookupByLibrary.simpleMessage("Error adding review"),
         "routing": MessageLookupByLibrary.simpleMessage("Routing"),
+        "routingError":
+            MessageLookupByLibrary.simpleMessage("Route recovery error"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "saved": MessageLookupByLibrary.simpleMessage("Registered"),
         "savedplaces": MessageLookupByLibrary.simpleMessage("My Saved Places"),
@@ -192,6 +195,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareMyPosition":
             MessageLookupByLibrary.simpleMessage("Share My Position"),
         "sharePosition": MessageLookupByLibrary.simpleMessage("Share Position"),
+        "sharedError": MessageLookupByLibrary.simpleMessage("Sharing error"),
         "showCategorie":
             MessageLookupByLibrary.simpleMessage("see all categories"),
         "showlist": MessageLookupByLibrary.simpleMessage("View List"),

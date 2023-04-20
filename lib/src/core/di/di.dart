@@ -26,6 +26,7 @@ import 'package:position/src/modules/map/submodules/categories/repositories/cate
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepositoryImpl.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiServiceFactory.dart';
+import 'package:position/src/modules/map/submodules/etablissements/db/etablissement.dao.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepositoryImpl.dart';
 import 'package:position/src/modules/map/submodules/nominatim/api/nominatimApiService.dart';
@@ -82,6 +83,8 @@ Future<void> init() async {
   getIt.registerLazySingleton<UserDao>(() => UserDao(getIt()));
   getIt.registerLazySingleton<SearchDao>(() => SearchDao(getIt()));
   getIt.registerLazySingleton<CategoryDao>(() => CategoryDao(getIt()));
+  getIt
+      .registerLazySingleton<EtablissementDao>(() => EtablissementDao(getIt()));
 
   //Repository
   getIt.registerFactory<AuthRepository>(

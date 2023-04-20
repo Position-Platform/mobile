@@ -7,6 +7,7 @@ import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:maplibre_gl/mapbox_gl.dart';
@@ -84,6 +85,8 @@ class _MapPageState extends State<MapPage> {
   bool? avis;
   bool? pertinance;
   String? commodites = "";
+
+  bool isLoadng = false;
 
   @override
   Widget build(BuildContext context) {
@@ -233,6 +236,43 @@ class _MapPageState extends State<MapPage> {
               duration: const Duration(seconds: 3),
             ));
           }
+          if (state is RoutingLoading ||
+              state is SharedLoading ||
+              state is FavoriteAddProcess ||
+              state is FavoriteRemoveProcess) {
+            isLoadng = true;
+          }
+          if (state is RoutingAdded ||
+              state is PlaceShared ||
+              state is FavoriteAdded ||
+              state is FavoriteRemoved) {
+            isLoadng = false;
+          }
+          if (state is RoutingError) {
+            isLoadng = false;
+            Fluttertoast.showToast(
+                msg: S.of(context).routingError,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
+
+          if (state is SharedError) {
+            isLoadng = false;
+            Fluttertoast.showToast(
+                msg: S.of(context).sharedError,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
+          if (state is FavoriteError) {
+            isLoadng = false;
+            Fluttertoast.showToast(
+                msg: S.of(context).error,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
         },
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
@@ -374,7 +414,19 @@ class _MapPageState extends State<MapPage> {
                                   ],
                                 ),
                               ),
-                      )
+                      ),
+                      isLoadng
+                          ? Container(
+                              margin: EdgeInsets.only(
+                                  top: 10,
+                                  left:
+                                      MediaQuery.of(context).size.width - 100),
+                              child: const CircularProgressIndicator(
+                                color: primaryColor,
+                                strokeWidth: 4,
+                              ),
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ),

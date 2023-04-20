@@ -1569,6 +1569,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Route recovery error`
+  String get routingError {
+    return Intl.message(
+      'Route recovery error',
+      name: 'routingError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sharing error`
+  String get sharedError {
+    return Intl.message(
+      'Sharing error',
+      name: 'sharedError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error has occurred`
+  String get error {
+    return Intl.message(
+      'An error has occurred',
+      name: 'error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
