@@ -82,6 +82,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final token = await sharedPreferencesHelper!.getToken();
     await authRepository!.logout(token!);
     await sharedPreferencesHelper!.deleteToken();
+    await sharedPreferencesHelper!.deleteExpireDate();
     return emit(AuthFailure());
   }
 

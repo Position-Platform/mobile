@@ -69,7 +69,7 @@ class AuthRepositoryImpl implements AuthRepository {
           var model = UserModel.fromJson(response.body);
 
           await userDao!.updateUser(UserTableCompanion(
-              id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+              id: const Value(1), user: Value(model.data!.user)));
 
           return Result(success: model.data!.user);
         } catch (e) {
@@ -107,8 +107,12 @@ class AuthRepositoryImpl implements AuthRepository {
 
         var model = AuthModel.fromJson(response.body);
 
-        await userDao!.addUser(UserTableCompanion(
-            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+        try {
+          await userDao!.addUser(UserTableCompanion(
+              id: const Value(1), user: Value(model.data!.user)));
+        } catch (e) {
+          return Result(error: DbInsertError());
+        }
 
         return Result(success: model);
       } catch (e) {
@@ -195,7 +199,7 @@ class AuthRepositoryImpl implements AuthRepository {
         var model = AuthModel.fromJson(response.body);
 
         await userDao!.addUser(UserTableCompanion(
-            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+            id: const Value(1), user: Value(model.data!.user)));
 
         return Result(success: model);
       } catch (e) {
@@ -216,7 +220,7 @@ class AuthRepositoryImpl implements AuthRepository {
         var model = AuthModel.fromJson(response.body);
 
         await userDao!.addUser(UserTableCompanion(
-            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+            id: const Value(1), user: Value(model.data!.user)));
 
         return Result(success: model);
       } catch (e) {

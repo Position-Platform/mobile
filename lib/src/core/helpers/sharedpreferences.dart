@@ -74,4 +74,11 @@ class SharedPreferencesHelper {
     print('Expire Date $expireDate');
     return expireDate;
   }
+
+  Future<bool> deleteExpireDate() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool res = await prefs.remove(_expireToken);
+    print('Token $res');
+    return res;
+  }
 }
