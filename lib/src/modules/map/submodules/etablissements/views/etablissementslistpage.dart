@@ -171,6 +171,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                   toastLength: Toast.LENGTH_SHORT);
             }
             if (state is EtablissementsError) {
+              isLoading = false;
               _isLoadMoreRunning = false;
             }
           },

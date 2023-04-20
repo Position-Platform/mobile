@@ -1,9 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:chopper/chopper.dart';
+import 'package:drift/drift.dart';
+import 'package:position/src/core/database/db.dart';
 import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/modules/auth/api/authApiService.dart';
+import 'package:position/src/modules/auth/db/user.dao.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/auth/models/user_model/user_model.dart';
 import 'package:position/src/modules/auth/models/auth_model/auth_model.dart';
 import 'package:position/src/core/utils/result.dart';
@@ -14,11 +18,13 @@ class AuthRepositoryImpl implements AuthRepository {
   final NetworkInfoHelper? networkInfoHelper;
   final AuthApiService? authApiService;
   final SharedPreferencesHelper? sharedPreferencesHelper;
+  final UserDao? userDao;
 
   AuthRepositoryImpl(
       {this.networkInfoHelper,
       this.authApiService,
-      this.sharedPreferencesHelper});
+      this.sharedPreferencesHelper,
+      this.userDao});
   @override
   Future<bool> deletetoken() async {
     bool delete = await sharedPreferencesHelper!.deleteToken();
@@ -44,20 +50,34 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Result<UserModel>> getuser(String token) async {
-    bool isConnected = await networkInfoHelper!.isConnected();
-    if (isConnected) {
+  Future<Result<User>> getuser(String token) async {
+    DateTime expireToken = await sharedPreferencesHelper!.getExpireToken();
+    if (DateTime.now().compareTo(expireToken) < 0) {
       try {
-        final Response response = await authApiService!.getuser(token);
+        var user = await userDao!.getUser();
 
-        var model = UserModel.fromJson(response.body);
-
-        return Result(success: model);
+        return Result(success: user.user);
       } catch (e) {
-        return Result(error: ServerError());
+        return Result(error: DbGetDataError());
       }
     } else {
-      return Result(error: NoInternetError());
+      bool isConnected = await networkInfoHelper!.isConnected();
+      if (isConnected) {
+        try {
+          final Response response = await authApiService!.getuser(token);
+
+          var model = UserModel.fromJson(response.body);
+
+          await userDao!.updateUser(UserTableCompanion(
+              id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+
+          return Result(success: model.data!.user);
+        } catch (e) {
+          return Result(error: ServerError());
+        }
+      } else {
+        return Result(error: NoInternetError());
+      }
     }
   }
 
@@ -87,6 +107,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
         var model = AuthModel.fromJson(response.body);
 
+        await userDao!.addUser(UserTableCompanion(
+            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+
         return Result(success: model);
       } catch (e) {
         return Result(error: ServerError());
@@ -104,6 +127,8 @@ class AuthRepositoryImpl implements AuthRepository {
         final Response response = await authApiService!.logout(token);
 
         var model = ApiModel.fromJson(response.body);
+
+        await userDao!.deleteUser();
 
         return Result(success: model);
       } catch (e) {
@@ -169,6 +194,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
         var model = AuthModel.fromJson(response.body);
 
+        await userDao!.addUser(UserTableCompanion(
+            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
+
         return Result(success: model);
       } catch (e) {
         return Result(error: ServerError());
@@ -186,6 +214,9 @@ class AuthRepositoryImpl implements AuthRepository {
         final Response response = await authApiService!.registergoogle(token);
 
         var model = AuthModel.fromJson(response.body);
+
+        await userDao!.addUser(UserTableCompanion(
+            id: Value(model.data!.user!.id!), user: Value(model.data!.user)));
 
         return Result(success: model);
       } catch (e) {

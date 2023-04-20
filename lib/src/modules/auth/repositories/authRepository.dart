@@ -3,7 +3,7 @@
 import 'package:position/src/core/app/models/api_model/api_model.dart';
 import 'package:position/src/core/utils/result.dart';
 import 'package:position/src/modules/auth/models/auth_model/auth_model.dart';
-import 'package:position/src/modules/auth/models/user_model/user_model.dart';
+import 'package:position/src/modules/auth/models/user_model/user.dart';
 
 abstract class AuthRepository {
   Future<Result<AuthModel>> login(
@@ -18,7 +18,7 @@ abstract class AuthRepository {
 
   Future<Result<AuthModel>> registergoogle(String token);
 
-  Future<Result<UserModel>> getuser(String token);
+  Future<Result<User>> getuser(String token);
 
   Future<Result<ApiModel>> forgotpassword(String email);
 

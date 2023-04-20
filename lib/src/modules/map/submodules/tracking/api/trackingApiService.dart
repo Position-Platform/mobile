@@ -3,5 +3,6 @@
 import 'package:chopper/chopper.dart';
 
 abstract class TrackingApiService {
-  Future<Response> addtracking(String token, double longitude, double latitude);
+  Future<Response> addtracking(String token, double longitude, double latitude,
+      double speed, String timestamp);
 }

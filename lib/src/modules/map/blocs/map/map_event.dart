@@ -8,7 +8,7 @@ abstract class MapEvent extends Equatable {
 }
 
 class OnMapInitializedEvent extends MapEvent {
-  final MapboxMapController controller;
+  final MaplibreMapController controller;
   final User? user;
 
   const OnMapInitializedEvent(this.controller, this.user);
@@ -122,8 +122,6 @@ class SharePlace extends MapEvent {
   String toString() => 'SharePlace { SearchModel: $searchModel }';
 }
 
-class SelectChips extends MapEvent {}
-
 class DistanceSelect extends MapEvent {}
 
 class AvisSelect extends MapEvent {}
@@ -213,3 +211,33 @@ class AddReview extends MapEvent {
 }
 
 class GetFavorite extends MapEvent {}
+
+class DownloadMapOffline extends MapEvent {}
+
+class DownloadError extends MapEvent {
+  final String? error;
+
+  const DownloadError(this.error);
+
+  @override
+  List<Object> get props => [error!];
+
+  @override
+  String toString() => 'DownloadError { Error: $error }';
+}
+
+class DownloadProgress extends MapEvent {
+  final double? progress;
+
+  const DownloadProgress(this.progress);
+
+  @override
+  List<Object> get props => [progress!];
+
+  @override
+  String toString() => 'DownloadProgress { Progress: $progress }';
+}
+
+class CompleteDownload extends MapEvent {}
+
+class RemoveDownloadMap extends MapEvent {}

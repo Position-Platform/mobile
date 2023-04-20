@@ -23,18 +23,17 @@ class _$RoutingService extends RoutingService {
     String geometries,
     String steps,
   ) {
-    final $url =
-        'https://router.project-osrm.org/route/v1/driving/${coordinates}';
-    final $params = <String, dynamic>{
+    final Uri $url = Uri.parse(
+        'https://router.project-osrm.org/route/v1/driving/${coordinates}');
+    final Map<String, dynamic> $params = <String, dynamic>{
       'overview': overview,
       'geometries': geometries,
       'steps': steps,
     };
-    final $headers = {
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,

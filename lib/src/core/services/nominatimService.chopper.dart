@@ -24,19 +24,18 @@ class _$NominatimService extends NominatimService {
     String adressdetails,
     String countrycodes,
   ) {
-    final $url = 'https://nominatim.openstreetmap.org/search';
-    final $params = <String, dynamic>{
+    final Uri $url = Uri.parse('https://nominatim.openstreetmap.org/search');
+    final Map<String, dynamic> $params = <String, dynamic>{
       'q': query,
       'format': format,
       'polygon': polygon,
       'addressdetails': adressdetails,
       'countrycodes': countrycodes,
     };
-    final $headers = {
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
@@ -52,17 +51,16 @@ class _$NominatimService extends NominatimService {
     String lon,
     String lat,
   ) {
-    final $url = 'https://nominatim.openstreetmap.org/reverse';
-    final $params = <String, dynamic>{
+    final Uri $url = Uri.parse('https://nominatim.openstreetmap.org/reverse');
+    final Map<String, dynamic> $params = <String, dynamic>{
       'format': format,
       'lon': lon,
       'lat': lat,
     };
-    final $headers = {
+    final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
-
-    final $request = Request(
+    final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,

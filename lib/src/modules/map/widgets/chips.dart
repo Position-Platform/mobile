@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:position/src/core/utils/configs.dart';
 
 Widget buildChip(String label, String icon, VoidCallback callback) {
   return InkWell(
@@ -15,8 +14,8 @@ Widget buildChip(String label, String icon, VoidCallback callback) {
       )),
       avatar: CircleAvatar(
         backgroundColor: transparent,
-        child: SvgPicture.network(
-          apiUrl + icon,
+        child: SvgPicture.asset(
+          "assets$icon",
           height: 15,
           width: 15,
         ),

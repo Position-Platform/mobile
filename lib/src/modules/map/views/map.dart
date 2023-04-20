@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:maplibre_gl/mapbox_gl.dart';
 import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
@@ -23,7 +24,7 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementpage.dart';
 import 'package:position/src/modules/map/submodules/etablissements/views/etablissementslistpage.dart';
 import 'package:position/src/modules/map/submodules/filters/views/filterpage.dart';
-import 'package:position/src/modules/map/tools/searchdelegate.dart';
+import 'package:position/src/modules/map/submodules/search/tools/searchdelegate.dart';
 import 'package:position/src/modules/map/widgets/categories.dart';
 import 'package:position/src/modules/map/widgets/drawer.dart';
 import 'package:position/src/modules/map/widgets/placebottomsheet.dart';
@@ -84,6 +85,8 @@ class _MapPageState extends State<MapPage> {
   bool? pertinance;
   String? commodites = "";
 
+  bool isLoadng = false;
+
   @override
   Widget build(BuildContext context) {
     changeStatusColor(transparent);
@@ -107,7 +110,7 @@ class _MapPageState extends State<MapPage> {
           }
           if (state is CategoriesLoaded) {
             isCategoriesLoading = false;
-            categories = state.categories!.data!.categories;
+            categories = state.categories!;
           }
           if (state is CategoriesClicked) {
             category = state.category;
@@ -204,6 +207,71 @@ class _MapPageState extends State<MapPage> {
             state.favoris!.isFavoris = false;
             favoris!.remove(state.favoris!);
           }
+          if (state is DownloadComplete) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).successDownload),
+              backgroundColor: primaryColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is MapDownDownloading) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).backgroundDownload),
+              backgroundColor: accentColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is MapDownloadedError) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).errorDownload),
+              backgroundColor: redColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is DownloadMapRemoved) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(S.of(context).removeMap),
+              backgroundColor: redColor,
+              duration: const Duration(seconds: 3),
+            ));
+          }
+          if (state is RoutingLoading ||
+              state is SharedLoading ||
+              state is FavoriteAddProcess ||
+              state is FavoriteRemoveProcess) {
+            isLoadng = true;
+          }
+          if (state is RoutingAdded ||
+              state is PlaceShared ||
+              state is FavoriteAdded ||
+              state is FavoriteRemoved) {
+            isLoadng = false;
+          }
+          if (state is RoutingError) {
+            isLoadng = false;
+            Fluttertoast.showToast(
+                msg: S.of(context).routingError,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
+
+          if (state is SharedError) {
+            isLoadng = false;
+            Fluttertoast.showToast(
+                msg: S.of(context).sharedError,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
+          if (state is FavoriteError) {
+            isLoadng = false;
+            Fluttertoast.showToast(
+                msg: S.of(context).error,
+                backgroundColor: redColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
+          }
         },
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {
@@ -230,18 +298,22 @@ class _MapPageState extends State<MapPage> {
                     )
                   : const SizedBox(),
               background: Stack(children: [
-                MapboxMap(
-                  rotateGesturesEnabled: false,
+                MaplibreMap(
+                  attributionButtonPosition:
+                      AttributionButtonPosition.BottomLeft,
+                  attributionButtonMargins: const Point(-100, -100),
+                  rotateGesturesEnabled: true,
                   annotationOrder: const [AnnotationType.symbol],
-                  compassViewPosition: CompassViewPosition.TopRight,
+                  compassViewPosition: CompassViewPosition.BottomLeft,
                   zoomGesturesEnabled: true,
                   myLocationEnabled: true,
                   myLocationTrackingMode: MyLocationTrackingMode.Tracking,
+                  myLocationRenderMode: MyLocationRenderMode.GPS,
                   compassEnabled: true,
                   onMapClick: (point, coordinates) =>
                       _mapBloc?.add(RemoveSymboleInMap()),
-                  styleString: MapboxStyles.MAPBOX_STREETS,
-                  accessToken: mapboxApiKey,
+                  styleString:
+                      'https://api.maptiler.com/maps/streets-v2/style.json?key=GZun6glaQh7PwnoBZoOm',
                   onMapLongClick: (point, latLng) =>
                       _mapBloc?.add(AddSymboleOnMap(latLng)),
                   onMapCreated: (controller) => _mapBloc
@@ -341,7 +413,19 @@ class _MapPageState extends State<MapPage> {
                                   ],
                                 ),
                               ),
-                      )
+                      ),
+                      isLoadng
+                          ? Container(
+                              margin: EdgeInsets.only(
+                                  top: 10,
+                                  left:
+                                      MediaQuery.of(context).size.width - 100),
+                              child: const CircularProgressIndicator(
+                                color: primaryColor,
+                                strokeWidth: 4,
+                              ),
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ),

@@ -19,3 +19,17 @@ class MakeSearch extends SearchEvent {
   @override
   String toString() => 'MakeSearch { Query: $query }';
 }
+
+class AddSuggestion extends SearchEvent {
+  final String? matchQuery;
+
+  const AddSuggestion(this.matchQuery);
+
+  @override
+  List<Object> get props => [matchQuery!];
+
+  @override
+  String toString() => 'AddSuggestion { MatchQuery: $matchQuery }';
+}
+
+class GetSuggestions extends SearchEvent {}

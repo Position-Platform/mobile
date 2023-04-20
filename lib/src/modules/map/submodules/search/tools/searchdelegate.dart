@@ -101,11 +101,13 @@ class CustomSearchDelegate extends SearchDelegate {
           );
         }
         if (state is SearchLoaded) {
+          searchBloc!.add(AddSuggestion(query));
           if (state.searchresult!.isEmpty) {
             return Center(
               child: Text(S.of(context).searchnotfound),
             );
           }
+
           return ListView.builder(
             itemCount: state.searchresult!.length,
             itemBuilder: (context, index) {
@@ -127,19 +129,31 @@ class CustomSearchDelegate extends SearchDelegate {
   // querying process at the runtime
   @override
   Widget buildSuggestions(BuildContext context) {
-    /* List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        //  var result = matchQuery[index];
-        return searchItem();
+    searchBloc!.add(GetSuggestions());
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        if (state is ListSuggestions) {
+          List<String> matchQuery = [];
+          for (var suggestion in state.suggestions!) {
+            if (suggestion.toLowerCase().contains(query.toLowerCase())) {
+              matchQuery.add(suggestion);
+            }
+          }
+          return ListView.builder(
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              //  var result = matchQuery[index];
+              return ListTile(
+                title: Text(
+                  matchQuery[index],
+                  maxLines: 1,
+                ),
+              );
+            },
+          );
+        }
+        return Container();
       },
-    );*/
-    return Container();
+    );
   }
 }

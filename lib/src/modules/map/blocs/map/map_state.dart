@@ -18,7 +18,7 @@ class CategoriesLoading extends MapState {}
 class CategoriesError extends MapState {}
 
 class CategoriesLoaded extends MapState {
-  final CategoriesModel? categories;
+  final List<Category>? categories;
 
   const CategoriesLoaded(this.categories);
 
@@ -57,9 +57,15 @@ class SymboleClicked extends MapState {}
 
 class SymboleRemoved extends MapState {}
 
+class RoutingLoading extends MapState {}
+
 class RoutingAdded extends MapState {}
 
 class RoutingError extends MapState {}
+
+class FavoriteAddProcess extends MapState {}
+
+class FavoriteRemoveProcess extends MapState {}
 
 class FavoriteAdded extends MapState {
   final Datum? favoris;
@@ -98,6 +104,8 @@ class PlaceShared extends MapState {
   @override
   String toString() => 'PlaceShared { ShareUrl: $url }';
 }
+
+class SharedLoading extends MapState {}
 
 class SharedError extends MapState {}
 
@@ -186,3 +194,23 @@ class FavoriteLoaded extends MapState {
   @override
   String toString() => 'FavoriteLoaded { Favoris: $favoris }';
 }
+
+class MapDownDownloading extends MapState {}
+
+class MapDownloadedError extends MapState {}
+
+class UpdateDownloadProgress extends MapState {
+  final double? progress;
+
+  const UpdateDownloadProgress(this.progress);
+
+  @override
+  List<Object> get props => [progress!];
+
+  @override
+  String toString() => 'UpdateDownloadProgress { Progress: $progress }';
+}
+
+class DownloadComplete extends MapState {}
+
+class DownloadMapRemoved extends MapState {}
