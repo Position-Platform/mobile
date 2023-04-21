@@ -12,9 +12,10 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/sizes.dart';
 import 'package:position/src/core/utils/tools.dart';
-import 'package:position/src/init.dart';
 import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
+import 'package:position/src/modules/auth/blocs/login/login_bloc.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
+import 'package:position/src/modules/auth/views/login.dart';
 import 'package:position/src/widgets/footer.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -137,12 +138,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return BlocProvider<AuthBloc>(
-                        create: (context) =>
-                            getIt<AuthBloc>()..add(AuthStarted()),
-                        child: InitPage(
-                          initialLink: widget.initialLink,
-                        ),
+                      return BlocProvider<LoginBloc>(
+                        create: (context) => getIt<LoginBloc>(),
+                        child: const LoginPage(),
                       );
                     },
                   ),
