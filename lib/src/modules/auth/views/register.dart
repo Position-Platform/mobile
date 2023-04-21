@@ -171,12 +171,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     content: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(S.of(context).loginSuccess),
+                        Text(S.of(context).registerSuccess),
                         const Icon(Icons.check_circle)
                       ],
                     ),
                     backgroundColor: primaryColor,
-                    duration: const Duration(seconds: 7),
+                    duration: const Duration(seconds: 10),
                   ),
                 );
               Navigator.of(context).pop();
