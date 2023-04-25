@@ -55,7 +55,7 @@ dependencies:
   flutter_svg: ^2.0.5
   fluttertoast: ^8.1.1
   geolocator: ^9.0.2
-  get_it: ^7.2.0
+  get_it: ^7.3.0
   google_sign_in: ^6.1.0
   hydrated_bloc: ^9.1.0
   image_picker: ^0.8.6+1
