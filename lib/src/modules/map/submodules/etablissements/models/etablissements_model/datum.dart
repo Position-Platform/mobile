@@ -51,13 +51,13 @@ class Datum {
   int? avis;
   List<Count>? count;
   Batiment? batiment;
-  @JsonKey(name: 'sous_categories')
+  @JsonKey(name: 'sousCategories')
   List<SousCategory>? sousCategories;
   List<Image>? images;
   List<Horaire>? horaires;
   List<Commentaire>? commentaires;
   User? user;
-  double? distance;
+  String? distance;
 
   Datum({
     this.id,
@@ -141,7 +141,7 @@ class Datum {
     List<Horaire>? horaires,
     List<Commentaire>? commentaires,
     User? user,
-    double? distance,
+    String? distance,
   }) {
     return Datum(
         id: id ?? this.id,

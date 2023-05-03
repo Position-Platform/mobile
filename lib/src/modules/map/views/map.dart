@@ -302,7 +302,7 @@ class _MapPageState extends State<MapPage> {
                   attributionButtonPosition:
                       AttributionButtonPosition.BottomLeft,
                   attributionButtonMargins: const Point(-100, -100),
-                  rotateGesturesEnabled: true,
+                  rotateGesturesEnabled: false,
                   annotationOrder: const [AnnotationType.symbol],
                   compassViewPosition: CompassViewPosition.BottomLeft,
                   zoomGesturesEnabled: true,
