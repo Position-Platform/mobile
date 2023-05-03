@@ -486,7 +486,7 @@ packages:
       name: flutter_spinkit
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
+    version: "5.2.0"
   flutter_statusbarcolor_ns:
     dependency: "direct main"
     description:
