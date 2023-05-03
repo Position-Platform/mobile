@@ -61,14 +61,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       for (var j = 0;
           j < etablissementsResult.success!.data!.etablissements!.data!.length;
           j++) {
+        double distance = await calculateDistance(
+            etablissementsResult
+                .success!.data!.etablissements!.data![j].batiment!.longitude
+                .toString(),
+            etablissementsResult
+                .success!.data!.etablissements!.data![j].batiment!.latitude
+                .toString());
         etablissementsResult.success!.data!.etablissements!.data![j].distance =
-            await calculateDistance(
-                etablissementsResult
-                    .success!.data!.etablissements!.data![j].batiment!.longitude
-                    .toString(),
-                etablissementsResult
-                    .success!.data!.etablissements!.data![j].batiment!.latitude
-                    .toString());
+            distance.toString();
       }
       etablissementsResult.success!.data!.etablissements!.data!
           .sort((a, b) => a.distance!.compareTo(b.distance!));

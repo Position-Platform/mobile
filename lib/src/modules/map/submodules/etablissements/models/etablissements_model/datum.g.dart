@@ -46,7 +46,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       batiment: json['batiment'] == null
           ? null
           : Batiment.fromJson(json['batiment'] as Map<String, dynamic>),
-      sousCategories: (json['sous_categories'] as List<dynamic>?)
+      sousCategories: (json['sousCategories'] as List<dynamic>?)
           ?.map((e) => SousCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
       images: (json['images'] as List<dynamic>?)
@@ -61,7 +61,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
-      distance: (json['distance'] as num?)?.toDouble(),
+      distance: json['distance'] as String?,
     );
 
 Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
@@ -94,7 +94,7 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'avis': instance.avis,
       'count': instance.count,
       'batiment': instance.batiment,
-      'sous_categories': instance.sousCategories,
+      'sousCategories': instance.sousCategories,
       'images': instance.images,
       'horaires': instance.horaires,
       'commentaires': instance.commentaires,

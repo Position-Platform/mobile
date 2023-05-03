@@ -232,9 +232,15 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       emit(SymboledAdded(event.searchModel));
     } else {
       try {
+        Position position = await Geolocator.getCurrentPosition();
         var etablissementsResults = await etablissementRepository!
             .searchetablissementsbyfilters(
-                int.parse(event.searchModel!.id!), event.user!.id!, "", 1);
+                int.parse(event.searchModel!.id!),
+                event.user!.id!,
+                "",
+                1,
+                position.latitude.toString(),
+                position.longitude.toString());
 
         if (etablissementsResults.success!.success!) {
           var geojson = createGeoJsonEtablissements(
@@ -283,9 +289,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     }
     try {
       emit(EtablissementsLoading());
+
+      Position position = await Geolocator.getCurrentPosition();
       var etablissementsResults = await etablissementRepository!
           .searchetablissementsbyfilters(
-              event.categorie!.id!, event.user!.id!, event.commodites!, 1);
+              event.categorie!.id!,
+              event.user!.id!,
+              event.commodites!,
+              1,
+              position.latitude.toString(),
+              position.longitude.toString());
 
       if (etablissementsResults.success!.success!) {
         var geojson = createGeoJsonEtablissements(
@@ -296,15 +309,15 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 etablissementsResults
                     .success!.data!.etablissements!.data!.length;
             i++) {
-          etablissementsResults
-                  .success!.data!.etablissements!.data![i].distance =
-              await calculateDistance(
-                  etablissementsResults.success!.data!.etablissements!.data![i]
-                      .batiment!.longitude
-                      .toString(),
-                  etablissementsResults.success!.data!.etablissements!.data![i]
-                      .batiment!.latitude
-                      .toString());
+          var distance = await calculateDistance(
+              etablissementsResults
+                  .success!.data!.etablissements!.data![i].batiment!.longitude
+                  .toString(),
+              etablissementsResults
+                  .success!.data!.etablissements!.data![i].batiment!.latitude
+                  .toString());
+          etablissementsResults.success!.data!.etablissements!.data![i]
+              .distance = distance.toString();
         }
 
         await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
@@ -485,9 +498,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           await etablissementRepository!.addfavorite(event.etablissement!.id!);
 
       if (favoriteResult.success!.success!) {
-        event.etablissement!.distance = await calculateDistance(
+        var distance = await calculateDistance(
             event.etablissement!.batiment!.longitude!,
             event.etablissement!.batiment!.latitude!);
+        event.etablissement!.distance = distance.toString();
         emit(FavoriteAdded(event.etablissement));
       }
     } catch (e) {
@@ -562,10 +576,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
     if (event.hasNextPage! == true && event.isLoadMoreRunning! == false) {
       emit(LoadMoreRunning());
+      var position = await Geolocator.getCurrentPosition();
       try {
         var etablissementsResults = await etablissementRepository!
-            .searchetablissementsbyfilters(event.categorie!.id!,
-                event.user!.id!, event.commodites!, event.page);
+            .searchetablissementsbyfilters(
+                event.categorie!.id!,
+                event.user!.id!,
+                event.commodites!,
+                event.page,
+                position.latitude.toString(),
+                position.longitude.toString());
 
         if (etablissementsResults.success!.success!) {
           if (etablissementsResults
@@ -580,15 +600,15 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                     etablissementsResults
                         .success!.data!.etablissements!.data!.length;
                 i++) {
-              etablissementsResults
-                      .success!.data!.etablissements!.data![i].distance =
-                  await calculateDistance(
-                      etablissementsResults.success!.data!.etablissements!
-                          .data![i].batiment!.longitude
-                          .toString(),
-                      etablissementsResults.success!.data!.etablissements!
-                          .data![i].batiment!.latitude
-                          .toString());
+              var distance = await calculateDistance(
+                  etablissementsResults.success!.data!.etablissements!.data![i]
+                      .batiment!.longitude
+                      .toString(),
+                  etablissementsResults.success!.data!.etablissements!.data![i]
+                      .batiment!.latitude
+                      .toString());
+              etablissementsResults.success!.data!.etablissements!.data![i]
+                  .distance = distance.toString();
             }
 
             await _mapController?.addSource(GEOJSON_ETABLISSEMENT_SOURCE_ID,
@@ -667,9 +687,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
       var favorite = await etablissementRepository!.getallfavoris();
       if (favorite.success!.success!) {
         for (var i = 0; i < favorite.success!.data!.length; i++) {
-          favorite.success!.data![i].distance = await calculateDistance(
+          var distance = await calculateDistance(
               favorite.success!.data![i].batiment!.longitude.toString(),
               favorite.success!.data![i].batiment!.latitude.toString());
+          favorite.success!.data![i].distance = distance.toString();
         }
         emit(FavoriteLoaded(favorite.success!.data));
       } else {

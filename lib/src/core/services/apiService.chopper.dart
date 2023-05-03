@@ -249,9 +249,20 @@ class _$ApiService extends ApiService {
   }
 
   @override
-  Future<Response<dynamic>> getetablissements() {
+  Future<Response<dynamic>> getetablissements(
+    int idUser,
+    int page,
+    String lat,
+    String lon,
+  ) {
     final Uri $url =
         Uri.parse('https://services.position.cm/api/etablissements');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'user_id': idUser,
+      'page': page,
+      'lat': lat,
+      'lon': lon,
+    };
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -259,6 +270,7 @@ class _$ApiService extends ApiService {
       'GET',
       $url,
       client.baseUrl,
+      parameters: $params,
       headers: $headers,
     );
     return client.send<dynamic, dynamic>($request);
@@ -417,6 +429,8 @@ class _$ApiService extends ApiService {
     int idUser,
     String? commodites,
     int? page,
+    String lat,
+    String lon,
   ) {
     final Uri $url = Uri.parse(
         'https://services.position.cm/api/search/etablissements/filter');
@@ -425,6 +439,8 @@ class _$ApiService extends ApiService {
       'user_id': idUser,
       'commodites': commodites,
       'page': page,
+      'lat': lat,
+      'lon': lon,
     };
     final Map<String, String> $headers = {
       'Accept': 'application/json',
