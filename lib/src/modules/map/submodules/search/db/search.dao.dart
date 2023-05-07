@@ -13,10 +13,16 @@ class SearchDao extends DatabaseAccessor<MyDatabase> with _$SearchDaoMixin {
   // of this object.
   SearchDao(MyDatabase db) : super(db);
 
-  Future<List<SearchTableData>> get allSuggestions => select(searchTable).get();
+  Future<List<SearchTableData>> get allSuggestions => (select(searchTable)
+        ..limit(5)
+        ..orderBy([
+          (u) => OrderingTerm(expression: u.rowId, mode: OrderingMode.desc),
+          (u) => OrderingTerm(expression: u.id)
+        ]))
+      .get();
 
   Future<int> addSuggestion(SearchTableCompanion entry) {
-    return into(searchTable).insert(entry);
+    return into(searchTable).insert(entry, mode: InsertMode.insertOrReplace);
   }
 
   Future deleteSuggestion(int id) {

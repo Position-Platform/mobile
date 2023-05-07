@@ -26,7 +26,7 @@ class SearchLoaded extends SearchState {
 class SearchError extends SearchState {}
 
 class SuggestionAdded extends SearchState {
-  final String? matchQuery;
+  final SearchModel? matchQuery;
 
   const SuggestionAdded(this.matchQuery);
 
@@ -38,7 +38,7 @@ class SuggestionAdded extends SearchState {
 }
 
 class ListSuggestions extends SearchState {
-  final List<String>? suggestions;
+  final List<SearchModel>? suggestions;
 
   const ListSuggestions(this.suggestions);
 
@@ -48,3 +48,5 @@ class ListSuggestions extends SearchState {
   @override
   String toString() => 'ListSuggestions { Suggestions: $suggestions }';
 }
+
+class SuggestionError extends SearchState {}

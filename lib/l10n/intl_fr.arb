@@ -155,5 +155,6 @@
   "removeMap" : "Cartes supprimées",
   "routingError" : "Erreur de récupération d'itinéraire",
   "sharedError" : "Erreur de partage",
-  "error": "Une erreur est survenue"
+  "error": "Une erreur est survenue",
+  "recentSearch" : "Recherches Récentes"
 }
