@@ -1599,6 +1599,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Recent Searches`
+  String get recentSearch {
+    return Intl.message(
+      'Recent Searches',
+      name: 'recentSearch',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

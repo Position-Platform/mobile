@@ -73,6 +73,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
       etablissementsResult.success!.data!.etablissements!.data!
           .sort((a, b) => a.distance!.compareTo(b.distance!));
+
       /*  var categoriesResult =
           await categoriesRepository!.searchcategories(event.query!);*/
       List<SearchModel> searchResults = [
@@ -104,11 +105,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 "$apiUrl/images/icon-icon-position-pin.png",
             logomap: "$apiUrl/images/icon-icon-position-pin.png",
             features: nominatimModel.features![i],
-            distance: await calculateDistance(
-                nominatimModel.features![i].geometry!.coordinates![0]
-                    .toString(),
-                nominatimModel.features![i].geometry!.coordinates![1]
-                    .toString()))
+            distance: nominatimModel.features![i].distance)
     ];
   }
 
@@ -145,11 +142,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 etablissementsModel.data!.etablissements!.data![i].isopen,
             plageDay: checkIfEtablissementIsOpen(
                 etablissementsModel.data!.etablissements!.data![i]),
-            distance: await calculateDistance(
-                etablissementsModel
-                    .data!.etablissements!.data![i].batiment!.longitude!,
-                etablissementsModel
-                    .data!.etablissements!.data![i].batiment!.latitude!))
+            distance: double.parse(
+                etablissementsModel.data!.etablissements!.data![i].distance!))
     ];
   }
 
@@ -172,17 +166,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) async {
     List<SearchTableData> searchTable = await searchDao!.allSuggestions;
-    List<String> suggestions = [];
+    List<SearchModel> suggestions = [];
 
     for (var i = 0; i < searchTable.length; i++) {
-      suggestions.add(searchTable[i].suggestion);
+      suggestions.add(searchTable[i].suggestion!);
     }
 
-    if (!suggestions.contains(event.matchQuery) &&
-        event.matchQuery!.isNotEmpty) {
-      await searchDao!.addSuggestion(
-          SearchTableCompanion(suggestion: Value(event.matchQuery!)));
+    try {
+      await searchDao!.addSuggestion(SearchTableCompanion(
+          id: Value(int.parse(event.matchQuery!.id!)),
+          suggestion: Value(event.matchQuery!)));
+
+      emit(SuggestionAdded(event.matchQuery));
+    } catch (e) {
+      emit(SuggestionError());
     }
+
+    if (!suggestions.contains(event.matchQuery)) {}
   }
 
   _getSuggestions(
@@ -190,10 +190,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) async {
     List<SearchTableData> searchTable = await searchDao!.allSuggestions;
-    List<String> suggestions = [];
+    List<SearchModel> suggestions = [];
 
     for (var i = 0; i < searchTable.length; i++) {
-      suggestions.add(searchTable[i].suggestion);
+      suggestions.add(searchTable[i].suggestion!);
     }
 
     emit(ListSuggestions(suggestions));

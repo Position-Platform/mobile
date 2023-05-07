@@ -197,9 +197,10 @@ class $SearchTableTable extends SearchTable
   static const VerificationMeta _suggestionMeta =
       const VerificationMeta('suggestion');
   @override
-  late final GeneratedColumn<String> suggestion = GeneratedColumn<String>(
-      'suggestion', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumnWithTypeConverter<SearchModel?, String> suggestion =
+      GeneratedColumn<String>('suggestion', aliasedName, true,
+              type: DriftSqlType.string, requiredDuringInsert: false)
+          .withConverter<SearchModel?>($SearchTableTable.$convertersuggestionn);
   @override
   List<GeneratedColumn> get $columns => [id, suggestion];
   @override
@@ -214,14 +215,7 @@ class $SearchTableTable extends SearchTable
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('suggestion')) {
-      context.handle(
-          _suggestionMeta,
-          suggestion.isAcceptableOrUnknown(
-              data['suggestion']!, _suggestionMeta));
-    } else if (isInserting) {
-      context.missing(_suggestionMeta);
-    }
+    context.handle(_suggestionMeta, const VerificationResult.success());
     return context;
   }
 
@@ -233,8 +227,9 @@ class $SearchTableTable extends SearchTable
     return SearchTableData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      suggestion: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}suggestion'])!,
+      suggestion: $SearchTableTable.$convertersuggestionn.fromSql(
+          attachedDatabase.typeMapping
+              .read(DriftSqlType.string, data['${effectivePrefix}suggestion'])),
     );
   }
 
@@ -242,24 +237,34 @@ class $SearchTableTable extends SearchTable
   $SearchTableTable createAlias(String alias) {
     return $SearchTableTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<SearchModel, String> $convertersuggestion =
+      const SearchConverter();
+  static TypeConverter<SearchModel?, String?> $convertersuggestionn =
+      NullAwareTypeConverter.wrap($convertersuggestion);
 }
 
 class SearchTableData extends DataClass implements Insertable<SearchTableData> {
   final int id;
-  final String suggestion;
-  const SearchTableData({required this.id, required this.suggestion});
+  final SearchModel? suggestion;
+  const SearchTableData({required this.id, this.suggestion});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['suggestion'] = Variable<String>(suggestion);
+    if (!nullToAbsent || suggestion != null) {
+      final converter = $SearchTableTable.$convertersuggestionn;
+      map['suggestion'] = Variable<String>(converter.toSql(suggestion));
+    }
     return map;
   }
 
   SearchTableCompanion toCompanion(bool nullToAbsent) {
     return SearchTableCompanion(
       id: Value(id),
-      suggestion: Value(suggestion),
+      suggestion: suggestion == null && nullToAbsent
+          ? const Value.absent()
+          : Value(suggestion),
     );
   }
 
@@ -268,7 +273,7 @@ class SearchTableData extends DataClass implements Insertable<SearchTableData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return SearchTableData(
       id: serializer.fromJson<int>(json['id']),
-      suggestion: serializer.fromJson<String>(json['suggestion']),
+      suggestion: serializer.fromJson<SearchModel?>(json['suggestion']),
     );
   }
   @override
@@ -276,13 +281,15 @@ class SearchTableData extends DataClass implements Insertable<SearchTableData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'suggestion': serializer.toJson<String>(suggestion),
+      'suggestion': serializer.toJson<SearchModel?>(suggestion),
     };
   }
 
-  SearchTableData copyWith({int? id, String? suggestion}) => SearchTableData(
+  SearchTableData copyWith(
+          {int? id, Value<SearchModel?> suggestion = const Value.absent()}) =>
+      SearchTableData(
         id: id ?? this.id,
-        suggestion: suggestion ?? this.suggestion,
+        suggestion: suggestion.present ? suggestion.value : this.suggestion,
       );
   @override
   String toString() {
@@ -305,15 +312,15 @@ class SearchTableData extends DataClass implements Insertable<SearchTableData> {
 
 class SearchTableCompanion extends UpdateCompanion<SearchTableData> {
   final Value<int> id;
-  final Value<String> suggestion;
+  final Value<SearchModel?> suggestion;
   const SearchTableCompanion({
     this.id = const Value.absent(),
     this.suggestion = const Value.absent(),
   });
   SearchTableCompanion.insert({
     this.id = const Value.absent(),
-    required String suggestion,
-  }) : suggestion = Value(suggestion);
+    this.suggestion = const Value.absent(),
+  });
   static Insertable<SearchTableData> custom({
     Expression<int>? id,
     Expression<String>? suggestion,
@@ -324,7 +331,8 @@ class SearchTableCompanion extends UpdateCompanion<SearchTableData> {
     });
   }
 
-  SearchTableCompanion copyWith({Value<int>? id, Value<String>? suggestion}) {
+  SearchTableCompanion copyWith(
+      {Value<int>? id, Value<SearchModel?>? suggestion}) {
     return SearchTableCompanion(
       id: id ?? this.id,
       suggestion: suggestion ?? this.suggestion,
@@ -338,7 +346,8 @@ class SearchTableCompanion extends UpdateCompanion<SearchTableData> {
       map['id'] = Variable<int>(id.value);
     }
     if (suggestion.present) {
-      map['suggestion'] = Variable<String>(suggestion.value);
+      final converter = $SearchTableTable.$convertersuggestionn;
+      map['suggestion'] = Variable<String>(converter.toSql(suggestion.value));
     }
     return map;
   }

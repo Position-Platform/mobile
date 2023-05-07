@@ -156,6 +156,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pertinence": MessageLookupByLibrary.simpleMessage("Relevance"),
         "phone": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "presentation": MessageLookupByLibrary.simpleMessage("Presentation"),
+        "recentSearch": MessageLookupByLibrary.simpleMessage("Recent Searches"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registerFailed":
             MessageLookupByLibrary.simpleMessage("Account creation failed"),
