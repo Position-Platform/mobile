@@ -1,9 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:chopper/chopper.dart';
+import 'package:drift/drift.dart';
+import 'package:position/src/core/database/db.dart';
 import 'package:position/src/core/helpers/network.dart';
 import 'package:position/src/core/helpers/sharedpreferences.dart';
+import 'package:position/src/modules/auth/db/user.dao.dart';
 import 'package:position/src/modules/map/submodules/etablissements/api/etablissementApiService.dart';
+import 'package:position/src/modules/map/submodules/etablissements/db/etablissement.dao.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/commentaires_model/commentaires_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/favorite_model/favorite_model.dart';
@@ -18,11 +22,15 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
   final NetworkInfoHelper? networkInfoHelper;
   final EtablissementApiService? etablissementApiService;
   final SharedPreferencesHelper? sharedPreferencesHelper;
+  final UserDao? userDao;
+  final EtablissementDao? etablissementDao;
 
   EtablissementRepositoryImpl(
       {this.networkInfoHelper,
       this.etablissementApiService,
-      this.sharedPreferencesHelper});
+      this.sharedPreferencesHelper,
+      this.userDao,
+      this.etablissementDao});
 
   @override
   Future<Result<FavoriteModel>> addfavorite(int idEtablissement) async {
@@ -65,14 +73,35 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
   }
 
   @override
-  Future<Result<EtablissementsModel>> getalletablissements() async {
+  Future<Result<EtablissementsModel>> getalletablissements(
+      String lat, String lon) async {
     bool isConnected = await networkInfoHelper!.isConnected();
+    UserTableData user = await userDao!.getUser();
     if (isConnected) {
       try {
-        final Response response =
-            await etablissementApiService!.getAllEtablissements();
+        final Response response = await etablissementApiService!
+            .getAllEtablissements(user.user!.id!, 1, lat, lon);
 
         var model = EtablissementsModel.fromJson(response.body);
+
+        for (var i = 1; i <= model.data!.etablissements!.lastPage!; i++) {
+          final Response response = await etablissementApiService!
+              .getAllEtablissements(user.user!.id!, i, lat, lon);
+
+          var model = EtablissementsModel.fromJson(response.body);
+
+          for (var j = 0; j < model.data!.etablissements!.data!.length; j++) {
+            try {
+              await etablissementDao!.addEtablissement(
+                  EtablissementTableCompanion(
+                      id: Value(model.data!.etablissements!.data![j].id!),
+                      etablissement:
+                          Value(model.data!.etablissements!.data![j])));
+            } catch (e) {
+              Result(error: DbInsertError());
+            }
+          }
+        }
 
         return Result(success: model);
       } catch (e) {
@@ -145,12 +174,18 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
 
   @override
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-      int idCategorie, int idUser, String? commodites, int? page) async {
+      int idCategorie,
+      int idUser,
+      String? commodites,
+      int? page,
+      String lat,
+      String lon) async {
     bool isConnected = await networkInfoHelper!.isConnected();
     if (isConnected) {
       try {
         final Response response = await etablissementApiService!
-            .searchEtablissementByFilter(idCategorie, idUser, commodites, page);
+            .searchEtablissementByFilter(
+                idCategorie, idUser, commodites, page, lat, lon);
 
         var model = EtablissementsModel.fromJson(response.body);
 

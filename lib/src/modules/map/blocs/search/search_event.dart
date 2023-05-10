@@ -21,7 +21,7 @@ class MakeSearch extends SearchEvent {
 }
 
 class AddSuggestion extends SearchEvent {
-  final String? matchQuery;
+  final SearchModel? matchQuery;
 
   const AddSuggestion(this.matchQuery);
 

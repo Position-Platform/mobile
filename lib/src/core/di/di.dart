@@ -113,10 +113,11 @@ Future<void> init() async {
 
   getIt.registerFactory<EtablissementRepository>(
     () => EtablissementRepositoryImpl(
-      etablissementApiService: getIt(),
-      networkInfoHelper: getIt(),
-      sharedPreferencesHelper: getIt(),
-    ),
+        etablissementApiService: getIt(),
+        networkInfoHelper: getIt(),
+        sharedPreferencesHelper: getIt(),
+        userDao: getIt(),
+        etablissementDao: getIt()),
   );
 
   getIt.registerFactory<NominatimRepository>(

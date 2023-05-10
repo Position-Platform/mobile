@@ -155,5 +155,6 @@
   "removeMap" : "Removed maps",
    "routingError" : "Route recovery error",
   "sharedError": "Sharing error",
-  "error" : "An error has occurred"
+  "error" : "An error has occurred",
+  "recentSearch" : "Recent Searches"
 }

@@ -10,7 +10,8 @@ import 'package:position/src/modules/map/submodules/etablissements/models/favori
 import 'package:position/src/modules/map/submodules/etablissements/models/favorites_model/favorites_model.dart';
 
 abstract class EtablissementRepository {
-  Future<Result<EtablissementsModel>> getalletablissements();
+  Future<Result<EtablissementsModel>> getalletablissements(
+      String lat, String lon);
 
   Future<Result<EtablissementModel>> getetablissementbyid(int id, int idUser);
 
@@ -29,7 +30,12 @@ abstract class EtablissementRepository {
   Future<Result<FavoriteModel>> removefavorite(int idEtablissement);
 
   Future<Result<EtablissementsModel>> searchetablissementsbyfilters(
-      int idCategorie, int idUser, String commodites, int? page);
+      int idCategorie,
+      int idUser,
+      String commodites,
+      int? page,
+      String lat,
+      String lon);
 
   Future<Result<CommentairesModel>> addreview(
       int etablissementId, String commentaire, int rating);

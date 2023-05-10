@@ -1,13 +1,11 @@
 import 'package:drift/drift.dart';
 import 'package:position/src/core/database/db.dart';
 import 'package:position/src/modules/map/submodules/etablissements/db/etablissement.table.dart';
+import 'package:position/src/modules/map/submodules/etablissements/db/favorite.table.dart';
 
 part 'etablissement.dao.g.dart';
 
-// the _TodosDaoMixin will be created by drift. It contains all the necessary
-// fields for the tables. The <MyDatabase> type annotation is the database class
-// that should use this dao.
-@DriftAccessor(tables: [EtablissementTable])
+@DriftAccessor(tables: [EtablissementTable, FavoriteTable])
 class EtablissementDao extends DatabaseAccessor<MyDatabase>
     with _$EtablissementDaoMixin {
   // this constructor is required so that the main database can create an instance
@@ -34,4 +32,15 @@ class EtablissementDao extends DatabaseAccessor<MyDatabase>
   Future deleteEtablissement(int id) {
     return (delete(etablissementTable)..where((t) => t.id.equals(id))).go();
   }
+
+  Future<int> addFavorite(FavoriteTableCompanion entry) {
+    return into(favoriteTable).insert(entry, mode: InsertMode.insertOrReplace);
+  }
+
+  Future removeFavorite(FavoriteTableCompanion entry) {
+    return update(favoriteTable).replace(entry);
+  }
+
+  Future<List<FavoriteTableData>> get allFavorites =>
+      select(favoriteTable).get();
 }

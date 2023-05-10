@@ -8,4 +8,8 @@ class EtablissementTable extends Table {
 
   TextColumn get etablissement =>
       text().map(const EtablissementConverter()).nullable()();
+
+  BoolColumn get isOnline => boolean().withDefault(const Constant(true))();
+
+  BoolColumn get isUpdate => boolean().withDefault(const Constant(false))();
 }

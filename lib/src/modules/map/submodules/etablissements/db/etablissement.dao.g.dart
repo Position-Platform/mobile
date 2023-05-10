@@ -6,4 +6,5 @@ part of 'etablissement.dao.dart';
 mixin _$EtablissementDaoMixin on DatabaseAccessor<MyDatabase> {
   $EtablissementTableTable get etablissementTable =>
       attachedDatabase.etablissementTable;
+  $FavoriteTableTable get favoriteTable => attachedDatabase.favoriteTable;
 }
