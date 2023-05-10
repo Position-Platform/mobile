@@ -718,8 +718,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   Future<OfflineRegion?> _downloadOfflineRegion() async {
     try {
       final bounds = LatLngBounds(
-        northeast: const LatLng(4.1295, 9.6079),
-        southwest: const LatLng(3.9415, 9.8631),
+        northeast: const LatLng(4.4606, 9.0607),
+        southwest: const LatLng(3.2982, 12.0924),
       );
       final regionDefinition = OfflineRegionDefinition(
           bounds: bounds,
@@ -730,7 +730,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       final region = await downloadOfflineRegion(regionDefinition,
           metadata: {
-            'name': 'Douala',
+            'name': 'Cameroon',
           },
           onEvent: _onDownloadEvent);
 
