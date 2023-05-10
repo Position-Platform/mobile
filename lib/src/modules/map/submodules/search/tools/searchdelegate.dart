@@ -18,6 +18,7 @@ class CustomSearchDelegate extends SearchDelegate {
   final SearchBloc? searchBloc;
   final User? user;
   final PendingDynamicLinkData? initialLink;
+  final List<SearchModel>? suggestions = [];
   CustomSearchDelegate(
       {this.hintText,
       @required this.searchBloc,
@@ -101,7 +102,6 @@ class CustomSearchDelegate extends SearchDelegate {
           );
         }
         if (state is SearchLoaded) {
-          searchBloc!.add(AddSuggestion(query));
           if (state.searchresult!.isEmpty) {
             return Center(
               child: Text(S.of(context).searchnotfound),
@@ -114,6 +114,7 @@ class CustomSearchDelegate extends SearchDelegate {
               return InkWell(
                   highlightColor: transparent,
                   onTap: () {
+                    searchBloc!.add(AddSuggestion(state.searchresult![index]));
                     close(context, state.searchresult![index]);
                   },
                   child: searchItem(context, state.searchresult![index]));
@@ -133,26 +134,34 @@ class CustomSearchDelegate extends SearchDelegate {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         if (state is ListSuggestions) {
-          List<String> matchQuery = [];
-          for (var suggestion in state.suggestions!) {
-            if (suggestion.toLowerCase().contains(query.toLowerCase())) {
-              matchQuery.add(suggestion);
-            }
-          }
           return ListView.builder(
-            itemCount: matchQuery.length,
+            itemCount: state.suggestions!.length + 1,
             itemBuilder: (context, index) {
-              //  var result = matchQuery[index];
-              return ListTile(
-                title: Text(
-                  matchQuery[index],
-                  maxLines: 1,
-                ),
-              );
+              if (index == 0) {
+                // return the header
+                return Container(
+                    margin:
+                        const EdgeInsets.only(top: 10, left: 20, bottom: 20),
+                    child: Text(
+                      S.of(context).recentSearch,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic),
+                    ));
+              }
+              index -= 1;
+              return InkWell(
+                  highlightColor: transparent,
+                  onTap: () {
+                    searchBloc!.add(AddSuggestion(state.suggestions![index]));
+                    close(context, state.suggestions![index]);
+                  },
+                  child: searchItem(context, state.suggestions![index]));
             },
           );
         }
-        return Container();
+        return const Scaffold();
       },
     );
   }

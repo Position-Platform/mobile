@@ -68,7 +68,11 @@ abstract class ApiService extends ChopperService {
 
   //Etablissements
   @Get(path: '/api/etablissements', headers: {'Accept': 'application/json'})
-  Future<Response> getetablissements();
+  Future<Response> getetablissements(
+      @Query('user_id') int idUser,
+      @Query('page') int page,
+      @Query('lat') String lat,
+      @Query('lon') String lon);
 
   @Get(
       path: '/api/etablissements/{id}', headers: {'Accept': 'application/json'})
@@ -111,7 +115,9 @@ abstract class ApiService extends ChopperService {
       @Query('id_categorie') int idCategorie,
       @Query('user_id') int idUser,
       @Query('commodites') String? commodites,
-      @Query('page') int? page);
+      @Query('page') int? page,
+      @Query('lat') String lat,
+      @Query('lon') String lon);
 
   @Put(
       path: '/api/etablissements/vues/{etablissement_id}',
