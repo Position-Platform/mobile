@@ -80,6 +80,7 @@ dependencies:
   turf: ^0.0.7
   url_launcher: ^6.1.10
   weekday_selector: ^1.1.0
+  workmanager: ^0.5.1
 
 dev_dependencies:
   build_runner: ^2.3.3
