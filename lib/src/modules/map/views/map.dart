@@ -208,26 +208,14 @@ class _MapPageState extends State<MapPage> {
             favoris!.remove(state.favoris!);
           }
           if (state is DownloadComplete) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(S.of(context).successDownload),
-              backgroundColor: primaryColor,
-              duration: const Duration(seconds: 3),
-            ));
+            Fluttertoast.showToast(
+                msg: S.of(context).successDownload,
+                backgroundColor: primaryColor,
+                textColor: whiteColor,
+                toastLength: Toast.LENGTH_SHORT);
           }
-          if (state is MapDownDownloading) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(S.of(context).backgroundDownload),
-              backgroundColor: accentColor,
-              duration: const Duration(seconds: 3),
-            ));
-          }
-          if (state is MapDownloadedError) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(S.of(context).errorDownload),
-              backgroundColor: redColor,
-              duration: const Duration(seconds: 3),
-            ));
-          }
+          if (state is MapDownDownloading) {}
+          if (state is MapDownloadedError) {}
           if (state is DownloadMapRemoved) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(S.of(context).removeMap),
