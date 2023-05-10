@@ -78,7 +78,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.13
   time_interval_picker: ^0.0.2
   turf: ^0.0.7
-  url_launcher: ^6.1.10
+  url_launcher: ^6.1.11
   weekday_selector: ^1.1.0
 
 dev_dependencies:
