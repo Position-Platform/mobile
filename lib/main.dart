@@ -14,8 +14,10 @@ import 'package:position/firebase_options.dart';
 import 'package:position/src/app.dart';
 import 'package:position/src/core/di/di.dart' as di;
 import 'package:path_provider/path_provider.dart';
+import 'package:position/src/core/utils/workmanager.dart';
 import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   runZonedGuarded(() async {
@@ -37,6 +39,12 @@ void main() async {
       storageDirectory: await getTemporaryDirectory(),
     );
     Bloc.observer = SimpleBlocObserver();
+
+    Workmanager().initialize(callbackDispatcher);
+    Workmanager().registerPeriodicTask("1", "addtracking",
+        frequency: const Duration(minutes: 15),
+        constraints: Constraints(networkType: NetworkType.connected));
+
     runApp(BlocProvider(
       create: (_) => di.getIt<GpsBloc>(),
       child: MyApp(
