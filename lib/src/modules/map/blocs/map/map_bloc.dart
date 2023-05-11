@@ -128,8 +128,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     data["properties"]["avis"] = data["properties"]["avis"].toInt();
     data["properties"]["batiment"] =
         json.decode(data["properties"]["batiment"].toString());
-    data["properties"]["sous_categories"] =
-        json.decode(data["properties"]["sous_categories"].toString());
+    data["properties"]["sousCategories"] =
+        json.decode(data["properties"]["sousCategories"].toString());
     data["properties"]["commodites"] =
         data["properties"]["commodites"].toString();
     data["properties"]["images"] =
@@ -481,13 +481,27 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
               lineCap: "round",
             ));
 
-        _mapController!.animateCamera(CameraUpdate.zoomTo(14));
+        var bounds = LatLngBounds(
+            northeast: LatLng(position.latitude, position.longitude),
+            southwest:
+                LatLng(double.parse(event.lat!), double.parse(event.lon!)));
+
+        _mapController!.animateCamera(
+          CameraUpdate.newLatLngBounds(bounds, left: 20, right: 20),
+        );
         emit(RoutingAdded());
       } else {
         emit(RoutingError());
       }
     } catch (e) {
-      emit(RoutingError());
+      var bounds = LatLngBounds(
+          northeast: LatLng(double.parse(event.lat!), double.parse(event.lon!)),
+          southwest: LatLng(position.latitude, position.longitude));
+
+      _mapController!.animateCamera(
+        CameraUpdate.newLatLngBounds(bounds, left: 20, right: 20),
+      );
+      emit(RoutingAdded());
     }
   }
 
@@ -704,8 +718,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   Future<OfflineRegion?> _downloadOfflineRegion() async {
     try {
       final bounds = LatLngBounds(
-        northeast: const LatLng(4.1295, 9.6079),
-        southwest: const LatLng(3.9415, 9.8631),
+        northeast: const LatLng(4.4606, 9.0607),
+        southwest: const LatLng(3.2982, 12.0924),
       );
       final regionDefinition = OfflineRegionDefinition(
           bounds: bounds,
@@ -716,7 +730,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       final region = await downloadOfflineRegion(regionDefinition,
           metadata: {
-            'name': 'Douala',
+            'name': 'Cameroon',
           },
           onEvent: _onDownloadEvent);
 
