@@ -32,7 +32,7 @@ dependencies:
   bloc_test: ^9.1.0
   cached_network_image: ^3.2.3
   carousel_slider: ^4.1.1
-  chopper: ^6.1.1
+  chopper: ^6.1.2
   cupertino_icons: ^1.0.2
   drift: ^2.7.0
   dropdown_button2: ^2.1.2
