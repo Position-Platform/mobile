@@ -487,7 +487,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 LatLng(double.parse(event.lat!), double.parse(event.lon!)));
 
         _mapController!.animateCamera(
-          CameraUpdate.newLatLngBounds(bounds, left: 20, right: 20),
+          CameraUpdate.newLatLngBounds(bounds,
+              left: 20, right: 20, top: 200, bottom: 300),
         );
         emit(RoutingAdded());
       } else {
@@ -718,8 +719,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   Future<OfflineRegion?> _downloadOfflineRegion() async {
     try {
       final bounds = LatLngBounds(
-        northeast: const LatLng(4.4606, 9.0607),
-        southwest: const LatLng(3.2982, 12.0924),
+        northeast: const LatLng(4.1295, 9.6079),
+        southwest: const LatLng(3.9415, 9.8631),
       );
       final regionDefinition = OfflineRegionDefinition(
           bounds: bounds,
@@ -730,7 +731,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       final region = await downloadOfflineRegion(regionDefinition,
           metadata: {
-            'name': 'Cameroon',
+            'name': 'Douala',
           },
           onEvent: _onDownloadEvent);
 

@@ -156,5 +156,6 @@
    "routingError" : "Route recovery error",
   "sharedError": "Sharing error",
   "error" : "An error has occurred",
-  "recentSearch" : "Recent Searches"
+  "recentSearch" : "Recent Searches",
+  "resetsuccess" : "reset done"
 }

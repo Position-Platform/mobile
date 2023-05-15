@@ -64,6 +64,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     duration: const Duration(seconds: 5),
                   ),
                 );
+
+              Navigator.pop(context);
             }
             if (state.isFailSend!) {
               ScaffoldMessenger.of(context)
