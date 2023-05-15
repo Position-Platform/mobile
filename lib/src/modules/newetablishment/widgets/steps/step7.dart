@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:intl/intl.dart';
 import 'package:position/src/core/utils/colors.dart';
-import 'package:time_interval_picker/time_interval_picker.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 
 Widget step7() {
@@ -58,17 +57,7 @@ Widget step7() {
               const SizedBox(
                 height: 25,
               ),
-              daySelect.isNotEmpty
-                  ? TimeIntervalPicker(
-                      endLimit: null,
-                      startLimit: null,
-                      onChanged: (DateTime? startTime, DateTime? endTime,
-                          bool isAllDay) {
-                        /*   weekDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";*/
-                      },
-                    )
-                  : const SizedBox(),
+              daySelect.isNotEmpty ? Container() : const SizedBox(),
               const SizedBox(
                 height: 25,
               ),
@@ -89,17 +78,7 @@ Widget step7() {
               const SizedBox(
                 height: 25,
               ),
-              selectedSamedi == true
-                  ? TimeIntervalPicker(
-                      endLimit: null,
-                      startLimit: null,
-                      onChanged: (DateTime? startTime, DateTime? endTime,
-                          bool isAllDay) {
-                        /*  samediDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";*/
-                      },
-                    )
-                  : const SizedBox(),
+              selectedSamedi == true ? Container() : const SizedBox(),
               const SizedBox(
                 height: 10,
               ),
@@ -120,17 +99,7 @@ Widget step7() {
               const SizedBox(
                 height: 25,
               ),
-              selectedDimanche == true
-                  ? TimeIntervalPicker(
-                      endLimit: null,
-                      startLimit: null,
-                      onChanged: (DateTime? startTime, DateTime? endTime,
-                          bool isAllDay) {
-                        /*  dimancheDayTime =
-                            "${f.format(startTime!)}-${f.format(endTime!)}";*/
-                      },
-                    )
-                  : const SizedBox(),
+              selectedDimanche == true ? Container() : const SizedBox(),
               const SizedBox(
                 height: 25,
               ),

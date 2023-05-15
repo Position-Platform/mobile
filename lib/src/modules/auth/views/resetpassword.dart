@@ -4,13 +4,13 @@ import 'package:position/generated/l10n.dart';
 import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/core/utils/sizes.dart';
 import 'package:position/src/core/utils/tools.dart';
-import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
 import 'package:position/src/modules/auth/blocs/login/login_bloc.dart';
 import 'package:position/src/modules/auth/widgets/appAuthHeader.dart';
 import 'package:position/src/modules/auth/widgets/appbottomSheet.dart';
 
 class ResetPassword extends StatefulWidget {
-  const ResetPassword({super.key});
+  const ResetPassword({super.key, @required this.token});
+  final String? token;
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -50,8 +50,9 @@ class _ResetPasswordState extends State<ResetPassword> {
       PasswordReset(
           email: _emailController.text,
           password: _passwordController.text,
-          resettoken: "Token to reset"),
+          resettoken: widget.token!),
     );
+    Navigator.pop(context);
   }
 
   void _toggleObscureText() {
@@ -92,7 +93,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     content: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(S.of(context).emailSend),
+                        Text(S.of(context).resetsuccess),
                         const Icon(Icons.check_circle)
                       ],
                     ),
@@ -109,7 +110,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     content: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(S.of(context).emailNoSend),
+                        Text(S.of(context).error),
                         const Icon(Icons.error)
                       ],
                     ),
@@ -132,8 +133,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
                 );
             }
-
-            context.read<AuthBloc>().add(AuthLoggedOut());
           },
           child: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {

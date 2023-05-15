@@ -8,6 +8,7 @@ import 'package:position/src/core/di/di.dart';
 import 'package:position/src/modules/auth/blocs/auth/auth_bloc.dart';
 import 'package:position/src/modules/auth/blocs/login/login_bloc.dart';
 import 'package:position/src/modules/auth/views/login.dart';
+import 'package:position/src/modules/auth/views/resetpassword.dart';
 import 'package:position/src/modules/map/views/map.dart';
 import 'package:position/src/onboarding.dart';
 import 'package:position/src/splash.dart';
@@ -28,10 +29,30 @@ class InitPage extends StatelessWidget {
           return const OnboardingScreen();
         }
         if (state is AuthFailure) {
-          return BlocProvider<LoginBloc>(
-            create: (context) => getIt<LoginBloc>(),
-            child: const LoginPage(),
-          );
+          if (initialLink != null) {
+            final Uri deepLink = initialLink!.link;
+
+            var token = deepLink.queryParameters['resettoken']!;
+
+            if (token.isNotEmpty) {
+              return BlocProvider<LoginBloc>(
+                create: (context) => getIt<LoginBloc>(),
+                child: ResetPassword(
+                  token: token,
+                ),
+              );
+            } else {
+              return BlocProvider<LoginBloc>(
+                create: (context) => getIt<LoginBloc>(),
+                child: const LoginPage(),
+              );
+            }
+          } else {
+            return BlocProvider<LoginBloc>(
+              create: (context) => getIt<LoginBloc>(),
+              child: const LoginPage(),
+            );
+          }
         }
         if (state is AuthSuccess) {
           return MapPage(

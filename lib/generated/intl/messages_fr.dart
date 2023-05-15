@@ -183,6 +183,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "removeMap": MessageLookupByLibrary.simpleMessage("Cartes supprimées"),
         "resetPassword": MessageLookupByLibrary.simpleMessage(
             "Reinitialiser le Mot de Passe"),
+        "resetsuccess":
+            MessageLookupByLibrary.simpleMessage("reinitialisation effectuée"),
         "reviewadded":
             MessageLookupByLibrary.simpleMessage("Votre avis a été ajouté"),
         "reviewerror":

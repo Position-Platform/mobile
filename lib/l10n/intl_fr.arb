@@ -156,5 +156,6 @@
   "routingError" : "Erreur de récupération d'itinéraire",
   "sharedError" : "Erreur de partage",
   "error": "Une erreur est survenue",
-  "recentSearch" : "Recherches Récentes"
+  "recentSearch" : "Recherches Récentes",
+  "resetsuccess" : "reinitialisation effectuée"
 }
