@@ -57,7 +57,7 @@ dependencies:
   geolocator: ^9.0.2
   get_it: ^7.6.0
   google_sign_in: ^6.1.0
-  hydrated_bloc: ^9.1.0
+  hydrated_bloc: ^9.1.1
   image_picker: ^0.8.6+1
   intl: ^0.17.0
   intl_utils: ^2.7.0
