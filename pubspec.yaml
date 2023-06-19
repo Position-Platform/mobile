@@ -35,7 +35,7 @@ dependencies:
   chopper: ^6.1.2
   cupertino_icons: ^1.0.2
   drift: ^2.7.0
-  dropdown_button2: ^2.1.2
+  dropdown_button2: ^2.1.4
   equatable: ^2.0.5
   expandable_bottom_sheet: ^1.1.1+1
   firebase_core: ^2.13.0
