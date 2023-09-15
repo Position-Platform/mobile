@@ -308,7 +308,8 @@ class _MapPageState extends State<MapPage> {
                       ?.add(OnMapInitializedEvent(controller, widget.user)),
                   doubleClickZoomEnabled: true,
                   initialCameraPosition: const CameraPosition(
-                      zoom: initMapZoom, target: LatLng(0, 0)),
+                      zoom: initialMapZoom, target: LatLng(0, 0)),
+                  onStyleLoadedCallback: () {},
                 ),
                 SafeArea(
                   child: Column(

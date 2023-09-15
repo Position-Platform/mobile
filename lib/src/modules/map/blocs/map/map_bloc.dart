@@ -129,7 +129,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     data["properties"]["batiment"] =
         json.decode(data["properties"]["batiment"].toString());
     data["properties"]["sousCategories"] =
-        json.decode(data["properties"]["sousCategories"].toString());
+        json.decode(data["properties"]["sous_categories"].toString());
     data["properties"]["commodites"] =
         data["properties"]["commodites"].toString();
     data["properties"]["images"] =
@@ -171,7 +171,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     Position position = await Geolocator.getCurrentPosition();
     _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(position.latitude, position.longitude),
-        zoom: initMapZoom)));
+        zoom: initialMapZoom)));
     await trackingRepository?.addtracking(position.longitude, position.latitude,
         position.speed, DateFormat('yyyy-MM-dd').format(position.timestamp!));
   }
@@ -220,7 +220,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           CameraPosition(
               target: LatLng(double.parse(event.searchModel!.latitude!),
                   double.parse(event.searchModel!.longitude!)),
-              zoom: initMapZoom)));
+              zoom: initialMapZoom)));
       _mapController?.addSymbol(
         SymbolOptions(
             geometry: LatLng(double.parse(event.searchModel!.latitude!),

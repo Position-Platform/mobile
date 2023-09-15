@@ -69,6 +69,9 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
         add(GpsAndPermissionEvent(
             isGpsEnabled: state.isGpsEnabled, isGpsPermissionGranted: false));
         openAppSettings();
+        break;
+      case PermissionStatus.provisional:
+        break;
     }
   }
 

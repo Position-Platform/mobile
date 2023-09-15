@@ -572,29 +572,23 @@ class $EtablissementTableTable extends EtablissementTable
   static const VerificationMeta _isOnlineMeta =
       const VerificationMeta('isOnline');
   @override
-  late final GeneratedColumn<bool> isOnline =
-      GeneratedColumn<bool>('is_online', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_online" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(true));
+  late final GeneratedColumn<bool> isOnline = GeneratedColumn<bool>(
+      'is_online', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_online" IN (0, 1))'),
+      defaultValue: const Constant(true));
   static const VerificationMeta _isUpdateMeta =
       const VerificationMeta('isUpdate');
   @override
-  late final GeneratedColumn<bool> isUpdate =
-      GeneratedColumn<bool>('is_update', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_update" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> isUpdate = GeneratedColumn<bool>(
+      'is_update', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_update" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [id, etablissement, isOnline, isUpdate];
   @override
@@ -844,16 +838,13 @@ class $FavoriteTableTable extends FavoriteTable
   static const VerificationMeta _isFavoriteMeta =
       const VerificationMeta('isFavorite');
   @override
-  late final GeneratedColumn<bool> isFavorite =
-      GeneratedColumn<bool>('is_favorite', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: false,
-          defaultConstraints: GeneratedColumn.constraintsDependsOnDialect({
-            SqlDialect.sqlite: 'CHECK ("is_favorite" IN (0, 1))',
-            SqlDialect.mysql: '',
-            SqlDialect.postgres: '',
-          }),
-          defaultValue: const Constant(false));
+  late final GeneratedColumn<bool> isFavorite = GeneratedColumn<bool>(
+      'is_favorite', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_favorite" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [id, etablissement, isFavorite];
   @override

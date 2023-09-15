@@ -6,7 +6,7 @@ part of 'nominatimService.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 class _$NominatimService extends NominatimService {
   _$NominatimService([ChopperClient? client]) {
     if (client == null) return;
@@ -24,7 +24,7 @@ class _$NominatimService extends NominatimService {
     String adressdetails,
     String countrycodes,
   ) {
-    final Uri $url = Uri.parse('https://nominatim.openstreetmap.org/search');
+    final Uri $url = Uri.parse('${nominatimUrl}/search');
     final Map<String, dynamic> $params = <String, dynamic>{
       'q': query,
       'format': format,
@@ -48,14 +48,14 @@ class _$NominatimService extends NominatimService {
   @override
   Future<Response<dynamic>> reverse(
     String format,
-    String lon,
-    String lat,
+    String longitude,
+    String latitude,
   ) {
-    final Uri $url = Uri.parse('https://nominatim.openstreetmap.org/reverse');
+    final Uri $url = Uri.parse('${nominatimUrl}/reverse');
     final Map<String, dynamic> $params = <String, dynamic>{
       'format': format,
-      'lon': lon,
-      'lat': lat,
+      'lon': longitude,
+      'lat': latitude,
     };
     final Map<String, String> $headers = {
       'Accept': 'application/json',

@@ -4,16 +4,17 @@ import 'dart:convert';
 
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/datum.dart';
 
-Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
-  var responses = [];
-
-  for (var i = 0; i < data!.length; i++) {
-    var element = data[i];
+// Cette fonction prend une liste d'objets Datum en entrée et renvoie un objet Map au format GeoJSON.
+Map<String, Object?> createGeoJsonEtablissements(List<Datum>? data) {
+  // Crée une liste vide qui sera utilisée pour stocker les entités GeoJSON.
+  var responses = data?.map((element) {
+    // Crée un objet geometry qui représente l'emplacement du point de l'établissement en utilisant ses coordonnées de longitude et de latitude.
     var geometry = {
       "type": "Point",
       "coordinates": [element.batiment!.longitude, element.batiment!.latitude],
     };
 
+    // Crée un objet properties qui contient toutes les propriétés de l'établissement telles que son nom, son adresse, son numéro de téléphone, son site web et d'autres détails.
     var properties = {
       "id": element.id,
       "nom": element.nom,
@@ -49,17 +50,20 @@ Map<String, Object> createGeoJsonEtablissements(List<Datum>? data) {
       "isopen": element.isopen
     };
 
-    responses.add({
+    // Crée un objet response qui est une entité GeoJSON contenant l'objet geometry et l'objet properties.
+    return {
       "type": 'Feature',
       "geometry": geometry,
       "properties": properties,
-    });
-  }
+    };
+  }).toList();
 
+  // Crée un objet geojson qui est une collection d'entités GeoJSON contenant toutes les entités GeoJSON créées par la fonction.
   var geojson = {
     "type": 'FeatureCollection',
     "features": responses,
   };
 
+  // Renvoie l'objet geojson.
   return geojson;
 }
