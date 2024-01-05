@@ -231,6 +231,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       emit(SymboledAdded(event.searchModel));
     } else {
+      if (event.searchModel!.type == "categorie") {
+        _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+        _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
+      }
       try {
         Position position = await Geolocator.getCurrentPosition();
         var etablissementsResults = await etablissementRepository!
@@ -257,6 +261,17 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   iconSize: 3,
                   iconAllowOverlap: true,
                   symbolSortKey: 10.0));
+
+          // animate camera to the first point
+          _mapController?.animateCamera(
+              CameraUpdate.newCameraPosition(CameraPosition(
+                  target: LatLng(
+                      double.parse(etablissementsResults.success!.data!
+                          .etablissements!.data![0].batiment!.latitude!),
+                      double.parse(etablissementsResults.success!.data!
+                          .etablissements!.data![0].batiment!.longitude!)),
+                  zoom: initialMapZoom - 2)),
+              duration: const Duration(seconds: 2));
           emit(EtablissementsLoaded(
               etablissementsResults.success!.data!.etablissements!));
         } else {
@@ -332,6 +347,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 iconAllowOverlap: true,
                 symbolSortKey: 10.0));
 
+        // animate camera to the first point
+        _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: LatLng(
+                    double.parse(
+                        etablissementsResults.success!.data!.etablissements!
+                            .data![0].batiment!.latitude!),
+                    double.parse(etablissementsResults.success!.data!
+                        .etablissements!.data![0].batiment!.longitude!)),
+                zoom: initialMapZoom - 3)));
         if (event.distance!) {
           etablissementsResults.success!.data!.etablissements!.data!
               .sort((a, b) => a.distance!.compareTo(b.distance!));
@@ -637,6 +662,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                     iconSize: 3,
                     iconAllowOverlap: true,
                     symbolSortKey: 10.0));
+
+            // animate camera to the first point
+            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: LatLng(
+                        double.parse(etablissementsResults.success!.data!
+                            .etablissements!.data![0].batiment!.latitude!),
+                        double.parse(etablissementsResults.success!.data!
+                            .etablissements!.data![0].batiment!.longitude!)),
+                    zoom: initialMapZoom - 3)));
 
             if (event.distance!) {
               etablissementsResults.success!.data!.etablissements!.data!

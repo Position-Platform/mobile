@@ -9,6 +9,8 @@ import 'package:position/src/modules/map/submodules/etablissements/models/etabli
 
 Widget etablissementCard(
     BuildContext context, Datum etablissement, void Function()? onTap) {
+  double distance = double.parse(etablissement.distance.toString());
+
   return InkWell(
     highlightColor: transparent,
     onTap: onTap,
@@ -101,7 +103,7 @@ Widget etablissementCard(
                                     width: 60,
                                   ),
                                   Text(
-                                    "Environ ${etablissement.distance} km",
+                                    "Environ ${distance.toStringAsFixed(2)} km",
                                     style: const TextStyle(
                                         fontFamily: "OpenSans", fontSize: 9),
                                   )

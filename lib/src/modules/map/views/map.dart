@@ -474,7 +474,9 @@ class _MapPageState extends State<MapPage> {
                                   return EtablissementListPage(
                                     initialLink: widget.initialLink,
                                     mapBloc: _mapBloc,
-                                    category: category,
+                                    category: category ??
+                                        etablissements!.data![0]
+                                            .sousCategories![0].category!,
                                     user: widget.user,
                                     etablissements: etablissements,
                                     avis: avis,

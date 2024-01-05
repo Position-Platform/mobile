@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
@@ -11,8 +12,8 @@ Widget searchItem(BuildContext context, SearchModel searchModel) {
     leading: searchModel.type == "etablissement"
         ? SvgPicture.asset("assets${searchModel.logo!}", height: 30, width: 30)
         : searchModel.type == "nominatim"
-            ? Image.network(
-                searchModel.logo!,
+            ? CachedNetworkImage(
+                imageUrl: searchModel.logo!,
                 height: 30,
                 width: 30,
               )
@@ -21,11 +22,17 @@ Widget searchItem(BuildContext context, SearchModel searchModel) {
       searchModel.name!,
       style: const TextStyle(fontFamily: "OpenSans-Bold", fontSize: 14),
     ),
-    subtitle: Text(
-      "${searchModel.details!} , ${searchModel.distance!} km",
-      style: const TextStyle(
-          fontFamily: "OpenSans-Bold", color: grey5, fontSize: 12),
-    ),
+    subtitle: searchModel.type != "categorie"
+        ? Text(
+            "${searchModel.details!} , ${searchModel.distance!} km",
+            style: const TextStyle(
+                fontFamily: "OpenSans-Bold", color: grey5, fontSize: 12),
+          )
+        : Text(
+            searchModel.details!,
+            style: const TextStyle(
+                fontFamily: "OpenSans-Bold", color: grey5, fontSize: 12),
+          ),
     isThreeLine: true,
     trailing: searchModel.type == "etablissement" &&
             searchModel.etablissement!.horaires!.isNotEmpty

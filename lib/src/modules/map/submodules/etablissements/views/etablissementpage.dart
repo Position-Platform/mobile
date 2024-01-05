@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,8 @@ Widget etablissementPage(
                     items: searchModel.etablissement!.images!
                         .map((item) => Container(
                             alignment: Alignment.topLeft,
-                            child: Image.network(
-                              apiUrl + item.imageUrl!,
+                            child: CachedNetworkImage(
+                              imageUrl: apiUrl + item.imageUrl!,
                               fit: BoxFit.cover,
                               width: 160,
                               height: 170,

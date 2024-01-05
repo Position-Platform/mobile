@@ -78,7 +78,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         return emit(LoginState.failure());
       }
-    } catch (_) {
+    } catch (e) {
       return emit(LoginState.failure());
     }
   }

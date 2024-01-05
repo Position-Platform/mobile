@@ -7,6 +7,7 @@ import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
 import 'package:position/src/modules/auth/models/user_model/user.dart';
 import 'package:position/src/modules/map/models/search_model/search_model.dart';
+import 'package:position/src/modules/map/submodules/categories/models/categories_model/category.dart';
 import 'package:position/src/modules/map/submodules/categories/repositories/categoriesRepository.dart';
 import 'package:position/src/modules/map/submodules/etablissements/models/etablissements_model/etablissements_model.dart';
 import 'package:position/src/modules/map/submodules/etablissements/repository/etablissementRepository.dart';
@@ -74,11 +75,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       etablissementsResult.success!.data!.etablissements!.data!
           .sort((a, b) => a.distance!.compareTo(b.distance!));
 
-      /*  var categoriesResult =
-          await categoriesRepository!.searchcategories(event.query!);*/
+      var categoriesResult =
+          await categoriesRepository!.searchcategories(event.query!);
       List<SearchModel> searchResults = [
+        ..._getCategorieFromResponse(categoriesResult.success!),
         ...await _getEtablissementFromResponse(etablissementsResult.success!),
-        // ..._getCategorieFromResponse(categoriesResult.success!),
         ...await _getNominatimFromResponse(nominatimResult.success!)
       ];
 
@@ -147,19 +148,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     ];
   }
 
-  /* List<SearchModel> _getCategorieFromResponse(CategoriesModel categoriesModel) {
+  List<SearchModel> _getCategorieFromResponse(List<Category> categories) {
     return [
-      for (var i = 0; i < categoriesModel.data!.categories!.length; i++)
+      for (var i = 0; i < categories.length; i++)
         SearchModel(
-            name: categoriesModel.data!.categories![i].nom,
+            name: categories[i].nom,
             details: "categorie",
             type: "categorie",
-            id: categoriesModel.data!.categories![i].id.toString(),
-            logo: apiUrl + categoriesModel.data!.categories![i].logourl!,
-            logomap: apiUrl + categoriesModel.data!.categories![i].logourlmap!,
-            category: categoriesModel.data!.categories![i])
+            id: categories[i].id.toString(),
+            logo: apiUrl + categories[i].logourl!,
+            logomap: apiUrl + categories[i].logourlmap!,
+            category: categories[i])
     ];
-  }*/
+  }
 
   _addSuggestion(
     AddSuggestion event,
