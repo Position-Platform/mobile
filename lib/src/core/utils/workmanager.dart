@@ -36,7 +36,7 @@ void callbackDispatcher() {
           position.longitude,
           position.latitude,
           position.speed,
-          DateFormat('yyyy-MM-dd').format(position.timestamp!),
+          DateFormat('yyyy-MM-dd').format(position.timestamp),
         );
         // Retourne une Future avec une valeur de true si l'ajout a réussi
         return Future.value(true);

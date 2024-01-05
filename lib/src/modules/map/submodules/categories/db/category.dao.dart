@@ -11,7 +11,7 @@ part 'category.dao.g.dart';
 class CategoryDao extends DatabaseAccessor<MyDatabase> with _$CategoryDaoMixin {
   // this constructor is required so that the main database can create an instance
   // of this object.
-  CategoryDao(MyDatabase db) : super(db);
+  CategoryDao(super.db);
 
   Future<List<CategoryTableData>> get allCategories =>
       select(categoryTable).get();

@@ -11,7 +11,7 @@ part 'user.dao.g.dart';
 @DriftAccessor(tables: [UserTable])
 class UserDao extends DatabaseAccessor<MyDatabase> with _$UserDaoMixin {
   // Ce constructeur est requis pour que la base de données principale puisse créer une instance de cet objet.
-  UserDao(MyDatabase db) : super(db);
+  UserDao(super.db);
 
   // La méthode getUser récupère une seule ligne de la table où la colonne id est égale à 1.
   Future<UserTableData> getUser() {

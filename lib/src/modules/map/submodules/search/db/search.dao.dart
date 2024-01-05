@@ -11,7 +11,7 @@ part 'search.dao.g.dart';
 class SearchDao extends DatabaseAccessor<MyDatabase> with _$SearchDaoMixin {
   // this constructor is required so that the main database can create an instance
   // of this object.
-  SearchDao(MyDatabase db) : super(db);
+  SearchDao(super.db);
 
   Future<List<SearchTableData>> get allSuggestions => (select(searchTable)
         ..limit(5)

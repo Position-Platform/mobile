@@ -19,7 +19,7 @@ class InitPage extends StatelessWidget {
   PendingDynamicLinkData? initialLink;
 
   // Constructeur de la classe InitPage
-  InitPage({Key? key, @required this.initialLink}) : super(key: key);
+  InitPage({super.key, @required this.initialLink});
 
   @override
   Widget build(BuildContext context) {
