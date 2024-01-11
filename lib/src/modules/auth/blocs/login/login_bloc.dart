@@ -29,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<PasswordReset>(_resetButtonPressed);
     on<LoginWithFacebookPressed>(_facebookButtonPressed);
     on<LoginWithGooglePressed>(_googleButtonPressed);
+    on<LoginPasswordVisibility>(_togglePasswordVisibility);
   }
 
   // RxDart pour gerer les evenements de facon asynchrone
@@ -176,5 +177,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } catch (e) {
       emit(LoginState.failure());
     }
+  }
+
+  void _togglePasswordVisibility(
+    LoginPasswordVisibility event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.update(isPasswordVisible: !state.isPasswordVisible!));
   }
 }

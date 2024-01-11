@@ -90,3 +90,17 @@ class LoginWithFacebookPressed extends LoginEvent {}
 
 // Événement de connexion avec Google
 class LoginWithGooglePressed extends LoginEvent {}
+
+// Afficher ou masquer le mot de passe
+class LoginPasswordVisibility extends LoginEvent {
+  final bool? passwordVisibility;
+
+  const LoginPasswordVisibility({@required this.passwordVisibility});
+
+  @override
+  List<Object> get props => [passwordVisibility!];
+
+  @override
+  String toString() =>
+      'LoginPasswordVisibility { passwordVisibility: $passwordVisibility }';
+}

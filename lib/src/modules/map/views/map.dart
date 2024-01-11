@@ -46,6 +46,10 @@ class _MapPageState extends State<MapPage> {
 
   List<Category>? categories = [];
 
+  List<Category>? firstcategories = [];
+
+  List<Category>? lastcategories = [];
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   GlobalKey<ExpandableBottomSheetState> expandablesheet = GlobalKey();
@@ -111,6 +115,13 @@ class _MapPageState extends State<MapPage> {
           if (state is CategoriesLoaded) {
             isCategoriesLoading = false;
             categories = state.categories!;
+            for (var i = 0; i < categories!.length; i++) {
+              if (i < 5) {
+                firstcategories!.add(categories![i]);
+              } else {
+                lastcategories!.add(categories![i]);
+              }
+            }
           }
           if (state is CategoriesClicked) {
             category = state.category;
@@ -352,11 +363,30 @@ class _MapPageState extends State<MapPage> {
                                     Theme(
                                       data: Theme.of(context)
                                           .copyWith(dividerColor: transparent),
-                                      child: Wrap(
-                                        spacing: 12.0,
-                                        runSpacing: 1.0,
-                                        children: generateCategoryWidget(
-                                            categories!, _mapBloc, isExpanded),
+                                      child: Column(
+                                        children: [
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Wrap(
+                                              spacing: 5.0,
+                                              runSpacing: 1.0,
+                                              children: generateCategoryWidget(
+                                                  firstcategories!,
+                                                  _mapBloc,
+                                                  isExpanded,
+                                                  false),
+                                            ),
+                                          ),
+                                          Wrap(
+                                            spacing: 5.0,
+                                            runSpacing: 1.0,
+                                            children: generateCategoryWidget(
+                                                lastcategories!,
+                                                _mapBloc,
+                                                isExpanded,
+                                                true),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                     InkWell(

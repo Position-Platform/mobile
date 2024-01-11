@@ -26,8 +26,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController _passwordController = TextEditingController();
 
-  bool _obscureText = true;
-
   IconData _iconVisible = Icons.visibility_off;
 
   LoginBloc? _loginBloc;
@@ -76,25 +74,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _toggleObscureText() {
-    setState(() {
-      _obscureText = !_obscureText;
-      if (_obscureText == true) {
-        _iconVisible = Icons.visibility_off;
-      } else {
-        _iconVisible = Icons.visibility;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(transparent);
+    changeStatusColor(whiteColor);
     return Scaffold(
       backgroundColor: whiteColor,
       body: SingleChildScrollView(
         child: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
+            if (state.isPasswordVisible!) {
+              _iconVisible = Icons.visibility_off;
+            }
+            if (!state.isPasswordVisible!) {
+              _iconVisible = Icons.visibility;
+            }
             if (state.isFailure!) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
@@ -140,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: MediaQuery.of(context).size.width,
                     decoration: const BoxDecoration(color: whiteColor),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const AppAuthHeader(),
                         const SizedBox(
@@ -239,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
                             autocorrect: false,
                             cursorColor: primaryColor,
                             cursorHeight: 20,
-                            obscureText: _obscureText,
+                            obscureText: state.isPasswordVisible!,
                             style: TextStyle(
                                 fontFamily: "OpenSans", fontSize: textSize),
                             decoration: InputDecoration(
@@ -252,7 +246,9 @@ class _LoginPageState extends State<LoginPage> {
                                   icon: Icon(_iconVisible,
                                       color: greyColor, size: 20),
                                   onPressed: () {
-                                    _toggleObscureText();
+                                    _loginBloc!.add(LoginPasswordVisibility(
+                                        passwordVisibility:
+                                            state.isPasswordVisible!));
                                   }),
                             ),
                           ),
@@ -301,6 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 40,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
                               highlightColor: transparent,
@@ -321,9 +318,6 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                   width: 130,
                                   height: 35,
-                                  margin: const EdgeInsets.only(
-                                    left: 50,
-                                  ),
                                   decoration: BoxDecoration(
                                     color: whiteColor,
                                     borderRadius: BorderRadius.circular(8),
