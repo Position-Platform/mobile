@@ -10,8 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
-import 'package:maplibre_gl/mapbox_gl.dart' as maplibre_gl;
+import 'package:maplibre_gl/maplibre_gl.dart';
+import 'package:maplibre_gl/maplibre_gl.dart' as maplibre_gl;
 import 'package:position/src/core/helpers/sharedpreferences.dart';
 import 'package:position/src/core/utils/configs.dart';
 import 'package:position/src/core/utils/functions.dart';
@@ -97,7 +97,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           position.longitude,
           position.latitude,
           position.speed,
-          DateFormat('yyyy-MM-dd').format(position.timestamp!));
+          DateFormat('yyyy-MM-dd').format(position.timestamp));
     });
     _mapController?.onFeatureTapped.add((id, point, coordinates) async {
       if (id == "") {
@@ -129,7 +129,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     data["properties"]["batiment"] =
         json.decode(data["properties"]["batiment"].toString());
     data["properties"]["sousCategories"] =
-        json.decode(data["properties"]["sousCategories"].toString());
+        json.decode(data["properties"]["sous_categories"].toString());
     data["properties"]["commodites"] =
         data["properties"]["commodites"].toString();
     data["properties"]["images"] =
@@ -171,9 +171,9 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
     Position position = await Geolocator.getCurrentPosition();
     _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(position.latitude, position.longitude),
-        zoom: initMapZoom)));
+        zoom: initialMapZoom)));
     await trackingRepository?.addtracking(position.longitude, position.latitude,
-        position.speed, DateFormat('yyyy-MM-dd').format(position.timestamp!));
+        position.speed, DateFormat('yyyy-MM-dd').format(position.timestamp));
   }
 
   _getCategories(GetCategories event, Emitter<MapState> emit) async {
@@ -220,7 +220,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
           CameraPosition(
               target: LatLng(double.parse(event.searchModel!.latitude!),
                   double.parse(event.searchModel!.longitude!)),
-              zoom: initMapZoom)));
+              zoom: initialMapZoom)));
       _mapController?.addSymbol(
         SymbolOptions(
             geometry: LatLng(double.parse(event.searchModel!.latitude!),
@@ -231,6 +231,10 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       emit(SymboledAdded(event.searchModel));
     } else {
+      if (event.searchModel!.type == "categorie") {
+        _mapController!.removeLayer(ETABLISSEMENTS_POINTS);
+        _mapController!.removeSource(GEOJSON_ETABLISSEMENT_SOURCE_ID);
+      }
       try {
         Position position = await Geolocator.getCurrentPosition();
         var etablissementsResults = await etablissementRepository!
@@ -257,6 +261,17 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                   iconSize: 3,
                   iconAllowOverlap: true,
                   symbolSortKey: 10.0));
+
+          // animate camera to the first point
+          _mapController?.animateCamera(
+              CameraUpdate.newCameraPosition(CameraPosition(
+                  target: LatLng(
+                      double.parse(etablissementsResults.success!.data!
+                          .etablissements!.data![0].batiment!.latitude!),
+                      double.parse(etablissementsResults.success!.data!
+                          .etablissements!.data![0].batiment!.longitude!)),
+                  zoom: initialMapZoom - 2)),
+              duration: const Duration(seconds: 2));
           emit(EtablissementsLoaded(
               etablissementsResults.success!.data!.etablissements!));
         } else {
@@ -332,6 +347,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 iconAllowOverlap: true,
                 symbolSortKey: 10.0));
 
+        // animate camera to the first point
+        _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: LatLng(
+                    double.parse(
+                        etablissementsResults.success!.data!.etablissements!
+                            .data![0].batiment!.latitude!),
+                    double.parse(etablissementsResults.success!.data!
+                        .etablissements!.data![0].batiment!.longitude!)),
+                zoom: initialMapZoom - 3)));
         if (event.distance!) {
           etablissementsResults.success!.data!.etablissements!.data!
               .sort((a, b) => a.distance!.compareTo(b.distance!));
@@ -470,7 +495,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         _mapController!.addSource(
             GEOJSON_SOURCE_ID, GeojsonSourceProperties(data: geojson));
 
-        _mapController!.addLayer(
+        _mapController!.addLineLayer(
             GEOJSON_SOURCE_ID,
             ROUTE_LAYER,
             const LineLayerProperties(
@@ -487,7 +512,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                 LatLng(double.parse(event.lat!), double.parse(event.lon!)));
 
         _mapController!.animateCamera(
-          CameraUpdate.newLatLngBounds(bounds, left: 20, right: 20),
+          CameraUpdate.newLatLngBounds(bounds,
+              left: 20, right: 20, top: 200, bottom: 300),
         );
         emit(RoutingAdded());
       } else {
@@ -637,6 +663,16 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
                     iconAllowOverlap: true,
                     symbolSortKey: 10.0));
 
+            // animate camera to the first point
+            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: LatLng(
+                        double.parse(etablissementsResults.success!.data!
+                            .etablissements!.data![0].batiment!.latitude!),
+                        double.parse(etablissementsResults.success!.data!
+                            .etablissements!.data![0].batiment!.longitude!)),
+                    zoom: initialMapZoom - 3)));
+
             if (event.distance!) {
               etablissementsResults.success!.data!.etablissements!.data!
                   .sort((a, b) => a.distance!.compareTo(b.distance!));
@@ -718,8 +754,8 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
   Future<OfflineRegion?> _downloadOfflineRegion() async {
     try {
       final bounds = LatLngBounds(
-        northeast: const LatLng(4.4606, 9.0607),
-        southwest: const LatLng(3.2982, 12.0924),
+        northeast: const LatLng(4.1295, 9.6079),
+        southwest: const LatLng(3.9415, 9.8631),
       );
       final regionDefinition = OfflineRegionDefinition(
           bounds: bounds,
@@ -730,7 +766,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
 
       final region = await downloadOfflineRegion(regionDefinition,
           metadata: {
-            'name': 'Cameroon',
+            'name': 'Douala',
           },
           onEvent: _onDownloadEvent);
 

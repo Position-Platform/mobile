@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,8 +16,8 @@ Widget headerBottomSheet(SearchModel searchModel, MapBloc mapBloc) {
           items: searchModel.etablissement!.images!
               .map((item) => Container(
                   alignment: Alignment.topLeft,
-                  child: Image.network(
-                    apiUrl + item.imageUrl!,
+                  child: CachedNetworkImage(
+                    imageUrl: apiUrl + item.imageUrl!,
                     fit: BoxFit.cover,
                     width: 170,
                     height: 150,

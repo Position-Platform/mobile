@@ -24,6 +24,7 @@ import 'package:position/src/modules/map/submodules/search/db/search.table.dart'
 
 part 'db.g.dart';
 
+// Annotation pour indiquer que cette classe est une base de données Drift
 @DriftDatabase(tables: [
   UserTable,
   SearchTable,
@@ -37,22 +38,22 @@ part 'db.g.dart';
   EtablissementDao
 ])
 class MyDatabase extends _$MyDatabase {
-  // we tell the database where to store the data with this constructor
+  // Constructeur pour spécifier l'emplacement de la base de données
   MyDatabase() : super(_openConnection());
 
-  // you should bump this number whenever you change or add a table definition.
-  // Migrations are covered later in the documentation.
+  // Numéro de version du schéma de la base de données
   @override
   int get schemaVersion => 1;
 }
 
+// Fonction pour ouvrir une connexion à la base de données
 LazyDatabase _openConnection() {
-  // the LazyDatabase util lets us find the right location for the file async.
+  // Utilisation de LazyDatabase pour trouver l'emplacement du fichier de base de données de manière asynchrone
   return LazyDatabase(() async {
-    // put the database file, called db.sqlite here, into the documents folder
-    // for your app.
+    // Création du fichier de base de données dans le dossier des documents de l'application
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'position.sqlite'));
+    // Création de la base de données native
     return NativeDatabase.createInBackground(file);
   });
 }

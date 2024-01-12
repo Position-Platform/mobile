@@ -106,7 +106,7 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
     }
   }
 
-  bool isLoading = false;
+  bool isLoading = true;
   List<Datum>? etablissements = [];
 
   String? commodites = "";

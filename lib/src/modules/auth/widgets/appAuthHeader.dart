@@ -8,24 +8,35 @@ class AppAuthHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Récupère la taille de l'écran
+    final Size screenSize = MediaQuery.of(context).size;
+    // Calcule la hauteur du logo en fonction de la taille de l'écran
+    final double logoHeight = screenSize.height * 0.1;
+    // Calcule la largeur du logo en fonction de la taille de l'écran
+    final double logoWidth = screenSize.width * 0.5;
+    // Calcule la marge horizontale du message de bienvenue en fonction de la taille de l'écran
+    final double welcomeMargin = screenSize.width * 0.1;
+
+    // Retourne une colonne contenant le logo et le message de bienvenue
     return Column(
       children: [
-        const SizedBox(
-          height: 50,
+        // Ajoute un espace entre le haut de l'écran et le logo
+        SizedBox(
+          height: screenSize.height * 0.05,
         ),
+        // Affiche le logo de l'application
         Image.asset(
           "assets/images/png/logo-nom.png",
-          height: 56,
-          width: 150,
+          height: logoHeight,
+          width: logoWidth,
         ),
-        const SizedBox(
-          height: 17,
+        // Ajoute un espace entre le logo et le message de bienvenue
+        SizedBox(
+          height: screenSize.height * 0.02,
         ),
+        // Affiche le message de bienvenue
         Container(
-          margin: const EdgeInsets.only(
-            left: 50,
-            right: 50,
-          ),
+          margin: EdgeInsets.symmetric(horizontal: welcomeMargin),
           child: SvgPicture.asset("assets/images/svg/welcome-large.svg"),
         ),
       ],

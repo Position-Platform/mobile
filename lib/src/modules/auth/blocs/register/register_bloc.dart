@@ -18,6 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     this.authRepository,
     this.sharedPreferencesHelper,
   }) : super(RegisterState.initial()) {
+    // Définition des événements et de leurs gestionnaires
     on<RegisterEmailChanged>(_registerEmailChanged,
         transformer: debounce(const Duration(milliseconds: 300)));
     on<RegisterPasswordChanged>(_registerPasswordChanged,
@@ -44,7 +45,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     ));
   }
 
-// Action de validation de mot de passe qui s'effectue a chaque saisie de l'utilisateur
+  // Action de validation de mot de passe qui s'effectue a chaque saisie de l'utilisateur
   void _registerPasswordChanged(
     RegisterPasswordChanged event,
     Emitter<RegisterState> emit,
@@ -54,7 +55,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     ));
   }
 
-// Action de confirmation de mot de passe qui s'effectue a chaque saisie de l'utilisateur
+  // Action de confirmation de mot de passe qui s'effectue a chaque saisie de l'utilisateur
   void _registerConfirmPasswordChanged(
     RegisterCPasswordChanged event,
     Emitter<RegisterState> emit,
@@ -65,6 +66,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     ));
   }
 
+  // Action de validation de numéro de téléphone qui s'effectue a chaque saisie de l'utilisateur
   void _registerPhoneChanged(
     RegisterPhoneChanged event,
     Emitter<RegisterState> emit,
@@ -81,6 +83,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async {
     emit(RegisterState.loading());
     try {
+      // Appel de la méthode de registration du repository
       Result<AuthModel> user = await authRepository!
           .register(event.name!, event.email!, event.phone!, event.password!);
       if (user.success != null) {

@@ -1,29 +1,52 @@
 class Result<T> {
+  // Propriété pour stocker le résultat d'une opération réussie
   final T? success;
 
+  // Propriété pour stocker une erreur survenue lors de l'opération
   final Error? error;
 
   Result({this.success, this.error});
 }
 
 class Success<T> extends Result {
-  final T? data = null;
+  // Propriété pour stocker le résultat d'une opération réussie
+  final T? data;
 
-  Success(data);
+  Success(this.data);
 }
 
-class Error extends Result {}
+class Error extends Result {
+  // Propriété pour stocker le message d'erreur
+  final String message;
 
-class NoInternetError extends Error {}
+  Error(this.message);
+}
 
-class ServerError extends Error {}
+// Sous-classes pour les types d'erreurs spécifiques
+class NoInternetError extends Error {
+  NoInternetError() : super("No internet connection");
+}
 
-class UploadError extends Error {}
+class ServerError extends Error {
+  ServerError() : super("Server error");
+}
 
-class DbInsertError extends Error {}
+class UploadError extends Error {
+  UploadError() : super("Upload error");
+}
 
-class DbGetDataError extends Error {}
+class DbInsertError extends Error {
+  DbInsertError() : super("Database insert error");
+}
 
-class DbUpdateError extends Error {}
+class DbGetDataError extends Error {
+  DbGetDataError() : super("Database get data error");
+}
 
-class DbDeleteError extends Error {}
+class DbUpdateError extends Error {
+  DbUpdateError() : super("Database update error");
+}
+
+class DbDeleteError extends Error {
+  DbDeleteError() : super("Database delete error");
+}

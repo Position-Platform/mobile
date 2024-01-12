@@ -1,16 +1,18 @@
-part of 'register_bloc.dart';
+part of 'register_bloc.dart'; // Importe le fichier register_bloc.dart
 
 @immutable
 class RegisterState {
-  final bool? isEmailValid;
-  final bool? isPasswordValid;
-  final bool? isCPasswordValid;
-  final bool? isPhoneValid;
-  final bool? isSubmitting;
-  final bool? isSuccess;
-  final bool? isFailure;
+  final bool? isEmailValid; // Indique si l'adresse e-mail est valide
+  final bool? isPasswordValid; // Indique si le mot de passe est valide
+  final bool?
+      isCPasswordValid; // Indique si la confirmation du mot de passe est valide
+  final bool? isPhoneValid; // Indique si le numéro de téléphone est valide
+  final bool?
+      isSubmitting; // Indique si le formulaire est en cours de soumission
+  final bool? isSuccess; // Indique si la soumission du formulaire a réussi
+  final bool? isFailure; // Indique si la soumission du formulaire a échoué
 
-  bool get isFormValid =>
+  bool get isFormValid => // Indique si le formulaire est valide
       isEmailValid! && isPasswordValid! && isCPasswordValid! && isPhoneValid!;
 
   const RegisterState({
@@ -24,6 +26,7 @@ class RegisterState {
   });
 
   factory RegisterState.initial() {
+    // Crée une instance de l'état initial
     return const RegisterState(
       isEmailValid: true,
       isPasswordValid: true,
@@ -36,6 +39,7 @@ class RegisterState {
   }
 
   factory RegisterState.loading() {
+    // Crée une instance de l'état de chargement
     return const RegisterState(
       isEmailValid: true,
       isPasswordValid: true,
@@ -48,6 +52,7 @@ class RegisterState {
   }
 
   factory RegisterState.failure() {
+    // Crée une instance de l'état d'échec
     return const RegisterState(
       isEmailValid: true,
       isPasswordValid: true,
@@ -60,6 +65,7 @@ class RegisterState {
   }
 
   factory RegisterState.success() {
+    // Crée une instance de l'état de réussite
     return const RegisterState(
       isEmailValid: true,
       isPasswordValid: true,
@@ -77,6 +83,7 @@ class RegisterState {
     bool? isCPasswordValid,
     bool? isPhoneValid,
   }) {
+    // Met à jour l'état en fonction des nouvelles valeurs
     return copyWith(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
@@ -98,6 +105,7 @@ class RegisterState {
     bool? isSuccess,
     bool? isFailure,
   }) {
+    // Crée une nouvelle instance de l'état avec les propriétés spécifiées mises à jour
     return RegisterState(
       isEmailValid: isEmailValid ?? this.isEmailValid,
       isPasswordValid: isPasswordValid ?? this.isPasswordValid,
@@ -111,6 +119,7 @@ class RegisterState {
 
   @override
   String toString() {
+    // Affiche l'état de l'interface utilisateur dans la console de débogage
     return '''RegisterState {
       isEmailValid: $isEmailValid,
       isPasswordValid: $isPasswordValid,

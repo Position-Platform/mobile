@@ -6,7 +6,7 @@ part of 'routingService.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 class _$RoutingService extends RoutingService {
   _$RoutingService([ChopperClient? client]) {
     if (client == null) return;
@@ -23,8 +23,7 @@ class _$RoutingService extends RoutingService {
     String geometries,
     String steps,
   ) {
-    final Uri $url = Uri.parse(
-        'https://router.project-osrm.org/route/v1/driving/${coordinates}');
+    final Uri $url = Uri.parse('${routingUrl}/${coordinates}');
     final Map<String, dynamic> $params = <String, dynamic>{
       'overview': overview,
       'geometries': geometries,

@@ -27,24 +27,30 @@ void main() async {
     await dotenv.load(fileName: ".env");
     // Initialisation des dependences via getIt
     await di.init();
+    // Initialisation de Firebase
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    // Récupération du lien dynamique initial
     final PendingDynamicLinkData? initialLink =
         await FirebaseDynamicLinks.instance.getInitialLink();
 
     FirebasePerformance.instance;
 
+    // Configuration de HydratedBloc pour la persistance de l'état
     HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getTemporaryDirectory(),
     );
+    // Configuration de l'observateur de BLoC
     Bloc.observer = SimpleBlocObserver();
 
+    // Initialisation de Workmanager pour la planification de tâches en arrière-plan
     Workmanager().initialize(callbackDispatcher);
     Workmanager().registerPeriodicTask("1", "addtracking",
         frequency: const Duration(minutes: 15),
         constraints: Constraints(networkType: NetworkType.connected));
 
+    // Lancement de l'application
     runApp(BlocProvider(
       create: (_) => di.getIt<GpsBloc>(),
       child: MyApp(
@@ -52,6 +58,7 @@ void main() async {
       ),
     ));
   }, (error, stackTrace) {
+    // Gestion des erreurs avec Firebase Crashlytics
     print('runZonedGuarded: Caught error in my root zone.');
     print(stackTrace);
     print(error);

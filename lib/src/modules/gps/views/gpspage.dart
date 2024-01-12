@@ -5,7 +5,7 @@ import 'package:position/src/core/utils/colors.dart';
 import 'package:position/src/modules/gps/bloc/gps_bloc.dart';
 
 class GpsAccessPage extends StatelessWidget {
-  const GpsAccessPage({Key? key}) : super(key: key);
+  const GpsAccessPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +20,7 @@ class GpsAccessPage extends StatelessWidget {
 }
 
 class _AccessBotton extends StatelessWidget {
-  const _AccessBotton({
-    Key? key,
-  }) : super(key: key);
+  const _AccessBotton();
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +54,7 @@ class _AccessBotton extends StatelessWidget {
 }
 
 class _EnableGpsMessage extends StatelessWidget {
-  const _EnableGpsMessage({
-    Key? key,
-  }) : super(key: key);
+  const _EnableGpsMessage();
 
   @override
   Widget build(BuildContext context) {

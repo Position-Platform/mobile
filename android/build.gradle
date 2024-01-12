@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.6.21'
+    ext.kotlin_version = '1.8.10'
     repositories {
         google()
         mavenCentral()
@@ -23,7 +23,7 @@ allprojects {
         //** add this line
         configurations.all {
             resolutionStrategy {
-                force "com.google.android.gms:play-services-location:20.0.0"
+                force "com.google.android.gms:play-services-location:21.0.1"
             }
         }
     }
@@ -37,6 +37,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

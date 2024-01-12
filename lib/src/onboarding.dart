@@ -21,6 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
+  // Cette méthode construit les indicateurs de page pour le widget PageView
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
     for (int i = 0; i < _numPages; i++) {
@@ -29,6 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return list;
   }
 
+  // Cette méthode construit un indicateur de page pour le widget PageView
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 150),
@@ -44,7 +46,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(primaryColor);
+    changeStatusColor(primaryColor); // Change la couleur de la barre de statut
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -67,6 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                // Bouton "Passer" pour passer à la dernière page de l'écran d'introduction
                 Container(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -84,6 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                   ),
                 ),
+                // Widget PageView pour afficher les pages d'introduction
                 SizedBox(
                   height: 600.0,
                   child: PageView(
@@ -95,6 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       });
                     },
                     children: <Widget>[
+                      // Première page d'introduction
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: Column(
@@ -122,6 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
+                      // Deuxième page d'introduction
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: Column(
@@ -149,6 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
+                      // Troisième page d'introduction
                       Padding(
                         padding: const EdgeInsets.all(40.0),
                         child: Column(
@@ -179,10 +186,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ],
                   ),
                 ),
+                // Indicateurs de page pour le widget PageView
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: _buildPageIndicator(),
                 ),
+                // Bouton "Suivant" pour passer à la page suivante de l'écran d'introduction
                 _currentPage != _numPages - 1
                     ? Expanded(
                         child: Align(
@@ -222,14 +231,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
       ),
+      // Bouton "Commencer" pour passer à l'écran de connexion
       bottomSheet: _currentPage == _numPages - 1
           ? Container(
               height: 100.0,
               width: double.infinity,
               color: primaryDarkColor,
               child: GestureDetector(
-                onTap: () => context.read<AuthBloc>().add(
-                    AuthFirst()), // context.read<AuthBloc>().add(AuthFirst()),
+                onTap: () => context.read<AuthBloc>().add(AuthFirst()),
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 30.0),

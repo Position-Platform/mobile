@@ -6,7 +6,7 @@ part of 'apiService.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 class _$ApiService extends ApiService {
   _$ApiService([ChopperClient? client]) {
     if (client == null) return;
@@ -18,7 +18,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> login(Map<String, dynamic> body) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/auth/login');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/login');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -35,8 +35,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> register(Map<String, dynamic> body) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/auth/register');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/register');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -53,8 +52,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> registerfacebook(Map<String, dynamic> body) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/auth/register/facebook');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/register/facebook');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -71,8 +69,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> registergoogle(Map<String, dynamic> body) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/auth/register/google');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/register/google');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -89,7 +86,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getuser(String token) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/user/me');
+    final Uri $url = Uri.parse('${apiUrl}/api/user/me');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -105,8 +102,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> forgetPassword(Map<String, dynamic> body) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/auth/password/forgot');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/password/forgot');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -123,8 +119,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> resetPassword(Map<String, dynamic> body) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/auth/password/reset');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/password/reset');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -141,7 +136,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> logout(String token) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/auth/logout');
+    final Uri $url = Uri.parse('${apiUrl}/api/auth/logout');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -157,7 +152,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getcategories() {
-    final Uri $url = Uri.parse('https://services.position.cm/api/categories');
+    final Uri $url = Uri.parse('${apiUrl}/api/categories');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -172,8 +167,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getcategoriesbyid(int idCategorie) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/categories/${idCategorie}');
+    final Uri $url = Uri.parse('${apiUrl}/api/categories/${idCategorie}');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -188,8 +182,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> searchcategories(String query) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/search/categories');
+    final Uri $url = Uri.parse('${apiUrl}/api/search/categories');
     final Map<String, dynamic> $params = <String, dynamic>{'q': query};
     final Map<String, String> $headers = {
       'Accept': 'application/json',
@@ -210,8 +203,7 @@ class _$ApiService extends ApiService {
     int idCategorie,
     Map<String, dynamic> body,
   ) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/categories/${idCategorie}');
+    final Uri $url = Uri.parse('${apiUrl}/api/categories/${idCategorie}');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -232,7 +224,7 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/tracking');
+    final Uri $url = Uri.parse('${apiUrl}/api/tracking');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -255,8 +247,7 @@ class _$ApiService extends ApiService {
     String lat,
     String lon,
   ) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/etablissements');
+    final Uri $url = Uri.parse('${apiUrl}/api/etablissements');
     final Map<String, dynamic> $params = <String, dynamic>{
       'user_id': idUser,
       'page': page,
@@ -281,8 +272,8 @@ class _$ApiService extends ApiService {
     int idEtablissement,
     int idUser,
   ) {
-    final Uri $url = Uri.parse(
-        'https://services.position.cm/api/etablissements/${idEtablissement}');
+    final Uri $url =
+        Uri.parse('${apiUrl}/api/etablissements/${idEtablissement}');
     final Map<String, dynamic> $params = <String, dynamic>{'user_id': idUser};
     final Map<String, String> $headers = {
       'Accept': 'application/json',
@@ -302,8 +293,7 @@ class _$ApiService extends ApiService {
     String query,
     int idUser,
   ) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/search/etablissements');
+    final Uri $url = Uri.parse('${apiUrl}/api/search/etablissements');
     final Map<String, dynamic> $params = <String, dynamic>{
       'q': query,
       'user_id': idUser,
@@ -327,8 +317,8 @@ class _$ApiService extends ApiService {
     int idEtablissement,
     Map<String, dynamic> body,
   ) {
-    final Uri $url = Uri.parse(
-        'https://services.position.cm/api/etablissements/${idEtablissement}');
+    final Uri $url =
+        Uri.parse('${apiUrl}/api/etablissements/${idEtablissement}');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -349,8 +339,8 @@ class _$ApiService extends ApiService {
     String token,
     int idEtablissement,
   ) {
-    final Uri $url = Uri.parse(
-        'https://services.position.cm/api/etablissements/${idEtablissement}');
+    final Uri $url =
+        Uri.parse('${apiUrl}/api/etablissements/${idEtablissement}');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -369,7 +359,7 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/favoris/add');
+    final Uri $url = Uri.parse('${apiUrl}/api/favoris/add');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -390,8 +380,7 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final Uri $url =
-        Uri.parse('https://services.position.cm/api/favoris/remove');
+    final Uri $url = Uri.parse('${apiUrl}/api/favoris/remove');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -409,7 +398,7 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> getfavoris(String token) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/favoris');
+    final Uri $url = Uri.parse('${apiUrl}/api/favoris');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',
@@ -432,8 +421,7 @@ class _$ApiService extends ApiService {
     String lat,
     String lon,
   ) {
-    final Uri $url = Uri.parse(
-        'https://services.position.cm/api/search/etablissements/filter');
+    final Uri $url = Uri.parse('${apiUrl}/api/search/etablissements/filter');
     final Map<String, dynamic> $params = <String, dynamic>{
       'id_categorie': idCategorie,
       'user_id': idUser,
@@ -457,8 +445,8 @@ class _$ApiService extends ApiService {
 
   @override
   Future<Response<dynamic>> updateetablissementview(int idEtablissement) {
-    final Uri $url = Uri.parse(
-        'https://services.position.cm/api/etablissements/vues/${idEtablissement}');
+    final Uri $url =
+        Uri.parse('${apiUrl}/api/etablissements/vues/${idEtablissement}');
     final Map<String, String> $headers = {
       'Accept': 'application/json',
     };
@@ -476,7 +464,7 @@ class _$ApiService extends ApiService {
     String token,
     Map<String, dynamic> body,
   ) {
-    final Uri $url = Uri.parse('https://services.position.cm/api/commentaires');
+    final Uri $url = Uri.parse('${apiUrl}/api/commentaires');
     final Map<String, String> $headers = {
       'Authorization': token,
       'Accept': 'application/json',

@@ -11,7 +11,7 @@ import 'package:position/src/modules/gps/views/gpspage.dart';
 
 class LoadingPage extends StatelessWidget {
   PendingDynamicLinkData? initialLink;
-  LoadingPage({Key? key, @required this.initialLink}) : super(key: key);
+  LoadingPage({super.key, @required this.initialLink});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -43,6 +43,7 @@ import 'package:position/src/modules/newetablishment/blocs/new_etablishment/new_
 final GetIt getIt = GetIt.instance;
 
 Future<void> init() async {
+  // Création du client Chopper avec les différents services et intercepteurs
   final chopper = ChopperClient(services: [
     ApiService.create(),
     NominatimService.create(),
@@ -53,16 +54,19 @@ Future<void> init() async {
     HeadersInterceptor({'X-Authorization': apiKey!})
   ], converter: const JsonConverter(), errorConverter: const JsonConverter());
 
+  // Création des instances des différents services
   final apiService = ApiService.create(chopper);
   final nominatimService = NominatimService.create(chopper);
   final routingService = RoutingService.create(chopper);
 
   //Utils
+  // Enregistrement des instances des différents helpers
   getIt.registerLazySingleton<NetworkInfoHelper>(() => NetworkInfoHelper());
   getIt.registerLazySingleton<SharedPreferencesHelper>(
       () => SharedPreferencesHelper());
 
   //ApiService
+  // Enregistrement des instances des différents services d'API
   getIt.registerLazySingleton<AuthApiService>(
       () => AuthApiServiceFactory(apiService));
 
@@ -79,6 +83,7 @@ Future<void> init() async {
       () => NominatimApiServiceFactory(nominatimService, routingService));
 
   // Database
+  // Enregistrement des instances des DAO pour accéder à la base de données
   getIt.registerLazySingleton<MyDatabase>(() => MyDatabase());
   getIt.registerLazySingleton<UserDao>(() => UserDao(getIt()));
   getIt.registerLazySingleton<SearchDao>(() => SearchDao(getIt()));
@@ -87,6 +92,7 @@ Future<void> init() async {
       .registerLazySingleton<EtablissementDao>(() => EtablissementDao(getIt()));
 
   //Repository
+  // Enregistrement des instances des différents repositories
   getIt.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
         authApiService: getIt(),
@@ -128,6 +134,7 @@ Future<void> init() async {
   );
 
   //Bloc
+  // Enregistrement des instances des différents blocs
   getIt.registerFactory<AppBloc>(() => AppBloc());
   getIt.registerFactory<GpsBloc>(() => GpsBloc());
   getIt.registerFactory<AuthBloc>(() =>
@@ -149,5 +156,6 @@ Future<void> init() async {
       nominatimRepository: getIt()));
 
   getIt.registerFactory<NewEtablishmentBloc>(
+      // Enregistrement de l'instance du bloc NewEtablishmentBloc
       () => NewEtablishmentBloc(maxSteps: 9));
 }

@@ -1609,6 +1609,16 @@ class S {
       args: [],
     );
   }
+
+  /// `reset done`
+  String get resetsuccess {
+    return Intl.message(
+      'reset done',
+      name: 'resetsuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

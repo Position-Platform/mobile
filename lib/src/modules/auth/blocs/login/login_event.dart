@@ -1,5 +1,6 @@
 part of 'login_bloc.dart';
 
+// Classe abstraite de base pour les événements de connexion
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
 
@@ -7,6 +8,7 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// Événement de changement d'identifiant de connexion
 class LoginIdChanged extends LoginEvent {
   final String? identifiant;
 
@@ -19,6 +21,7 @@ class LoginIdChanged extends LoginEvent {
   String toString() => 'LoginIdChanged { identifiant :$identifiant }';
 }
 
+// Événement de changement de mot de passe
 class LoginPasswordChanged extends LoginEvent {
   final String? password;
 
@@ -31,6 +34,7 @@ class LoginPasswordChanged extends LoginEvent {
   String toString() => 'LoginPasswordChanged { password: $password }';
 }
 
+// Événement de mot de passe oublié
 class PasswordForgot extends LoginEvent {
   final String? email;
 
@@ -43,6 +47,7 @@ class PasswordForgot extends LoginEvent {
   String toString() => 'PasswordReset { email :$email }';
 }
 
+// Événement de réinitialisation de mot de passe
 class PasswordReset extends LoginEvent {
   final String? email;
   final String? password;
@@ -61,6 +66,7 @@ class PasswordReset extends LoginEvent {
       'PasswordReset { email :$email, password:$password,resettoken:$resettoken }';
 }
 
+// Événement de connexion avec des identifiants de connexion
 class LoginWithCredentialsPressed extends LoginEvent {
   final String? identifiant;
   final String? password;
@@ -79,6 +85,22 @@ class LoginWithCredentialsPressed extends LoginEvent {
   }
 }
 
+// Événement de connexion avec Facebook
 class LoginWithFacebookPressed extends LoginEvent {}
 
+// Événement de connexion avec Google
 class LoginWithGooglePressed extends LoginEvent {}
+
+// Afficher ou masquer le mot de passe
+class LoginPasswordVisibility extends LoginEvent {
+  final bool? passwordVisibility;
+
+  const LoginPasswordVisibility({@required this.passwordVisibility});
+
+  @override
+  List<Object> get props => [passwordVisibility!];
+
+  @override
+  String toString() =>
+      'LoginPasswordVisibility { passwordVisibility: $passwordVisibility }';
+}

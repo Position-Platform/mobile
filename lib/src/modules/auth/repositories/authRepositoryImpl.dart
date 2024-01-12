@@ -132,7 +132,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
         var model = ApiModel.fromJson(response.body);
 
-        await userDao!.deleteUser();
+        try {
+          await userDao!.deleteUser();
+        } catch (e) {
+          return Result(error: DbDeleteError());
+        }
 
         return Result(success: model);
       } catch (e) {

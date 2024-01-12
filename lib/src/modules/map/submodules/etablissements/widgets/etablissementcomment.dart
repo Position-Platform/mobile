@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:position/generated/l10n.dart';
@@ -32,8 +33,8 @@ Widget etablissementComment(BuildContext context, Commentaire commentaire) {
                     borderRadius: const BorderRadius.all(Radius.circular(5.0) //
                         ),
                   ),
-                  child: Image.network(
-                    commentaire.user!.imageProfil!.contains("http")
+                  child: CachedNetworkImage(
+                    imageUrl: commentaire.user!.imageProfil!.contains("http")
                         ? commentaire.user!.imageProfil!
                         : apiUrl + commentaire.user!.imageProfil!,
                     height: 30,

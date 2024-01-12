@@ -10,7 +10,7 @@ class EtablissementDao extends DatabaseAccessor<MyDatabase>
     with _$EtablissementDaoMixin {
   // this constructor is required so that the main database can create an instance
   // of this object.
-  EtablissementDao(MyDatabase db) : super(db);
+  EtablissementDao(super.db);
 
   Future<List<EtablissementTableData>> get allEtablissements =>
       select(etablissementTable).get();

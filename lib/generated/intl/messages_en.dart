@@ -166,6 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Account creation..."),
         "removeMap": MessageLookupByLibrary.simpleMessage("Removed maps"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "resetsuccess": MessageLookupByLibrary.simpleMessage("reset done"),
         "reviewadded": MessageLookupByLibrary.simpleMessage("Review added"),
         "reviewerror":
             MessageLookupByLibrary.simpleMessage("Error adding review"),
