@@ -79,7 +79,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    changeStatusColor(transparent);
+    changeStatusColor(whiteColor);
     return Scaffold(
       backgroundColor: whiteColor,
       body: SingleChildScrollView(

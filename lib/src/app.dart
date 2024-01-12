@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:position/generated/l10n.dart';
+import 'package:position/navigatorobserver.dart';
 import 'package:position/src/core/app/bloc/app_bloc.dart';
 import 'package:position/src/core/di/di.dart';
 import 'package:position/src/modules/gps/views/loading.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<AppBloc, AppState>(
           builder: (context, state) {
             return MaterialApp(
+              navigatorObservers: [MyNavigatorObserver()],
               // Le titre de l'application.
               title: "Position",
               // Le thème de l'application est défini en fonction de l'état actuel de l'application.
