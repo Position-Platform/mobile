@@ -75,40 +75,59 @@ class EtablissementRepositoryImpl implements EtablissementRepository {
   @override
   Future<Result<EtablissementsModel>> getalletablissements(
       String lat, String lon) async {
+    // Vérifier la connexion Internet
     bool isConnected = await networkInfoHelper!.isConnected();
+
+    // Récupérer l'utilisateur actuel
     UserTableData user = await userDao!.getUser();
+
     if (isConnected) {
       try {
-        final Response response = await etablissementApiService!
+        // Récupérer la première page des établissements
+        final Response firstPageResponse = await etablissementApiService!
             .getAllEtablissements(user.user!.id!, 1, lat, lon);
 
-        var model = EtablissementsModel.fromJson(response.body);
+        var firstPageModel =
+            EtablissementsModel.fromJson(firstPageResponse.body);
 
-        for (var i = 1; i <= model.data!.etablissements!.lastPage!; i++) {
-          final Response response = await etablissementApiService!
+        // Enregistrement des établissements de la première page dans la base de données
+        await saveEtablissementsToDatabase(
+            firstPageModel.data!.etablissements!.data!);
+
+        // Boucle pour récupérer le reste des pages
+        for (var i = 2;
+            i <= firstPageModel.data!.etablissements!.lastPage!;
+            i++) {
+          final Response nextPageResponse = await etablissementApiService!
               .getAllEtablissements(user.user!.id!, i, lat, lon);
 
-          var model = EtablissementsModel.fromJson(response.body);
+          var nextPageModel =
+              EtablissementsModel.fromJson(nextPageResponse.body);
 
-          for (var j = 0; j < model.data!.etablissements!.data!.length; j++) {
-            try {
-              await etablissementDao!.addEtablissement(
-                  EtablissementTableCompanion(
-                      id: Value(model.data!.etablissements!.data![j].id!),
-                      etablissement:
-                          Value(model.data!.etablissements!.data![j])));
-            } catch (e) {
-              Result(error: DbInsertError());
-            }
-          }
+          // Enregistrement des établissements de la page suivante dans la base de données
+          await saveEtablissementsToDatabase(
+              nextPageModel.data!.etablissements!.data!);
         }
 
-        return Result(success: model);
+        // Retourner le modèle complet des établissements récupérés
+        return Result(success: firstPageModel);
       } catch (e) {
         return Result(error: ServerError());
       }
     } else {
       return Result(error: NoInternetError());
+    }
+  }
+
+// Fonction pour enregistrer les établissements dans la base de données
+  Future<void> saveEtablissementsToDatabase(List<Datum> etablissements) async {
+    for (var etablissement in etablissements) {
+      try {
+        await etablissementDao!.addEtablissement(EtablissementTableCompanion(
+            id: Value(etablissement.id!), etablissement: Value(etablissement)));
+      } catch (e) {
+        Result(error: DbInsertError());
+      }
     }
   }
 

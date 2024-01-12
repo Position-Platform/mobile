@@ -28,40 +28,37 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   @override
   Future<Result<List<Category>>> getallcategories() async {
     try {
-      var categories = await categoryDao!.allCategories;
-      if (categories.isNotEmpty) {
-        List<Category>? listCategories = [];
+      var localCategories = await categoryDao!.allCategories;
 
-        for (var i = 0; i < categories.length; i++) {
-          listCategories.add(categories[i].category!);
-        }
-        return Result(success: listCategories);
-      } else {
-        bool isConnected = await networkInfoHelper!.isConnected();
-        if (isConnected) {
-          try {
-            final Response response =
-                await categoriesApiService!.getAllcategories();
+      if (localCategories.isNotEmpty) {
+        return Result(
+            success:
+                localCategories.map((category) => category.category!).toList());
+      }
 
-            var model = CategoriesModel.fromJson(response.body);
+      bool isConnected = await networkInfoHelper!.isConnected();
+      if (isConnected) {
+        try {
+          final Response response =
+              await categoriesApiService!.getAllcategories();
+          var model = CategoriesModel.fromJson(response.body);
 
-            for (var i = 0; i < model.data!.categories!.length; i++) {
-              try {
-                await categoryDao!.addCategory(CategoryTableCompanion(
-                    id: Value(model.data!.categories![i].id!),
-                    category: Value(model.data!.categories![i])));
-              } catch (e) {
-                return Result(error: DbInsertError());
-              }
+          await Future.wait(model.data!.categories!.map((onlineCategory) async {
+            try {
+              await categoryDao!.addCategory(CategoryTableCompanion(
+                  id: Value(onlineCategory.id!),
+                  category: Value(onlineCategory)));
+            } catch (e) {
+              return Result(error: DbInsertError());
             }
+          }));
 
-            return Result(success: model.data!.categories);
-          } catch (e) {
-            return Result(error: ServerError());
-          }
-        } else {
-          return Result(error: NoInternetError());
+          return Result(success: model.data!.categories);
+        } catch (e) {
+          return Result(error: ServerError());
         }
+      } else {
+        return Result(error: NoInternetError());
       }
     } catch (e) {
       return Result(error: DbGetDataError());

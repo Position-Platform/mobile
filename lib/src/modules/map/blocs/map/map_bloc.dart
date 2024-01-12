@@ -495,7 +495,7 @@ class MapBloc extends HydratedBloc<MapEvent, MapState> {
         _mapController!.addSource(
             GEOJSON_SOURCE_ID, GeojsonSourceProperties(data: geojson));
 
-        _mapController!.addLayer(
+        _mapController!.addLineLayer(
             GEOJSON_SOURCE_ID,
             ROUTE_LAYER,
             const LineLayerProperties(
