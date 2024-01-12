@@ -1,5 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:position/generated/l10n.dart';
@@ -54,9 +55,12 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
 
   int _page = 2;
 
+  bool isLoading = true;
+
   @override
   void initState() {
     if (widget.etablissements!.data!.isNotEmpty) {
+      isLoading = false;
       etablissements = widget.etablissements!.data;
     }
 
@@ -106,7 +110,6 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
     }
   }
 
-  bool isLoading = true;
   List<Datum>? etablissements = [];
 
   String? commodites = "";
@@ -292,6 +295,10 @@ class _EtablissementListPageState extends State<EtablissementListPage> {
                 : FloatingActionButton.extended(
                     heroTag: "showmap",
                     onPressed: () {
+                      SystemChrome.setSystemUIOverlayStyle(
+                          const SystemUiOverlayStyle(
+                        statusBarColor: transparent,
+                      ));
                       Navigator.pop(context);
                     },
                     backgroundColor: primaryColor,
