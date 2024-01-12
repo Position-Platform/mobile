@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
@@ -98,6 +99,10 @@ class _FiltersPageState extends State<FiltersPage> {
                       InkWell(
                           highlightColor: transparent,
                           onTap: () {
+                            SystemChrome.setSystemUIOverlayStyle(
+                                const SystemUiOverlayStyle(
+                              statusBarColor: transparent,
+                            ));
                             Navigator.pop(context);
                           },
                           child: SvgPicture.asset(
@@ -387,6 +392,10 @@ class _FiltersPageState extends State<FiltersPage> {
                       highlightColor: transparent,
                       onTap: () {
                         widget.mapbloc?.add(CategorieClick(widget.category));
+                        SystemChrome.setSystemUIOverlayStyle(
+                            const SystemUiOverlayStyle(
+                          statusBarColor: transparent,
+                        ));
                         Navigator.pop(context);
                       },
                       child: Text(S.of(context).cancel,
@@ -460,6 +469,10 @@ class _FiltersPageState extends State<FiltersPage> {
                     highlightColor: transparent,
                     onTap: () {
                       widget.mapbloc?.add(CategorieClick(widget.category));
+                      SystemChrome.setSystemUIOverlayStyle(
+                          const SystemUiOverlayStyle(
+                        statusBarColor: transparent,
+                      ));
                       Navigator.pop(context);
                     },
                     child: Text(S.of(context).cancel,

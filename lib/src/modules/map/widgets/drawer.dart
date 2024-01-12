@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:position/generated/l10n.dart';
@@ -77,6 +78,10 @@ class _AppDrawerState extends State<AppDrawer> {
                 InkWell(
                   highlightColor: transparent,
                   onTap: () {
+                    SystemChrome.setSystemUIOverlayStyle(
+                        const SystemUiOverlayStyle(
+                      statusBarColor: transparent,
+                    ));
                     Navigator.pop(context);
                   },
                   child: Container(
@@ -93,6 +98,9 @@ class _AppDrawerState extends State<AppDrawer> {
           InkWell(
             highlightColor: transparent,
             onTap: () {
+              SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+                statusBarColor: transparent,
+              ));
               Navigator.pop(context);
               Navigator.push(
                 context,
@@ -131,6 +139,9 @@ class _AppDrawerState extends State<AppDrawer> {
           InkWell(
             highlightColor: transparent,
             onTap: () {
+              SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+                statusBarColor: transparent,
+              ));
               Navigator.pop(context);
               widget.mapBloc!.add(RemoveDownloadMap());
             },
